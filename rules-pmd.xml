@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="PMD rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>Custom ruleset for java application</description>
+
+    <exclude-pattern>.*/.mvn/.*</exclude-pattern>
+    <exclude-pattern>.*/test/.*</exclude-pattern>
+
+    <rule ref="category/java/security.xml" />
+    <rule ref="category/java/performance.xml" />
+    <rule ref="category/vf/security.xml" />
+    <rule ref="category/jsp/security.xml" />
+</ruleset>

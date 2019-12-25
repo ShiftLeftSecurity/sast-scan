@@ -2,3 +2,4 @@
 .idea/
 .gitleaks_bin/
 repos/
+.vscode/

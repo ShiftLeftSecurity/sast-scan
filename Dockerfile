@@ -90,7 +90,8 @@ ENV GOSEC_VERSION=2.1.0 \
     GITLEAKS_VERSION=3.0.3 \
     SC_VERSION=2019.2.3 \
     PMD_VERSION=6.20.0 \
-    PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
+    PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
+    JAVA_HOME=/usr/lib/jvm/jre-11 \
     JQ_VERSION=1.6 \
     DC_VERSION=5.2.4 \
     REMIC_VERSION=0.0.2 \
@@ -102,7 +103,7 @@ COPY --from=builder /usr/local/bin/brakeman /usr/local/bin/brakeman
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /opt/dependency-check /opt/dependency-check
-COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin-${PMD_VERSION}
+COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 
 USER root
@@ -111,8 +112,17 @@ RUN microdnf update -y \
     && microdnf install -y python36 ruby ruby-libs java-11-openjdk-headless nodejs git-core \
     && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint \
     && npm install -g yarn retire eslint \
+    && mkdir -p /opt/dependency-check/data \
+    && chown -R nobody:root /opt/dependency-check/data \
     && microdnf clean all \
     && rm -rf /tmp/
 
+COPY scan.py /usr/local/src/
+COPY rules-pmd.xml /usr/local/src/
+
+WORKDIR /usr/local/src
+
 # Run as default user
 USER nobody
+
+CMD [ "python3", "/usr/local/src/scan.py" ]

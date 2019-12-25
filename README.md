@@ -32,3 +32,23 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 - Node.js 10
 - Yarnpkg
 - Remic
+
+## Usage
+
+### Invoking built-in tools
+
+Bandit
+```bash
+docker run --rm -v <source path>:/app appthreat/sast-scan bandit -r /app
+```
+
+dependency-check
+```bash
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan /opt/dependency-check/bin/dependency-check.sh -s /app
+```
+
+### Using custom scan script
+
+```bash
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type python
+```
