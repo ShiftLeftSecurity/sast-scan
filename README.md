@@ -6,11 +6,12 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 
 | Programming Language | Tools |
 | ansible | ansible-lint |
-| aws | cfn-lint, cfn-nag |
+| aws | cfn-lint, cfn_nag |
 | bash | shellcheck |
 | Credential scanning | gitleaks |
 | golang | gosec, staticcheck |
 | java | gradle, pmd, dependency-check |
+| json | jq, jsondiff, jsonschema |
 | kotlin | detekt |
 | kubernetes | kube-score |
 | node.js | retire, eslint, yarn |
@@ -18,6 +19,7 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 | python | bandit, pipenv |
 | ruby | brakeman |
 | rust | cargo-audit |
+| terraform | tfsec |
 | yaml | yamllint |
 
 ## Bundled languages/runtime
@@ -29,3 +31,4 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 - Rust
 - Node.js 10
 - Yarnpkg
+- Remic
