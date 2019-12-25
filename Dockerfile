@@ -98,6 +98,9 @@ ENV GOSEC_VERSION=2.1.0 \
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
+COPY --from=builder /usr/local/bin/brakeman /usr/local/bin/brakeman
+COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
+COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /opt/dependency-check /opt/dependency-check
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin-${PMD_VERSION}
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
