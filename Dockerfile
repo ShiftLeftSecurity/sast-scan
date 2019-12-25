@@ -109,7 +109,7 @@ USER root
 
 RUN microdnf update -y \
     && microdnf install -y python36 ruby ruby-libs java-11-openjdk-headless nodejs git-core \
-    && pip3 install --user --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint \
+    && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint \
     && npm install -g yarn retire eslint \
     && microdnf clean all \
     && rm -rf /tmp/
