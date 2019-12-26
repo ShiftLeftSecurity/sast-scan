@@ -139,6 +139,23 @@ def find_python_reqfiles(path):
     return result
 
 
+def find_jar_files():
+    """
+
+    """
+    result = []
+    JAR_LIB_PATH = [
+        os.path.join(os.environ["HOME"], ".m2"),
+        os.path.join(os.environ["HOME"], ".gradle", "caches"),
+    ]
+    for path in JAR_LIB_PATH:
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if file.endswith(".jar"):
+                    result.append(os.path.join(root, file))
+    return result
+
+
 def ossaudit_scan(src, reports_dir, convert):
     """
 
@@ -175,6 +192,7 @@ def java_scan(src, reports_dir, convert):
 
     """
     pmd_scan(src, reports_dir, convert)
+    findsecbugs_scan(src, reports_dir, convert)
     dep_check_scan(src, reports_dir, convert)
 
 
@@ -193,9 +211,46 @@ def pmd_scan(src, reports_dir, convert):
         src,
         *CONVERT_ARGS,
         "-R",
-        "/usr/local/src/rules-pmd.xml",
+        os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
     ]
     exec_tool(PMD_ARGS)
+
+
+def findsecbugs_scan(src, reports_dir, convert):
+    """
+
+    """
+    CONVERT_ARGS = []
+    report_fname = get_report_file("findsecbugs", reports_dir, convert, ext_name="xml")
+    FINDSEC_CMD = ["java", "-jar", os.environ["SPOTBUGS_HOME"] + "/lib/spotbugs.jar"]
+    jar_files = find_jar_files()
+    with tempfile.NamedTemporaryFile(mode="w") as fp:
+        fp.writelines([str(x) + "\n" for x in jar_files])
+        JARS_LIST = fp.name
+        PKG_NAME_PATTERNS = ""
+
+        FINDSEC_ARGS = [
+            *FINDSEC_CMD,
+            "-textui",
+            "-include",
+            os.environ["APP_SRC_DIR"] + "/spotbugs/include.xml",
+            "-exclude",
+            os.environ["APP_SRC_DIR"] + "/spotbugs/exclude.xml",
+            "-noClassOk",
+            "-auxclasspathFromFile",
+            JARS_LIST,
+            "-sourcepath",
+            src,
+            "-quiet",
+            "-medium",
+            "-xml:withMessages",
+            "-effort:max",
+            "-nested:false",
+            "-output",
+            report_fname,
+            src,
+        ]
+        exec_tool(FINDSEC_ARGS)
 
 
 def dep_check_scan(src, reports_dir, convert):
