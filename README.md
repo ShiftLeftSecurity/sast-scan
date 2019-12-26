@@ -14,10 +14,10 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 | json | jq, jsondiff, jsonschema |
 | kotlin | detekt |
 | kubernetes | kube-score |
-| node.js | retire, eslint, yarn |
+| node.js | cyclonedx-bom, retire, eslint, yarn |
 | puppet | puppet-lint |
-| python | bandit, pipenv |
-| ruby | brakeman |
+| python | bandit, cyclonedx-py, ossaudit, pipenv |
+| ruby | brakeman, cyclonedx-ruby |
 | rust | cargo-audit |
 | terraform | tfsec |
 | yaml | yamllint |
@@ -47,8 +47,19 @@ dependency-check
 docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan /opt/dependency-check/bin/dependency-check.sh -s /app
 ```
 
+Retire.js
+```bash
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan retire -p --path /app
+```
+
 ### Using custom scan script
 
+Scan python project
 ```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type python
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type python --out_dir /app
+```
+
+Scan node.js project
+```bash
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type nodejs --out_dir /app
 ```

@@ -66,7 +66,7 @@ RUN mkdir -p /usr/local/bin/appthreat \
     && curl -LO "https://github.com/knqyf263/remic/releases/download/v${REMIC_VERSION}/remic_${REMIC_VERSION}_Linux-64bit.tar.gz" \
     && tar -C /usr/local/bin/appthreat/ -xvf remic_${REMIC_VERSION}_Linux-64bit.tar.gz \
     && rm remic_${REMIC_VERSION}_Linux-64bit.tar.gz \
-    && gem install brakeman cfn-nag puppet-lint
+    && gem install brakeman cfn-nag puppet-lint cyclonedx-ruby
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal as tools
 
@@ -102,6 +102,7 @@ COPY --from=builder /usr/local/share/gems /usr/local/share/gems
 COPY --from=builder /usr/local/bin/brakeman /usr/local/bin/brakeman
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
+COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/dependency-check /opt/dependency-check
 COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
@@ -110,10 +111,12 @@ USER root
 
 RUN microdnf update -y \
     && microdnf install -y python36 ruby ruby-libs java-11-openjdk-headless nodejs git-core \
-    && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint \
-    && npm install -g yarn retire eslint \
-    && mkdir -p /opt/dependency-check/data \
+    && pip3 install --upgrade setuptools \
+    && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit cyclonedx-bom \
+    && npm install -g yarn retire eslint @cyclonedx/bom \
+    && mkdir -p /.cache /opt/dependency-check/data \
     && chown -R nobody:root /opt/dependency-check/data \
+    && chown -R nobody:root /.cache \
     && microdnf clean all \
     && rm -rf /tmp/
 

@@ -99,6 +99,15 @@ def python_scan(src, reports_dir, convert):
     """
 
     """
+    bandit_scan(src, reports_dir, convert)
+    ossaudit_scan(src, reports_dir, convert)
+    python_bom(src, reports_dir, convert)
+
+
+def bandit_scan(src, reports_dir, convert):
+    """
+
+    """
     CONVERT_ARGS = []
     report_fname = get_report_file("bandit", reports_dir, convert)
     if reports_dir or convert:
@@ -115,6 +124,50 @@ def python_scan(src, reports_dir, convert):
         src,
     ]
     exec_tool(BANDIT_ARGS)
+
+
+def find_python_reqfiles(path):
+    """
+
+    """
+    result = []
+    REQ_FILES = ["requirements.txt", "Pipfile", "Pipfile.lock", "conda.yml"]
+    for root, dirs, files in os.walk(path):
+        for name in REQ_FILES:
+            if name in files:
+                result.append(os.path.join(root, name))
+    return result
+
+
+def ossaudit_scan(src, reports_dir, convert):
+    """
+
+    """
+    reqfiles = find_python_reqfiles(src)
+    if not reqfiles:
+        return
+    AARGS = []
+    for req in reqfiles:
+        AARGS.append("-f")
+        AARGS.append(req)
+    OSS_CMD = "ossaudit"
+    OSS_ARGS = [OSS_CMD, *AARGS]
+    for c in "cve,name,version,cvss_score,title,description".split(","):
+        OSS_ARGS.append("--column")
+        OSS_ARGS.append(c)
+    exec_tool(OSS_ARGS)
+
+
+def python_bom(src, reports_dir, convert):
+    """
+
+    """
+    REQ_FILE = os.path.join(src, "requirements.txt")
+    if not os.path.exists(REQ_FILE):
+        return
+    report_fname = get_report_file("python-bom", reports_dir, convert, ext_name="xml")
+    BOM_ARGS = ["cyclonedx-py", "-i", REQ_FILE, "-o", report_fname]
+    exec_tool(BOM_ARGS)
 
 
 def java_scan(src, reports_dir, convert):
@@ -164,6 +217,44 @@ def dep_check_scan(src, reports_dir, convert):
         ",".join(ignore_directories),
     ]
     exec_tool(DC_ARGS)
+
+
+def nodejs_scan(src, reports_dir, convert):
+    """
+
+    """
+    retirejs_scan(src, reports_dir, convert)
+    nodejs_bom(src, reports_dir, convert)
+
+
+def retirejs_scan(src, reports_dir, convert):
+    """
+
+    """
+    CONVERT_ARGS = []
+    report_fname = get_report_file("retire", reports_dir, convert)
+    if reports_dir or convert:
+        CONVERT_ARGS = ["--outputpath", report_fname, "--outputformat", "json"]
+    RETIRE_CMD = "retire"
+    RETIRE_ARGS = [
+        RETIRE_CMD,
+        "--path",
+        src,
+        "-p",
+        *CONVERT_ARGS,
+        "--ignore",
+        ",".join(ignore_directories),
+    ]
+    exec_tool(RETIRE_ARGS)
+
+
+def nodejs_bom(src, reports_dir, convert):
+    """
+
+    """
+    report_fname = get_report_file("nodejs-bom", reports_dir, convert, ext_name="xml")
+    BOM_ARGS = ["cyclonedx-bom", "-o", report_fname, "-d", src]
+    exec_tool(BOM_ARGS)
 
 
 if __name__ == "__main__":
