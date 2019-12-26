@@ -5,6 +5,7 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 ## Bundled tools
 
 | Programming Language | Tools |
+|----------------------|-------|
 | ansible | ansible-lint |
 | aws | cfn-lint, cfn_nag |
 | bash | shellcheck |
