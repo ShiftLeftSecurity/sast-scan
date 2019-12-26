@@ -116,6 +116,8 @@ def bandit_scan(src, reports_dir, convert):
     BANDIT_ARGS = [
         BANDIT_CMD,
         "-r",
+        "-a",
+        "vuln",
         "-ii",
         "-ll",
         *CONVERT_ARGS,
@@ -207,6 +209,8 @@ def pmd_scan(src, reports_dir, convert):
     PMD_CMD = os.environ["PMD_CMD"].split(" ")
     PMD_ARGS = [
         *PMD_CMD,
+        "-no-cache",
+        "--failOnViolation", "false",
         "-d",
         src,
         *CONVERT_ARGS,
@@ -289,7 +293,7 @@ def retirejs_scan(src, reports_dir, convert):
     CONVERT_ARGS = []
     report_fname = get_report_file("retire", reports_dir, convert)
     if reports_dir or convert:
-        CONVERT_ARGS = ["--outputpath", report_fname, "--outputformat", "json"]
+        CONVERT_ARGS = ["--outputpath", report_fname, "--outputformat", "jsonsimple"]
     RETIRE_CMD = "retire"
     RETIRE_ARGS = [
         RETIRE_CMD,

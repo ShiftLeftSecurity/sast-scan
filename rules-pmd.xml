@@ -13,4 +13,5 @@
     <rule ref="category/java/performance.xml" />
     <rule ref="category/vf/security.xml" />
     <rule ref="category/jsp/security.xml" />
+    <rule ref="category/apex/security.xml" />
 </ruleset>

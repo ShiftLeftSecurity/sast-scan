@@ -76,7 +76,7 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && unzip spotbugs-${SB_VERSION}.zip -d /opt/ \
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar
-RUN gem install brakeman cfn-nag puppet-lint cyclonedx-ruby
+RUN gem install railroader cfn-nag puppet-lint cyclonedx-ruby
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal as tools
 
@@ -101,7 +101,7 @@ ENV PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/brakeman /usr/local/bin/brakeman
+COPY --from=builder /usr/local/bin/railroader /usr/local/bin/railroader
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
