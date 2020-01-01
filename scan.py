@@ -79,7 +79,10 @@ def exec_tool(args):
     """
 
     """
-    subprocess.run(args, stderr=subprocess.STDOUT)
+    try:
+        subprocess.run(args, stderr=subprocess.STDOUT, check=False)
+    except Exception as e:
+        print(e)
 
 
 def get_report_file(tool_name, reports_dir, convert, ext_name="json"):
@@ -196,6 +199,7 @@ def java_scan(src, reports_dir, convert):
     pmd_scan(src, reports_dir, convert)
     findsecbugs_scan(src, reports_dir, convert)
     dep_check_scan(src, reports_dir, convert)
+    bomgen(src, reports_dir, convert)
 
 
 def pmd_scan(src, reports_dir, convert):
@@ -210,7 +214,8 @@ def pmd_scan(src, reports_dir, convert):
     PMD_ARGS = [
         *PMD_CMD,
         "-no-cache",
-        "--failOnViolation", "false",
+        "--failOnViolation",
+        "false",
         "-d",
         src,
         *CONVERT_ARGS,
@@ -224,15 +229,12 @@ def findsecbugs_scan(src, reports_dir, convert):
     """
 
     """
-    CONVERT_ARGS = []
     report_fname = get_report_file("findsecbugs", reports_dir, convert, ext_name="xml")
     FINDSEC_CMD = ["java", "-jar", os.environ["SPOTBUGS_HOME"] + "/lib/spotbugs.jar"]
     jar_files = find_jar_files()
     with tempfile.NamedTemporaryFile(mode="w") as fp:
         fp.writelines([str(x) + "\n" for x in jar_files])
         JARS_LIST = fp.name
-        PKG_NAME_PATTERNS = ""
-
         FINDSEC_ARGS = [
             *FINDSEC_CMD,
             "-textui",
@@ -283,7 +285,7 @@ def nodejs_scan(src, reports_dir, convert):
 
     """
     retirejs_scan(src, reports_dir, convert)
-    nodejs_bom(src, reports_dir, convert)
+    bomgen(src, reports_dir, convert)
 
 
 def retirejs_scan(src, reports_dir, convert):
@@ -307,12 +309,12 @@ def retirejs_scan(src, reports_dir, convert):
     exec_tool(RETIRE_ARGS)
 
 
-def nodejs_bom(src, reports_dir, convert):
+def bomgen(src, reports_dir, convert):
     """
 
     """
-    report_fname = get_report_file("nodejs-bom", reports_dir, convert, ext_name="xml")
-    BOM_ARGS = ["cyclonedx-bom", "-o", report_fname, "-d", src]
+    report_fname = get_report_file("bom", reports_dir, convert, ext_name="xml")
+    BOM_ARGS = ["cdxgen", "-o", report_fname, src]
     exec_tool(BOM_ARGS)
 
 

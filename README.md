@@ -11,11 +11,11 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 | bash | shellcheck |
 | Credential scanning | gitleaks |
 | golang | gosec, staticcheck |
-| java | gradle, pmd, dependency-check |
+| java | cdxgen, gradle, pmd, dependency-check |
 | json | jq, jsondiff, jsonschema |
 | kotlin | detekt |
 | kubernetes | kube-score |
-| node.js | cyclonedx-bom, retire, eslint, yarn |
+| node.js | cdxgen, retire, eslint, yarn |
 | puppet | puppet-lint |
 | python | bandit, cyclonedx-py, ossaudit, pipenv |
 | ruby | railroader, cyclonedx-ruby |

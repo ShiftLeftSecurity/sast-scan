@@ -116,7 +116,7 @@ RUN microdnf update -y \
     && microdnf install -y python36 ruby ruby-libs java-11-openjdk-headless nodejs git-core \
     && pip3 install --upgrade setuptools \
     && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit cyclonedx-bom \
-    && npm install -g yarn retire eslint @cyclonedx/bom \
+    && npm install -g yarn retire eslint @appthreat/cdxgen \
     && mkdir -p /.cache /opt/dependency-check/data \
     && chown -R nobody:root /opt/dependency-check/data \
     && chown -R nobody:root /.cache \
