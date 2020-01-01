@@ -1,6 +1,8 @@
 # Introduction
 
-This repo builds `appthreat/sast-scan`, a container image with a number of bundled opensource static analysis tools. RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine to help with enterprise adoption of this tool.
+This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a container image with a number of bundled open-source static analysis tools. RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine to help with enterprise adoption of this tool.
+
+[![Docker Repository on Quay](https://quay.io/repository/appthreat/sast-scan/status "Docker Repository on Quay")](https://quay.io/repository/appthreat/sast-scan)
 
 ## Bundled tools
 
@@ -17,7 +19,7 @@ This repo builds `appthreat/sast-scan`, a container image with a number of bundl
 | kubernetes | kube-score |
 | node.js | cdxgen, retire, eslint, yarn |
 | puppet | puppet-lint |
-| python | bandit, cyclonedx-py, ossaudit, pipenv |
+| python | bandit, cdxgen, ossaudit, pipenv |
 | ruby | railroader, cyclonedx-ruby |
 | rust | cargo-audit |
 | terraform | tfsec |
@@ -68,6 +70,9 @@ docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /
 Scan java project
 ```bash
 docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type java --out_dir /app
+
+# For gradle project
+docker run --rm --tmpfs /tmp -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type java --out_dir /app
 ```
 
 ## Alternatives

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Multi-language static analysis scanner
 """
@@ -50,8 +51,12 @@ def build_args():
     parser = argparse.ArgumentParser(
         description="Wrapper for various static analysis tools"
     )
-    parser.add_argument("--src", dest="src_dir", help="Source directory", required=True)
-    parser.add_argument("--out_dir", dest="reports_dir", help="Reports directory")
+    parser.add_argument(
+        "--src", dest="src_dir", help="Source directory", required=True
+    )
+    parser.add_argument(
+        "--out_dir", dest="reports_dir", help="Reports directory"
+    )
     parser.add_argument(
         "--type",
         dest="scan_type",
@@ -69,29 +74,48 @@ def build_args():
 
 def scan(type, src, reports_dir, convert):
     """
+    Method to initiate scan of the codebase
 
+    Args:
+      type Project type
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
     if type:
-        getattr(sys.modules[__name__], "%s_scan" % type)(src, reports_dir, convert)
+        getattr(sys.modules[__name__], "%s_scan" % type)(
+            src, reports_dir, convert
+        )
 
 
 def exec_tool(args):
     """
+    Convenience method to invoke cli tools
 
+    Args:
+      args cli command and args
     """
     try:
-        subprocess.run(args, stderr=subprocess.STDOUT, check=False)
+        subprocess.run(args, stderr=subprocess.STDOUT, check=False, shell=False)
     except Exception as e:
         print(e)
 
 
 def get_report_file(tool_name, reports_dir, convert, ext_name="json"):
     """
+    Method to construct a report filename
 
+    Args:
+      tool_name Name of the tool
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+      ext_name Extension for the report
     """
     report_fname = ""
     if reports_dir:
-        report_fname = os.path.join(reports_dir, tool_name + "-report." + ext_name)
+        report_fname = os.path.join(
+            reports_dir, tool_name + "-report." + ext_name
+        )
     else:
         fp = tempfile.NamedTemporaryFile(delete=False)
         report_fname = fp.name
@@ -100,45 +124,58 @@ def get_report_file(tool_name, reports_dir, convert, ext_name="json"):
 
 def python_scan(src, reports_dir, convert):
     """
+    Method to initiate scan of the python codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
+    bomgen(src, reports_dir, convert)
     bandit_scan(src, reports_dir, convert)
     ossaudit_scan(src, reports_dir, convert)
-    python_bom(src, reports_dir, convert)
 
 
 def bandit_scan(src, reports_dir, convert):
     """
+    Method to initiate bandit scan of the python codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
-    CONVERT_ARGS = []
+    convert_args = []
     report_fname = get_report_file("bandit", reports_dir, convert)
     if reports_dir or convert:
-        CONVERT_ARGS = ["-o", report_fname, "-f", "json"]
-    BANDIT_CMD = "bandit"
-    BANDIT_ARGS = [
-        BANDIT_CMD,
+        convert_args = ["-o", report_fname, "-f", "json"]
+    bandit_cmd = "bandit"
+    bandit_args = [
+        bandit_cmd,
         "-r",
         "-a",
         "vuln",
         "-ii",
         "-ll",
-        *CONVERT_ARGS,
+        *convert_args,
         "-x",
         ",".join(ignore_directories),
         src,
     ]
-    exec_tool(BANDIT_ARGS)
+    exec_tool(bandit_args)
 
 
 def find_python_reqfiles(path):
     """
+    Method to find python requirements files
 
+    Args:
+      path Project dir
     """
     result = []
-    REQ_FILES = ["requirements.txt", "Pipfile", "Pipfile.lock", "conda.yml"]
+    req_files = ["requirements.txt", "Pipfile", "Pipfile.lock", "conda.yml"]
     for root, dirs, files in os.walk(path):
-        for name in REQ_FILES:
+        for name in req_files:
             if name in files:
                 result.append(os.path.join(root, name))
     return result
@@ -146,14 +183,14 @@ def find_python_reqfiles(path):
 
 def find_jar_files():
     """
-
+    Method to find jar files in the usual maven and gradle directories
     """
     result = []
-    JAR_LIB_PATH = [
+    jar_lib_path = [
         os.path.join(os.environ["HOME"], ".m2"),
         os.path.join(os.environ["HOME"], ".gradle", "caches"),
     ]
-    for path in JAR_LIB_PATH:
+    for path in jar_lib_path:
         for root, dirs, files in os.walk(path):
             for file in files:
                 if file.endswith(".jar"):
@@ -163,80 +200,94 @@ def find_jar_files():
 
 def ossaudit_scan(src, reports_dir, convert):
     """
+    Method to initiate ossaudit scan of the python codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
     reqfiles = find_python_reqfiles(src)
     if not reqfiles:
         return
-    AARGS = []
+    aargs = []
     for req in reqfiles:
-        AARGS.append("-f")
-        AARGS.append(req)
-    OSS_CMD = "ossaudit"
-    OSS_ARGS = [OSS_CMD, *AARGS]
+        aargs.append("-f")
+        aargs.append(req)
+    oss_cmd = "ossaudit"
+    oss_args = [oss_cmd, *aargs]
     for c in "cve,name,version,cvss_score,title,description".split(","):
-        OSS_ARGS.append("--column")
-        OSS_ARGS.append(c)
-    exec_tool(OSS_ARGS)
-
-
-def python_bom(src, reports_dir, convert):
-    """
-
-    """
-    REQ_FILE = os.path.join(src, "requirements.txt")
-    if not os.path.exists(REQ_FILE):
-        return
-    report_fname = get_report_file("python-bom", reports_dir, convert, ext_name="xml")
-    BOM_ARGS = ["cyclonedx-py", "-i", REQ_FILE, "-o", report_fname]
-    exec_tool(BOM_ARGS)
+        oss_args.append("--column")
+        oss_args.append(c)
+    exec_tool(oss_args)
 
 
 def java_scan(src, reports_dir, convert):
     """
+    Method to initiate scan of the java codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
+    bomgen(src, reports_dir, convert)
     pmd_scan(src, reports_dir, convert)
     findsecbugs_scan(src, reports_dir, convert)
     dep_check_scan(src, reports_dir, convert)
-    bomgen(src, reports_dir, convert)
 
 
 def pmd_scan(src, reports_dir, convert):
     """
+    Method to initiate pmd scan of the java codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
-    CONVERT_ARGS = []
+    convert_args = []
     report_fname = get_report_file("pmd", reports_dir, convert, ext_name="csv")
     if reports_dir or convert:
-        CONVERT_ARGS = ["-r", report_fname, "-f", "csv"]
-    PMD_CMD = os.environ["PMD_CMD"].split(" ")
-    PMD_ARGS = [
-        *PMD_CMD,
+        convert_args = ["-r", report_fname, "-f", "csv"]
+    pmd_cmd = os.environ["PMD_CMD"].split(" ")
+    pmd_args = [
+        *pmd_cmd,
         "-no-cache",
         "--failOnViolation",
         "false",
         "-d",
         src,
-        *CONVERT_ARGS,
+        *convert_args,
         "-R",
         os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
     ]
-    exec_tool(PMD_ARGS)
+    exec_tool(pmd_args)
 
 
 def findsecbugs_scan(src, reports_dir, convert):
     """
+    Method to initiate findsecbugs scan of the java codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
-    report_fname = get_report_file("findsecbugs", reports_dir, convert, ext_name="xml")
-    FINDSEC_CMD = ["java", "-jar", os.environ["SPOTBUGS_HOME"] + "/lib/spotbugs.jar"]
+    report_fname = get_report_file(
+        "findsecbugs", reports_dir, convert, ext_name="xml"
+    )
+    findsec_cmd = [
+        "java",
+        "-jar",
+        os.environ["SPOTBUGS_HOME"] + "/lib/spotbugs.jar",
+    ]
     jar_files = find_jar_files()
     with tempfile.NamedTemporaryFile(mode="w") as fp:
         fp.writelines([str(x) + "\n" for x in jar_files])
-        JARS_LIST = fp.name
-        FINDSEC_ARGS = [
-            *FINDSEC_CMD,
+        jars_list = fp.name
+        findsec_args = [
+            *findsec_cmd,
             "-textui",
             "-include",
             os.environ["APP_SRC_DIR"] + "/spotbugs/include.xml",
@@ -244,7 +295,7 @@ def findsecbugs_scan(src, reports_dir, convert):
             os.environ["APP_SRC_DIR"] + "/spotbugs/exclude.xml",
             "-noClassOk",
             "-auxclasspathFromFile",
-            JARS_LIST,
+            jars_list,
             "-sourcepath",
             src,
             "-quiet",
@@ -256,66 +307,91 @@ def findsecbugs_scan(src, reports_dir, convert):
             report_fname,
             src,
         ]
-        exec_tool(FINDSEC_ARGS)
+        exec_tool(findsec_args)
 
 
 def dep_check_scan(src, reports_dir, convert):
     """
+    Method to initiate dependency check scan of the java codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
-    CONVERT_ARGS = []
+    convert_args = []
     report_fname = get_report_file("dep_check", reports_dir, convert)
     if reports_dir or convert:
-        CONVERT_ARGS = ["-o", report_fname, "-f", "JSON"]
-    DC_CMD = "/opt/dependency-check/bin/dependency-check.sh"
-    DC_ARGS = [
-        DC_CMD,
+        convert_args = ["-o", report_fname, "-f", "JSON"]
+    dc_cmd = "/opt/dependency-check/bin/dependency-check.sh"
+    dc_args = [
+        dc_cmd,
         "-s",
         src,
-        *CONVERT_ARGS,
+        *convert_args,
         "--enableExperimental",
         "--exclude",
         ",".join(ignore_directories),
     ]
-    exec_tool(DC_ARGS)
+    exec_tool(dc_args)
 
 
 def nodejs_scan(src, reports_dir, convert):
     """
+    Method to initiate scan of the node.js codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
-    retirejs_scan(src, reports_dir, convert)
     bomgen(src, reports_dir, convert)
+    retirejs_scan(src, reports_dir, convert)
 
 
 def retirejs_scan(src, reports_dir, convert):
     """
+    Method to initiate retire.js scan of the node.js codebase
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
-    CONVERT_ARGS = []
+    convert_args = []
     report_fname = get_report_file("retire", reports_dir, convert)
     if reports_dir or convert:
-        CONVERT_ARGS = ["--outputpath", report_fname, "--outputformat", "jsonsimple"]
-    RETIRE_CMD = "retire"
-    RETIRE_ARGS = [
-        RETIRE_CMD,
+        convert_args = [
+            "--outputpath",
+            report_fname,
+            "--outputformat",
+            "jsonsimple",
+        ]
+    retire_cmd = "retire"
+    retire_args = [
+        retire_cmd,
         "--path",
         src,
         "-p",
-        *CONVERT_ARGS,
+        *convert_args,
         "--ignore",
         ",".join(ignore_directories),
     ]
-    exec_tool(RETIRE_ARGS)
+    exec_tool(retire_args)
 
 
 def bomgen(src, reports_dir, convert):
     """
+    Method to generate cyclonedx bom file using cdxgen
 
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
     report_fname = get_report_file("bom", reports_dir, convert, ext_name="xml")
-    BOM_ARGS = ["cdxgen", "-o", report_fname, src]
-    exec_tool(BOM_ARGS)
+    bom_args = ["cdxgen", "-o", report_fname, src]
+    exec_tool(bom_args)
 
 
 if __name__ == "__main__":

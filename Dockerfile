@@ -97,7 +97,7 @@ ENV PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     JAVA_HOME=/usr/lib/jvm/jre-11 \
     SPOTBUGS_HOME=/opt/spotbugs \
     APP_SRC_DIR=/usr/local/src \
-    PATH=${PATH}:/opt/.cargo/bin:/opt/dependency-check/bin/:
+    PATH=${PATH}:/opt/.cargo/bin:/opt/dependency-check/bin/:/usr/local/src:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
@@ -115,8 +115,8 @@ USER root
 RUN microdnf update -y \
     && microdnf install -y python36 ruby ruby-libs java-11-openjdk-headless nodejs git-core \
     && pip3 install --upgrade setuptools \
-    && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit cyclonedx-bom \
-    && npm install -g yarn retire eslint @appthreat/cdxgen \
+    && pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit \
+    && npm install -g yarn retire @appthreat/cdxgen eslint \
     && mkdir -p /.cache /opt/dependency-check/data \
     && chown -R nobody:root /opt/dependency-check/data \
     && chown -R nobody:root /.cache \
@@ -125,7 +125,7 @@ RUN microdnf update -y \
 
 COPY scan.py /usr/local/src/
 COPY rules-pmd.xml /usr/local/src/
-COPY spotbugs /usr/local/src/
+COPY spotbugs /usr/local/src/spotbugs
 
 WORKDIR /usr/local/src
 
