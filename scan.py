@@ -87,6 +87,7 @@ scan_tools_args_map = {
         "--color=never",
         "(filelist=sh)",
     ],
+    "kotlin": ["java", "-jar", "/usr/local/bin/detekt-cli.jar", "-i", "%(src)s", "-r", "xml:%(report_fname_prefix)s.xml"],
     "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
