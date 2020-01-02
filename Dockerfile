@@ -16,7 +16,6 @@ ENV GOSEC_VERSION=2.1.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
     DC_VERSION=5.2.4 \
-    REMIC_VERSION=0.0.2 \
     FSB_VERSION=1.10.1 \
     SB_VERSION=4.0.0-beta4 \
     GOPATH=/opt/app-root/go \
@@ -66,9 +65,6 @@ RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_
     && rm dependency-check-${DC_VERSION}-release.zip \
     && chmod +x /opt/dependency-check/bin/dependency-check.sh
 RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/appthreat/detekt-cli.jar" \
-    && curl -LO "https://github.com/knqyf263/remic/releases/download/v${REMIC_VERSION}/remic_${REMIC_VERSION}_Linux-64bit.tar.gz" \
-    && tar -C /usr/local/bin/appthreat/ -xvf remic_${REMIC_VERSION}_Linux-64bit.tar.gz \
-    && rm remic_${REMIC_VERSION}_Linux-64bit.tar.gz \
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/appthreat/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz \

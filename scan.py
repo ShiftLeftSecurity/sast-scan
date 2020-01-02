@@ -6,6 +6,7 @@ import argparse
 import os
 import subprocess
 import sys
+import io
 import tempfile
 
 """
@@ -28,6 +29,7 @@ scan_types = [
     "yaml",
 ]
 
+
 ignore_directories = [
     ".git",
     ".svn",
@@ -42,6 +44,36 @@ ignore_directories = [
     "test",
     "tmp",
 ]
+
+
+"""
+Mapping for application types to scan tools for projects requiring just a single tool
+"""
+scan_tools_args_map = {
+    "ansible": [
+        "ansible-lint",
+        *["--exclude " + d for d in ignore_directories],
+        "--parseable-severity",
+        "*.yml",
+    ],
+    "credscan": [
+        "gitleaks",
+        "--repo-path=%(src)s",
+        "--report=%(report_fname_prefix)s.json",
+        "--report-format=json",
+    ],
+    "bash": [
+        "shellcheck",
+        "-a",
+        "--shell=%(type)s",
+        "-f",
+        "json",
+        "-S",
+        "info",
+        "--color=never",
+        "(filelist=sh)",
+    ],
+}
 
 
 def build_args():
@@ -83,12 +115,44 @@ def scan(type, src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     if type:
-        getattr(sys.modules[__name__], "%s_scan" % type)(
-            src, reports_dir, convert
-        )
+        if scan_tools_args_map.get(type):
+            report_fname_prefix = os.path.join(reports_dir, type + "-report")
+            default_cmd = " ".join(scan_tools_args_map.get(type)) % dict(
+                src=src,
+                reports_dir=reports_dir,
+                report_fname_prefix=report_fname_prefix,
+                type=type,
+            )
+            # If the command doesn't support file output then redirect stdout automatically
+            stdout = None
+            if reports_dir and default_cmd.find(reports_dir) == -1:
+                outext = ".out"
+                # Try to detect if the output could be json
+                if default_cmd.find("json") > -1:
+                    outext = ".json"
+                fname = report_fname_prefix + outext
+                stdout = io.open(fname, "w")
+                print ("Output will be written to", fname)
+
+            # If the command is requesting list of files then construct the argument
+            filelist_prefix = "(filelist="
+            if default_cmd.find(filelist_prefix) > -1:
+                si = default_cmd.find(filelist_prefix)
+                ei = default_cmd.find(")", si + 10)
+                ext = default_cmd[si + 10 : ei]
+                filelist = find_files(src, ext)
+                default_cmd = default_cmd.replace(
+                    filelist_prefix + ext + ")", " ".join(filelist)
+                )
+            print("Executing", default_cmd)
+            exec_tool(default_cmd.split(" "), cwd=src, stdout=stdout)
+        else:
+            getattr(sys.modules[__name__], "%s_scan" % type)(
+                src, reports_dir, convert
+            )
 
 
-def exec_tool(args):
+def exec_tool(args, cwd=None, stdout=subprocess.STDOUT):
     """
     Convenience method to invoke cli tools
 
@@ -96,7 +160,15 @@ def exec_tool(args):
       args cli command and args
     """
     try:
-        subprocess.run(args, stderr=subprocess.STDOUT, check=False, shell=False)
+        subprocess.run(
+            args,
+            stdout=stdout,
+            stderr=subprocess.STDOUT,
+            cwd=cwd,
+            check=False,
+            shell=False,
+            encoding="utf-8",
+        )
     except Exception as e:
         print(e)
 
@@ -198,6 +270,18 @@ def find_jar_files():
     return result
 
 
+def find_files(src, ext_name):
+    """
+    Method to find files with given extenstion
+    """
+    result = []
+    for root, dirs, files in os.walk(src):
+        for file in files:
+            if file.endswith(ext_name):
+                result.append(os.path.join(root, file))
+    return result
+
+
 def ossaudit_scan(src, reports_dir, convert):
     """
     Method to initiate ossaudit scan of the python codebase
@@ -219,7 +303,7 @@ def ossaudit_scan(src, reports_dir, convert):
     for c in "cve,name,version,cvss_score,title,description".split(","):
         oss_args.append("--column")
         oss_args.append(c)
-    exec_tool(oss_args)
+    exec_tool(oss_args, src)
 
 
 def java_scan(src, reports_dir, convert):
@@ -262,7 +346,7 @@ def pmd_scan(src, reports_dir, convert):
         "-R",
         os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
     ]
-    exec_tool(pmd_args)
+    exec_tool(pmd_args, src)
 
 
 def findsecbugs_scan(src, reports_dir, convert):
@@ -307,7 +391,7 @@ def findsecbugs_scan(src, reports_dir, convert):
             report_fname,
             src,
         ]
-        exec_tool(findsec_args)
+        exec_tool(findsec_args, src)
 
 
 def dep_check_scan(src, reports_dir, convert):
@@ -333,7 +417,7 @@ def dep_check_scan(src, reports_dir, convert):
         "--exclude",
         ",".join(ignore_directories),
     ]
-    exec_tool(dc_args)
+    exec_tool(dc_args, src)
 
 
 def nodejs_scan(src, reports_dir, convert):
@@ -377,7 +461,7 @@ def retirejs_scan(src, reports_dir, convert):
         "--ignore",
         ",".join(ignore_directories),
     ]
-    exec_tool(retire_args)
+    exec_tool(retire_args, src)
 
 
 def bomgen(src, reports_dir, convert):
@@ -391,7 +475,7 @@ def bomgen(src, reports_dir, convert):
     """
     report_fname = get_report_file("bom", reports_dir, convert, ext_name="xml")
     bom_args = ["cdxgen", "-o", report_fname, src]
-    exec_tool(bom_args)
+    exec_tool(bom_args, src)
 
 
 if __name__ == "__main__":

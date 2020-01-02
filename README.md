@@ -1,29 +1,29 @@
 # Introduction
 
-This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a container image with a number of bundled open-source static analysis tools. RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine to help with enterprise adoption of this tool.
+This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a container image with a number of bundled open-source static analysis tools. This is like a Swiss Army knife for DevSecOps engineers. RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine to help with enterprise adoption of this tool.
 
 [![Docker Repository on Quay](https://quay.io/repository/appthreat/sast-scan/status "Docker Repository on Quay")](https://quay.io/repository/appthreat/sast-scan)
 
 ## Bundled tools
 
-| Programming Language | Tools |
-|----------------------|-------|
-| ansible | ansible-lint |
-| aws | cfn-lint, cfn_nag |
-| bash | shellcheck |
-| Credential scanning | gitleaks |
-| golang | gosec, staticcheck |
-| java | cdxgen, gradle, pmd, dependency-check |
-| json | jq, jsondiff, jsonschema |
-| kotlin | detekt |
-| kubernetes | kube-score |
-| node.js | cdxgen, retire, eslint, yarn |
-| puppet | puppet-lint |
-| python | bandit, cdxgen, ossaudit, pipenv |
-| ruby | railroader, cyclonedx-ruby |
-| rust | cargo-audit |
-| terraform | tfsec |
-| yaml | yamllint |
+| Programming Language | Tools                                 |
+| -------------------- | ------------------------------------- |
+| ansible              | ansible-lint                          |
+| aws                  | cfn-lint, cfn_nag                     |
+| bash                 | shellcheck                            |
+| Credential scanning  | gitleaks                              |
+| golang               | gosec, staticcheck                    |
+| java                 | cdxgen, gradle, pmd, dependency-check |
+| json                 | jq, jsondiff, jsonschema              |
+| kotlin               | detekt                                |
+| kubernetes           | kube-score                            |
+| node.js              | cdxgen, retire, eslint, yarn          |
+| puppet               | puppet-lint                           |
+| python               | bandit, cdxgen, ossaudit, pipenv      |
+| ruby                 | railroader, cyclonedx-ruby            |
+| rust                 | cargo-audit                           |
+| terraform            | tfsec                                 |
+| yaml                 | yamllint                              |
 
 ## Bundled languages/runtime
 
@@ -34,23 +34,25 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 - Rust
 - Node.js 10
 - Yarnpkg
-- Remic
 
 ## Usage
 
 ### Invoking built-in tools
 
 Bandit
+
 ```bash
 docker run --rm -v <source path>:/app appthreat/sast-scan bandit -r /app
 ```
 
 dependency-check
+
 ```bash
 docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan /opt/dependency-check/bin/dependency-check.sh -s /app
 ```
 
 Retire.js
+
 ```bash
 docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan retire -p --path /app
 ```
@@ -58,16 +60,19 @@ docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan retire -p
 ### Using custom scan script
 
 Scan python project
+
 ```bash
 docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type python --out_dir /app
 ```
 
 Scan node.js project
+
 ```bash
 docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type nodejs --out_dir /app
 ```
 
 Scan java project
+
 ```bash
 docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type java --out_dir /app
 
