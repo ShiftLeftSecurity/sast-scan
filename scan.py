@@ -89,8 +89,9 @@ scan_tools_args_map = {
     ],
     "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
+    "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": ["tfsec", "--no-colour", "%(src)s"],
-    "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"]
+    "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
 }
 
 
@@ -150,7 +151,7 @@ def scan(type, src, reports_dir, convert):
                     outext = ".json"
                 fname = report_fname_prefix + outext
                 stdout = io.open(fname, "w")
-                print ("Output will be written to", fname)
+                print("Output will be written to", fname)
 
             # If the command is requesting list of files then construct the argument
             filelist_prefix = "(filelist="
@@ -499,6 +500,6 @@ def bomgen(src, reports_dir, convert):
 if __name__ == "__main__":
     args = build_args()
     type = args.scan_type
-    print (at_logo)
-    print ("Scanning", args.src_dir)
+    print(at_logo)
+    print("Scanning", args.src_dir)
     scan(type, args.src_dir, args.reports_dir, args.convert)
