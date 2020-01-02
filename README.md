@@ -11,6 +11,7 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 | ansible              | ansible-lint                          |
 | aws                  | cfn-lint, cfn_nag                     |
 | bash                 | shellcheck                            |
+| bom                  | cdxgen                                |
 | Credential scanning  | gitleaks                              |
 | golang               | gosec, staticcheck                    |
 | java                 | cdxgen, gradle, pmd, dependency-check |

@@ -9,6 +9,17 @@ import sys
 import io
 import tempfile
 
+at_logo = """
+  ___            _____ _                    _
+ / _ \          |_   _| |                  | |
+/ /_\ \_ __  _ __ | | | |__  _ __ ___  __ _| |_
+|  _  | '_ \| '_ \| | | '_ \| '__/ _ \/ _` | __|
+| | | | |_) | |_) | | | | | | | |  __/ (_| | |_
+\_| |_/ .__/| .__/\_/ |_| |_|_|  \___|\__,_|\__|
+      | |   | |
+      |_|   |_|
+"""
+
 """
 Supported language scan types
 """
@@ -16,10 +27,12 @@ scan_types = [
     "ansible",
     "aws",
     "bash",
+    "bom",
     "credscan",
     "golang",
     "java",
     "kotlin",
+    "kubernetes",
     "nodejs",
     "puppet",
     "python",
@@ -56,6 +69,7 @@ scan_tools_args_map = {
         "--parseable-severity",
         "*.yml",
     ],
+    "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
         "--repo-path=%(src)s",
@@ -73,6 +87,10 @@ scan_tools_args_map = {
         "--color=never",
         "(filelist=sh)",
     ],
+    "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
+    "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
+    "terraform": ["tfsec", "--no-colour", "%(src)s"],
+    "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"]
 }
 
 
@@ -125,7 +143,7 @@ def scan(type, src, reports_dir, convert):
             )
             # If the command doesn't support file output then redirect stdout automatically
             stdout = None
-            if reports_dir and default_cmd.find(reports_dir) == -1:
+            if reports_dir and default_cmd.find(report_fname_prefix) == -1:
                 outext = ".out"
                 # Try to detect if the output could be json
                 if default_cmd.find("json") > -1:
@@ -481,4 +499,6 @@ def bomgen(src, reports_dir, convert):
 if __name__ == "__main__":
     args = build_args()
     type = args.scan_type
+    print (at_logo)
+    print ("Scanning", args.src_dir)
     scan(type, args.src_dir, args.reports_dir, args.convert)

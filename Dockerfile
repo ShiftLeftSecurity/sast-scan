@@ -96,6 +96,7 @@ ENV PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     PATH=${PATH}:/opt/.cargo/bin:/opt/dependency-check/bin/:/usr/local/src:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
+COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
 COPY --from=builder /usr/local/bin/railroader /usr/local/bin/railroader
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
