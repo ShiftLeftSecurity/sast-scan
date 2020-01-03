@@ -3,3 +3,4 @@
 .gitleaks_bin/
 repos/
 .vscode/
+.tox/
