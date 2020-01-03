@@ -63,22 +63,22 @@ docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan retire -p
 Scan python project
 
 ```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type python --out_dir /app
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type python --out_dir /app
 ```
 
 Scan node.js project
 
 ```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type nodejs --out_dir /app
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type nodejs --out_dir /app
 ```
 
 Scan java project
 
 ```bash
-docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type java --out_dir /app
+docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app
 
 # For gradle project
-docker run --rm --tmpfs /tmp -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan python3 /usr/local/src/scan.py --src /app --type java --out_dir /app
+docker run --rm --tmpfs /tmp -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app
 ```
 
 ## Alternatives

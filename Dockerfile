@@ -93,7 +93,7 @@ ENV PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     JAVA_HOME=/usr/lib/jvm/jre-11 \
     SPOTBUGS_HOME=/opt/spotbugs \
     APP_SRC_DIR=/usr/local/src \
-    PATH=${PATH}:/opt/.cargo/bin:/opt/dependency-check/bin/:/usr/local/src:
+    PATH=/usr/local/src/:${PATH}:/opt/.cargo/bin:/opt/dependency-check/bin/:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
@@ -109,6 +109,10 @@ COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 
 USER root
 
+COPY scan /usr/local/src/
+COPY rules-pmd.xml /usr/local/src/
+COPY spotbugs /usr/local/src/spotbugs
+
 RUN microdnf update -y \
     && microdnf install -y python36 ruby ruby-libs java-11-openjdk-headless nodejs git-core \
     && pip3 install --upgrade setuptools \
@@ -117,16 +121,13 @@ RUN microdnf update -y \
     && mkdir -p /.cache /opt/dependency-check/data \
     && chown -R nobody:root /opt/dependency-check/data \
     && chown -R nobody:root /.cache \
+    && chmod +x /usr/local/src/scan \
     && microdnf clean all \
     && rm -rf /tmp/
-
-COPY scan.py /usr/local/src/
-COPY rules-pmd.xml /usr/local/src/
-COPY spotbugs /usr/local/src/spotbugs
 
 WORKDIR /usr/local/src
 
 # Run as default user
 USER nobody
 
-CMD [ "python3", "/usr/local/src/scan.py" ]
+CMD [ "python3", "/usr/local/src/scan" ]
