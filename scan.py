@@ -69,6 +69,7 @@ scan_tools_args_map = {
         "--parseable-severity",
         "*.yml",
     ],
+    "aws": ["cfn-lint", "-f", "json", "-e", "%(src)s/**/*.yaml"],
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
