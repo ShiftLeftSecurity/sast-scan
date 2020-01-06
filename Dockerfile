@@ -128,6 +128,6 @@ RUN microdnf update -y \
 WORKDIR /usr/local/src
 
 # Run as default user
-USER nobody
+# USER nobody
 
 CMD [ "python3", "/usr/local/src/scan" ]
