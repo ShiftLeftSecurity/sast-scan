@@ -188,7 +188,6 @@ def scan(type, src, reports_dir, convert):
                 default_cmd = default_cmd.replace(
                     filelist_prefix + ext + ")", " ".join(filelist)
                 )
-            print("Executing", default_cmd)
             exec_tool(default_cmd.split(" "), cwd=src, stdout=stdout)
         else:
             getattr(sys.modules[__name__], "%s_scan" % type)(
@@ -196,7 +195,7 @@ def scan(type, src, reports_dir, convert):
             )
 
 
-def exec_tool(args, cwd=None, stdout=subprocess.STDOUT):
+def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
     """
     Convenience method to invoke cli tools
 
@@ -204,6 +203,7 @@ def exec_tool(args, cwd=None, stdout=subprocess.STDOUT):
       args cli command and args
     """
     try:
+        print("Executing", args)
         subprocess.run(
             args,
             stdout=stdout,
@@ -498,7 +498,9 @@ def retirejs_scan(src, reports_dir, convert):
     retire_cmd = "retire"
     retire_args = [
         retire_cmd,
-        "--path",
+        "--node",
+        "--nocache",
+        "--nodepath",
         src,
         "-p",
         *convert_args,
