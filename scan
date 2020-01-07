@@ -9,6 +9,9 @@ import sys
 import io
 import tempfile
 
+sys.path.insert(0, 'lib')
+import convert
+
 at_logo = """
   ___            _____ _                    _
  / _ \          |_   _| |                  | |
@@ -172,7 +175,7 @@ def scan(type, src, reports_dir, convert):
             if reports_dir and default_cmd.find(report_fname_prefix) == -1:
                 outext = ".out"
                 # Try to detect if the output could be json
-                if default_cmd.find("json") > -1:
+                if default_cmd.find("json") > -1 or default_cmd.find("sarif") > -1:
                     outext = ".json"
                 fname = report_fname_prefix + outext
                 stdout = io.open(fname, "w")
@@ -265,7 +268,7 @@ def bandit_scan(src, reports_dir, convert):
     convert_args = []
     report_fname = get_report_file("bandit", reports_dir, convert)
     if reports_dir or convert:
-        convert_args = ["-o", report_fname, "-f", "json"]
+        convert_args = ["-o", report_fname, "-f", "sarif"]
     bandit_cmd = "bandit"
     bandit_args = [
         bandit_cmd,

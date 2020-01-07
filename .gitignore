@@ -4,3 +4,5 @@
 repos/
 .vscode/
 .tox/
+.tool-versions
+venv/
