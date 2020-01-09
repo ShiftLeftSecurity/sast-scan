@@ -248,7 +248,7 @@ def add_region_and_context_region(physical_location, line_number, code):
     physical_location.context_region = om.Region(
         start_line=line_number,
         end_line=line_number + len(snippet_lines) - 1,
-        snippet=om.ArtifactContent(text="".join(snippet_lines)),
+        snippet=om.ArtifactContent(text="\n".join(snippet_lines)),
     )
 
 
