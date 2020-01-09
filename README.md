@@ -96,9 +96,13 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=sariftools.sarif-viewer-build-tab
 
-Example reports:
+**Example reports:**
+
+Online viewer can be used to manually upload the .sarif files as shown.
 
 ![Online viewer](docs/sarif-online-viewer.png)
+
+Azure DevOps SARIF plugin can be integrated to show the analysis integrated with the build run as shown.
 
 ![Azure DevOps integration](docs/azure-devops.png)
 
