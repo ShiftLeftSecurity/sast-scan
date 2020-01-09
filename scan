@@ -9,8 +9,8 @@ import sys
 import io
 import tempfile
 
-sys.path.insert(0, 'lib')
-import convert
+sys.path.insert(0, "lib")
+import convert as convertLib
 
 at_logo = """
   ___            _____ _                    _
@@ -59,6 +59,7 @@ ignore_directories = [
     "tests",
     "test",
     "tmp",
+    "reports"
 ]
 
 
@@ -145,8 +146,9 @@ def build_args():
     parser.add_argument(
         "--convert",
         action="store_true",
+        default=True,
         dest="convert",
-        help="Convert results to a normalized json lines format",
+        help="Convert results to sarif json format",
     )
     return parser.parse_args()
 
@@ -175,8 +177,10 @@ def scan(type, src, reports_dir, convert):
             if reports_dir and default_cmd.find(report_fname_prefix) == -1:
                 outext = ".out"
                 # Try to detect if the output could be json
-                if default_cmd.find("json") > -1 or default_cmd.find("sarif") > -1:
+                if default_cmd.find("json") > -1:
                     outext = ".json"
+                if default_cmd.find("sarif") > -1:
+                    outext = ".sarif"
                 fname = report_fname_prefix + outext
                 stdout = io.open(fname, "w")
                 print("Output will be written to", fname)
@@ -266,9 +270,16 @@ def bandit_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     convert_args = []
-    report_fname = get_report_file("bandit", reports_dir, convert)
+    report_fname = get_report_file(
+        "bandit", reports_dir, convert, ext_name="sarif" if convert else "json"
+    )
     if reports_dir or convert:
-        convert_args = ["-o", report_fname, "-f", "sarif"]
+        convert_args = [
+            "-o",
+            report_fname,
+            "-f",
+            "sarif" if convert else "json",
+        ]
     bandit_cmd = "bandit"
     bandit_args = [
         bandit_cmd,
@@ -478,7 +489,34 @@ def nodejs_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     bomgen(src, reports_dir, convert)
+    sec_scan(src, reports_dir, convert)
     retirejs_scan(src, reports_dir, convert)
+
+
+def sec_scan(src, reports_dir, convert):
+    """
+    Method to initiate Nodejs sec scan of the node.js codebase
+
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+    """
+    convert_args = []
+    report_fname = get_report_file("nodejsscan", reports_dir, convert)
+    if reports_dir or convert:
+        convert_args = [
+            "--output",
+            report_fname,
+        ]
+    sec_cmd = "nodejsscan"
+    sec_args = [sec_cmd, *convert_args, "-d", src]
+    exec_tool(sec_args, src)
+    if convert:
+        crep_fname = get_report_file(
+            "nodejsscan", reports_dir, convert, ext_name="sarif"
+        )
+        convertLib.convert_file(sec_cmd, sec_args, report_fname, crep_fname)
 
 
 def retirejs_scan(src, reports_dir, convert):
@@ -535,6 +573,6 @@ if __name__ == "__main__":
     print("Scanning", args.src_dir)
     scan(type, args.src_dir, args.reports_dir, args.convert)
     if args.reports_dir:
-        print ("Reports produced:")
+        print("Reports produced:")
         for f in os.listdir(args.reports_dir):
-            print (f)
+            print(f)

@@ -1,0 +1,272 @@
+{
+    "files": [
+        {
+            "/CWE-209/examples/StackTraceExposureGood.js": "/github/workspace/CWE-209/examples/StackTraceExposureGood.js"
+        },
+        {
+            "/CWE-209/examples/StackTraceExposureBad.js": "/github/workspace/CWE-209/examples/StackTraceExposureBad.js"
+        },
+        {
+            "/CWE-807/examples/bypass.js": "/github/workspace/CWE-807/examples/bypass.js"
+        },
+        {
+            "/CWE-807/examples/bypass_fixed.js": "/github/workspace/CWE-807/examples/bypass_fixed.js"
+        },
+        {
+            "/CWE-200/examples/FileAccessToHttp.js": "/github/workspace/CWE-200/examples/FileAccessToHttp.js"
+        },
+        {
+            "/CWE-451/examples/X-Frame-Options.js": "/github/workspace/CWE-451/examples/X-Frame-Options.js"
+        },
+        {
+            "/CWE-451/examples/missing-X-Frame-Options.js": "/github/workspace/CWE-451/examples/missing-X-Frame-Options.js"
+        },
+        {
+            "/CWE-327/examples/BrokenCryptoAlgorithm.js": "/github/workspace/CWE-327/examples/BrokenCryptoAlgorithm.js"
+        },
+        {
+            "/CWE-916/examples/InsufficientPasswordHash_fixed.js": "/github/workspace/CWE-916/examples/InsufficientPasswordHash_fixed.js"
+        },
+        {
+            "/CWE-916/examples/InsufficientPasswordHash.js": "/github/workspace/CWE-916/examples/InsufficientPasswordHash.js"
+        },
+        {
+            "/CWE-089/examples/SqlInjection.js": "/github/workspace/CWE-089/examples/SqlInjection.js"
+        },
+        {
+            "/CWE-640/examples/HostHeaderPoisoningInEmailGeneration.js": "/github/workspace/CWE-640/examples/HostHeaderPoisoningInEmailGeneration.js"
+        },
+        {
+            "/CWE-640/examples/HostHeaderPoisoningInEmailGenerationGood.js": "/github/workspace/CWE-640/examples/HostHeaderPoisoningInEmailGenerationGood.js"
+        },
+        {
+            "/CWE-400/examples/RemotePropertyInjection_fixed.js": "/github/workspace/CWE-400/examples/RemotePropertyInjection_fixed.js"
+        },
+        {
+            "/CWE-400/examples/RemotePropertyInjection.js": "/github/workspace/CWE-400/examples/RemotePropertyInjection.js"
+        },
+        {
+            "/CWE-400/examples/PrototypePollution_fixed.json": "/github/workspace/CWE-400/examples/PrototypePollution_fixed.json"
+        },
+        {
+            "/CWE-834/examples/LoopBoundInjection_fixed.js": "/github/workspace/CWE-834/examples/LoopBoundInjection_fixed.js"
+        },
+        {
+            "/CWE-834/examples/LoopBoundInjection.js": "/github/workspace/CWE-834/examples/LoopBoundInjection.js"
+        },
+        {
+            "/CWE-770/examples/MissingRateLimiting.js": "/github/workspace/CWE-770/examples/MissingRateLimiting.js"
+        },
+        {
+            "/CWE-770/examples/MissingRateLimitingGood.js": "/github/workspace/CWE-770/examples/MissingRateLimitingGood.js"
+        },
+        {
+            "/CWE-346/examples/CorsMisconfigurationForCredentials.js": "/github/workspace/CWE-346/examples/CorsMisconfigurationForCredentials.js"
+        },
+        {
+            "/CWE-346/examples/CorsMisconfigurationForCredentials_fixed.js": "/github/workspace/CWE-346/examples/CorsMisconfigurationForCredentials_fixed.js"
+        },
+        {
+            "/CWE-912/examples/HttpToFileAccess.js": "/github/workspace/CWE-912/examples/HttpToFileAccess.js"
+        },
+        {
+            "/CWE-776/examples/XmlBombGood.js": "/github/workspace/CWE-776/examples/XmlBombGood.js"
+        },
+        {
+            "/CWE-776/examples/XmlBomb.js": "/github/workspace/CWE-776/examples/XmlBomb.js"
+        },
+        {
+            "/CWE-312/examples/CleartextStorageGood.js": "/github/workspace/CWE-312/examples/CleartextStorageGood.js"
+        },
+        {
+            "/CWE-312/examples/CleartextStorage.js": "/github/workspace/CWE-312/examples/CleartextStorage.js"
+        },
+        {
+            "/CWE-754/examples/UnvalidatedDynamicMethodCall.js": "/github/workspace/CWE-754/examples/UnvalidatedDynamicMethodCall.js"
+        },
+        {
+            "/CWE-754/examples/UnvalidatedDynamicMethodCallGood.js": "/github/workspace/CWE-754/examples/UnvalidatedDynamicMethodCallGood.js"
+        },
+        {
+            "/CWE-754/examples/UnvalidatedDynamicMethodCallGood2.js": "/github/workspace/CWE-754/examples/UnvalidatedDynamicMethodCallGood2.js"
+        },
+        {
+            "/CWE-798/examples/HardcodedCredentials.js": "/github/workspace/CWE-798/examples/HardcodedCredentials.js"
+        },
+        {
+            "/CWE-352/examples/MissingCsrfMiddlewareBad.js": "/github/workspace/CWE-352/examples/MissingCsrfMiddlewareBad.js"
+        },
+        {
+            "/CWE-352/examples/MissingCsrfMiddlewareGood.js": "/github/workspace/CWE-352/examples/MissingCsrfMiddlewareGood.js"
+        },
+        {
+            "/CWE-502/examples/UnsafeDeserializationGood.js": "/github/workspace/CWE-502/examples/UnsafeDeserializationGood.js"
+        },
+        {
+            "/CWE-502/examples/UnsafeDeserializationBad.js": "/github/workspace/CWE-502/examples/UnsafeDeserializationBad.js"
+        },
+        {
+            "/CWE-730/examples/RegExpInjectionGood.js": "/github/workspace/CWE-730/examples/RegExpInjectionGood.js"
+        },
+        {
+            "/CWE-730/examples/RegExpInjection.js": "/github/workspace/CWE-730/examples/RegExpInjection.js"
+        },
+        {
+            "/CWE-022/ZipSlipBad.js": "/github/workspace/CWE-022/ZipSlipBad.js"
+        },
+        {
+            "/CWE-022/ZipSlipGood.js": "/github/workspace/CWE-022/ZipSlipGood.js"
+        },
+        {
+            "/CWE-022/examples/TaintedPath.js": "/github/workspace/CWE-022/examples/TaintedPath.js"
+        },
+        {
+            "/CWE-843/examples/TypeConfusionThroughParameterTampering.js": "/github/workspace/CWE-843/examples/TypeConfusionThroughParameterTampering.js"
+        },
+        {
+            "/CWE-843/examples/TypeConfusionThroughParameterTampering_fixed.js": "/github/workspace/CWE-843/examples/TypeConfusionThroughParameterTampering_fixed.js"
+        },
+        {
+            "/CWE-611/examples/Xxe.js": "/github/workspace/CWE-611/examples/Xxe.js"
+        },
+        {
+            "/CWE-611/examples/XxeGood.js": "/github/workspace/CWE-611/examples/XxeGood.js"
+        },
+        {
+            "/CWE-078/examples/shell-command-injection-from-environment_fixed.js": "/github/workspace/CWE-078/examples/shell-command-injection-from-environment_fixed.js"
+        },
+        {
+            "/CWE-078/examples/indirect-command-injection.js": "/github/workspace/CWE-078/examples/indirect-command-injection.js"
+        },
+        {
+            "/CWE-078/examples/command-injection.js": "/github/workspace/CWE-078/examples/command-injection.js"
+        },
+        {
+            "/CWE-078/examples/shell-command-injection-from-environment.js": "/github/workspace/CWE-078/examples/shell-command-injection-from-environment.js"
+        },
+        {
+            "/CWE-078/examples/indirect-command-injection_fixed.js": "/github/workspace/CWE-078/examples/indirect-command-injection_fixed.js"
+        },
+        {
+            "/CWE-643/examples/XpathInjectionGood.js": "/github/workspace/CWE-643/examples/XpathInjectionGood.js"
+        },
+        {
+            "/CWE-643/examples/XpathInjectionBad.js": "/github/workspace/CWE-643/examples/XpathInjectionBad.js"
+        },
+        {
+            "/CWE-079/examples/StoredXss.js": "/github/workspace/CWE-079/examples/StoredXss.js"
+        },
+        {
+            "/CWE-079/examples/ReflectedXss.js": "/github/workspace/CWE-079/examples/ReflectedXss.js"
+        },
+        {
+            "/CWE-079/examples/StoredXssGood.js": "/github/workspace/CWE-079/examples/StoredXssGood.js"
+        },
+        {
+            "/CWE-079/examples/ReflectedXssGood.js": "/github/workspace/CWE-079/examples/ReflectedXssGood.js"
+        }
+    ],
+    "good_finding": {},
+    "missing_sec_header": {
+        "Web Security": [
+            {
+                "description": "Content Security Policy (CSP), a mechanism web applications can use to mitigate a broad class of content injection vulnerabilities, such as cross-site scripting (XSS). CSP Header was not found.",
+                "tag": "web",
+                "title": "Missing Security Header - Content-Security-Policy (CSP)"
+            },
+            {
+                "description": "Strict-Transport-Security (HSTS) header enforces secure (HTTP over SSL/TLS) connections to the server.",
+                "tag": "web",
+                "title": "Missing Security Header - Strict-Transport-Security (HSTS)"
+            },
+            {
+                "description": "Public-Key-Pins (HPKP) ensures that certificate is Pinned.",
+                "tag": "web",
+                "title": "Missing Security Header - Public-Key-Pins (HPKP)"
+            },
+            {
+                "description": "X-XSS-Protection header set to 1 enables the Cross-site scripting (XSS) filter built into most recent web browsers.",
+                "tag": "web",
+                "title": "Missing Security Header - X-XSS-Protection:1"
+            },
+            {
+                "description": "X-Content-Type-Options header prevents Internet Explorer and Google Chrome from MIME-sniffing a response away from the declared content-type.",
+                "tag": "web",
+                "title": "Missing Security Header - X-Content-Type-Options"
+            },
+            {
+                "description": "X-Download-Options header set to noopen prevents IE users from directly opening and executing downloads in your site's context.",
+                "tag": "web",
+                "title": "Missing Security Header - X-Download-Options: noopen"
+            },
+            {
+                "description": "JavaScript can access Cookies if they are not marked httpOnly.",
+                "tag": "web",
+                "title": "Missing 'httpOnly' in Cookie"
+            },
+            {
+                "description": "Remove the X-Powered-By header to prevent information gathering.",
+                "tag": "web",
+                "title": "Information Disclosure - X-Powered-By"
+            }
+        ]
+    },
+    "sec_issues": {
+        "Application Related": [
+            {
+                "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+                "filename": "InsufficientPasswordHash.js",
+                "line": 3,
+                "lines": "function hashPassword(password) {\n    var crypto = require(\"crypto\");\n    var hasher = crypto.createHash('md5');\n    var hashed = hasher.update(password).digest(\"hex\"); // BAD\n    return hashed;\n}",
+                "path": "/github/workspace/CWE-916/examples/InsufficientPasswordHash.js",
+                "sha2": "bfc3a2dfec54a8e77e41c3e3d7a6d87477ea1ed6d1cb3b1b60b8e135b0d18368",
+                "tag": "node",
+                "title": "Weak Hash used - MD5"
+            }
+        ],
+        "Cross Site Scripting (XSS)": [
+            {
+                "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability",
+                "filename": "ReflectedXss.js",
+                "line": 6,
+                "lines": "var app = require('express')();\n\napp.get('/user/:id', function(req, res) {\n    if (!isValidUserId(req.params.id))\n        // BAD: a request parameter is incorporated without validation into the response\n        res.send(\"Unknown user: \" + req.params.id);\n    else\n        // TODO: do something exciting\n    ;\n});",
+                "path": "/github/workspace/CWE-079/examples/ReflectedXss.js",
+                "sha2": "9196f37db8dc9823c6a027ecde21b8012abbdd3f14ceada3426bbbe9a52c8536",
+                "tag": "xss",
+                "title": "XSS - Reflected Cross Site Scripting"
+            },
+            {
+                "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability",
+                "filename": "ReflectedXssGood.js",
+                "line": 8,
+                "lines": "var app = require('express')();\n\napp.get('/user/:id', function(req, res) {\n    if (!isValidUserId(req.params.id))\n        // GOOD: request parameter is sanitized before incorporating it into the response\n        res.send(\"Unknown user: \" + escape(req.params.id));\n    else\n        // TODO: do something exciting\n    ;\n});",
+                "path": "/github/workspace/CWE-079/examples/ReflectedXssGood.js",
+                "sha2": "30bdc652efb86a401f7478d96fd48810b7c2fd9f29b879d82ab397db96448deb",
+                "tag": "xss",
+                "title": "XSS - Reflected Cross Site Scripting"
+            }
+        ],
+        "Remote Code Injection": [
+            {
+                "description": "User controlled data in 'load()' function can result in Remote Code Injection.",
+                "filename": "UnsafeDeserializationBad.js",
+                "line": 4,
+                "lines": "const jsyaml = require(\"js-yaml\");\n\nfunction requestHandler(req, res) {\n    let data = jsyaml.load(req.params.data);\n    // ...\n}",
+                "path": "/github/workspace/CWE-502/examples/UnsafeDeserializationBad.js",
+                "sha2": "da9ce82b33bb64f95bf51aaed0620bb684f4d9c59a7aaeeedcdd00efd9d60a11",
+                "tag": "rci",
+                "title": "Loading of untrusted YAML can cause Remote Code Injection"
+            }
+        ]
+    },
+    "total_count": {
+        "good": 0,
+        "mis": 8,
+        "sec": 4
+    },
+    "vuln_count": {
+        "Loading of untrusted YAML can cause Remote Code Injection": 1,
+        "Weak Hash used - MD5": 1,
+        "XSS - Reflected Cross Site Scripting": 2
+    }
+}

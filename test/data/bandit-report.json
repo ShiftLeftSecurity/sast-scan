@@ -1,0 +1,952 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Bandit",
+          "rules": [
+            {
+              "id": "B104",
+              "name": "hardcoded_bind_all_interfaces",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b104_hardcoded_bind_all_interfaces.html"
+            },
+            {
+              "id": "B108",
+              "name": "hardcoded_tmp_directory",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html"
+            },
+            {
+              "id": "B701",
+              "name": "jinja2_autoescape_false",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b701_jinja2_autoescape_false.html"
+            },
+            {
+              "id": "B608",
+              "name": "hardcoded_sql_expressions",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html"
+            },
+            {
+              "id": "B102",
+              "name": "exec_used",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b102_exec_used.html"
+            },
+            {
+              "id": "B201",
+              "name": "flask_debug_true",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html"
+            },
+            {
+              "id": "B501",
+              "name": "request_with_no_cert_validation",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b501_request_with_no_cert_validation.html"
+            },
+            {
+              "id": "B507",
+              "name": "ssh_no_host_key_verification",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b507_ssh_no_host_key_verification.html"
+            },
+            {
+              "id": "B413",
+              "name": "blacklist",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_imports.html#b413-import-pycrypto"
+            },
+            {
+              "id": "B304",
+              "name": "blacklist",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b304-b305-ciphers-and-modes"
+            },
+            {
+              "id": "B502",
+              "name": "ssl_with_bad_version",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b502_ssl_with_bad_version.html"
+            },
+            {
+              "id": "B306",
+              "name": "blacklist",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b306-mktemp-q"
+            },
+            {
+              "id": "B301",
+              "name": "blacklist",
+              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b301-pickle"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-01-07T18:44:54Z"
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "_totals": {
+            "loc": 280,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 7.0,
+            "CONFIDENCE.LOW": 0.0,
+            "SEVERITY.MEDIUM": 8.0,
+            "CONFIDENCE.MEDIUM": 9.0,
+            "SEVERITY.HIGH": 8.0,
+            "CONFIDENCE.HIGH": 14.0
+          },
+          "/github/workspace/CVE-2018-1281/BindToAllInterfaces.py": {
+            "loc": 7,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-020/examples/IncompleteHostnameRegExp.py": {
+            "loc": 15,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-020/examples/IncompleteUrlSubstringSanitization.py": {
+            "loc": 28,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-022/examples/tainted_path.py": {
+            "loc": 27,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-022/examples/tarslip_bad.py": {
+            "loc": 4,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-022/examples/tarslip_good.py": {
+            "loc": 7,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-078/examples/command_injection.py": {
+            "loc": 16,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 4.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 4.0
+          },
+          "/github/workspace/CWE-079/examples/jinja2.py": {
+            "loc": 20,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 1.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 1.0
+          },
+          "/github/workspace/CWE-079/examples/xss.py": {
+            "loc": 10,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-089/examples/sql_injection.py": {
+            "loc": 11,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-094/examples/code_injection.py": {
+            "loc": 12,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 1.0
+          },
+          "/github/workspace/CWE-209/StackTraceExposure.py": {
+            "loc": 18,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-215/FlaskDebug.py": {
+            "loc": 6,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 1.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-295/examples/make_request.py": {
+            "loc": 10,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 1.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 1.0
+          },
+          "/github/workspace/CWE-295/examples/paramiko_host_key.py": {
+            "loc": 11,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 1.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-312/examples/password_in_cookie.py": {
+            "loc": 8,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-327/examples/broken_crypto.py": {
+            "loc": 7,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 3.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 3.0
+          },
+          "/github/workspace/CWE-327/examples/insecure_default_protocol.py": {
+            "loc": 4,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 1.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-327/examples/insecure_protocol.py": {
+            "loc": 6,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 1.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 1.0
+          },
+          "/github/workspace/CWE-377/InsecureTemporaryFile.py": {
+            "loc": 6,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 1.0
+          },
+          "/github/workspace/CWE-377/SecureTemporaryFile.py": {
+            "loc": 5,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-502/JsonGood.py": {
+            "loc": 7,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-502/UnpicklingBad.py": {
+            "loc": 7,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 1.0,
+            "SEVERITY.MEDIUM": 1.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 2.0
+          },
+          "/github/workspace/CWE-601/examples/redirect_bad.py": {
+            "loc": 6,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-601/examples/redirect_good.py": {
+            "loc": 10,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 0.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 0.0,
+            "CONFIDENCE.HIGH": 0.0
+          },
+          "/github/workspace/CWE-798/HardcodedCredentials.py": {
+            "loc": 12,
+            "nosec": 0,
+            "SEVERITY.UNDEFINED": 0.0,
+            "SEVERITY.LOW": 1.0,
+            "SEVERITY.MEDIUM": 0.0,
+            "SEVERITY.HIGH": 0.0,
+            "CONFIDENCE.UNDEFINED": 0.0,
+            "CONFIDENCE.LOW": 0.0,
+            "CONFIDENCE.MEDIUM": 1.0,
+            "CONFIDENCE.HIGH": 0.0
+          }
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "s.bind(('0.0.0.0', 31137))\n"
+                  },
+                  "startLine": 5
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CVE-2018-1281/BindToAllInterfaces.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\ns.bind(('0.0.0.0', 31137))\n\n"
+                  },
+                  "endLine": 6,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B104",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Probable insecure usage of temp file/directory."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        tar.extract(entry, \"/tmp/unpack/\")\n"
+                  },
+                  "startLine": 7
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-022/examples/tarslip_bad.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    for entry in tar:\n        tar.extract(entry, \"/tmp/unpack/\")\n"
+                  },
+                  "endLine": 7,
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B108",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "Probable insecure usage of temp file/directory."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        tar.extract(entry, \"/tmp/unpack/\")\n"
+                  },
+                  "startLine": 10
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-022/examples/tarslip_good.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            raise ValueError(\"Illegal tar archive entry\")\n        tar.extract(entry, \"/tmp/unpack/\")\n"
+                  },
+                  "endLine": 10,
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B108",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "By default, jinja2 sets autoescape to False. Consider using autoescape=True or use the select_autoescape function to mitigate XSS vulnerabilities."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "unsafe_env = Environment(loader=loader)\n"
+                  },
+                  "startLine": 7
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-079/examples/jinja2.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nunsafe_env = Environment(loader=loader)\nsafe1_env = Environment(loader=loader, autoescape=True)\n"
+                  },
+                  "endLine": 8,
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B701",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Possible SQL injection vector through string-based query construction."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cursor.execute(\"SELECT * FROM users WHERE username = '%s'\" % username)\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-089/examples/sql_injection.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        # BAD -- Using string formatting\n        cursor.execute(\"SELECT * FROM users WHERE username = '%s'\" % username)\n        user = cursor.fetchone()\n"
+                  },
+                  "endLine": 9,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B608",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "Use of exec detected."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        exec(\"setname('%s')\" % first_name)\n"
+                  },
+                  "startLine": 12
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-094/examples/code_injection.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        #BAD -- Allow user to define code to be run.\n        exec(\"setname('%s')\" % first_name)\n\n"
+                  },
+                  "endLine": 13,
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B102",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "app.run(debug=True)\n"
+                  },
+                  "startLine": 9
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-215/FlaskDebug.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\napp.run(debug=True)\n"
+                  },
+                  "endLine": 9,
+                  "startLine": 8
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B201",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Requests call with verify=False disabling SSL certificate checks, security issue."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "requests.get('https://semmle.com', verify=False) # UNSAFE\n"
+                  },
+                  "startLine": 5
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-295/examples/make_request.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nrequests.get('https://semmle.com', verify=False) # UNSAFE\nrequests.get('https://semmle.com', verify=0) # UNSAFE\n"
+                  },
+                  "endLine": 6,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B501",
+          "ruleIndex": 6
+        },
+        {
+          "message": {
+            "text": "Paramiko call with policy set to automatically trust the unknown host key."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    client.set_missing_host_key_policy(AutoAddPolicy)\n"
+                  },
+                  "startLine": 5
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-295/examples/paramiko_host_key.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    client = SSHClient()\n    client.set_missing_host_key_policy(AutoAddPolicy)\n    client.connect(\"example.com\")\n"
+                  },
+                  "endLine": 6,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B507",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "The pyCrypto library and its module DES are no longer actively maintained and have been deprecated. Consider using pyca/cryptography library."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "from Crypto.Cipher import DES, Blowfish\n"
+                  },
+                  "startLine": 1
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-327/examples/broken_crypto.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "from Crypto.Cipher import DES, Blowfish\n\ncipher = DES.new(SECRET_KEY)\n\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B413",
+          "ruleIndex": 8
+        },
+        {
+          "message": {
+            "text": "Use of insecure cipher Crypto.Cipher.DES.new. Replace with a known secure cipher such as AES."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cipher = DES.new(SECRET_KEY)\n"
+                  },
+                  "startLine": 3
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-327/examples/broken_crypto.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ncipher = DES.new(SECRET_KEY)\n\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 2
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B304",
+          "ruleIndex": 9
+        },
+        {
+          "message": {
+            "text": "Use of insecure cipher Crypto.Cipher.Blowfish.new. Replace with a known secure cipher such as AES."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cipher = Blowfish.new(SECRET_KEY)\n"
+                  },
+                  "startLine": 9
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-327/examples/broken_crypto.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ncipher = Blowfish.new(SECRET_KEY)\n\n"
+                  },
+                  "endLine": 10,
+                  "startLine": 8
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B304",
+          "ruleIndex": 9
+        },
+        {
+          "message": {
+            "text": "ssl.wrap_socket call with insecure SSL/TLS protocol version identified, security issue."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "ssl.wrap_socket(socket.socket(), ssl_version=ssl.PROTOCOL_SSLv2)\n"
+                  },
+                  "startLine": 5
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-327/examples/insecure_protocol.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "# Using the deprecated ssl.wrap_socket method\nssl.wrap_socket(socket.socket(), ssl_version=ssl.PROTOCOL_SSLv2)\n\n"
+                  },
+                  "endLine": 6,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "B502",
+          "ruleIndex": 10
+        },
+        {
+          "message": {
+            "text": "Function call with insecure SSL/TLS protocol identified, possible security issue."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "context = ssl.SSLContext(ssl_version=ssl.PROTOCOL_SSLv3)\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-327/examples/insecure_protocol.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "# Using SSLContext\ncontext = ssl.SSLContext(ssl_version=ssl.PROTOCOL_SSLv3)\n\n"
+                  },
+                  "endLine": 9,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B502",
+          "ruleIndex": 10
+        },
+        {
+          "message": {
+            "text": "Use of insecure and deprecated function (mktemp)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    filename = mktemp()\n"
+                  },
+                  "startLine": 4
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-377/InsecureTemporaryFile.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "def write_results(results):\n    filename = mktemp()\n    with open(filename, \"w+\") as f:\n"
+                  },
+                  "endLine": 5,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B306",
+          "ruleIndex": 11
+        },
+        {
+          "message": {
+            "text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    return pickle.loads(pickled)\n"
+                  },
+                  "startLine": 6
+                },
+                "artifactLocation": {
+                  "uri": "file:///github/workspace/CWE-502/UnpicklingBad.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "def unsafe(pickled):\n    return pickle.loads(pickled)\n\n"
+                  },
+                  "endLine": 7,
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "ruleId": "B301",
+          "ruleIndex": 12
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+}
