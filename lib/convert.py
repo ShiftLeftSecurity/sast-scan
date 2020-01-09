@@ -43,25 +43,39 @@ def extract_from_file(tool_name, report_file):
     return issues, metrics, skips
 
 
-def convert_file(tool_name, tool_args, report_file, converted_file):
+def convert_file(
+    tool_name, tool_args, working_dir, report_file, converted_file
+):
     """Convert report file
 
     :param tool_name: tool name
     :param tool_args: tool args
+    :param working_dir: Working directory
     :param report_file: Report file
     :param converted_file: Converted file
 
     :return serialized_log: SARIF output data
     """
     issues, metrics, skips = extract_from_file(tool_name, report_file)
-    return report(tool_name, tool_args, metrics, skips, issues, converted_file)
+    return report(
+        tool_name,
+        tool_args,
+        working_dir,
+        metrics,
+        skips,
+        issues,
+        converted_file,
+    )
 
 
-def report(tool_name, tool_args, metrics, skips, issues, crep_fname):
+def report(
+    tool_name, tool_args, working_dir, metrics, skips, issues, crep_fname
+):
     """Prints issues in SARIF format
 
     :param tool_name: tool name
     :param tool_args: Args used for the tool
+    :param working_dir: Working directory
     :param metrics: metrics data
     :param skips: skips data
     :param issues: issues data
@@ -70,7 +84,10 @@ def report(tool_name, tool_args, metrics, skips, issues, crep_fname):
     :return serialized_log: SARIF output data
     """
     if not tool_args:
-        tool_args = ""
+        tool_args = []
+    tool_args_str = tool_args
+    if isinstance(tool_args, list):
+        tool_args_str = " ".join(tool_args)
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
         version="2.1.0",
@@ -83,9 +100,27 @@ def report(tool_name, tool_args, metrics, skips, issues, crep_fname):
                             TS_FORMAT
                         ),
                         execution_successful=True,
+                        working_directory=om.ArtifactLocation(
+                            uri=to_uri(working_dir)
+                        ),
                     )
                 ],
-                conversion={"tool": om.Tool(driver=om.ToolComponent(name="@AppThreat/sast-scan")), "invocation": tool_args},
+                conversion={
+                    "tool": om.Tool(
+                        driver=om.ToolComponent(name="@AppThreat/sast-scan")
+                    ),
+                    "invocation": om.Invocation(
+                        execution_successful=True,
+                        command_line=tool_args_str,
+                        arguments=tool_args,
+                        working_directory=om.ArtifactLocation(
+                            uri=to_uri(working_dir)
+                        ),
+                        end_time_utc=datetime.datetime.utcnow().strftime(
+                            TS_FORMAT
+                        ),
+                    ),
+                },
                 properties={"metrics": metrics},
             )
         ],
@@ -217,8 +252,10 @@ def add_region_and_context_region(physical_location, line_number, code):
     )
 
 
-def get_url(rule_id):
-    return rule_id
+def get_url(rule_id, test_name):
+    # Return stackoverflow url for now
+    # FIXME: The world needs an opensource SAST issue database!
+    return "https://stackoverflow.com/search?q=" + test_name
 
 
 def create_or_find_rule(issue_dict, rules, rule_indices):
@@ -227,7 +264,9 @@ def create_or_find_rule(issue_dict, rules, rule_indices):
         return rules[rule_id], rule_indices[rule_id]
 
     rule = om.ReportingDescriptor(
-        id=rule_id, name=issue_dict["test_name"], help_uri=get_url(rule_id),
+        id=rule_id,
+        name=issue_dict["test_name"],
+        help_uri=get_url(rule_id, issue_dict["test_name"]),
     )
 
     index = len(rules)

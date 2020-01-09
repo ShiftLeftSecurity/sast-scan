@@ -59,7 +59,7 @@ ignore_directories = [
     "tests",
     "test",
     "tmp",
-    "reports"
+    "reports",
 ]
 
 
@@ -516,7 +516,9 @@ def sec_scan(src, reports_dir, convert):
         crep_fname = get_report_file(
             "nodejsscan", reports_dir, convert, ext_name="sarif"
         )
-        convertLib.convert_file(sec_cmd, sec_args, report_fname, crep_fname)
+        convertLib.convert_file(
+            sec_cmd, sec_args[1:], src, report_fname, crep_fname
+        )
 
 
 def retirejs_scan(src, reports_dir, convert):

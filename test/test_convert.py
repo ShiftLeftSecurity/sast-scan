@@ -9,7 +9,7 @@ def test_nodejsscan_convert_empty():
     with tempfile.NamedTemporaryFile(
         mode="w", encoding="utf-8", delete=True
     ) as cfile:
-        data = convertLib.report("nodejsscan", [], {}, {}, [], cfile.name)
+        data = convertLib.report("nodejsscan", [], ".", {}, {}, [], cfile.name)
         jsondata = json.loads(data)
         assert jsondata["runs"][0]["tool"]["driver"]["name"] == "nodejsscan"
         assert not jsondata["runs"][0]["results"]
@@ -23,6 +23,7 @@ def test_nodejsscan_convert_issue():
         data = convertLib.report(
             "nodejsscan",
             [],
+            ".",
             {},
             {},
             [
@@ -54,6 +55,7 @@ def test_nodejsscan_convert_metrics():
         data = convertLib.report(
             "nodejsscan",
             [],
+            ".",
             {
                 "total_count": {"good": 0, "mis": 8, "sec": 4},
                 "vuln_count": {
