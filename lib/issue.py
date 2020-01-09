@@ -22,6 +22,7 @@ class Issue(object):
         if isinstance(text, bytes):
             text = text.decode("utf-8")
         self.text = text
+        self.code = ""
         self.ident = ident
         self.fname = ""
         self.test = ""
@@ -93,6 +94,8 @@ class Issue(object):
         :param tabbed: Use tabbing in the output
         :return: strings of code
         """
+        if not self.fname:
+            return ""
         lines = []
         max_lines = max(max_lines, 1)
         lmin = max(1, self.lineno - max_lines // 2)
@@ -125,12 +128,38 @@ class Issue(object):
             "issue_text": issue_text,
             "line_number": self.lineno,
             "line_range": self.linerange,
-            "code": self.code,
         }
 
         if with_code:
             out["code"] = self.get_code()
         return out
+
+    def find_severity(self, data):
+        severity = constants.SEVERITY_DEFAULT
+        if "issue_severity" in data:
+            sev = data["issue_severity"]
+            if isinstance(sev, int) or sev.isdigit():
+                sev = int(sev)
+                if sev <= 3:
+                    severity = constants.SEVERITY_LOW
+                elif sev <= 5:
+                    severity = constants.MEDIUM
+                elif sev <= 8:
+                    severity = constants.HIGH
+                elif sev > 8:
+                    severity = constants.CRITICAL
+        return severity
+
+    def get_lineno(self, data):
+        """Extract line number with any int conversion"""
+        lineno = 1
+        if "line_number" in data:
+            lineno = data["line_number"]
+        elif "line" in data:
+            lineno = data["line"]
+        if isinstance(lineno, str) and lineno.isdigit():
+            lineno = int(lineno)
+        return lineno
 
     def from_dict(self, data, with_code=True):
         if "code" in data:
@@ -139,10 +168,11 @@ class Issue(object):
             self.code = data["lines"]
         if "filename" in data:
             self.fname = data["filename"]
+        if "file" in data:
+            self.fname = data["file"]
         if "path" in data:
             self.fname = data["path"]
-        if "issue_severity" in data:
-            self.severity = data["issue_severity"]
+        self.severity = self.find_severity(data)
         if "issue_confidence" in data:
             self.confidence = data["issue_confidence"]
         if "issue_text" in data:
@@ -155,12 +185,13 @@ class Issue(object):
             self.test = data["test_name"]
         if "title" in data:
             self.test = data["title"]
+        if "rule" in data:
+            self.test = data["rule"]
+        if "rule_set" in data:
+            self.test_id = data["rule_set"]
         if "test_id" in data:
             self.test_id = data["test_id"]
-        if "line_number" in data:
-            self.lineno = data["line_number"]
-        if "line" in data:
-            self.lineno = data["line"]
+        self.lineno = self.get_lineno(data)
         if "line_range" in data:
             self.linerange = data["line_range"]
 

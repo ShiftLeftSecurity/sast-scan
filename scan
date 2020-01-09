@@ -405,6 +405,13 @@ def pmd_scan(src, reports_dir, convert):
         os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
     ]
     exec_tool(pmd_args, src)
+    if convert:
+        crep_fname = get_report_file(
+            "pmd", reports_dir, convert, ext_name="sarif"
+        )
+        convertLib.convert_file(
+            pmd_cmd, pmd_args[1:], src, report_fname, crep_fname
+        )
 
 
 def findsecbugs_scan(src, reports_dir, convert):

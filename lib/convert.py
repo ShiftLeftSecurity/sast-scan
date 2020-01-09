@@ -5,7 +5,9 @@ import logging
 import pathlib
 import sys
 import urllib.parse as urlparse
+
 from lib.issue import issue_from_dict
+import lib.csv_parser as csv_parser
 
 import sarif_om as om
 from jschema_to_python.to_json import to_json
@@ -25,8 +27,10 @@ def extract_from_file(tool_name, report_file):
     issues = []
     metrics = {}
     skips = []
+    extn = pathlib.PurePosixPath(report_file).suffix
+
     with io.open(report_file, "r") as rfile:
-        if pathlib.PurePosixPath(report_file).suffix == ".json":
+        if extn == ".json":
             report_data = json.loads(rfile.read())
             # NodeJsScan uses sec_issues
             if "sec_issues" in report_data:
@@ -40,6 +44,10 @@ def extract_from_file(tool_name, report_file):
                 metrics["total_count"] = report_data["total_count"]
             if "vuln_count" in report_data:
                 metrics["vuln_count"] = report_data["vuln_count"]
+        if extn == ".csv":
+            headers, issues = csv_parser.get_report_data(rfile)
+            metrics = {"total": len(issues)}
+
     return issues, metrics, skips
 
 
