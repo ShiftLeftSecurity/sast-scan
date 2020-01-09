@@ -1,0 +1,34 @@
+# Use jobs to seperate SAST scans from build and deployments
+jobs:
+  - job: SastScans
+    displayName: "Run SAST scan"
+    pool:
+      vmImage: "Ubuntu 16.04"
+    steps:
+      # Pull the sast-scan image from the container registry. Feel free to cache it locally within acr, ecr or gcr to
+      # improve performance and security
+      - script: docker pull quay.io/appthreat/sast-scan
+      # This step assumes that python source code are inside a directory called python
+      - script: |
+          docker run -v $(Build.SourcesDirectory)/python:/app quay.io/appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
+        displayName: "Python scan"
+      # This step assumes that node.js source code are inside a directory called javascript
+      - script: |
+          docker run -v $(Build.SourcesDirectory)/javascript:/app quay.io/appthreat/sast-scan scan --src /app --type nodejs --out_dir /app/reports
+        displayName: "Node.js scan"
+      # Bring together all the .sarif files to a directory called CodeAnalysisLogs
+      - task: CopyFiles@2
+        displayName: "Copy analysis logs"
+        inputs:
+          SourceFolder: "$(Build.SourcesDirectory)"
+          Contents: "**/*.sarif"
+          TargetFolder: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
+          flattenFolders: true
+      # To integrate with the SARIF Azure DevOps Extension it is necessary to publish the CodeAnalysisLogs folder
+      # as an artifact with the same name
+      - task: PublishBuildArtifacts@1
+        displayName: "Publish analysis logs"
+        inputs:
+          PathtoPublish: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
+          ArtifactName: "CodeAnalysisLogs"
+          publishLocation: "Container"

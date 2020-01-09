@@ -96,6 +96,16 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=sariftools.sarif-viewer-build-tab
 
+Example reports:
+
+![Online viewer](docs/sarif-online-viewer.png)
+
+![Azure DevOps integration](docs/azure-devops.png)
+
+## Integration with Azure DevOps
+
+Refer to the sample yaml [configuration](docs/azure-pipelines.yml.sample) to add sast-scan to an Azure DevOps pipeline.
+
 ## Integration with GitHub action
 
 This tool can be used with GitHub actions using this [action](https://github.com/marketplace/actions/sast-scan). All the supported languages can be used.
