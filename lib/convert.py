@@ -238,18 +238,52 @@ def level_from_severity(severity):
 
 
 def add_region_and_context_region(physical_location, line_number, code):
-    snippet_lines = code.split("\n")
-    snippet_line = snippet_lines[0]
+    first_line_number, snippet_lines = parse_code(code)
+    index = line_number - first_line_number
+    snippet_line = ""
+    if len(snippet_lines) >= index:
+        snippet_line = snippet_lines[index]
 
     physical_location.region = om.Region(
         start_line=line_number, snippet=om.ArtifactContent(text=snippet_line)
     )
 
     physical_location.context_region = om.Region(
-        start_line=line_number,
-        end_line=line_number + len(snippet_lines) - 1,
-        snippet=om.ArtifactContent(text="\n".join(snippet_lines)),
+        start_line=first_line_number,
+        end_line=first_line_number + len(snippet_lines) - 1,
+        snippet=om.ArtifactContent(text="".join(snippet_lines)),
     )
+
+
+def parse_code(code):
+    code_lines = code.split("\n")
+
+    # The last line from the split has nothing in it; it's an artifact of the
+    # last "real" line ending in a newline. Unless, of course, it doesn't:
+    last_line = code_lines[len(code_lines) - 1]
+
+    last_real_line_ends_in_newline = False
+    if len(last_line) == 0:
+        code_lines.pop()
+        last_real_line_ends_in_newline = True
+
+    snippet_lines = []
+    first = True
+    first_line_number = 1
+    for code_line in code_lines:
+        number_and_snippet_line = code_line.split(" ", 1)
+        if first:
+            first_line_number = int(number_and_snippet_line[0])
+            first = False
+
+        snippet_line = number_and_snippet_line[1] + "\n"
+        snippet_lines.append(snippet_line)
+
+    if not last_real_line_ends_in_newline:
+        last_line = snippet_lines[len(snippet_lines) - 1]
+        snippet_lines[len(snippet_lines) - 1] = last_line[: len(last_line) - 1]
+
+    return first_line_number, snippet_lines
 
 
 def get_url(rule_id, test_name):

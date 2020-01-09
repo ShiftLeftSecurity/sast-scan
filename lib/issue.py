@@ -2,6 +2,8 @@
 
 import linecache
 
+from six import moves
+
 import lib.constants as constants
 
 
@@ -97,7 +99,7 @@ class Issue(object):
         lmax = lmin + len(self.linerange) + max_lines - 1
 
         tmplt = "%i\t%s" if tabbed else "%i %s"
-        for line in range(lmin, lmax):
+        for line in moves.xrange(lmin, lmax):
             text = linecache.getline(self.fname, line)
 
             if isinstance(text, bytes):
@@ -126,7 +128,7 @@ class Issue(object):
             "code": self.code,
         }
 
-        if with_code and not self.code:
+        if with_code:
             out["code"] = self.get_code()
         return out
 
