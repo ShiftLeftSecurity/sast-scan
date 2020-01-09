@@ -9,8 +9,7 @@ import sys
 import io
 import tempfile
 
-sys.path.insert(0, "lib")
-import convert as convertLib
+import lib.convert as convertLib
 
 at_logo = """
   ___            _____ _                    _

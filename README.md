@@ -10,25 +10,25 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 
 ## Bundled tools
 
-| Programming Language | Tools                                 |
-| -------------------- | ------------------------------------- |
-| ansible              | ansible-lint                          |
-| aws                  | cfn-lint, cfn_nag                     |
-| bash                 | shellcheck                            |
-| bom                  | cdxgen                                |
-| Credential scanning  | gitleaks                              |
-| golang               | gosec, staticcheck                    |
-| java                 | cdxgen, gradle, pmd, dependency-check |
-| json                 | jq, jsondiff, jsonschema              |
-| kotlin               | detekt                                |
-| kubernetes           | kube-score                            |
-| node.js              | cdxgen, retire, eslint, yarn          |
-| puppet               | puppet-lint                           |
-| python               | bandit, cdxgen, ossaudit, pipenv      |
-| ruby                 | railroader, cyclonedx-ruby            |
-| rust                 | cargo-audit                           |
-| terraform            | tfsec                                 |
-| yaml                 | yamllint                              |
+| Programming Language | Tools                                    |
+| -------------------- | ---------------------------------------- |
+| ansible              | ansible-lint                             |
+| aws                  | cfn-lint, cfn_nag                        |
+| bash                 | shellcheck                               |
+| bom                  | cdxgen                                   |
+| Credential scanning  | gitleaks                                 |
+| golang               | gosec, staticcheck                       |
+| java                 | cdxgen, gradle, pmd, dependency-check    |
+| json                 | jq, jsondiff, jsonschema                 |
+| kotlin               | detekt                                   |
+| kubernetes           | kube-score                               |
+| node.js              | cdxgen, NodeJsScan, retire, eslint, yarn |
+| puppet               | puppet-lint                              |
+| python               | bandit, cdxgen, ossaudit, pipenv         |
+| ruby                 | railroader, cyclonedx-ruby               |
+| rust                 | cargo-audit                              |
+| terraform            | tfsec                                    |
+| yaml                 | yamllint                                 |
 
 ## Bundled languages/runtime
 
@@ -96,6 +96,11 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=sariftools.sarif-viewer-build-tab
 
+### Tools enabled for SARIF conversion
+
+- Python - bandit
+- Node.js - NodeJsScan
+
 **Example reports:**
 
 Online viewer can be used to manually upload the .sarif files as shown.
@@ -113,6 +118,28 @@ Refer to the sample yaml [configuration](docs/azure-pipelines.yml.sample) to add
 ## Integration with GitHub action
 
 This tool can be used with GitHub actions using this [action](https://github.com/marketplace/actions/sast-scan). All the supported languages can be used.
+
+## Integration with Google CloudBuild
+
+Use this [custom builder](https://github.com/CloudBuildr/google-custom-builders/tree/master/sast-scan) to add sast-scan as a build step.
+
+The full steps are reproduced below.
+
+1. Add the custom builder to your project
+
+```bash
+git clone https://github.com/CloudBuildr/google-custom-builders.git
+cd google-custom-builders/sast-scan
+gcloud builds submit --config cloudbuild.yaml .
+```
+
+2. Use it in cloudbuild.yaml
+
+```yaml
+steps:
+  - name: "gcr.io/$PROJECT_ID/sast-scan"
+    args: ["--type", "python"]
+```
 
 ## Alternatives
 
