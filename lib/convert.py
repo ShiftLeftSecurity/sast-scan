@@ -2,7 +2,9 @@ import datetime
 import io
 import json
 import logging
+import os
 import pathlib
+import re
 import sys
 import urllib.parse as urlparse
 
@@ -16,6 +18,10 @@ from jschema_to_python.to_json import to_json
 LOG = logging.getLogger(__name__)
 
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+WORKSPACE_PREFIX = None
+if "WORKSPACE" in os.environ:
+    WORKSPACE_PREFIX = os.environ["WORKSPACE"]
 
 
 def extract_from_file(tool_name, report_file, file_path_list=None):
@@ -118,6 +124,7 @@ def report(
     tool_args_str = tool_args
     if isinstance(tool_args, list):
         tool_args_str = " ".join(tool_args)
+
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
         version="2.1.0",
@@ -160,7 +167,7 @@ def report(
     invocation = run.invocations[0]
 
     add_skipped_file_notifications(skips, invocation)
-    add_results(issues, run, file_path_list)
+    add_results(issues, run, file_path_list, working_dir)
 
     serialized_log = to_json(log)
 
@@ -205,12 +212,13 @@ def add_skipped_file_notifications(skips, invocation):
         invocation.tool_configuration_notifications.append(notification)
 
 
-def add_results(issues, run, file_path_list=None):
+def add_results(issues, run, file_path_list=None, working_dir=None):
     """Method to convert issues into results schema
 
     :param issues: Issues found
     :param run: Run object
     :param file_path_list: Full file path for any manipulation
+    :param working_dir: Working directory
     """
     if run.results is None:
         run.results = []
@@ -218,20 +226,25 @@ def add_results(issues, run, file_path_list=None):
     rules = {}
     rule_indices = {}
     for issue in issues:
-        result = create_result(issue, rules, rule_indices, file_path_list)
+        result = create_result(
+            issue, rules, rule_indices, file_path_list, working_dir
+        )
         run.results.append(result)
 
     if len(rules) > 0:
         run.tool.driver.rules = list(rules.values())
 
 
-def create_result(issue, rules, rule_indices, file_path_list=None):
+def create_result(
+    issue, rules, rule_indices, file_path_list=None, working_dir=None
+):
     """Method to convert a single issue into result schema with rules
 
     :param issue: Issues object
     :param rules: List of rules
     :param rule_indices: Indices of referred rules
     :param file_path_list: Full file path for any manipulation
+    :param working_dir: Working directory
     """
     if isinstance(issue, dict):
         issue = issue_from_dict(issue)
@@ -240,10 +253,14 @@ def create_result(issue, rules, rule_indices, file_path_list=None):
 
     rule, rule_index = create_or_find_rule(issue_dict, rules, rule_indices)
 
+    # Substitute workspace prefix
+    # Override file path prefix with workspace
+    filename = issue_dict["filename"]
+    if working_dir and WORKSPACE_PREFIX and filename.startswith(working_dir):
+        filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
+
     physical_location = om.PhysicalLocation(
-        artifact_location=om.ArtifactLocation(
-            uri=to_uri(issue_dict["filename"])
-        )
+        artifact_location=om.ArtifactLocation(uri=to_uri(filename))
     )
 
     add_region_and_context_region(

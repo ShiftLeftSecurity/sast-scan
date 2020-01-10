@@ -10,6 +10,7 @@ import io
 import tempfile
 
 import lib.convert as convertLib
+import lib.config as config
 
 at_logo = """
   ___            _____ _                    _
@@ -21,106 +22,6 @@ at_logo = """
       | |   | |
       |_|   |_|
 """
-
-"""
-Supported language scan types
-"""
-scan_types = [
-    "ansible",
-    "aws",
-    "bash",
-    "bom",
-    "credscan",
-    "golang",
-    "java",
-    "kotlin",
-    "kubernetes",
-    "nodejs",
-    "puppet",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "yaml",
-]
-
-
-ignore_directories = [
-    ".git",
-    ".svn",
-    ".mvn",
-    ".idea",
-    "dist",
-    "bin",
-    "obj",
-    "backup",
-    "docs",
-    "tests",
-    "test",
-    "tmp",
-    "reports",
-]
-
-
-"""
-Mapping for application types to scan tools for projects requiring just a single tool
-"""
-scan_tools_args_map = {
-    "ansible": [
-        "ansible-lint",
-        *["--exclude " + d for d in ignore_directories],
-        "--parseable-severity",
-        "*.yml",
-    ],
-    "aws": ["cfn-lint", "-f", "json", "-e", "%(src)s/**/*.yaml"],
-    "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
-    "credscan": [
-        "gitleaks",
-        "--repo-path=%(src)s",
-        "--report=%(report_fname_prefix)s.json",
-        "--report-format=json",
-    ],
-    "bash": [
-        "shellcheck",
-        "-a",
-        "--shell=%(type)s",
-        "-f",
-        "json",
-        "-S",
-        "info",
-        "--color=never",
-        "(filelist=sh)",
-    ],
-    "golang": [
-        "gosec",
-        "-fmt=json",
-        "-out=%(report_fname_prefix)s.json",
-        "%(src)s",
-    ],
-    "kotlin": [
-        "java",
-        "-jar",
-        "/usr/local/bin/detekt-cli.jar",
-        "-i",
-        "%(src)s",
-        "-r",
-        "xml:%(report_fname_prefix)s.xml",
-    ],
-    "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
-    "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
-    "ruby": [
-        "railroader",
-        "--skip-files",
-        ",".join(ignore_directories),
-        "-o",
-        "%(report_fname_prefix)s.json",
-        "-q",
-        "%(src)s",
-    ],
-    "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
-    "terraform": ["tfsec", "--no-colour", "%(src)s"],
-    "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
-}
 
 
 def build_args():
@@ -139,7 +40,7 @@ def build_args():
     parser.add_argument(
         "--type",
         dest="scan_type",
-        choices=scan_types,
+        choices=config.scan_types,
         help="Override project type if auto-detection is incorrect",
     )
     parser.add_argument(
@@ -163,9 +64,11 @@ def scan(type, src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     if type:
-        if scan_tools_args_map.get(type):
+        if config.scan_tools_args_map.get(type):
             report_fname_prefix = os.path.join(reports_dir, type + "-report")
-            default_cmd = " ".join(scan_tools_args_map.get(type)) % dict(
+            default_cmd = " ".join(
+                config.scan_tools_args_map.get(type)
+            ) % dict(
                 src=src,
                 reports_dir=reports_dir,
                 report_fname_prefix=report_fname_prefix,
@@ -289,7 +192,7 @@ def bandit_scan(src, reports_dir, convert):
         "-ll",
         *convert_args,
         "-x",
-        ",".join(ignore_directories),
+        ",".join(config.ignore_directories),
         src,
     ]
     exec_tool(bandit_args)
@@ -410,7 +313,11 @@ def pmd_scan(src, reports_dir, convert):
             "pmd", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "pmd", pmd_args[1:], src, report_fname, crep_fname
+            config.tool_purpose_message["pmd"],
+            pmd_args[1:],
+            src,
+            report_fname,
+            crep_fname,
         )
 
 
@@ -464,7 +371,7 @@ def findsecbugs_scan(src, reports_dir, convert):
                 "findsecbugs", reports_dir, convert, ext_name="sarif"
             )
             convertLib.convert_file(
-                "findsecbugs",
+                config.tool_purpose_message["findsecbugs"],
                 findsec_args[1:],
                 src,
                 report_fname,
@@ -494,7 +401,7 @@ def dep_check_scan(src, reports_dir, convert):
         *convert_args,
         "--enableExperimental",
         "--exclude",
-        ",".join(ignore_directories),
+        ",".join(config.ignore_directories),
     ]
     exec_tool(dc_args, src)
 
@@ -537,7 +444,11 @@ def sec_scan(src, reports_dir, convert):
             "nodejsscan", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            sec_cmd, sec_args[1:], src, report_fname, crep_fname
+            config.tool_purpose_message["nodejsscan"],
+            sec_args[1:],
+            src,
+            report_fname,
+            crep_fname,
         )
 
 
@@ -569,7 +480,7 @@ def retirejs_scan(src, reports_dir, convert):
         "-p",
         *convert_args,
         "--ignore",
-        ",".join(ignore_directories),
+        ",".join(config.ignore_directories),
     ]
     exec_tool(retire_args, src)
 
