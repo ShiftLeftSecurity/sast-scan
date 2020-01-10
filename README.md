@@ -10,25 +10,25 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 
 ## Bundled tools
 
-| Programming Language | Tools                                    |
-| -------------------- | ---------------------------------------- |
-| ansible              | ansible-lint                             |
-| aws                  | cfn-lint, cfn_nag                        |
-| bash                 | shellcheck                               |
-| bom                  | cdxgen                                   |
-| Credential scanning  | gitleaks                                 |
-| golang               | gosec, staticcheck                       |
-| java                 | cdxgen, gradle, pmd, dependency-check    |
-| json                 | jq, jsondiff, jsonschema                 |
-| kotlin               | detekt                                   |
-| kubernetes           | kube-score                               |
-| node.js              | cdxgen, NodeJsScan, retire, eslint, yarn |
-| puppet               | puppet-lint                              |
-| python               | bandit, cdxgen, ossaudit, pipenv         |
-| ruby                 | railroader, cyclonedx-ruby               |
-| rust                 | cargo-audit                              |
-| terraform            | tfsec                                    |
-| yaml                 | yamllint                                 |
+| Programming Language | Tools                                                |
+| -------------------- | ---------------------------------------------------- |
+| ansible              | ansible-lint                                         |
+| aws                  | cfn-lint, cfn_nag                                    |
+| bash                 | shellcheck                                           |
+| bom                  | cdxgen                                               |
+| Credential scanning  | gitleaks                                             |
+| golang               | gosec, staticcheck                                   |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd, dependency-check |
+| json                 | jq, jsondiff, jsonschema                             |
+| kotlin               | detekt                                               |
+| kubernetes           | kube-score                                           |
+| node.js              | cdxgen, NodeJsScan, retire, eslint, yarn             |
+| puppet               | puppet-lint                                          |
+| python               | bandit, cdxgen, ossaudit, pipenv                     |
+| ruby                 | railroader, cyclonedx-ruby                           |
+| rust                 | cargo-audit                                          |
+| terraform            | tfsec                                                |
+| yaml                 | yamllint                                             |
 
 ## Bundled languages/runtime
 
@@ -100,8 +100,9 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 
 - Python - bandit
 - Node.js - NodeJsScan
+- Java - pmd, find-sec-bugs
 
-**Example reports:**
+  **Example reports:**
 
 Online viewer can be used to manually upload the .sarif files as shown.
 
