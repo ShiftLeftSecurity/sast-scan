@@ -112,8 +112,6 @@ COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 
 USER root
 
-COPY scan /usr/local/src/
-COPY lib /usr/local/src/lib
 COPY requirements.txt /usr/local/src/
 COPY rules-pmd.xml /usr/local/src/
 COPY spotbugs /usr/local/src/spotbugs
@@ -124,8 +122,11 @@ RUN microdnf update -y \
     && pip3 install --no-cache-dir wheel bandit bandit_sarif_formatter ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
     && pip3 install -r /usr/local/src/requirements.txt \
     && npm install -g yarn retire @appthreat/cdxgen eslint \
-    && mkdir -p /.cache /opt/dependency-check/data \
-    && chmod +x /usr/local/src/scan \
+    && mkdir -p /.cache /opt/dependency-check/data
+
+COPY scan /usr/local/src/
+COPY lib /usr/local/src/lib
+RUN chmod +x /usr/local/src/scan \
     && microdnf clean all \
     && rm -rf /tmp/
 

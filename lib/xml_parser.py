@@ -23,9 +23,7 @@ def get_report_data(xmlfile, file_path_list=[]):
             if "priority" in child.attrib:
                 priority = child.attrib["priority"]
                 if priority in PRIORITY_MAP:
-                    issue["issue_severity"] = PRIORITY_MAP.get(
-                        priority, priority
-                    )
+                    issue["issue_severity"] = PRIORITY_MAP.get(priority, priority)
             if "cweid" in child.attrib and child.attrib["cweid"]:
                 issue["test_id"] = "CWE-" + child.attrib["cweid"]
             elif "type" in child.attrib and child.attrib["type"]:
@@ -36,9 +34,7 @@ def get_report_data(xmlfile, file_path_list=[]):
                 if ele.tag.lower() == "LongMessage".lower():
                     issue["description"] = ele.text
                 if ele.tag.lower() == "Message".lower():
-                    issue["description"] = (
-                        issue["description"] + " \n" + ele.text
-                    )
+                    issue["description"] = issue["description"] + " \n" + ele.text
                 if ele.tag.lower() == "SourceLine".lower() and (
                     ele.attrib.get("synthetic") == "true"
                     or ele.attrib.get("primary") == "true"

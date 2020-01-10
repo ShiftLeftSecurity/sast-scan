@@ -16,7 +16,7 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 | aws                  | cfn-lint, cfn_nag                                    |
 | bash                 | shellcheck                                           |
 | bom                  | cdxgen                                               |
-| Credential scanning  | gitleaks                                             |
+| credscan             | gitleaks                                             |
 | golang               | gosec, staticcheck                                   |
 | java                 | cdxgen, gradle, find-sec-bugs, pmd, dependency-check |
 | json                 | jq, jsondiff, jsonschema                             |
@@ -33,6 +33,7 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 ## Bundled languages/runtime
 
 - jq
+- Golang 1.12
 - Python 3.6
 - OpenJDK 11 (jre)
 - Ruby 2.5.5
@@ -53,7 +54,7 @@ docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --sr
 Scan multiple projects
 
 ```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type nodejs,python,yaml --out_dir /app/reports
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
 ```
 
 Scan java project
@@ -104,9 +105,11 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 
 ### Tools enabled for SARIF conversion
 
+- Credscan - gitleaks
 - Python - bandit
 - Node.js - NodeJsScan
 - Java - pmd, find-sec-bugs
+- Golang - gosec
 
 **Example reports:**
 
@@ -150,6 +153,6 @@ steps:
 
 ## Alternatives
 
-GitLab [SAST](https://docs.gitlab.com/ee/user/application_security/sast/) uses numerous single purpose [analyzers](https://gitlab.com/gitlab-org/security-products/analyzers) and GoLang based converters to produce a custom json format. This model has the downside of increasing build times since multiple container images should get downloaded and hence is not suitable for CI environments such as Azure Pipelines, CodeBuild and Google CloudBuild. Plus the license used by GitLab is not opensource even though the analyzers merely wrap existing oss tools!
+GitLab [SAST](https://docs.gitlab.com/ee/user/application_security/sast/) uses numerous single purpose [analyzers](https://gitlab.com/gitlab-org/security-products/analyzers) and Go based converters to produce a custom json format. This model has the downside of increasing build times since multiple container images should get downloaded and hence is not suitable for CI environments such as Azure Pipelines, CodeBuild and Google CloudBuild. Plus the license used by GitLab is not opensource even though the analyzers merely wrap existing oss tools!
 
 MIR [SWAMP](https://www.mir-swamp.org/) is a free online service for running both oss and commercial static analysis for a number of languages simillar to sast-scan. There is a free SWAMP-in-a-box offering but the setup is a bit cumbersome. They use a xml format called SCARF with a number of perl based converters. SARIF, in contrast, is json based and is much easier to work with for integration and UI purposes. By adopting python, sast-scan is a bit easy to work with for customisation.

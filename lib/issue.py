@@ -31,9 +31,7 @@ class Issue(object):
         self.linerange = []
 
     def __str__(self):
-        return (
-            "Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i"
-        ) % (
+        return ("Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i") % (
             self.text,
             self.test_id,
             (self.ident or self.test),
@@ -55,8 +53,7 @@ class Issue(object):
             "test_id",
         ]
         return all(
-            getattr(self, field) == getattr(other, field)
-            for field in match_types
+            getattr(self, field) == getattr(other, field) for field in match_types
         )
 
     def __ne__(self, other):
@@ -83,9 +80,9 @@ class Issue(object):
 
         """
         rank = constants.RANKING
-        return rank.index(self.severity) >= rank.index(
-            severity
-        ) and rank.index(self.confidence) >= rank.index(confidence)
+        return rank.index(self.severity) >= rank.index(severity) and rank.index(
+            self.confidence
+        ) >= rank.index(confidence)
 
     def get_code(self, max_lines=3, tabbed=False):
         """Gets lines of code from a file the generated this issue.
@@ -149,20 +146,30 @@ class Issue(object):
                     severity = "HIGH"
                 elif sev > 8:
                     severity = "CRITICAL"
+        if "severity" in data:
+            severity = data["severity"]
+        if "commit" in data:
+            severity = "HIGH"
         return severity
 
     def get_lineno(self, data):
         """Extract line number with any int conversion"""
         lineno = 1
+        tmp_no = 1
         if "line_number" in data:
-            lineno = data["line_number"]
+            tmp_no = data["line_number"]
         elif "line" in data:
-            lineno = data["line"]
-        if isinstance(lineno, str) and lineno.isdigit():
-            lineno = int(lineno)
+            tmp_no = data["line"]
+        if isinstance(tmp_no, str) and tmp_no.isdigit():
+            lineno = int(tmp_no)
         return lineno
 
     def from_dict(self, data, with_code=True):
+        """Construct an issue from dictionary of values from the tools
+
+        :param data: Data dictionary from the tools
+        :param with_code: Boolean indicating if code snippet should get added
+        """
         if "code" in data:
             self.code = data["code"]
         if "lines" in data:
@@ -176,10 +183,18 @@ class Issue(object):
         self.severity = self.find_severity(data)
         if "issue_confidence" in data:
             self.confidence = data["issue_confidence"]
+        if "confidence" in data:
+            self.confidence = data["confidence"]
         if "issue_text" in data:
             self.text = data["issue_text"]
         if "title" in data:
             self.text = data["title"]
+        if "commitMessage" in data and "commit" in data:
+            self.text = "Commit: {}\nLine: {}\n\nMessage: {}".format(
+                data.get("commit", ""), data.get("line"), data.get("commitMessage", "")
+            )
+        if "details" in data:
+            self.text = data["details"]
         if "description" in data:
             self.text = data["description"]
         if "test_name" in data:
@@ -192,6 +207,8 @@ class Issue(object):
             self.test_id = data["rule_set"]
         if "test_id" in data:
             self.test_id = data["test_id"]
+        if "rule_id" in data:
+            self.test_id = data["rule_id"]
         self.lineno = self.get_lineno(data)
         if "line_range" in data:
             self.linerange = data["line_range"]

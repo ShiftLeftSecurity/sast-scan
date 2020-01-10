@@ -41,18 +41,27 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
     with io.open(report_file, "r") as rfile:
         if extn == ".json":
             report_data = json.loads(rfile.read())
-            # NodeJsScan uses sec_issues
-            if "sec_issues" in report_data:
-                sec_data = report_data["sec_issues"]
-                for key, value in sec_data.items():
-                    if isinstance(value, list):
-                        issues = issues + value
-                    else:
-                        issues = issues.append(value)
-            if "total_count" in report_data:
-                metrics["total_count"] = report_data["total_count"]
-            if "vuln_count" in report_data:
-                metrics["vuln_count"] = report_data["vuln_count"]
+            if isinstance(report_data, list):
+                issues = report_data
+                metrics = {"total": len(issues)}
+            else:
+                # NodeJsScan uses sec_issues
+                if "sec_issues" in report_data:
+                    sec_data = report_data["sec_issues"]
+                    for key, value in sec_data.items():
+                        if isinstance(value, list):
+                            issues = issues + value
+                        else:
+                            issues.append(value)
+                if "Issues" in report_data:
+                    for issue in report_data["Issues"]:
+                        issues.append(issue)
+                if "total_count" in report_data:
+                    metrics["total_count"] = report_data["total_count"]
+                if "vuln_count" in report_data:
+                    metrics["vuln_count"] = report_data["vuln_count"]
+                if "Stats" in report_data:
+                    metrics = report_data["Stats"]
         if extn == ".csv":
             headers, issues = csv_parser.get_report_data(rfile)
             metrics = {"total": len(issues)}
@@ -63,12 +72,7 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
 
 
 def convert_file(
-    tool_name,
-    tool_args,
-    working_dir,
-    report_file,
-    converted_file,
-    file_path_list=None,
+    tool_name, tool_args, working_dir, report_file, converted_file, file_path_list=None,
 ):
     """Convert report file
 
@@ -81,9 +85,7 @@ def convert_file(
 
     :return serialized_log: SARIF output data
     """
-    issues, metrics, skips = extract_from_file(
-        tool_name, report_file, file_path_list
-    )
+    issues, metrics, skips = extract_from_file(tool_name, report_file, file_path_list)
     return report(
         tool_name,
         tool_args,
@@ -133,13 +135,9 @@ def report(
                 tool=om.Tool(driver=om.ToolComponent(name=tool_name)),
                 invocations=[
                     om.Invocation(
-                        end_time_utc=datetime.datetime.utcnow().strftime(
-                            TS_FORMAT
-                        ),
+                        end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
                         execution_successful=True,
-                        working_directory=om.ArtifactLocation(
-                            uri=to_uri(working_dir)
-                        ),
+                        working_directory=om.ArtifactLocation(uri=to_uri(working_dir)),
                     )
                 ],
                 conversion={
@@ -150,12 +148,8 @@ def report(
                         execution_successful=True,
                         command_line=tool_args_str,
                         arguments=tool_args,
-                        working_directory=om.ArtifactLocation(
-                            uri=to_uri(working_dir)
-                        ),
-                        end_time_utc=datetime.datetime.utcnow().strftime(
-                            TS_FORMAT
-                        ),
+                        working_directory=om.ArtifactLocation(uri=to_uri(working_dir)),
+                        end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
                     ),
                 },
                 properties={"metrics": metrics},
@@ -201,9 +195,7 @@ def add_skipped_file_notifications(skips, invocation):
             locations=[
                 om.Location(
                     physical_location=om.PhysicalLocation(
-                        artifact_location=om.ArtifactLocation(
-                            uri=to_uri(file_name)
-                        )
+                        artifact_location=om.ArtifactLocation(uri=to_uri(file_name))
                     )
                 )
             ],
@@ -226,18 +218,14 @@ def add_results(issues, run, file_path_list=None, working_dir=None):
     rules = {}
     rule_indices = {}
     for issue in issues:
-        result = create_result(
-            issue, rules, rule_indices, file_path_list, working_dir
-        )
+        result = create_result(issue, rules, rule_indices, file_path_list, working_dir)
         run.results.append(result)
 
     if len(rules) > 0:
         run.tool.driver.rules = list(rules.values())
 
 
-def create_result(
-    issue, rules, rule_indices, file_path_list=None, working_dir=None
-):
+def create_result(issue, rules, rule_indices, file_path_list=None, working_dir=None):
     """Method to convert a single issue into result schema with rules
 
     :param issue: Issues object
@@ -360,11 +348,12 @@ def get_url(rule_id, test_name):
     # Return stackoverflow url for now
     # FIXME: The world needs an opensource SAST issue database!
     if rule_id and rule_id.startswith("CWE"):
-        return (
-            "https://cwe.mitre.org/data/definitions/%s.html"
-            % rule_id.replace("CWE-", "")
+        return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
+            "CWE-", ""
         )
-    return "https://stackoverflow.com/search?q=" + test_name
+    return "https://stackoverflow.com/search?q=appthreat/sast-scan+{}+{}".format(
+        rule_id, test_name
+    )
 
 
 def create_or_find_rule(issue_dict, rules, rule_indices):

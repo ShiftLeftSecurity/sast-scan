@@ -32,17 +32,12 @@ def build_args():
     parser = argparse.ArgumentParser(
         description="Wrapper for various static analysis tools"
     )
-    parser.add_argument(
-        "--src", dest="src_dir", help="Source directory", required=True
-    )
-    parser.add_argument(
-        "--out_dir", dest="reports_dir", help="Reports directory"
-    )
+    parser.add_argument("--src", dest="src_dir", help="Source directory", required=True)
+    parser.add_argument("--out_dir", dest="reports_dir", help="Reports directory")
     parser.add_argument(
         "--type",
         dest="scan_type",
-        choices=config.scan_types,
-        help="Override project type if auto-detection is incorrect",
+        help="Override project type if auto-detection is incorrect. Comma separated values for multiple types. Eg: python,bash,credscan",
     )
     parser.add_argument(
         "--convert",
@@ -66,10 +61,10 @@ def scan(type_list, src, reports_dir, convert):
     """
     for type in type_list:
         if config.scan_tools_args_map.get(type):
+            os.makedirs(reports_dir, exist_ok=True)
             report_fname_prefix = os.path.join(reports_dir, type + "-report")
-            default_cmd = " ".join(
-                config.scan_tools_args_map.get(type)
-            ) % dict(
+            report_fname = report_fname_prefix + ".json"
+            default_cmd = " ".join(config.scan_tools_args_map.get(type)) % dict(
                 src=src,
                 reports_dir=reports_dir,
                 report_fname_prefix=report_fname_prefix,
@@ -84,9 +79,9 @@ def scan(type_list, src, reports_dir, convert):
                     outext = ".json"
                 if default_cmd.find("sarif") > -1:
                     outext = ".sarif"
-                fname = report_fname_prefix + outext
-                stdout = io.open(fname, "w")
-                print("Output will be written to", fname)
+                report_fname = report_fname_prefix + outext
+                stdout = io.open(report_fname, "w")
+                print("Output will be written to", report_fname)
 
             # If the command is requesting list of files then construct the argument
             filelist_prefix = "(filelist="
@@ -98,11 +93,22 @@ def scan(type_list, src, reports_dir, convert):
                 default_cmd = default_cmd.replace(
                     filelist_prefix + ext + ")", " ".join(filelist)
                 )
-            exec_tool(default_cmd.split(" "), cwd=src, stdout=stdout)
+            cmd_with_args = default_cmd.split(" ")
+            exec_tool(cmd_with_args, cwd=src, stdout=stdout)
+            # Should we attempt to convert the report to sarif format
+            if convert and config.tool_purpose_message.get(cmd_with_args[0]):
+                crep_fname = get_report_file(
+                    type, reports_dir, convert, ext_name="sarif"
+                )
+                convertLib.convert_file(
+                    config.tool_purpose_message.get(cmd_with_args[0]),
+                    cmd_with_args[1:],
+                    src,
+                    report_fname,
+                    crep_fname,
+                )
         else:
-            getattr(sys.modules[__name__], "%s_scan" % type)(
-                src, reports_dir, convert
-            )
+            getattr(sys.modules[__name__], "%s_scan" % type)(src, reports_dir, convert)
 
 
 def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
@@ -140,9 +146,7 @@ def get_report_file(tool_name, reports_dir, convert, ext_name="json"):
     report_fname = ""
     if reports_dir:
         os.makedirs(reports_dir, exist_ok=True)
-        report_fname = os.path.join(
-            reports_dir, tool_name + "-report." + ext_name
-        )
+        report_fname = os.path.join(reports_dir, tool_name + "-report." + ext_name)
     else:
         fp = tempfile.NamedTemporaryFile(delete=False)
         report_fname = fp.name
@@ -265,9 +269,7 @@ def pmd_scan(src, reports_dir, convert):
     ]
     exec_tool(pmd_args, src)
     if convert:
-        crep_fname = get_report_file(
-            "pmd", reports_dir, convert, ext_name="sarif"
-        )
+        crep_fname = get_report_file("pmd", reports_dir, convert, ext_name="sarif")
         convertLib.convert_file(
             config.tool_purpose_message["pmd"],
             pmd_args[1:],
@@ -286,9 +288,7 @@ def findsecbugs_scan(src, reports_dir, convert):
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
     """
-    report_fname = get_report_file(
-        "findsecbugs", reports_dir, convert, ext_name="xml"
-    )
+    report_fname = get_report_file("findsecbugs", reports_dir, convert, ext_name="xml")
     findsec_cmd = [
         "java",
         "-jar",

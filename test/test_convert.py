@@ -9,9 +9,7 @@ import tempfile
 
 
 def test_nodejsscan_convert_empty():
-    with tempfile.NamedTemporaryFile(
-        mode="w", encoding="utf-8", delete=True
-    ) as cfile:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report("nodejsscan", [], ".", {}, {}, [], cfile.name)
         jsondata = json.loads(data)
         assert jsondata["runs"][0]["tool"]["driver"]["name"] == "nodejsscan"
@@ -20,9 +18,7 @@ def test_nodejsscan_convert_empty():
 
 
 def test_nodejsscan_convert_issue():
-    with tempfile.NamedTemporaryFile(
-        mode="w", encoding="utf-8", delete=True
-    ) as cfile:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report(
             "nodejsscan",
             [],
@@ -52,9 +48,7 @@ def test_nodejsscan_convert_issue():
 
 
 def test_nodejsscan_convert_metrics():
-    with tempfile.NamedTemporaryFile(
-        mode="w", encoding="utf-8", delete=True
-    ) as cfile:
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report(
             "nodejsscan",
             [],
@@ -77,7 +71,6 @@ def test_nodejsscan_convert_metrics():
 
 
 def test_create_result():
-
     issue = issueLib.issue_from_dict(
         {
             "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
@@ -95,7 +88,6 @@ def test_create_result():
         data.locations[0].physical_location.artifact_location.uri
         == "file:///app/src/CWE-916/examples/InsufficientPasswordHash.js"
     )
-
     # Override the workspace and check the location
     os.environ["WORKSPACE"] = "/foo/bar"
     importlib.reload(convertLib)
@@ -104,7 +96,6 @@ def test_create_result():
         data.locations[0].physical_location.artifact_location.uri
         == "file:///foo/bar/CWE-916/examples/InsufficientPasswordHash.js"
     )
-
     # Override the workspace and check the location
     os.environ["WORKSPACE"] = "https://github.com/appthreat/cdxgen/blob/master"
     importlib.reload(convertLib)
@@ -113,3 +104,59 @@ def test_create_result():
         data.locations[0].physical_location.artifact_location.uri
         == "https://github.com/appthreat/cdxgen/blob/master/CWE-916/examples/InsufficientPasswordHash.js"
     )
+
+
+def test_credscan_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "credscan",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "line": "VERY_SECRET_TOO = 'f6CGV4aMM9zedoh3OUNbSakBymo7yplB' ",
+                    "offender": "SECRET_TOO = 'f6CGV4aMM9zedoh3OUNbSakBymo7yplB'",
+                    "commit": "f5cf9d795d00ac5540f3ba26a1d98d9bc9c4bbbc",
+                    "repo": "app",
+                    "rule": "Generic Credential",
+                    "commitMessage": "password\n",
+                    "author": "Prabhu Subramanian",
+                    "email": "prabhu@ngcloud.io",
+                    "file": "README.md",
+                    "date": "2020-01-02T21:02:40Z",
+                    "tags": "key, API, generic",
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "credscan"
+        assert jsondata["runs"][0]["results"][0]["message"]["text"]
+
+
+def test_gosec_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "gosec",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "severity": "MEDIUM",
+                    "confidence": "HIGH",
+                    "rule_id": "G104",
+                    "details": "Errors unhandled.",
+                    "file": "/app/lib/plugins/capture/capture.go",
+                    "code": "io.Copy(reqbody, cwc.r.Request.Body)",
+                    "line": "57",
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "gosec"
+        assert jsondata["runs"][0]["results"][0]["message"]["text"]

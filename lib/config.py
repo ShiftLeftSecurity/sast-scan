@@ -54,6 +54,7 @@ scan_tools_args_map = {
     "credscan": [
         "gitleaks",
         "--repo-path=%(src)s",
+        "--redact",
         "--report=%(report_fname_prefix)s.json",
         "--report-format=json",
     ],
@@ -71,8 +72,10 @@ scan_tools_args_map = {
     "golang": [
         "gosec",
         "-fmt=json",
+        "-nosec",
+        "-no-fail",
         "-out=%(report_fname_prefix)s.json",
-        "%(src)s",
+        "./...",
     ],
     "kotlin": [
         "java",
@@ -107,5 +110,6 @@ tool_purpose_message = {
     "nodejsscan": "Static security code scan powered by NodeJsScan",
     "findsecbugs": "Security audit powered by Find Security Bugs",
     "pmd": "Static code analysis powered by PMD",
-    "credscan": "Secrets audit powered by gitleaks",
+    "gitleaks": "Secrets audit powered by gitleaks",
+    "gosec": "Golang security checks powered by gosec",
 }
