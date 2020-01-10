@@ -458,11 +458,18 @@ def findsecbugs_scan(src, reports_dir, convert):
         ]
         exec_tool(findsec_args, src)
         if convert:
+            # We need the filelist to fix the file location paths
+            j_files = find_files(src, ".java")
             crep_fname = get_report_file(
                 "findsecbugs", reports_dir, convert, ext_name="sarif"
             )
             convertLib.convert_file(
-                "findsecbugs", findsec_args[1:], src, report_fname, crep_fname
+                "findsecbugs",
+                findsec_args[1:],
+                src,
+                report_fname,
+                crep_fname,
+                j_files,
             )
 
 

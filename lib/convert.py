@@ -18,11 +18,13 @@ LOG = logging.getLogger(__name__)
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
-def extract_from_file(tool_name, report_file):
+def extract_from_file(tool_name, report_file, file_path_list=None):
     """Extract properties from reports
 
     :param tool_name: tool name
     :param report_file: Report file
+    :param file_path_list: Full file path for any manipulation
+
     :return issues, metrics, skips information
     """
     issues = []
@@ -49,13 +51,18 @@ def extract_from_file(tool_name, report_file):
             headers, issues = csv_parser.get_report_data(rfile)
             metrics = {"total": len(issues)}
         if extn == ".xml":
-            issues, metrics = xml_parser.get_report_data(rfile)
+            issues, metrics = xml_parser.get_report_data(rfile, file_path_list)
 
     return issues, metrics, skips
 
 
 def convert_file(
-    tool_name, tool_args, working_dir, report_file, converted_file
+    tool_name,
+    tool_args,
+    working_dir,
+    report_file,
+    converted_file,
+    file_path_list=None,
 ):
     """Convert report file
 
@@ -64,10 +71,13 @@ def convert_file(
     :param working_dir: Working directory
     :param report_file: Report file
     :param converted_file: Converted file
+    :param file_path_list: Full file path for any manipulation
 
     :return serialized_log: SARIF output data
     """
-    issues, metrics, skips = extract_from_file(tool_name, report_file)
+    issues, metrics, skips = extract_from_file(
+        tool_name, report_file, file_path_list
+    )
     return report(
         tool_name,
         tool_args,
@@ -76,11 +86,19 @@ def convert_file(
         skips,
         issues,
         converted_file,
+        file_path_list,
     )
 
 
 def report(
-    tool_name, tool_args, working_dir, metrics, skips, issues, crep_fname
+    tool_name,
+    tool_args,
+    working_dir,
+    metrics,
+    skips,
+    issues,
+    crep_fname,
+    file_path_list=None,
 ):
     """Prints issues in SARIF format
 
@@ -91,6 +109,7 @@ def report(
     :param skips: skips data
     :param issues: issues data
     :param crep_fname: The output file name
+    :param file_path_list: Full file path for any manipulation
 
     :return serialized_log: SARIF output data
     """
@@ -141,7 +160,7 @@ def report(
     invocation = run.invocations[0]
 
     add_skipped_file_notifications(skips, invocation)
-    add_results(issues, run)
+    add_results(issues, run, file_path_list)
 
     serialized_log = to_json(log)
 
@@ -181,11 +200,12 @@ def add_skipped_file_notifications(skips, invocation):
         invocation.tool_configuration_notifications.append(notification)
 
 
-def add_results(issues, run):
+def add_results(issues, run, file_path_list=None):
     """Method to convert issues into results schema
 
     :param issues: Issues found
     :param run: Run object
+    :param file_path_list: Full file path for any manipulation
     """
     if run.results is None:
         run.results = []
@@ -193,19 +213,20 @@ def add_results(issues, run):
     rules = {}
     rule_indices = {}
     for issue in issues:
-        result = create_result(issue, rules, rule_indices)
+        result = create_result(issue, rules, rule_indices, file_path_list)
         run.results.append(result)
 
     if len(rules) > 0:
         run.tool.driver.rules = list(rules.values())
 
 
-def create_result(issue, rules, rule_indices):
+def create_result(issue, rules, rule_indices, file_path_list=None):
     """Method to convert a single issue into result schema with rules
 
     :param issue: Issues object
     :param rules: List of rules
     :param rule_indices: Indices of referred rules
+    :param file_path_list: Full file path for any manipulation
     """
     if isinstance(issue, dict):
         issue = issue_from_dict(issue)

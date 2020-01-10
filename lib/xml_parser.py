@@ -1,13 +1,17 @@
 from defusedxml.ElementTree import parse
 
 
-def get_report_data(xmlfile):
+def get_report_data(xmlfile, file_path_list=[]):
     """Convert xml file to dict
 
     :param xmlfile: xml file to parse
+    :param file_path_list: Full file path for any manipulation
     """
     issues = []
     metrics = {}
+    file_ref = {}
+    if not file_path_list:
+        file_path_list = []
     et = parse(xmlfile)
     root = et.getroot()
     for child in root:
@@ -29,13 +33,21 @@ def get_report_data(xmlfile):
                     issue["description"] = (
                         issue["description"] + " \n" + ele.text
                     )
-                if (
-                    ele.tag.lower() == "SourceLine".lower()
-                    and "synthetic" in ele.attrib
-                    and ele.attrib["synthetic"] == "true"
+                if ele.tag.lower() == "SourceLine".lower() and (
+                    ele.attrib.get("synthetic") == "true"
+                    or ele.attrib.get("primary") == "true"
                 ):
                     issue["line"] = ele.attrib["start"]
-                    issue["filename"] = ele.attrib["sourcepath"]
+                    fname = ele.attrib["sourcepath"]
+                    if fname in file_ref:
+                        fname = file_ref[fname]
+                    else:
+                        for tf in file_path_list:
+                            if tf.endswith(fname):
+                                file_ref[fname] = tf
+                                fname = tf
+                                break
+                    issue["filename"] = fname
             issues.append(issue)
         if child.tag.lower() == "FindBugsSummary".lower():
             metrics = {"summary": child.attrib}
