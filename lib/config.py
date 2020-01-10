@@ -21,6 +21,7 @@ scan_types = [
 ]
 
 
+# Default ignore list
 ignore_directories = [
     ".git",
     ".svn",
@@ -103,7 +104,8 @@ scan_tools_args_map = {
 This map contains the purpose string for various tools
 """
 tool_purpose_message = {
-    "nodejsscan": "Static Security code scan powered by NodeJsScan",
+    "nodejsscan": "Static security code scan powered by NodeJsScan",
     "findsecbugs": "Security audit powered by Find Security Bugs",
     "pmd": "Static code analysis powered by PMD",
+    "credscan": "Secrets audit powered by gitleaks",
 }

@@ -3,14 +3,15 @@
 Multi-language static analysis scanner
 """
 import argparse
+import io
 import os
 import subprocess
 import sys
-import io
 import tempfile
 
-import lib.convert as convertLib
 import lib.config as config
+import lib.convert as convertLib
+import lib.utils as utils
 
 at_logo = """
   ___            _____ _                    _
@@ -53,17 +54,17 @@ def build_args():
     return parser.parse_args()
 
 
-def scan(type, src, reports_dir, convert):
+def scan(type_list, src, reports_dir, convert):
     """
     Method to initiate scan of the codebase
 
     Args:
-      type Project type
+      type_list List of project type
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
     """
-    if type:
+    for type in type_list:
         if config.scan_tools_args_map.get(type):
             report_fname_prefix = os.path.join(reports_dir, type + "-report")
             default_cmd = " ".join(
@@ -93,7 +94,7 @@ def scan(type, src, reports_dir, convert):
                 si = default_cmd.find(filelist_prefix)
                 ei = default_cmd.find(")", si + 10)
                 ext = default_cmd[si + 10 : ei]
-                filelist = find_files(src, ext)
+                filelist = utils.find_files(src, ext)
                 default_cmd = default_cmd.replace(
                     filelist_prefix + ext + ")", " ".join(filelist)
                 )
@@ -198,51 +199,6 @@ def bandit_scan(src, reports_dir, convert):
     exec_tool(bandit_args)
 
 
-def find_python_reqfiles(path):
-    """
-    Method to find python requirements files
-
-    Args:
-      path Project dir
-    """
-    result = []
-    req_files = ["requirements.txt", "Pipfile", "Pipfile.lock", "conda.yml"]
-    for root, dirs, files in os.walk(path):
-        for name in req_files:
-            if name in files:
-                result.append(os.path.join(root, name))
-    return result
-
-
-def find_jar_files():
-    """
-    Method to find jar files in the usual maven and gradle directories
-    """
-    result = []
-    jar_lib_path = [
-        os.path.join(os.environ["HOME"], ".m2"),
-        os.path.join(os.environ["HOME"], ".gradle", "caches"),
-    ]
-    for path in jar_lib_path:
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                if file.endswith(".jar"):
-                    result.append(os.path.join(root, file))
-    return result
-
-
-def find_files(src, ext_name):
-    """
-    Method to find files with given extenstion
-    """
-    result = []
-    for root, dirs, files in os.walk(src):
-        for file in files:
-            if file.endswith(ext_name):
-                result.append(os.path.join(root, file))
-    return result
-
-
 def ossaudit_scan(src, reports_dir, convert):
     """
     Method to initiate ossaudit scan of the python codebase
@@ -252,7 +208,7 @@ def ossaudit_scan(src, reports_dir, convert):
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
     """
-    reqfiles = find_python_reqfiles(src)
+    reqfiles = utils.find_python_reqfiles(src)
     if not reqfiles:
         return
     aargs = []
@@ -338,7 +294,7 @@ def findsecbugs_scan(src, reports_dir, convert):
         "-jar",
         os.environ["SPOTBUGS_HOME"] + "/lib/spotbugs.jar",
     ]
-    jar_files = find_jar_files()
+    jar_files = utils.find_jar_files()
     with tempfile.NamedTemporaryFile(mode="w") as fp:
         fp.writelines([str(x) + "\n" for x in jar_files])
         jars_list = fp.name
@@ -366,7 +322,7 @@ def findsecbugs_scan(src, reports_dir, convert):
         exec_tool(findsec_args, src)
         if convert:
             # We need the filelist to fix the file location paths
-            j_files = find_files(src, ".java")
+            j_files = utils.find_files(src, ".java")
             crep_fname = get_report_file(
                 "findsecbugs", reports_dir, convert, ext_name="sarif"
             )
@@ -502,8 +458,13 @@ def bomgen(src, reports_dir, convert):
 if __name__ == "__main__":
     args = build_args()
     type = args.scan_type
+    # Identify project type
+    if not type:
+        type = utils.detect_project_type(args.src_dir)
+    else:
+        type = type.split(",")
     print(at_logo)
-    print("Scanning", args.src_dir)
+    print("Scanning", args.src_dir, "using scan plugins:", type)
     scan(type, args.src_dir, args.reports_dir, args.convert)
     if args.reports_dir:
         print("Reports produced:")

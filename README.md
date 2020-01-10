@@ -42,6 +42,35 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 
 ## Usage
 
+### Scanning various project
+
+Scan python project
+
+```bash
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
+```
+
+Scan multiple projects
+
+```bash
+docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type nodejs,python,yaml --out_dir /app/reports
+```
+
+Scan java project
+
+For java and jvm language based projects, it is important to mount the volumes containing .m2 or .gradle directories. It is therefore necessary to compile the projects before invoking sast-scan in the dev and CI workflow.
+
+```bash
+docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
+
+# For gradle project
+docker run --rm --tmpfs /tmp -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
+```
+
+**Automatic project detection**
+
+Feel free to skip `--type` to enable auto-detection. Or pass comma-separated values if the project has multiple types.
+
 ### Invoking built-in tools
 
 Bandit
@@ -60,29 +89,6 @@ Retire.js
 
 ```bash
 docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan retire -p --path /app
-```
-
-### Using custom scan script
-
-Scan python project
-
-```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
-```
-
-Scan node.js project
-
-```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type nodejs --out_dir /app/reports
-```
-
-Scan java project
-
-```bash
-docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
-
-# For gradle project
-docker run --rm --tmpfs /tmp -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
 ```
 
 ## Viewing reports
