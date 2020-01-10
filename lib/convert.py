@@ -8,6 +8,7 @@ import urllib.parse as urlparse
 
 from lib.issue import issue_from_dict
 import lib.csv_parser as csv_parser
+import lib.xml_parser as xml_parser
 
 import sarif_om as om
 from jschema_to_python.to_json import to_json
@@ -47,6 +48,8 @@ def extract_from_file(tool_name, report_file):
         if extn == ".csv":
             headers, issues = csv_parser.get_report_data(rfile)
             metrics = {"total": len(issues)}
+        if extn == ".xml":
+            issues, metrics = xml_parser.get_report_data(rfile)
 
     return issues, metrics, skips
 
@@ -247,9 +250,12 @@ def level_from_severity(severity):
 
 def add_region_and_context_region(physical_location, line_number, code):
     first_line_number, snippet_lines = parse_code(code)
+    end_line_number = first_line_number + len(snippet_lines) - 1
+    if end_line_number < first_line_number:
+        end_line_number = first_line_number + 3
     index = line_number - first_line_number
     snippet_line = ""
-    if len(snippet_lines) >= index:
+    if len(snippet_lines) > index:
         snippet_line = snippet_lines[index]
 
     physical_location.region = om.Region(
@@ -258,7 +264,7 @@ def add_region_and_context_region(physical_location, line_number, code):
 
     physical_location.context_region = om.Region(
         start_line=first_line_number,
-        end_line=first_line_number + len(snippet_lines) - 1,
+        end_line=end_line_number,
         snippet=om.ArtifactContent(text="".join(snippet_lines)),
     )
 

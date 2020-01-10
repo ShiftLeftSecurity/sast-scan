@@ -410,7 +410,7 @@ def pmd_scan(src, reports_dir, convert):
             "pmd", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            pmd_cmd, pmd_args[1:], src, report_fname, crep_fname
+            "pmd", pmd_args[1:], src, report_fname, crep_fname
         )
 
 
@@ -457,6 +457,13 @@ def findsecbugs_scan(src, reports_dir, convert):
             src,
         ]
         exec_tool(findsec_args, src)
+        if convert:
+            crep_fname = get_report_file(
+                "findsecbugs", reports_dir, convert, ext_name="sarif"
+            )
+            convertLib.convert_file(
+                "findsecbugs", findsec_args[1:], src, report_fname, crep_fname
+            )
 
 
 def dep_check_scan(src, reports_dir, convert):

@@ -141,13 +141,13 @@ class Issue(object):
             if isinstance(sev, int) or sev.isdigit():
                 sev = int(sev)
                 if sev <= 3:
-                    severity = constants.SEVERITY_LOW
+                    severity = "LOW"
                 elif sev <= 5:
-                    severity = constants.MEDIUM
+                    severity = "MEDIUM"
                 elif sev <= 8:
-                    severity = constants.HIGH
+                    severity = "HIGH"
                 elif sev > 8:
-                    severity = constants.CRITICAL
+                    severity = "CRITICAL"
         return severity
 
     def get_lineno(self, data):
