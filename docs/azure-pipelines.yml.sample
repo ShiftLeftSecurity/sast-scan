@@ -12,10 +12,14 @@ jobs:
       - script: |
           docker run -v $(Build.SourcesDirectory)/python:/app quay.io/appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
         displayName: "Python scan"
+        env:
+          WORKSPACE: $(Build.Repository.Uri)?_a=contents&version=GB$(Build.SourceBranchName)&path=
       # This step assumes that node.js source code are inside a directory called javascript
       - script: |
           docker run -v $(Build.SourcesDirectory)/javascript:/app quay.io/appthreat/sast-scan scan --src /app --type nodejs --out_dir /app/reports
         displayName: "Node.js scan"
+        env:
+          WORKSPACE: $(Build.Repository.Uri)?_a=contents&version=GB$(Build.SourceBranchName)&path=
       # Bring together all the .sarif files to a directory called CodeAnalysisLogs
       - task: CopyFiles@2
         displayName: "Copy analysis logs"
