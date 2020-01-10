@@ -17,6 +17,7 @@ ENV GOSEC_VERSION=2.1.0 \
     JQ_VERSION=1.6 \
     DC_VERSION=5.2.4 \
     FSB_VERSION=1.10.1 \
+    FB_CONTRIB_VERSION=7.4.7 \
     SB_VERSION=4.0.0-beta4 \
     GOPATH=/opt/app-root/go \
     PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:/opt/dependency-check/bin/:${GOPATH}/bin:
@@ -71,7 +72,9 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl -LO "http://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/${SB_VERSION}/spotbugs-${SB_VERSION}.zip" \
     && unzip spotbugs-${SB_VERSION}.zip -d /opt/ \
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
-    && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar
+    && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
+    && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
+    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
 RUN gem install railroader cfn-nag puppet-lint cyclonedx-ruby
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal as tools

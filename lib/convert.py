@@ -304,7 +304,10 @@ def get_url(rule_id, test_name):
     # Return stackoverflow url for now
     # FIXME: The world needs an opensource SAST issue database!
     if rule_id and rule_id.startswith("CWE"):
-        return "https://cwe.mitre.org/data/definitions/%s.html"%rule_id.replace("CWE-", "")
+        return (
+            "https://cwe.mitre.org/data/definitions/%s.html"
+            % rule_id.replace("CWE-", "")
+        )
     return "https://stackoverflow.com/search?q=" + test_name
 
 
