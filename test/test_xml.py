@@ -14,3 +14,5 @@ def test_findsec_parse():
         issues, metrics = xml_parser.get_report_data(rf)
         assert len(issues) == 85
         assert len(metrics.keys()) == 1
+        assert issues[0]["issue_severity"] == "HIGH"
+        assert issues[0]["test_id"] == "CWE-78"

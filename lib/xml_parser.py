@@ -1,5 +1,7 @@
 from defusedxml.ElementTree import parse
 
+from lib.constants import PRIORITY_MAP
+
 
 def get_report_data(xmlfile, file_path_list=[]):
     """Convert xml file to dict
@@ -19,7 +21,11 @@ def get_report_data(xmlfile, file_path_list=[]):
         if child.tag.lower() == "BugInstance".lower():
             issue = child.attrib
             if "priority" in child.attrib:
-                issue["issue_severity"] = child.attrib["priority"]
+                priority = child.attrib["priority"]
+                if priority in PRIORITY_MAP:
+                    issue["issue_severity"] = PRIORITY_MAP.get(
+                        priority, priority
+                    )
             if "cweid" in child.attrib and child.attrib["cweid"]:
                 issue["test_id"] = "CWE-" + child.attrib["cweid"]
             elif "type" in child.attrib and child.attrib["type"]:
@@ -42,6 +48,9 @@ def get_report_data(xmlfile, file_path_list=[]):
                     if fname in file_ref:
                         fname = file_ref[fname]
                     else:
+                        # FIXME: This logic is too slow.
+                        # Tools like find-sec-bugs are not reliably reporting the full path
+                        # so such a lookup is required
                         for tf in file_path_list:
                             if tf.endswith(fname):
                                 file_ref[fname] = tf

@@ -174,6 +174,11 @@ def report(
 
 
 def add_skipped_file_notifications(skips, invocation):
+    """Method to add skipped files details to the output
+
+    :param skips: List of files skipped by the tool
+    :param invocation: Invocation object for the given run
+    """
     if skips is None or len(skips) == 0:
         return
 
@@ -259,7 +264,12 @@ def create_result(issue, rules, rule_indices, file_path_list=None):
 
 
 def level_from_severity(severity):
-    if severity == "HIGH":
+    """Converts tool's severity to the 4 level
+        suggested by SARIF
+    """
+    if severity == "CRITICAL":
+        return "error"
+    elif severity == "HIGH":
         return "error"
     elif severity == "MEDIUM":
         return "warning"
@@ -270,6 +280,12 @@ def level_from_severity(severity):
 
 
 def add_region_and_context_region(physical_location, line_number, code):
+    """This adds the region information for displaying the code snippet
+
+    :param physical_location: Points to file
+    :param line_number: Line number suggested by the tool
+    :param code: Source code snippet
+    """
     first_line_number, snippet_lines = parse_code(code)
     end_line_number = first_line_number + len(snippet_lines) - 1
     if end_line_number < first_line_number:
@@ -291,6 +307,8 @@ def add_region_and_context_region(physical_location, line_number, code):
 
 
 def parse_code(code):
+    """Method to parse the code to extract line number and snippets
+    """
     code_lines = code.split("\n")
 
     # The last line from the split has nothing in it; it's an artifact of the
@@ -333,6 +351,15 @@ def get_url(rule_id, test_name):
 
 
 def create_or_find_rule(issue_dict, rules, rule_indices):
+    """Creates rules object for the rules section. Different tools make up
+        their own id and names so this is identified on the fly
+
+    :param issue_dict: Issue object that is normalized and converted
+    :param rules: List of rules identified so far
+    :param rule_indices: Rule indices cache
+
+    :return rule and index
+    """
     rule_id = issue_dict["test_id"]
     if rule_id in rules:
         return rules[rule_id], rule_indices[rule_id]
@@ -350,6 +377,10 @@ def create_or_find_rule(issue_dict, rules, rule_indices):
 
 
 def to_uri(file_path):
+    """Converts to file path to uri prefixed with file://
+
+    :param file_path: File path to convert
+    """
     pure_path = pathlib.PurePath(file_path)
     if pure_path.is_absolute():
         return pure_path.as_uri()

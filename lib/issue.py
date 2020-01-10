@@ -138,6 +138,7 @@ class Issue(object):
         severity = constants.SEVERITY_DEFAULT
         if "issue_severity" in data:
             sev = data["issue_severity"]
+            severity = sev
             if isinstance(sev, int) or sev.isdigit():
                 sev = int(sev)
                 if sev <= 3:
