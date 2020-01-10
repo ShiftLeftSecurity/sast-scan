@@ -398,6 +398,8 @@ def to_uri(file_path):
 
     :param file_path: File path to convert
     """
+    if file_path.startswith("http"):
+        return file_path
     pure_path = pathlib.PurePath(file_path)
     if pure_path.is_absolute():
         return pure_path.as_uri()

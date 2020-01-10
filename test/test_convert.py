@@ -104,3 +104,12 @@ def test_create_result():
         data.locations[0].physical_location.artifact_location.uri
         == "file:///foo/bar/CWE-916/examples/InsufficientPasswordHash.js"
     )
+
+    # Override the workspace and check the location
+    os.environ["WORKSPACE"] = "https://github.com/appthreat/cdxgen/blob/master"
+    importlib.reload(convertLib)
+    data = convertLib.create_result(issue, {}, {}, None, "/app/src")
+    assert (
+        data.locations[0].physical_location.artifact_location.uri
+        == "https://github.com/appthreat/cdxgen/blob/master/CWE-916/examples/InsufficientPasswordHash.js"
+    )
