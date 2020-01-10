@@ -12,5 +12,5 @@ def test_findsec_parse():
         )
     ) as rf:
         issues, metrics = xml_parser.get_report_data(rf)
-        assert len(issues) == 129
+        assert len(issues) == 85
         assert len(metrics.keys()) == 1

@@ -16,7 +16,9 @@ def get_report_data(xmlfile):
             issue = child.attrib
             if "priority" in child.attrib:
                 issue["issue_severity"] = child.attrib["priority"]
-            if "type" in child.attrib and child.attrib["type"]:
+            if "cweid" in child.attrib and child.attrib["cweid"]:
+                issue["test_id"] = "CWE-" + child.attrib["cweid"]
+            elif "type" in child.attrib and child.attrib["type"]:
                 issue["test_id"] = child.attrib["type"]
             for ele in child.iter():
                 if ele.tag.lower() == "ShortMessage".lower():
