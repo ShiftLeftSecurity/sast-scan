@@ -96,7 +96,11 @@ def scan(type_list, src, reports_dir, convert):
             cmd_with_args = default_cmd.split(" ")
             exec_tool(cmd_with_args, cwd=src, stdout=stdout)
             # Should we attempt to convert the report to sarif format
-            if convert and config.tool_purpose_message.get(cmd_with_args[0]):
+            if (
+                convert
+                and config.tool_purpose_message.get(cmd_with_args[0])
+                and os.path.isfile(report_fname)
+            ):
                 crep_fname = get_report_file(
                     type, reports_dir, convert, ext_name="sarif"
                 )
