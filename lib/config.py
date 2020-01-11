@@ -73,6 +73,8 @@ scan_tools_args_map = {
         "gosec",
         "-fmt=json",
         "-nosec",
+        "-confidence=medium",
+        "-severity=medium",
         "-no-fail",
         "-out=%(report_fname_prefix)s.json",
         "./...",
@@ -112,4 +114,6 @@ tool_purpose_message = {
     "pmd": "Static code analysis by PMD",
     "gitleaks": "Secrets audit by gitleaks",
     "gosec": "Golang security checks by gosec",
+    "tfsec": "Terraform static analysis by tfsec",
+    "shellcheck": "Shell script analysis by shellcheck",
 }

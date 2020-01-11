@@ -53,8 +53,10 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                             issues = issues + value
                         else:
                             issues.append(value)
-                if "Issues" in report_data:
-                    for issue in report_data["Issues"]:
+                if "Issues" in report_data or "results" in report_data:
+                    for issue in report_data.get(
+                        "Issues", report_data.get("results", [])
+                    ):
                         issues.append(issue)
                 if "total_count" in report_data:
                     metrics["total_count"] = report_data["total_count"]

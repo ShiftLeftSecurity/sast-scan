@@ -119,7 +119,7 @@ class Issue(object):
         out = {
             "filename": self.fname,
             "test_name": self.test,
-            "test_id": self.test_id,
+            "test_id": str(self.test_id),
             "issue_severity": self.severity,
             "issue_confidence": self.confidence,
             "issue_text": issue_text,
@@ -160,6 +160,8 @@ class Issue(object):
             tmp_no = data["line_number"]
         elif "line" in data:
             tmp_no = data["line"]
+        elif "location" in data and "start_line" in data["location"]:
+            tmp_no = data["location"]["start_line"]
         if isinstance(tmp_no, str) and tmp_no.isdigit():
             lineno = int(tmp_no)
         return lineno
@@ -171,11 +173,18 @@ class Issue(object):
         :param with_code: Boolean indicating if code snippet should get added
         """
         if "code" in data:
-            self.code = data["code"]
+            if str(data["code"]).isdigit():
+                self.test_id = str(data["code"])
+            elif len(data.get("code").split()) > 1:
+                self.code = data["code"]
+            else:
+                self.test_id = data["code"]
         if "lines" in data:
             self.code = data["lines"]
         if "filename" in data:
             self.fname = data["filename"]
+        if "location" in data and "filename" in data["location"]:
+            self.fname = data["location"]["filename"]
         if "file" in data:
             self.fname = data["file"]
         if "path" in data:
@@ -197,6 +206,8 @@ class Issue(object):
             self.text = data["details"]
         if "description" in data:
             self.text = data["description"]
+        if "message" in data:
+            self.text = data["message"]
         if "test_name" in data:
             self.test = data["test_name"]
         if "title" in data:

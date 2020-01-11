@@ -105,11 +105,13 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 
 ### Tools enabled for SARIF conversion
 
+- Bash - shellcheck
 - Credscan - gitleaks
 - Python - bandit
 - Node.js - NodeJsScan
 - Java - pmd, find-sec-bugs
 - Golang - gosec
+- Terraform - tfsec
 
 **Example reports:**
 

@@ -160,3 +160,32 @@ def test_gosec_convert_issue():
         jsondata = json.loads(data)
         assert jsondata["runs"][0]["tool"]["driver"]["name"] == "gosec"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
+
+
+def test_tfsec_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "tfsec",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "code": "AWS006",
+                    "location": {
+                        "filename": "/app/main.tf",
+                        "start_line": 3,
+                        "end_line": 3,
+                    },
+                    "description": "Resource 'aws_security_group_rule.my-rule' defines a fully open ingress security group rule.",
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "tfsec"
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "Resource 'aws_security_group_rule.my-rule' defines a fully open ingress security group rule."
+        )
