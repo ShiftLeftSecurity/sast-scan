@@ -98,7 +98,7 @@ scan_tools_args_map = {
         "%(src)s",
     ],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
-    "terraform": ["tfsec", "--no-colour", "%(src)s"],
+    "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
 }
 
