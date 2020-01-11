@@ -164,7 +164,7 @@ class Issue(object):
             tmp_no = data["line"]
         elif "location" in data and "start_line" in data["location"]:
             tmp_no = data["location"]["start_line"]
-        if isinstance(tmp_no, str) and tmp_no.isdigit():
+        if str(tmp_no).isdigit():
             lineno = int(tmp_no)
         return lineno
 
