@@ -172,7 +172,7 @@ def report(
             fileobj.write(serialized_log)
 
         if fileobj.name != sys.stdout.name:
-            LOG.info("SARIF output written to file: %s", fileobj.name)
+            LOG.info("SARIF output written to file: %s 👍", fileobj.name)
     return serialized_log
 
 
