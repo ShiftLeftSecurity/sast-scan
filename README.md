@@ -22,7 +22,7 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 | json                 | jq, jsondiff, jsonschema                             |
 | kotlin               | detekt                                               |
 | kubernetes           | kube-score                                           |
-| node.js              | cdxgen, NodeJsScan, retire, eslint, yarn             |
+| nodejs               | cdxgen, NodeJsScan, retire, eslint, yarn             |
 | puppet               | puppet-lint                                          |
 | python               | bandit, cdxgen, ossaudit, pipenv                     |
 | ruby                 | railroader, cyclonedx-ruby                           |

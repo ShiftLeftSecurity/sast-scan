@@ -107,9 +107,9 @@ scan_tools_args_map = {
 This map contains the purpose string for various tools
 """
 tool_purpose_message = {
-    "nodejsscan": "Static security code scan powered by NodeJsScan",
-    "findsecbugs": "Security audit powered by Find Security Bugs",
-    "pmd": "Static code analysis powered by PMD",
-    "gitleaks": "Secrets audit powered by gitleaks",
-    "gosec": "Golang security checks powered by gosec",
+    "nodejsscan": "Static security code scan by NodeJsScan",
+    "findsecbugs": "Security audit by Find Security Bugs",
+    "pmd": "Static code analysis by PMD",
+    "gitleaks": "Secrets audit by gitleaks",
+    "gosec": "Golang security checks by gosec",
 }
