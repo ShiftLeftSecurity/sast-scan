@@ -172,13 +172,15 @@ def test_tfsec_convert_issue():
             {},
             [
                 {
-                    "code": "AWS006",
+                    "rule_id": "AWS018",
+                    "link": "https://github.com/liamg/tfsec/wiki/AWS018",
                     "location": {
                         "filename": "/app/main.tf",
-                        "start_line": 3,
-                        "end_line": 3,
+                        "start_line": 1,
+                        "end_line": 4,
                     },
-                    "description": "Resource 'aws_security_group_rule.my-rule' defines a fully open ingress security group rule.",
+                    "description": "Resource 'aws_security_group_rule.my-rule' should include a description for auditing purposes.",
+                    "severity": "ERROR",
                 }
             ],
             cfile.name,
@@ -187,5 +189,5 @@ def test_tfsec_convert_issue():
         assert jsondata["runs"][0]["tool"]["driver"]["name"] == "tfsec"
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
-            == "Resource 'aws_security_group_rule.my-rule' defines a fully open ingress security group rule."
+            == "Resource 'aws_security_group_rule.my-rule' should include a description for auditing purposes."
         )

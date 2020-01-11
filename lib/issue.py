@@ -27,6 +27,7 @@ class Issue(object):
         self.fname = ""
         self.test = ""
         self.test_id = test_id
+        self.test_ref_url = None
         self.lineno = lineno
         self.linerange = []
 
@@ -120,6 +121,7 @@ class Issue(object):
             "filename": self.fname,
             "test_name": self.test,
             "test_id": str(self.test_id),
+            "test_ref_url": self.test_ref_url,
             "issue_severity": self.severity,
             "issue_confidence": self.confidence,
             "issue_text": issue_text,
@@ -147,7 +149,7 @@ class Issue(object):
                 elif sev > 8:
                     severity = "CRITICAL"
         if "severity" in data:
-            severity = data["severity"]
+            severity = str(data["severity"]).upper()
         if "commit" in data:
             severity = "HIGH"
         return severity
@@ -220,6 +222,8 @@ class Issue(object):
             self.test_id = data["test_id"]
         if "rule_id" in data:
             self.test_id = data["rule_id"]
+        if "link" in data:
+            self.test_ref_url = data["link"]
         self.lineno = self.get_lineno(data)
         if "line_range" in data:
             self.linerange = data["line_range"]

@@ -274,13 +274,13 @@ def level_from_severity(severity):
     """Converts tool's severity to the 4 level
         suggested by SARIF
     """
-    if severity == "CRITICAL":
+    if severity == "CRITICAL" or severity == "ERROR":
         return "error"
     elif severity == "HIGH":
         return "error"
-    elif severity == "MEDIUM":
+    elif severity == "MEDIUM" or severity == "WARN" or severity == "WARNING":
         return "warning"
-    elif severity == "LOW":
+    elif severity == "LOW" or severity == "INFO":
         return "note"
     else:
         return "warning"
@@ -346,9 +346,11 @@ def parse_code(code):
     return first_line_number, snippet_lines
 
 
-def get_url(rule_id, test_name):
+def get_url(rule_id, test_name, issue_dict):
     # Return stackoverflow url for now
     # FIXME: The world needs an opensource SAST issue database!
+    if issue_dict.get("test_ref_url"):
+        return issue_dict.get("test_ref_url")
     if rule_id and rule_id.startswith("CWE"):
         return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
             "CWE-", ""
@@ -375,7 +377,7 @@ def create_or_find_rule(issue_dict, rules, rule_indices):
     rule = om.ReportingDescriptor(
         id=rule_id,
         name=issue_dict["test_name"],
-        help_uri=get_url(rule_id, issue_dict["test_name"]),
+        help_uri=get_url(rule_id, issue_dict["test_name"], issue_dict),
     )
 
     index = len(rules)
