@@ -1,4 +1,4 @@
-name: Python application
+name: SAST scan CI
 
 on: [push]
 
@@ -28,3 +28,8 @@ jobs:
       run: |
         pip install pytest
         pytest
+    - name: Self sast-scan
+      uses: AppThreat/sast-scan-action@v1.0.0
+      with:
+        output: reports
+        type: python,bash
