@@ -131,6 +131,21 @@ Refer to the sample yaml [configuration](docs/azure-pipelines.yml.sample) to add
 
 This tool can be used with GitHub actions using this [action](https://github.com/marketplace/actions/sast-scan). All the supported languages can be used.
 
+This repo self-tests itself with sast-scan! Check the GitHub [workflow file](https://github.com/AppThreat/sast-scan/blob/master/.github/workflows/pythonapp.yml) of this repo.
+
+```yaml
+- name: Self sast-scan
+  uses: AppThreat/sast-scan-action@v1.0.0
+  with:
+    output: reports
+    type: python,bash
+- name: Upload scan reports
+  uses: actions/upload-artifact@v1.0.0
+  with:
+    name: sast-scan-reports
+    path: reports
+```
+
 ## Integration with Google CloudBuild
 
 Use this [custom builder](https://github.com/CloudBuildr/google-custom-builders/tree/master/sast-scan) to add sast-scan as a build step.
