@@ -1,0 +1,14 @@
+name: SAST scan CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build docker image
+      run: |
+        docker build --build-arg CLI_VERSION=1.0.0 --build-arg BUILD_DATE="$(date '+%d/%m/%Y %H:%M:%S')" -f Dockerfile -t appthreat/sast-scan .
