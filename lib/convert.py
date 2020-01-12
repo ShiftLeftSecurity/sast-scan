@@ -10,6 +10,7 @@ import urllib.parse as urlparse
 
 from lib.issue import issue_from_dict
 import lib.csv_parser as csv_parser
+import lib.config as config
 import lib.xml_parser as xml_parser
 
 import sarif_om as om
@@ -128,13 +129,16 @@ def report(
     tool_args_str = tool_args
     if isinstance(tool_args, list):
         tool_args_str = " ".join(tool_args)
-
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
         version="2.1.0",
         runs=[
             om.Run(
-                tool=om.Tool(driver=om.ToolComponent(name=tool_name)),
+                tool=om.Tool(
+                    driver=om.ToolComponent(
+                        name=config.tool_purpose_message.get("tool_name", tool_name)
+                    )
+                ),
                 invocations=[
                     om.Invocation(
                         end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
@@ -163,7 +167,7 @@ def report(
     invocation = run.invocations[0]
 
     add_skipped_file_notifications(skips, invocation)
-    add_results(issues, run, file_path_list, working_dir)
+    add_results(tool_name, issues, run, file_path_list, working_dir)
 
     serialized_log = to_json(log)
 
@@ -206,9 +210,10 @@ def add_skipped_file_notifications(skips, invocation):
         invocation.tool_configuration_notifications.append(notification)
 
 
-def add_results(issues, run, file_path_list=None, working_dir=None):
+def add_results(tool_name, issues, run, file_path_list=None, working_dir=None):
     """Method to convert issues into results schema
 
+    :param tool_name: tool name
     :param issues: Issues found
     :param run: Run object
     :param file_path_list: Full file path for any manipulation
@@ -220,16 +225,21 @@ def add_results(issues, run, file_path_list=None, working_dir=None):
     rules = {}
     rule_indices = {}
     for issue in issues:
-        result = create_result(issue, rules, rule_indices, file_path_list, working_dir)
+        result = create_result(
+            tool_name, issue, rules, rule_indices, file_path_list, working_dir
+        )
         run.results.append(result)
 
     if len(rules) > 0:
         run.tool.driver.rules = list(rules.values())
 
 
-def create_result(issue, rules, rule_indices, file_path_list=None, working_dir=None):
+def create_result(
+    tool_name, issue, rules, rule_indices, file_path_list=None, working_dir=None
+):
     """Method to convert a single issue into result schema with rules
 
+    :param tool_name: tool name
     :param issue: Issues object
     :param rules: List of rules
     :param rule_indices: Indices of referred rules
@@ -241,7 +251,7 @@ def create_result(issue, rules, rule_indices, file_path_list=None, working_dir=N
 
     issue_dict = issue.as_dict()
 
-    rule, rule_index = create_or_find_rule(issue_dict, rules, rule_indices)
+    rule, rule_index = create_or_find_rule(tool_name, issue_dict, rules, rule_indices)
 
     # Substitute workspace prefix
     # Override file path prefix with workspace
@@ -346,24 +356,30 @@ def parse_code(code):
     return first_line_number, snippet_lines
 
 
-def get_url(rule_id, test_name, issue_dict):
+def get_url(tool_name, rule_id, test_name, issue_dict):
     # Return stackoverflow url for now
     # FIXME: The world needs an opensource SAST issue database!
     if issue_dict.get("test_ref_url"):
         return issue_dict.get("test_ref_url")
+    if config.tool_ref_url.get(tool_name):
+        return config.tool_ref_url.get(tool_name) % dict(
+            rule_id=rule_id, tool_name=tool_name, test_name=test_name
+        )
+
     if rule_id and rule_id.startswith("CWE"):
         return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
             "CWE-", ""
         )
-    return "https://stackoverflow.com/search?q=appthreat/sast-scan+{}+{}".format(
-        rule_id, test_name
+    return "https://stackoverflow.com/search?q=appthreat/sast-scan+{}+{}+{}".format(
+        tool_name, rule_id, test_name
     )
 
 
-def create_or_find_rule(issue_dict, rules, rule_indices):
+def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     """Creates rules object for the rules section. Different tools make up
         their own id and names so this is identified on the fly
 
+    :param tool_name: tool name
     :param issue_dict: Issue object that is normalized and converted
     :param rules: List of rules identified so far
     :param rule_indices: Rule indices cache
@@ -377,7 +393,7 @@ def create_or_find_rule(issue_dict, rules, rule_indices):
     rule = om.ReportingDescriptor(
         id=rule_id,
         name=issue_dict["test_name"],
-        help_uri=get_url(rule_id, issue_dict["test_name"], issue_dict),
+        help_uri=get_url(tool_name, rule_id, issue_dict["test_name"], issue_dict),
     )
 
     index = len(rules)

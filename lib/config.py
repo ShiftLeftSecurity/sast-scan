@@ -117,3 +117,8 @@ tool_purpose_message = {
     "tfsec": "Terraform static analysis by tfsec",
     "shellcheck": "Shell script analysis by shellcheck",
 }
+
+# Map to link to the reference for the given rule
+tool_ref_url = {
+    "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s"
+}

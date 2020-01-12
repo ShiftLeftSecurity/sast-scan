@@ -83,7 +83,7 @@ def test_create_result():
             "title": "Weak Hash used - MD5",
         }
     )
-    data = convertLib.create_result(issue, {}, {}, None, "/app/src")
+    data = convertLib.create_result("nodetest", issue, {}, {}, None, "/app/src")
     assert (
         data.locations[0].physical_location.artifact_location.uri
         == "file:///app/src/CWE-916/examples/InsufficientPasswordHash.js"
@@ -91,7 +91,7 @@ def test_create_result():
     # Override the workspace and check the location
     os.environ["WORKSPACE"] = "/foo/bar"
     importlib.reload(convertLib)
-    data = convertLib.create_result(issue, {}, {}, None, "/app/src")
+    data = convertLib.create_result("nodetest", issue, {}, {}, None, "/app/src")
     assert (
         data.locations[0].physical_location.artifact_location.uri
         == "file:///foo/bar/CWE-916/examples/InsufficientPasswordHash.js"
@@ -99,7 +99,7 @@ def test_create_result():
     # Override the workspace and check the location
     os.environ["WORKSPACE"] = "https://github.com/appthreat/cdxgen/blob/master"
     importlib.reload(convertLib)
-    data = convertLib.create_result(issue, {}, {}, None, "/app/src")
+    data = convertLib.create_result("nodetest", issue, {}, {}, None, "/app/src")
     assert (
         data.locations[0].physical_location.artifact_location.uri
         == "https://github.com/appthreat/cdxgen/blob/master/CWE-916/examples/InsufficientPasswordHash.js"

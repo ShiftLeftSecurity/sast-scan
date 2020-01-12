@@ -16,7 +16,7 @@ import lib.convert as convertLib
 import lib.utils as utils
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s :: %(levelname)s :: %(message)s"
+    level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
 )
 LOG = logging.getLogger(__name__)
 
@@ -112,11 +112,7 @@ def scan(type_list, src, reports_dir, convert):
                     type, reports_dir, convert, ext_name="sarif"
                 )
                 convertLib.convert_file(
-                    config.tool_purpose_message.get(cmd_with_args[0]),
-                    cmd_with_args[1:],
-                    src,
-                    report_fname,
-                    crep_fname,
+                    cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
                 )
         else:
             getattr(sys.modules[__name__], "%s_scan" % type)(src, reports_dir, convert)
@@ -282,11 +278,7 @@ def pmd_scan(src, reports_dir, convert):
     if convert:
         crep_fname = get_report_file("pmd", reports_dir, convert, ext_name="sarif")
         convertLib.convert_file(
-            config.tool_purpose_message["pmd"],
-            pmd_args[1:],
-            src,
-            report_fname,
-            crep_fname,
+            "pmd", pmd_args[1:], src, report_fname, crep_fname,
         )
 
 
@@ -338,12 +330,7 @@ def findsecbugs_scan(src, reports_dir, convert):
                 "findsecbugs", reports_dir, convert, ext_name="sarif"
             )
             convertLib.convert_file(
-                config.tool_purpose_message["findsecbugs"],
-                findsec_args[1:],
-                src,
-                report_fname,
-                crep_fname,
-                j_files,
+                "findsecbugs", findsec_args[1:], src, report_fname, crep_fname, j_files,
             )
 
 
@@ -359,7 +346,7 @@ def dep_check_scan(src, reports_dir, convert):
     convert_args = []
     report_fname = get_report_file("dep_check", reports_dir, convert)
     if reports_dir or convert:
-        convert_args = ["-o", report_fname, "-f", "JSON"]
+        convert_args = ["-o", reports_dir, "-f", "JSON", "-f", "HTML", "-f", "JUNIT"]
     dc_cmd = "/opt/dependency-check/bin/dependency-check.sh"
     dc_args = [
         dc_cmd,
@@ -411,11 +398,7 @@ def sec_scan(src, reports_dir, convert):
             "nodejsscan", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            config.tool_purpose_message["nodejsscan"],
-            sec_args[1:],
-            src,
-            report_fname,
-            crep_fname,
+            "nodejsscan", sec_args[1:], src, report_fname, crep_fname,
         )
 
 
