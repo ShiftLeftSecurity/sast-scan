@@ -1,0 +1,2717 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Static security code scan by NodeJsScan",
+          "rules": [
+            {
+              "id": "",
+              "name": "Password Hardcoded",
+              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+nodejsscan++Password Hardcoded"
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "@AppThreat/sast-scan"
+          }
+        },
+        "invocation": {
+          "arguments": [
+            "--output",
+            "/app/reports/nodejsscan-report.json",
+            "-d",
+            "/app"
+          ],
+          "executionSuccessful": true,
+          "commandLine": "--output /app/reports/nodejsscan-report.json -d /app",
+          "endTimeUtc": "2020-01-12T20:10:12Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-01-12T20:10:12Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "total_count": {
+            "good": 616,
+            "mis": 8,
+            "sec": 78
+          },
+          "vuln_count": {
+            "Password Hardcoded": 4,
+            "Unescaped variable in Pug.js template file": 74
+          }
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "A hardcoded password in plain text was identified."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "startLine": 2249
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/static/js/libs/ace/src-noconflict/mode-html.js"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    \"input\": {\n        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "endLine": 2249,
+                  "startLine": 2248
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "A hardcoded password in plain text was identified."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "startLine": 2249
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/static/js/libs/ace/src/mode-html.js"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    \"input\": {\n        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "endLine": 2249,
+                  "startLine": 2248
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "A hardcoded password in plain text was identified."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "startLine": 2249
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/static/js/libs/ace/src-noconflict/mode-html.js"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    \"input\": {\n        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "endLine": 2249,
+                  "startLine": 2248
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "A hardcoded password in plain text was identified."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "startLine": 2249
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/static/js/libs/ace/src/mode-html.js"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    \"input\": {\n        \"type\": {\"text\": 1, \"password\": 1, \"hidden\": 1, \"checkbox\": 1, \"submit\": 1, \"radio\": 1, \"file\": 1, \"button\": 1, \"reset\": 1, \"image\": 31, \"color\": 1, \"date\": 1, \"datetime\": 1, \"datetime-local\": 1, \"email\": 1, \"month\": 1, \"number\": 1, \"range\": 1, \"search\": 1, \"tel\": 1, \"time\": 1, \"url\": 1, \"week\": 1},\n"
+                  },
+                  "endLine": 2249,
+                  "startLine": 2248
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <!--<div><b><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></b></div>-->\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    </div>\n                    <!--<div><b><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></b></div>-->\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "startLine": 14
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    <fieldset>\n        <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "endLine": 14,
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 19
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('username')}? 'has-error'\">\n                <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 19,
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 28
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('password')}? 'has-error'\">\n                <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 28,
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "startLine": 36
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('matchingPassword')}? 'has-error'\">\n                <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "endLine": 36,
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "startLine": 81
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <div class=\"col-sm-offset-2 col-sm-6\">\n                    <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "endLine": 81,
+                  "startLine": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <!--<div><b><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></b></div>-->\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    </div>\n                    <!--<div><b><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></b></div>-->\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "startLine": 14
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    <fieldset>\n        <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "endLine": 14,
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 19
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('username')}? 'has-error'\">\n                <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 19,
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 28
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('password')}? 'has-error'\">\n                <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 28,
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "startLine": 36
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('matchingPassword')}? 'has-error'\">\n                <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "endLine": 36,
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "startLine": 81
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <div class=\"col-sm-offset-2 col-sm-6\">\n                    <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "endLine": 81,
+                  "startLine": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "startLine": 4
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "<head>\n    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <p th:text=\"#{invalid_username_password}\">Invalid username and password.</p>\n"
+                  },
+                  "startLine": 26
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div th:if=\"${param.error}\">\n                <p th:text=\"#{invalid_username_password}\">Invalid username and password.</p>\n"
+                  },
+                  "endLine": 26,
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <p th:text=\"#{logged_out}\">You've been logged out successfully.</p>\n"
+                  },
+                  "startLine": 29
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div th:if=\"${param.logout}\">\n                <p th:text=\"#{logged_out}\">You've been logged out successfully.</p>\n"
+                  },
+                  "endLine": 29,
+                  "startLine": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 34
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <div class=\"form-group\">\n                    <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 34,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 39
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <div class=\"form-group\">\n                    <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 39,
+                  "startLine": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                </div>\n                <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <div class=\"text-center\"><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></div>\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n                <div class=\"text-center\"><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></div>\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "startLine": 4
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "<head>\n    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "startLine": 27
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <fieldset>\n                <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "endLine": 27,
+                  "startLine": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 32
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('username')}? 'has-error'\">\n                        <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 32,
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('password')}? 'has-error'\">\n                        <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "startLine": 49
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('matchingPassword')}? 'has-error'\">\n                        <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "endLine": 49,
+                  "startLine": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "startLine": 93
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <div class=\"col-sm-offset-2 col-sm-6\">\n                            <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "endLine": 93,
+                  "startLine": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "startLine": 68
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" th:href=\"@{/logout}\"\n                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "endLine": 68,
+                  "startLine": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                                                th:text=\"#{version}\">Version: <span\n"
+                  },
+                  "startLine": 80
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\"\n                                                                th:text=\"#{version}\">Version: <span\n"
+                  },
+                  "endLine": 80,
+                  "startLine": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                                                th:text=\"#{build}\">Build:\n"
+                  },
+                  "startLine": 84
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\"\n                                                                th:text=\"#{build}\">Build:\n"
+                  },
+                  "endLine": 84,
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        th:title=\"#{report.card}\">\n"
+                  },
+                  "startLine": 94
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button type=\"button\" id=\"report-card-button\" class=\"btn btn-default right_nav_button button-up\"\n                        th:title=\"#{report.card}\">\n"
+                  },
+                  "endLine": 94,
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "startLine": 102
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            </div>\n            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "endLine": 102,
+                  "startLine": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        th:title=\"#{contact}\">\n"
+                  },
+                  "startLine": 108
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button type=\"button\" class=\"btn btn-default right_nav_button\" data-toggle=\"tooltip\"\n                        th:title=\"#{contact}\">\n"
+                  },
+                  "endLine": 108,
+                  "startLine": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "startLine": 68
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" th:href=\"@{/logout}\"\n                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "endLine": 68,
+                  "startLine": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <span th:text=\"#{version}\">Version:</span><span>: </span>\n"
+                  },
+                  "startLine": 79
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\">\n                        <span th:text=\"#{version}\">Version:</span><span>: </span>\n"
+                  },
+                  "endLine": 79,
+                  "startLine": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <span th:text=\"#{build}\">Build:</span><span>: </span>\n"
+                  },
+                  "startLine": 83
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\">\n                        <span th:text=\"#{build}\">Build:</span><span>: </span>\n"
+                  },
+                  "endLine": 83,
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            th:title=\"#{report.card}\">\n"
+                  },
+                  "startLine": 93
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <button type=\"button\" id=\"report-card-button\" class=\"btn btn-default right_nav_button button-up\"\n                            th:title=\"#{report.card}\">\n"
+                  },
+                  "endLine": 93,
+                  "startLine": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "startLine": 102
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            </div>\n            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "endLine": 102,
+                  "startLine": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        th:title=\"#{contact}\">\n"
+                  },
+                  "startLine": 108
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button type=\"button\" class=\"btn btn-default right_nav_button\" data-toggle=\"tooltip\"\n                        th:title=\"#{contact}\">\n"
+                  },
+                  "endLine": 108,
+                  "startLine": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                            id=\"show-hints-button\" th:text=\"#{show.hints}\">Show hints\n"
+                  },
+                  "startLine": 146
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                                    <button class=\"btn btn-primary btn-xs btn-danger help-button\"\n                                            id=\"show-hints-button\" th:text=\"#{show.hints}\">Show hints\n"
+                  },
+                  "endLine": 146,
+                  "startLine": 145
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                            th:text=\"#{reset.lesson}\">Reset Lesson\n"
+                  },
+                  "startLine": 150
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/target/classes/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                                    <button class=\"btn btn-xs help-button\" id=\"restart-lesson-button\"\n                                            th:text=\"#{reset.lesson}\">Reset Lesson\n"
+                  },
+                  "endLine": 150,
+                  "startLine": 149
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "startLine": 4
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "<head>\n    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <p th:text=\"#{invalid_username_password}\">Invalid username and password.</p>\n"
+                  },
+                  "startLine": 26
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div th:if=\"${param.error}\">\n                <p th:text=\"#{invalid_username_password}\">Invalid username and password.</p>\n"
+                  },
+                  "endLine": 26,
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <p th:text=\"#{logged_out}\">You've been logged out successfully.</p>\n"
+                  },
+                  "startLine": 29
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <div th:if=\"${param.logout}\">\n                <p th:text=\"#{logged_out}\">You've been logged out successfully.</p>\n"
+                  },
+                  "endLine": 29,
+                  "startLine": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 34
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <div class=\"form-group\">\n                    <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 34,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 39
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <div class=\"form-group\">\n                    <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 39,
+                  "startLine": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                </div>\n                <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <div class=\"text-center\"><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></div>\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/login.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n                <div class=\"text-center\"><a th:href=\"@{/registration}\" th:text=\"#{register.new}\"></a></div>\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "startLine": 4
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "<head>\n    <title th:text=\"#{login.page.title}\">Login Page</title>\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "startLine": 27
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            <fieldset>\n                <legend th:text=\"#{register.title}\">Please Sign Up</legend>\n"
+                  },
+                  "endLine": 27,
+                  "startLine": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 32
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('username')}? 'has-error'\">\n                        <label for=\"username\" class=\"col-sm-2 control-label\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 32,
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('password')}? 'has-error'\">\n                        <label for=\"password\" class=\"col-sm-2 control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "startLine": 49
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <div class=\"form-group\" th:classappend=\"${#fields.hasErrors('matchingPassword')}? 'has-error'\">\n                        <label for=\"matchingPassword\" class=\"col-sm-2 control-label\" th:text=\"#{password.confirm}\">Confirm\n"
+                  },
+                  "endLine": 49,
+                  "startLine": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "startLine": 93
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/registration.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <div class=\"col-sm-offset-2 col-sm-6\">\n                            <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{sign.up}\">Sign up</button>\n"
+                  },
+                  "endLine": 93,
+                  "startLine": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "startLine": 68
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" th:href=\"@{/logout}\"\n                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "endLine": 68,
+                  "startLine": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                                                th:text=\"#{version}\">Version: <span\n"
+                  },
+                  "startLine": 80
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\"\n                                                                th:text=\"#{version}\">Version: <span\n"
+                  },
+                  "endLine": 80,
+                  "startLine": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                                                th:text=\"#{build}\">Build:\n"
+                  },
+                  "startLine": 84
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\"\n                                                                th:text=\"#{build}\">Build:\n"
+                  },
+                  "endLine": 84,
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        th:title=\"#{report.card}\">\n"
+                  },
+                  "startLine": 94
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button type=\"button\" id=\"report-card-button\" class=\"btn btn-default right_nav_button button-up\"\n                        th:title=\"#{report.card}\">\n"
+                  },
+                  "endLine": 94,
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "startLine": 102
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            </div>\n            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "endLine": 102,
+                  "startLine": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        th:title=\"#{contact}\">\n"
+                  },
+                  "startLine": 108
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/list_users.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button type=\"button\" class=\"btn btn-default right_nav_button\" data-toggle=\"tooltip\"\n                        th:title=\"#{contact}\">\n"
+                  },
+                  "endLine": 108,
+                  "startLine": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "startLine": 68
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\"><a role=\"menuitem\" tabindex=\"-1\" th:href=\"@{/logout}\"\n                                               th:text=\"#{logout}\">Logout</a></li>\n"
+                  },
+                  "endLine": 68,
+                  "startLine": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <span th:text=\"#{version}\">Version:</span><span>: </span>\n"
+                  },
+                  "startLine": 79
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\">\n                        <span th:text=\"#{version}\">Version:</span><span>: </span>\n"
+                  },
+                  "endLine": 79,
+                  "startLine": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <span th:text=\"#{build}\">Build:</span><span>: </span>\n"
+                  },
+                  "startLine": 83
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <li role=\"presentation\" class=\"disabled\"><a role=\"menuitem\" tabindex=\"-1\" href=\"#\">\n                        <span th:text=\"#{build}\">Build:</span><span>: </span>\n"
+                  },
+                  "endLine": 83,
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            th:title=\"#{report.card}\">\n"
+                  },
+                  "startLine": 93
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    <button type=\"button\" id=\"report-card-button\" class=\"btn btn-default right_nav_button button-up\"\n                            th:title=\"#{report.card}\">\n"
+                  },
+                  "endLine": 93,
+                  "startLine": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "startLine": 102
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            </div>\n            <button type=\"button\" id=\"about-button\" class=\"btn btn-default right_nav_button\" th:title=\"#{about}\"\n"
+                  },
+                  "endLine": 102,
+                  "startLine": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        th:title=\"#{contact}\">\n"
+                  },
+                  "startLine": 108
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                <button type=\"button\" class=\"btn btn-default right_nav_button\" data-toggle=\"tooltip\"\n                        th:title=\"#{contact}\">\n"
+                  },
+                  "endLine": 108,
+                  "startLine": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                            id=\"show-hints-button\" th:text=\"#{show.hints}\">Show hints\n"
+                  },
+                  "startLine": 146
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                                    <button class=\"btn btn-primary btn-xs btn-danger help-button\"\n                                            id=\"show-hints-button\" th:text=\"#{show.hints}\">Show hints\n"
+                  },
+                  "endLine": 146,
+                  "startLine": 145
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                                            th:text=\"#{reset.lesson}\">Reset Lesson\n"
+                  },
+                  "startLine": 150
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/resources/templates/main_new.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                                    <button class=\"btn btn-xs help-button\" id=\"restart-lesson-button\"\n                                            th:text=\"#{reset.lesson}\">Reset Lesson\n"
+                  },
+                  "endLine": 150,
+                  "startLine": 149
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"password\" class=\"control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 16
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/password-reset/target/classes/templates/password_reset.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <input type=\"hidden\" name=\"resetLink\" th:field=\"*{resetLink}\" />\n                        <label for=\"password\" class=\"control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 16,
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <label for=\"password\" class=\"control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 16
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/password-reset/src/main/resources/templates/password_reset.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <input type=\"hidden\" name=\"resetLink\" th:field=\"*{resetLink}\" />\n                        <label for=\"password\" class=\"control-label\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 16,
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 25
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/target/classes/html/Challenge1.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <div class=\"form-group\">\n                            <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 25,
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 30
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/target/classes/html/Challenge1.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <div class=\"form-group\">\n                            <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 30,
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "startLine": 35
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/target/classes/html/Challenge1.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        </div>\n                        <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "endLine": 35,
+                  "startLine": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "startLine": 25
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/resources/html/Challenge1.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <div class=\"form-group\">\n                            <label for=\"exampleInputEmail1\" th:text=\"#{username}\">Username</label>\n"
+                  },
+                  "endLine": 25,
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "startLine": 30
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/resources/html/Challenge1.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        <div class=\"form-group\">\n                            <label for=\"exampleInputPassword1\" th:text=\"#{password}\">Password</label>\n"
+                  },
+                  "endLine": 30,
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "The Pug.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "startLine": 35
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/resources/html/Challenge1.html"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        </div>\n                        <button class=\"btn btn-primary btn-block\" type=\"submit\" th:text=\"#{sign.in}\">Sign in</button>\n"
+                  },
+                  "endLine": 35,
+                  "startLine": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "",
+          "ruleIndex": 0
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+}

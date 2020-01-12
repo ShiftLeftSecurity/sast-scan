@@ -1,0 +1,929 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Shell script analysis by shellcheck",
+          "rules": [
+            {
+              "id": "2034",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2034"
+            },
+            {
+              "id": "2155",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2155"
+            },
+            {
+              "id": "1068",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC1068"
+            },
+            {
+              "id": "2091",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2091"
+            },
+            {
+              "id": "2242",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2242"
+            },
+            {
+              "id": "2164",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2164"
+            },
+            {
+              "id": "2162",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2162"
+            },
+            {
+              "id": "2086",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2086"
+            },
+            {
+              "id": "2103",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2103"
+            },
+            {
+              "id": "2068",
+              "name": "",
+              "helpUri": "https://github.com/koalaman/shellcheck/wiki/SC2068"
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "@AppThreat/sast-scan"
+          }
+        },
+        "invocation": {
+          "arguments": [
+            "-a",
+            "--shell=bash",
+            "-f",
+            "json",
+            "-S",
+            "info",
+            "--color=never",
+            "/app/webwolf/start-webwolf.sh",
+            "/app/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh",
+            "/app/scripts/deploy-webgoat.sh",
+            "/app/scripts/clean-run-docker-compose.sh",
+            "/app/scripts/build_docker.sh",
+            "/app/scripts/build-all.sh",
+            "/app/scripts/run-docker-compose.sh",
+            "/app/scripts/start.sh"
+          ],
+          "executionSuccessful": true,
+          "commandLine": "-a --shell=bash -f json -S info --color=never /app/webwolf/start-webwolf.sh /app/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh /app/scripts/deploy-webgoat.sh /app/scripts/clean-run-docker-compose.sh /app/scripts/build_docker.sh /app/scripts/build-all.sh /app/scripts/run-docker-compose.sh /app/scripts/start.sh",
+          "endTimeUtc": "2020-01-12T20:10:18Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-01-12T20:10:18Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "total": 24
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "started appears unused. Verify use (or export if used externally)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  local started = $(netstat -lnt | grep ${DATABASE_PORT})\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  #for i in $(seq 1 5); do command && s=0 && break || s=$? && sleep 15; done; (exit $s)\n  local started = $(netstat -lnt | grep ${DATABASE_PORT})\n"
+                  },
+                  "endLine": 8,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2034",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Declare and assign separately to avoid masking return values."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  local started = $(netstat -lnt | grep ${DATABASE_PORT})\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  #for i in $(seq 1 5); do command && s=0 && break || s=$? && sleep 15; done; (exit $s)\n  local started = $(netstat -lnt | grep ${DATABASE_PORT})\n"
+                  },
+                  "endLine": 8,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2155",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "Don't put spaces around the = in assignments (or quote to make it literal)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  local started = $(netstat -lnt | grep ${DATABASE_PORT})\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  #for i in $(seq 1 5); do command && s=0 && break || s=$? && sleep 15; done; (exit $s)\n  local started = $(netstat -lnt | grep ${DATABASE_PORT})\n"
+                  },
+                  "endLine": 8,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "1068",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Remove surrounding $() to avoid executing output."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "$(checkDatabaseAvailable)\n"
+                  },
+                  "startLine": 13
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "#java -Djava.security.egd=file:/dev/./urandom -jar home/webgoat/webgoat.jar --server.address=0.0.0.0\n$(checkDatabaseAvailable)\n"
+                  },
+                  "endLine": 13,
+                  "startLine": 12
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2091",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "Can only exit with status 0-255. Other data should be written to stdout/stderr."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  exit y$?\n"
+                  },
+                  "startLine": 18
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "if [[ \"$?\" -ne 0 ]] ; then\n  exit y$?\n"
+                  },
+                  "endLine": 18,
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2242",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Use 'cd ... || exit' or 'cd ... || return' in case cd fails."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cd -\n"
+                  },
+                  "startLine": 21
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ncd -\n"
+                  },
+                  "endLine": 21,
+                  "startLine": 20
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2164",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Can only exit with status 0-255. Other data should be written to stdout/stderr."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  exit y$?\n"
+                  },
+                  "startLine": 24
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "if [[ \"$?\" -ne 0 ]] ; then\n  exit y$?\n"
+                  },
+                  "endLine": 24,
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2242",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "read without -r will mangle backslashes."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    read -p \"Do you want to run docker-compose?\" yn\n"
+                  },
+                  "startLine": 28
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "while true; do\n    read -p \"Do you want to run docker-compose?\" yn\n"
+                  },
+                  "endLine": 28,
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2162",
+          "ruleIndex": 6
+        },
+        {
+          "message": {
+            "text": "Use 'cd ... || exit' or 'cd ... || return' in case cd fails."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cd \"${WEBGOAT_HOME}\"/webgoat-server\n"
+                  },
+                  "startLine": 5
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build_docker.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ncd \"${WEBGOAT_HOME}\"/webgoat-server\n"
+                  },
+                  "endLine": 5,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2164",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Use 'cd ... || exit' or 'cd ... || return' in case cd fails."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cd \"${WEBGOAT_HOME}\"/webwolf\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build_docker.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ncd \"${WEBGOAT_HOME}\"/webwolf\n"
+                  },
+                  "endLine": 8,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2164",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Double quote to prevent globbing and word splitting."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "docker login -u $DOCKER_USER -p $DOCKER_PASS\n"
+                  },
+                  "startLine": 3
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ndocker login -u $DOCKER_USER -p $DOCKER_PASS\n"
+                  },
+                  "endLine": 3,
+                  "startLine": 2
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2086",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Double quote to prevent globbing and word splitting."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "docker login -u $DOCKER_USER -p $DOCKER_PASS\n"
+                  },
+                  "startLine": 3
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ndocker login -u $DOCKER_USER -p $DOCKER_PASS\n"
+                  },
+                  "endLine": 3,
+                  "startLine": 2
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2086",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Use 'cd ... || exit' or 'cd ... || return' in case cd fails."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cd webgoat-server\n"
+                  },
+                  "startLine": 6
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ncd webgoat-server\n"
+                  },
+                  "endLine": 6,
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2164",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Double quote to prevent globbing and word splitting."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  docker build --build-arg webgoat_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "startLine": 11
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  # If we push a tag to master this will update the LATEST Docker image and tag with the version number\n  docker build --build-arg webgoat_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "endLine": 11,
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2086",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Double quote to prevent globbing and word splitting."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  docker build --build-arg webgoat_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "startLine": 11
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  # If we push a tag to master this will update the LATEST Docker image and tag with the version number\n  docker build --build-arg webgoat_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "endLine": 11,
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2086",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Use a ( subshell ) to avoid having to cd back."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cd ..\n"
+                  },
+                  "startLine": 26
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "export REPO=webgoat/webwolf\ncd ..\n"
+                  },
+                  "endLine": 26,
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2103",
+          "ruleIndex": 8
+        },
+        {
+          "message": {
+            "text": "Use 'cd ... || exit' or 'cd ... || return' in case cd fails."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "cd webwolf\n"
+                  },
+                  "startLine": 27
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "cd ..\ncd webwolf\n"
+                  },
+                  "endLine": 27,
+                  "startLine": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2164",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Double quote to prevent globbing and word splitting."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  docker build --build-arg webwolf_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "startLine": 32
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  # If we push a tag to master this will update the LATEST Docker image and tag with the version number\n  docker build --build-arg webwolf_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "endLine": 32,
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2086",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Double quote to prevent globbing and word splitting."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "  docker build --build-arg webwolf_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "startLine": 32
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "  # If we push a tag to master this will update the LATEST Docker image and tag with the version number\n  docker build --build-arg webwolf_version=${TRAVIS_TAG:1} -f Dockerfile -t $REPO:latest -t $REPO:${TRAVIS_TAG} .\n"
+                  },
+                  "endLine": 32,
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2086",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "CURTAG appears unused. Verify use (or export if used externally)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "CURTAG=webgoat/webgoat-8.0\n"
+                  },
+                  "startLine": 1
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "CURTAG=webgoat/webgoat-8.0\nDEST_TAG=gcr.io/your-gke-project/your-webgoat-tag\n"
+                  },
+                  "endLine": 2,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2034",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "DEST_TAG appears unused. Verify use (or export if used externally)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "DEST_TAG=gcr.io/your-gke-project/your-webgoat-tag\n"
+                  },
+                  "startLine": 2
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "CURTAG=webgoat/webgoat-8.0\nDEST_TAG=gcr.io/your-gke-project/your-webgoat-tag\n"
+                  },
+                  "endLine": 2,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2034",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "CLUSTER_NAME appears unused. Verify use (or export if used externally)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "CLUSTER_NAME=your-cluster-name\n"
+                  },
+                  "startLine": 3
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "DEST_TAG=gcr.io/your-gke-project/your-webgoat-tag\nCLUSTER_NAME=your-cluster-name\n"
+                  },
+                  "endLine": 3,
+                  "startLine": 2
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2034",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "PORT_NUM appears unused. Verify use (or export if used externally)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "PORT_NUM=8080\n"
+                  },
+                  "startLine": 4
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "CLUSTER_NAME=your-cluster-name\nPORT_NUM=8080\n"
+                  },
+                  "endLine": 4,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2034",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Double quote array expansions to avoid re-splitting elements."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "sleep 8 && java -Djava.security.egd=file:/dev/./urandom -jar /home/webwolf/webwolf.jar $@\n"
+                  },
+                  "startLine": 7
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/start-webwolf.sh"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "echo \" Waiting for database to be available...\"\nsleep 8 && java -Djava.security.egd=file:/dev/./urandom -jar /home/webwolf/webwolf.jar $@\n"
+                  },
+                  "endLine": 7,
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "2068",
+          "ruleIndex": 9
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+}

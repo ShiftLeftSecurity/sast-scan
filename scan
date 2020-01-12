@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 
+import lib.analysis as analysis
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
@@ -461,9 +462,8 @@ if __name__ == "__main__":
     LOG.info("Scanning {} using scan plugins {}".format(args.src_dir, type))
     scan(type, args.src_dir, args.reports_dir, args.convert)
     if args.reports_dir:
-        LOG.info("Reports produced:")
-        for f in os.listdir(args.reports_dir):
-            if f.endswith(".sarif"):
-                LOG.info("✅ {}".format(f))
-            else:
-                LOG.info(f)
+        sarif_files = utils.find_files(args.reports_dir, ".sarif")
+        report_summary, build_status = analysis.summary(sarif_files)
+        if report_summary:
+            analysis.print_summary(report_summary)
+            sys.exit(1 if build_status == "fail" else 0)

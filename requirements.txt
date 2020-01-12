@@ -1,3 +1,4 @@
 sarif-om
 jschema_to_python
 defusedxml
+tabulate

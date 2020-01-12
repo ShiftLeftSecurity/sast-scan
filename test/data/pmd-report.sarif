@@ -1,0 +1,3193 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Static code analysis by PMD",
+          "rules": [
+            {
+              "id": "Performance",
+              "name": "UseIndexOfChar",
+              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+pmd+Performance+UseIndexOfChar"
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "@AppThreat/sast-scan"
+          }
+        },
+        "invocation": {
+          "arguments": [
+            "pmd",
+            "-no-cache",
+            "--failOnViolation",
+            "false",
+            "-d",
+            "/app",
+            "-r",
+            "/app/reports/pmd-report.csv",
+            "-f",
+            "csv",
+            "-R",
+            "/usr/local/src/rules-pmd.xml"
+          ],
+          "executionSuccessful": true,
+          "commandLine": "pmd -no-cache --failOnViolation false -d /app -r /app/reports/pmd-report.csv -f csv -R /usr/local/src/rules-pmd.xml",
+          "endTimeUtc": "2020-01-12T20:03:17Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-01-12T20:03:17Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "total": 92
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "String.indexOf(char) is faster than String.indexOf(String)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        int semicolonIndex = host.indexOf(\":\");\n"
+                  },
+                  "startLine": 50
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/asciidoc/WebWolfMacro.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        host = request.getHeader(\"Host\");\n        int semicolonIndex = host.indexOf(\":\");\n"
+                  },
+                  "endLine": 50,
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid using redundant field initializer for 'id'."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    private Integer id = null;\n"
+                  },
+                  "startLine": 36
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/lessons/Lesson.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    private static int count = 1;\n    private Integer id = null;\n"
+                  },
+                  "endLine": 36,
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 18 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuilder bldr = new StringBuilder();\n"
+                  },
+                  "startLine": 115
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/lessons/LessonMenuItem.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String toString() {\n        StringBuilder bldr = new StringBuilder();\n"
+                  },
+                  "endLine": 115,
+                  "startLine": 114
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        bldr.append(\"Name: \").append(name).append(\" | \");\n"
+                  },
+                  "startLine": 116
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/lessons/LessonMenuItem.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuilder bldr = new StringBuilder();\n        bldr.append(\"Name: \").append(name).append(\" | \");\n"
+                  },
+                  "endLine": 116,
+                  "startLine": 115
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        bldr.append(\"Name: \").append(name).append(\" | \");\n"
+                  },
+                  "startLine": 116
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/lessons/LessonMenuItem.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuilder bldr = new StringBuilder();\n        bldr.append(\"Name: \").append(name).append(\" | \");\n"
+                  },
+                  "endLine": 116,
+                  "startLine": 115
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            LessonMenuItem categoryItem = new LessonMenuItem();\n"
+                  },
+                  "startLine": 82
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonMenuService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        for (Category category : categories) {\n            LessonMenuItem categoryItem = new LessonMenuItem();\n"
+                  },
+                  "endLine": 82,
+                  "startLine": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                LessonMenuItem lessonItem = new LessonMenuItem();\n"
+                  },
+                  "startLine": 89
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonMenuService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            for (Lesson lesson : lessons) {\n                LessonMenuItem lessonItem = new LessonMenuItem();\n"
+                  },
+                  "endLine": 89,
+                  "startLine": 88
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    result.add(new LessonOverview(storedAssignment, entry.getValue()));\n"
+                  },
+                  "startLine": 87
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonProgressService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    storedAssignment.setPath(lessonAssignment.getPath());\n                    result.add(new LessonOverview(storedAssignment, entry.getValue()));\n"
+                  },
+                  "endLine": 87,
+                  "startLine": 86
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    result.add(new LessonOverview(storedAssignment, entry.getValue()));\n"
+                  },
+                  "startLine": 91
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonProgressService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                } else if (lessonAssignment.getName().equals(storedAssignment.getName())) {\n                    result.add(new LessonOverview(storedAssignment, entry.getValue()));\n"
+                  },
+                  "endLine": 91,
+                  "startLine": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            LessonStatistics lessonStatistics = new LessonStatistics();\n"
+                  },
+                  "startLine": 79
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/ReportCardService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            LessonTracker lessonTracker = userTracker.getLessonTracker(lesson);\n            LessonStatistics lessonStatistics = new LessonStatistics();\n"
+                  },
+                  "endLine": 79,
+                  "startLine": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 145 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuilder sb = new StringBuilder();\n"
+                  },
+                  "startLine": 40
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    String showSession(HttpServletRequest request, HttpSession session) {\n        StringBuilder sb = new StringBuilder();\n"
+                  },
+                  "endLine": 40,
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuilder sb = new StringBuilder();\n        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuilder sb = new StringBuilder();\n        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 3 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuilder sb = new StringBuilder();\n        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuilder sb = new StringBuilder();\n        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n"
+                  },
+                  "endLine": 42,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 3 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n"
+                  },
+                  "endLine": 42,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"id\").append(\" = \").append(session.getId()).append(\"\\n\");\n        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n"
+                  },
+                  "endLine": 42,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 3 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"created\").append(\" = \").append(new Date(session.getCreationTime())).append(\"\\n\");\n        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 3 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"last access\").append(\" = \").append(new Date(session.getLastAccessedTime())).append(\"\\n\");\n        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n"
+                  },
+                  "endLine": 45,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 3 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n"
+                  },
+                  "endLine": 45,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"timeout (secs)\").append(\" = \").append(session.getMaxInactiveInterval()).append(\"\\n\");\n        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n"
+                  },
+                  "endLine": 45,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from url?\").append(\" = \").append(request.isRequestedSessionIdFromURL()).append(\"\\n\");\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n        sb.append(\"session from url?\").append(\" = \").append(request.isRequestedSessionIdFromURL()).append(\"\\n\");\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from url?\").append(\" = \").append(request.isRequestedSessionIdFromURL()).append(\"\\n\");\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n        sb.append(\"session from url?\").append(\" = \").append(request.isRequestedSessionIdFromURL()).append(\"\\n\");\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from url?\").append(\" = \").append(request.isRequestedSessionIdFromURL()).append(\"\\n\");\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"session from cookie?\").append(\" = \").append(request.isRequestedSessionIdFromCookie()).append(\"\\n\");\n        sb.append(\"session from url?\").append(\" = \").append(request.isRequestedSessionIdFromURL()).append(\"\\n\");\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Do not add empty strings."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            String value = session.getAttribute(attribute) + \"\";\n"
+                  },
+                  "startLine": 57
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        for (String attribute : attributes) {\n            String value = session.getAttribute(attribute) + \"\";\n"
+                  },
+                  "endLine": 57,
+                  "startLine": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            sb.append(attribute).append(\" = \").append(value).append(\"\\n\");\n"
+                  },
+                  "startLine": 58
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            String value = session.getAttribute(attribute) + \"\";\n            sb.append(attribute).append(\" = \").append(value).append(\"\\n\");\n"
+                  },
+                  "endLine": 58,
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid using redundant field initializer for 'enabled'."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    private boolean enabled = false;\n"
+                  },
+                  "startLine": 13
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/session/LabelDebugger.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    private boolean enabled = false;\n"
+                  },
+                  "endLine": 13,
+                  "startLine": 12
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid using redundant field initializer for 'numberOfAttempts'."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    private int numberOfAttempts = 0;\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/users/LessonTracker.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    @Getter\n    private int numberOfAttempts = 0;\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            rankings.add(new Ranking(user.getUsername(), challengesSolved(userTracker)));\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/users/Scoreboard.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            UserTracker userTracker = userTrackerRepository.findByUser(user.getUsername());\n            rankings.add(new Ranking(user.getUsername(), challengesSolved(userTracker)));\n"
+                  },
+                  "endLine": 42,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "String.indexOf(char) is faster than String.indexOf(String)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            String username = email.substring(0, email.indexOf(\"@\"));\n"
+                  },
+                  "startLine": 61
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/Assignment7.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        if (StringUtils.hasText(email)) {\n            String username = email.substring(0, email.indexOf(\"@\"));\n"
+                  },
+                  "endLine": 61,
+                  "startLine": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    System.out.println(MD5.getHashString(new File(element)) + \" \" + element);\n"
+                  },
+                  "startLine": 55
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                try {\n                    System.out.println(MD5.getHashString(new File(element)) + \" \" + element);\n"
+                  },
+                  "endLine": 55,
+                  "startLine": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating FileInputStream, FileOutputStream, FileReader, or FileWriter."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        InputStream is = new FileInputStream(f);\n"
+                  },
+                  "startLine": 168
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public static byte[] getHash(File f) throws IOException {\n        InputStream is = new FileInputStream(f);\n"
+                  },
+                  "endLine": 168,
+                  "startLine": 167
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating FileInputStream, FileOutputStream, FileReader, or FileWriter."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        InputStream is = new FileInputStream(f);\n"
+                  },
+                  "startLine": 183
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public static String getHashString(File f) throws IOException {\n        InputStream is = new FileInputStream(f);\n"
+                  },
+                  "endLine": 183,
+                  "startLine": 182
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid appending characters as strings in StringBuffer.append."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                buf.append(\"0\");\n"
+                  },
+                  "startLine": 525
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                // number to make it two digits.\n                buf.append(\"0\");\n"
+                  },
+                  "endLine": 525,
+                  "startLine": 524
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Do not add empty strings."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return ResponseEntity.ok(votes.entrySet().stream().collect(Collectors.toMap(e -> \"\" + e.getKey(), e -> e.getValue())));\n"
+                  },
+                  "startLine": 52
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge8/Assignment8.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public ResponseEntity<?> getVotes() {\n        return ResponseEntity.ok(votes.entrySet().stream().collect(Collectors.toMap(e -> \"\" + e.getKey(), e -> e.getValue())));\n"
+                  },
+                  "endLine": 52,
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating FileInputStream, FileOutputStream, FileReader, or FileWriter."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            FileCopyUtils.copy(classPathResource.getInputStream(), new FileOutputStream(new File(targetDirectory, \"employees.xml\")));\n"
+                  },
+                  "startLine": 64
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try {\n            FileCopyUtils.copy(classPathResource.getInputStream(), new FileOutputStream(new File(targetDirectory, \"employees.xml\")));\n"
+                  },
+                  "endLine": 64,
+                  "startLine": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating FileInputStream, FileOutputStream, FileReader, or FileWriter."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        InputSource inputSource = new InputSource(new FileInputStream(d));\n"
+                  },
+                  "startLine": 77
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        XPath path = factory.newXPath();\n        InputSource inputSource = new InputSource(new FileInputStream(d));\n"
+                  },
+                  "endLine": 77,
+                  "startLine": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 145 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuffer sb = new StringBuffer();\n"
+                  },
+                  "startLine": 79
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        StringBuffer sb = new StringBuffer();\n"
+                  },
+                  "endLine": 79,
+                  "startLine": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 5 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/UserID | \");\n"
+                  },
+                  "startLine": 81
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        sb.append(\"/Employees/Employee/UserID | \");\n"
+                  },
+                  "endLine": 81,
+                  "startLine": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/UserID | \");\n"
+                  },
+                  "startLine": 81
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        sb.append(\"/Employees/Employee/UserID | \");\n"
+                  },
+                  "endLine": 81,
+                  "startLine": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/FirstName | \");\n"
+                  },
+                  "startLine": 82
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/UserID | \");\n        sb.append(\"/Employees/Employee/FirstName | \");\n"
+                  },
+                  "endLine": 82,
+                  "startLine": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/LastName | \");\n"
+                  },
+                  "startLine": 83
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/FirstName | \");\n        sb.append(\"/Employees/Employee/LastName | \");\n"
+                  },
+                  "endLine": 83,
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/SSN | \");\n"
+                  },
+                  "startLine": 84
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        sb.append(\"/Employees/Employee/LastName | \");\n        sb.append(\"/Employees/Employee/SSN | \");\n"
+                  },
+                  "endLine": 84,
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                employeeJson = new HashMap<>();\n"
+                  },
+                  "startLine": 99
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            if (i % columns == 0) {\n                employeeJson = new HashMap<>();\n"
+                  },
+                  "endLine": 99,
+                  "startLine": 98
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid calling toString() on String objects; this is unnecessary."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        if (answer_xss_1.toString().toLowerCase().equals(\"yes\")) {\n"
+                  },
+                  "startLine": 40
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson1.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public AttackResult completed(@RequestParam String answer_xss_1) {\n        if (answer_xss_1.toString().toLowerCase().equals(\"yes\")) {\n"
+                  },
+                  "endLine": 40,
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 200 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuffer cart = new StringBuffer();\n"
+                  },
+                  "startLine": 55
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        userSessionData.setValue(\"xss-reflected1-complete\", (Object) \"false\");\n        StringBuffer cart = new StringBuffer();\n"
+                  },
+                  "endLine": 55,
+                  "startLine": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cart.append(\"Thank you for shopping at WebGoat. <br />You're support is appreciated<hr />\");\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuffer cart = new StringBuffer();\n        cart.append(\"Thank you for shopping at WebGoat. <br />You're support is appreciated<hr />\");\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cart.append(\"Thank you for shopping at WebGoat. <br />You're support is appreciated<hr />\");\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        StringBuffer cart = new StringBuffer();\n        cart.append(\"Thank you for shopping at WebGoat. <br />You're support is appreciated<hr />\");\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 3 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cart.append(\"<p>We have charged credit card:\" + field1 + \"<br />\");\n"
+                  },
+                  "startLine": 57
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        cart.append(\"Thank you for shopping at WebGoat. <br />You're support is appreciated<hr />\");\n        cart.append(\"<p>We have charged credit card:\" + field1 + \"<br />\");\n"
+                  },
+                  "endLine": 57,
+                  "startLine": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cart.append(\"<p>We have charged credit card:\" + field1 + \"<br />\");\n"
+                  },
+                  "startLine": 57
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        cart.append(\"Thank you for shopping at WebGoat. <br />You're support is appreciated<hr />\");\n        cart.append(\"<p>We have charged credit card:\" + field1 + \"<br />\");\n"
+                  },
+                  "endLine": 57,
+                  "startLine": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cart.append(\"                             ------------------- <br />\");\n"
+                  },
+                  "startLine": 58
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        cart.append(\"<p>We have charged credit card:\" + field1 + \"<br />\");\n        cart.append(\"                             ------------------- <br />\");\n"
+                  },
+                  "endLine": 58,
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid concatenating nonliterals in a StringBuffer/StringBuilder constructor or append()."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        cart.append(\"                               $\" + totalSale);\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        cart.append(\"                             ------------------- <br />\");\n        cart.append(\"                               $\" + totalSale);\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Prefer StringBuilder (non-synchronized) or StringBuffer (synchronized) over += for concatenating strings."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        encodedString = encodedString+new String(Base64.getEncoder().encode(keyPair.getPrivate().getEncoded()),Charset.forName(\"UTF-8\"))+\"\\n\";\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/CryptoUtil.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        String encodedString = \"-----BEGIN PRIVATE KEY-----\\n\";\n        encodedString = encodedString+new String(Base64.getEncoder().encode(keyPair.getPrivate().getEncoded()),Charset.forName(\"UTF-8\"))+\"\\n\";\n"
+                  },
+                  "endLine": 45,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Prefer StringBuilder (non-synchronized) or StringBuffer (synchronized) over += for concatenating strings."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        encodedString = encodedString+\"-----END PRIVATE KEY-----\\n\";\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/CryptoUtil.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        encodedString = encodedString+new String(Base64.getEncoder().encode(keyPair.getPrivate().getEncoded()),Charset.forName(\"UTF-8\"))+\"\\n\";\n        encodedString = encodedString+\"-----END PRIVATE KEY-----\\n\";\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid calling toString() on String objects; this is unnecessary."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    \tif (username.toString().equals(\"CaptainJack\") && password.toString().equals(\"BlackPearl\")) {\n"
+                  },
+                  "startLine": 35
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-login/src/main/java/org/owasp/webgoat/insecure_login/InsecureLoginTask.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public AttackResult completed(@RequestParam String username, @RequestParam String password) {\n    \tif (username.toString().equals(\"CaptainJack\") && password.toString().equals(\"BlackPearl\")) {\n"
+                  },
+                  "endLine": 35,
+                  "startLine": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid calling toString() on String objects; this is unnecessary."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    \tif (username.toString().equals(\"CaptainJack\") && password.toString().equals(\"BlackPearl\")) {\n"
+                  },
+                  "startLine": 35
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-login/src/main/java/org/owasp/webgoat/insecure_login/InsecureLoginTask.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public AttackResult completed(@RequestParam String username, @RequestParam String password) {\n    \tif (username.toString().equals(\"CaptainJack\") && password.toString().equals(\"BlackPearl\")) {\n"
+                  },
+                  "endLine": 35,
+                  "startLine": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid using redundant field initializer for 'average'."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    private long average = 0;\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/votes/Vote.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    @JsonView(Views.UserView.class)\n    private long average = 0;\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            displayUsers.add(new DisplayUser(user));\n"
+                  },
+                  "startLine": 60
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        for (WebGoatUser user : allUsers) {\n            displayUsers.add(new DisplayUser(user));\n"
+                  },
+                  "endLine": 60,
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            displayUsers.add(new DisplayUser(user));\n"
+                  },
+                  "startLine": 74
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        for (WebGoatUser user : allUsers) {\n            displayUsers.add(new DisplayUser(user));\n"
+                  },
+                  "endLine": 74,
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                        HashMap<String, String> userMap = new HashMap<>();\n"
+                  },
+                  "startLine": 61
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/Users.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    while (results.next()) {\n                        HashMap<String, String> userMap = new HashMap<>();\n"
+                  },
+                  "endLine": 61,
+                  "startLine": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "String.indexOf(char) is faster than String.indexOf(String)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        int index = email.indexOf(\"@\");\n"
+                  },
+                  "startLine": 79
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/password-reset/src/main/java/org/owasp/webgoat/password_reset/ResetLinkAssignmentForgotPassword.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    private void sendMailToUser(String email, String host, String resetLink) {\n        int index = email.indexOf(\"@\");\n"
+                  },
+                  "endLine": 79,
+                  "startLine": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "String.indexOf(char) is faster than String.indexOf(String)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        int index = email.indexOf(\"@\");\n"
+                  },
+                  "startLine": 77
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/password-reset/src/main/java/org/owasp/webgoat/password_reset/SimpleMailAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    private String extractUsername(String email) {\n        int index = email.indexOf(\"@\");\n"
+                  },
+                  "endLine": 77,
+                  "startLine": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 415 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuffer output = new StringBuffer();\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        Zxcvbn zxcvbn = new Zxcvbn();\n        StringBuffer output = new StringBuffer();\n"
+                  },
+                  "endLine": 42,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Your Password: *******</b></br>\");\n"
+                  },
+                  "startLine": 47
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        output.append(\"<b>Your Password: *******</b></br>\");\n"
+                  },
+                  "endLine": 47,
+                  "startLine": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Your Password: *******</b></br>\");\n"
+                  },
+                  "startLine": 47
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        output.append(\"<b>Your Password: *******</b></br>\");\n"
+                  },
+                  "endLine": 47,
+                  "startLine": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Length: </b>\" + password.length() + \"</br>\");\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Your Password: *******</b></br>\");\n        output.append(\"<b>Length: </b>\" + password.length() + \"</br>\");\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Length: </b>\" + password.length() + \"</br>\");\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Your Password: *******</b></br>\");\n        output.append(\"<b>Length: </b>\" + password.length() + \"</br>\");\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Estimated guesses needed to crack your password: </b>\" + df.format(strength.getGuesses()) + \"</br>\");\n"
+                  },
+                  "startLine": 49
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Length: </b>\" + password.length() + \"</br>\");\n        output.append(\"<b>Estimated guesses needed to crack your password: </b>\" + df.format(strength.getGuesses()) + \"</br>\");\n"
+                  },
+                  "endLine": 49,
+                  "startLine": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Estimated guesses needed to crack your password: </b>\" + df.format(strength.getGuesses()) + \"</br>\");\n"
+                  },
+                  "startLine": 49
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Length: </b>\" + password.length() + \"</br>\");\n        output.append(\"<b>Estimated guesses needed to crack your password: </b>\" + df.format(strength.getGuesses()) + \"</br>\");\n"
+                  },
+                  "endLine": 49,
+                  "startLine": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid concatenating nonliterals in a StringBuffer/StringBuilder constructor or append()."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Estimated cracking time: </b>\" + calculateTime((long) strength.getCrackTimeSeconds().getOnlineNoThrottling10perSecond()));\n"
+                  },
+                  "startLine": 58
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        }\n        output.append(\"<b>Estimated cracking time: </b>\" + calculateTime((long) strength.getCrackTimeSeconds().getOnlineNoThrottling10perSecond()));\n"
+                  },
+                  "endLine": 58,
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid concatenating nonliterals in a StringBuffer/StringBuilder constructor or append()."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            output.append(\"</br><b>Warning: </b>\" + strength.getFeedback().getWarning());\n"
+                  },
+                  "startLine": 60
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        if (strength.getFeedback().getWarning().length() != 0)\n            output.append(\"</br><b>Warning: </b>\" + strength.getFeedback().getWarning());\n"
+                  },
+                  "endLine": 60,
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called 2 consecutive times with literals. Use a single append with a single combined String."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Score: </b>\" + strength.getScore() + \"/5 </br>\");\n"
+                  },
+                  "startLine": 68
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        }\n        output.append(\"<b>Score: </b>\" + strength.getScore() + \"/5 </br>\");\n"
+                  },
+                  "endLine": 68,
+                  "startLine": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Score: </b>\" + strength.getScore() + \"/5 </br>\");\n"
+                  },
+                  "startLine": 68
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        }\n        output.append(\"<b>Score: </b>\" + strength.getScore() + \"/5 </br>\");\n"
+                  },
+                  "endLine": 68,
+                  "startLine": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid concatenating nonliterals in a StringBuffer/StringBuilder constructor or append()."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Estimated cracking time in seconds: </b>\" + calculateTime((long) strength.getCrackTimeSeconds().getOnlineNoThrottling10perSecond()));\n"
+                  },
+                  "startLine": 69
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/secure-passwords/src/main/java/org/owasp/webgoat/secure_password/SecurePasswordsAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        output.append(\"<b>Score: </b>\" + strength.getScore() + \"/5 </br>\");\n        output.append(\"<b>Estimated cracking time in seconds: </b>\" + calculateTime((long) strength.getCrackTimeSeconds().getOnlineNoThrottling10perSecond()));\n"
+                  },
+                  "endLine": 69,
+                  "startLine": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 39 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                StringBuffer output = new StringBuffer();\n"
+                  },
+                  "startLine": 62
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson4.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                ResultSet results = statement.executeQuery(\"SELECT phone from employees;\");\n                StringBuffer output = new StringBuffer();\n"
+                  },
+                  "endLine": 62,
+                  "startLine": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 39 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            StringBuffer output = new StringBuffer();\n"
+                  },
+                  "startLine": 47
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            String regex = \"(?i)^(grant alter table to [']?unauthorizedUser[']?)(?:[;]?)$\";\n            StringBuffer output = new StringBuffer();\n"
+                  },
+                  "endLine": 47,
+                  "startLine": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 70 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuilder t = new StringBuilder();\n"
+                  },
+                  "startLine": 91
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        results.beforeFirst();\n        StringBuilder t = new StringBuilder();\n"
+                  },
+                  "endLine": 91,
+                  "startLine": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 78 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuffer table = new StringBuffer();\n"
+                  },
+                  "startLine": 100
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson8.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        results.beforeFirst();\n        StringBuffer table = new StringBuffer();\n"
+                  },
+                  "endLine": 100,
+                  "startLine": 99
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                Server server = new Server(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));\n"
+                  },
+                  "startLine": 76
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/mitigation/Servers.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            while (rs.next()) {\n                Server server = new Server(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));\n"
+                  },
+                  "endLine": 76,
+                  "startLine": 75
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Prefer StringBuilder (non-synchronized) or StringBuffer (synchronized) over += for concatenating strings."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    errors += d.getMessage(null) + \"<br>\";\n"
+                  },
+                  "startLine": 74
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/mitigation/SqlInjectionLesson10b.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                for (Diagnostic d : hasCompiled) {\n                    errors += d.getMessage(null) + \"<br>\";\n"
+                  },
+                  "endLine": 74,
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid using redundant field initializer for 'contents'."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        private String contents = null;\n"
+                  },
+                  "startLine": 109
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/mitigation/SqlInjectionLesson10b.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    class JavaObjectFromString extends SimpleJavaFileObject {\n        private String contents = null;\n"
+                  },
+                  "endLine": 109,
+                  "startLine": 108
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 62 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            StringBuffer html = new StringBuffer();\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/ssrf/src/main/java/org/owasp/webgoat/ssrf/SSRFTask1.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try {\n            StringBuffer html = new StringBuffer();\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "StringBuffer constructor is initialized with size 16, but has at least 63 characters appended."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            StringBuffer html = new StringBuffer();\n"
+                  },
+                  "startLine": 51
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/ssrf/src/main/java/org/owasp/webgoat/ssrf/SSRFTask2.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try {\n            StringBuffer html = new StringBuffer();\n"
+                  },
+                  "endLine": 51,
+                  "startLine": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "String.indexOf(char) is faster than String.indexOf(String)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        String username = email.substring(0, email.indexOf(\"@\"));\n"
+                  },
+                  "startLine": 54
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/webwolf-introduction/src/main/java/org/owasp/webgoat/webwolf_introduction/MailAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public AttackResult sendEmail(@RequestParam String email) {\n        String username = email.substring(0, email.indexOf(\"@\"));\n"
+                  },
+                  "endLine": 54,
+                  "startLine": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Avoid instantiating new objects inside loops."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                uploadedFiles.add(new UploadedFile(file.getName(), size, link));\n"
+                  },
+                  "startLine": 113
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                String link = String.format(\"files/%s/%s\", username, file.getName());\n                uploadedFiles.add(new UploadedFile(file.getName(), size, link));\n"
+                  },
+                  "endLine": 113,
+                  "startLine": 112
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "String.indexOf(char) is faster than String.indexOf(String)."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return sender.substring(0, sender.indexOf(\"@\"));\n"
+                  },
+                  "startLine": 71
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/mailbox/Email.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String getShortSender() {\n        return sender.substring(0, sender.indexOf(\"@\"));\n"
+                  },
+                  "endLine": 71,
+                  "startLine": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "Performance",
+          "ruleIndex": 0
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+}

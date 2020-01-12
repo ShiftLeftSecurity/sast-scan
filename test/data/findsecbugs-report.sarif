@@ -1,0 +1,2369 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Security audit by Find Security Bugs",
+          "rules": [
+            {
+              "id": "CWE-78",
+              "name": "Potential Command Injection",
+              "helpUri": "https://cwe.mitre.org/data/definitions/78.html"
+            },
+            {
+              "id": "CWE-89",
+              "name": "Potential JDBC Injection",
+              "helpUri": "https://cwe.mitre.org/data/definitions/89.html"
+            },
+            {
+              "id": "CWE-22",
+              "name": "Potential Path Traversal (file read)",
+              "helpUri": "https://cwe.mitre.org/data/definitions/22.html"
+            },
+            {
+              "id": "CWE-330",
+              "name": "Predictable pseudorandom number generator",
+              "helpUri": "https://cwe.mitre.org/data/definitions/330.html"
+            },
+            {
+              "id": "CWE-352",
+              "name": "Spring CSRF unrestricted RequestMapping",
+              "helpUri": "https://cwe.mitre.org/data/definitions/352.html"
+            },
+            {
+              "id": "CWE-203",
+              "name": "Unsafe hash equals",
+              "helpUri": "https://cwe.mitre.org/data/definitions/203.html"
+            },
+            {
+              "id": "CWE-328",
+              "name": "MD2, MD4 and MD5 are weak hash functions",
+              "helpUri": "https://cwe.mitre.org/data/definitions/328.html"
+            },
+            {
+              "id": "CWE-117",
+              "name": "Potential CRLF Injection for logs",
+              "helpUri": "https://cwe.mitre.org/data/definitions/117.html"
+            },
+            {
+              "id": "CWE-502",
+              "name": "Object deserialization is used in {1}",
+              "helpUri": "https://cwe.mitre.org/data/definitions/502.html"
+            },
+            {
+              "id": "CWE-259",
+              "name": "Hard coded password",
+              "helpUri": "https://cwe.mitre.org/data/definitions/259.html"
+            },
+            {
+              "id": "HTTPONLY_COOKIE",
+              "name": "Cookie without the HttpOnly flag",
+              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+findsecbugs+HTTPONLY_COOKIE+Cookie without the HttpOnly flag"
+            },
+            {
+              "id": "CWE-614",
+              "name": "Cookie without the secure flag",
+              "helpUri": "https://cwe.mitre.org/data/definitions/614.html"
+            },
+            {
+              "id": "CWE-918",
+              "name": "URLConnection Server-Side Request Forgery (SSRF) and File Disclosure",
+              "helpUri": "https://cwe.mitre.org/data/definitions/918.html"
+            },
+            {
+              "id": "CWE-611",
+              "name": "XML parsing vulnerable to XXE (XMLStreamReader)",
+              "helpUri": "https://cwe.mitre.org/data/definitions/611.html"
+            },
+            {
+              "id": "CWE-915",
+              "name": "Mass assignment",
+              "helpUri": "https://cwe.mitre.org/data/definitions/915.html"
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "@AppThreat/sast-scan"
+          }
+        },
+        "invocation": {
+          "arguments": [
+            "-jar",
+            "/opt/spotbugs/lib/spotbugs.jar",
+            "-textui",
+            "-include",
+            "/usr/local/src/spotbugs/include.xml",
+            "-exclude",
+            "/usr/local/src/spotbugs/exclude.xml",
+            "-noClassOk",
+            "-auxclasspathFromFile",
+            "/tmp/tmpiqwlx49v",
+            "-sourcepath",
+            "/app",
+            "-quiet",
+            "-medium",
+            "-xml:withMessages",
+            "-effort:max",
+            "-nested:false",
+            "-output",
+            "/app/reports/findsecbugs-report.xml",
+            "/app"
+          ],
+          "executionSuccessful": true,
+          "commandLine": "-jar /opt/spotbugs/lib/spotbugs.jar -textui -include /usr/local/src/spotbugs/include.xml -exclude /usr/local/src/spotbugs/exclude.xml -noClassOk -auxclasspathFromFile /tmp/tmpiqwlx49v -sourcepath /app -quiet -medium -xml:withMessages -effort:max -nested:false -output /app/reports/findsecbugs-report.xml /app",
+          "endTimeUtc": "2020-01-12T20:03:49Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-01-12T20:03:49Z",
+          "workingDirectory": {
+            "uri": "file:///app"
+          }
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "summary": {
+            "timestamp": "Sun, 12 Jan 2020 20:03:20 +0000",
+            "total_classes": "189",
+            "referenced_classes": "394",
+            "total_bugs": "65",
+            "total_size": "3991",
+            "num_packages": "43",
+            "java_version": "11.0.5",
+            "vm_version": "11.0.5+10-LTS",
+            "cpu_seconds": "36.59",
+            "clock_seconds": "26.95",
+            "peak_mbytes": "314.31",
+            "alloc_mbytes": "988.00",
+            "gc_seconds": "0.38",
+            "priority_2": "47",
+            "priority_1": "18"
+          }
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "This usage of java/lang/Runtime.exec(Ljava/lang/String;)Ljava/lang/Process; can be vulnerable to Command Injection \nAt VulnerableTaskHolder.java:[lines 19-68] \nIn class org.dummy.insecure.framework.VulnerableTaskHolder \nIn method org.dummy.insecure.framework.VulnerableTaskHolder.readObject(ObjectInputStream) \nAt VulnerableTaskHolder.java:[line 56] \nSink method java/lang/Runtime.exec(Ljava/lang/String;)Ljava/lang/Process; \nSink parameter 0 \nUnknown source org/dummy/insecure/framework/VulnerableTaskHolder.taskAction \nAt VulnerableTaskHolder.java:[line 56]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Process p = Runtime.getRuntime().exec(taskAction);\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/dummy/insecure/framework/VulnerableTaskHolder.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\ttry {\n            Process p = Runtime.getRuntime().exec(taskAction);\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-78",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Connection.prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement; can be vulnerable to SQL injection (with JDBC) \nAt Assignment5.java:[lines 40-67] \nIn class org.owasp.webgoat.challenges.challenge5.Assignment5 \nIn method org.owasp.webgoat.challenges.challenge5.Assignment5.login(String, String) \nAt Assignment5.java:[line 59] \nSink method java/sql/Connection.prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            PreparedStatement statement = connection.prepareStatement(\"select password from challenge_users where userid = '\" + username_login + \"' and password = '\" + password_login + \"'\");\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge5/Assignment5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try (var connection = dataSource.getConnection()) {\n            PreparedStatement statement = connection.prepareStatement(\"select password from challenge_users where userid = '\" + username_login + \"' and password = '\" + password_login + \"'\");\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt MD5.java:[lines 38-688] \nIn class org.owasp.webgoat.challenges.challenge7.MD5 \nIn method org.owasp.webgoat.challenges.challenge7.MD5.main(String[]) \nAt MD5.java:[line 55] \nSink method java/io/File.<init>(Ljava/lang/String;)V \nSink parameter 0 \nTainted source org/owasp/webgoat/challenges/challenge7/MD5.main([Ljava/lang/String;)V parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                    System.out.println(MD5.getHashString(new File(element)) + \" \" + element);\n"
+                  },
+                  "startLine": 55
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                try {\n                    System.out.println(MD5.getHashString(new File(element)) + \" \" + element);\n"
+                  },
+                  "endLine": 55,
+                  "startLine": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt PasswordResetLink.java:[lines 11-42] \nIn class org.owasp.webgoat.challenges.challenge7.PasswordResetLink \nIn method org.owasp.webgoat.challenges.challenge7.PasswordResetLink.createPasswordReset(String, String) \nAt PasswordResetLink.java:[line 14] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        Random random = new Random();\n"
+                  },
+                  "startLine": 14
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/PasswordResetLink.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String createPasswordReset(String username, String key) {\n        Random random = new Random();\n"
+                  },
+                  "endLine": 14,
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt Salaries.java:[lines 51-105] \nIn class org.owasp.webgoat.client_side_filtering.Salaries \nIn method org.owasp.webgoat.client_side_filtering.Salaries.copyFiles() \nAt Salaries.java:[line 59] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 1 \nUnknown source org/owasp/webgoat/client_side_filtering/Salaries.webGoatHomeDirectory \nAt Salaries.java:[line 59]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File targetDirectory = new File(webGoatHomeDirectory, \"/ClientSideFiltering\");\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        ClassPathResource classPathResource = new ClassPathResource(\"employees.xml\");\n        File targetDirectory = new File(webGoatHomeDirectory, \"/ClientSideFiltering\");\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt Salaries.java:[lines 51-105] \nIn class org.owasp.webgoat.client_side_filtering.Salaries \nIn method org.owasp.webgoat.client_side_filtering.Salaries.invoke() \nAt Salaries.java:[line 74] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 1 \nUnknown source org/owasp/webgoat/client_side_filtering/Salaries.webGoatHomeDirectory \nAt Salaries.java:[line 74]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File d = new File(webGoatHomeDirectory, \"ClientSideFiltering/employees.xml\");\n"
+                  },
+                  "startLine": 74
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        NodeList nodes = null;\n        File d = new File(webGoatHomeDirectory, \"ClientSideFiltering/employees.xml\");\n"
+                  },
+                  "endLine": 74,
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt EncodingAssignment.java:[lines 40-71] \nIn class org.owasp.webgoat.crypto.EncodingAssignment \nIn method org.owasp.webgoat.crypto.EncodingAssignment.getBasicAuth(HttpServletRequest) \nAt EncodingAssignment.java:[line 53] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tString password = HashingAssignment.SECRETS[new Random().nextInt(HashingAssignment.SECRETS.length)];\n"
+                  },
+                  "startLine": 53
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/EncodingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tif (basicAuth == null) {\n\t\t\tString password = HashingAssignment.SECRETS[new Random().nextInt(HashingAssignment.SECRETS.length)];\n"
+                  },
+                  "endLine": 53,
+                  "startLine": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.getMd5(HttpServletRequest) \nAt HashingAssignment.java:[line 55] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tString secret = SECRETS[new Random().nextInt(SECRETS.length)];\n"
+                  },
+                  "startLine": 55
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\t\n\t\t\tString secret = SECRETS[new Random().nextInt(SECRETS.length)];\n"
+                  },
+                  "endLine": 55,
+                  "startLine": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.getSha256(HttpServletRequest) \nAt HashingAssignment.java:[line 74] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tString secret = SECRETS[new Random().nextInt(SECRETS.length)];\n"
+                  },
+                  "startLine": 74
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tif (sha256 == null) {\n\t\t\tString secret = SECRETS[new Random().nextInt(SECRETS.length)];\n"
+                  },
+                  "endLine": 74,
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.getMd5(HttpServletRequest) \nAt HashingAssignment.java:[lines 52-65]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tString md5Hash = (String) request.getSession().getAttribute(\"md5Hash\");\n"
+                  },
+                  "startLine": 52
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\n\t\tString md5Hash = (String) request.getSession().getAttribute(\"md5Hash\");\n"
+                  },
+                  "endLine": 52,
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.getSha256(HttpServletRequest) \nAt HashingAssignment.java:[lines 72-79]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tString sha256 = (String) request.getSession().getAttribute(\"sha256\");\n"
+                  },
+                  "startLine": 72
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\n\t\tString sha256 = (String) request.getSession().getAttribute(\"sha256\");\n"
+                  },
+                  "endLine": 72,
+                  "startLine": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Unsafe comparison of hash that are susceptible to timing attack \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.completed(HttpServletRequest, String, String) \nAt HashingAssignment.java:[line 90] \nSink method java/lang/String.equals(Ljava/lang/Object;)Z \nSink parameter 0 \nUnknown source javax/servlet/http/HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \tif (answer_pwd1.equals(md5Secret)\n"
+                  },
+                  "startLine": 90
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    \tif (answer_pwd1!=null && answer_pwd2 !=null) {\n        \tif (answer_pwd1.equals(md5Secret)\n"
+                  },
+                  "endLine": 90,
+                  "startLine": 89
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-203",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Unsafe comparison of hash that are susceptible to timing attack \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.completed(HttpServletRequest, String, String) \nAt HashingAssignment.java:[line 91] \nSink method java/lang/String.equals(Ljava/lang/Object;)Z \nSink parameter 0 \nUnknown source javax/servlet/http/HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \t\t&& answer_pwd2.equals(sha256Secret)) {\n"
+                  },
+                  "startLine": 91
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        \tif (answer_pwd1.equals(md5Secret)\n        \t\t&& answer_pwd2.equals(sha256Secret)) {\n"
+                  },
+                  "endLine": 91,
+                  "startLine": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-203",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Unsafe comparison of hash that are susceptible to timing attack \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.completed(HttpServletRequest, String, String) \nAt HashingAssignment.java:[line 95] \nSink method java/lang/String.equals(Ljava/lang/Object;)Z \nSink parameter 0 \nUnknown source javax/servlet/http/HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        \t} else if (answer_pwd1.equals(md5Secret)\n"
+                  },
+                  "startLine": 95
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        \t\t\t\t.build();\n        \t} else if (answer_pwd1.equals(md5Secret)\n"
+                  },
+                  "endLine": 95,
+                  "startLine": 94
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-203",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Unsafe comparison of hash that are susceptible to timing attack \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.completed(HttpServletRequest, String, String) \nAt HashingAssignment.java:[line 96] \nSink method java/lang/String.equals(Ljava/lang/Object;)Z \nSink parameter 0 \nUnknown source javax/servlet/http/HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            \t\t|| answer_pwd2.equals(sha256Secret)) {\n"
+                  },
+                  "startLine": 96
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        \t} else if (answer_pwd1.equals(md5Secret)\n            \t\t|| answer_pwd2.equals(sha256Secret)) {\n"
+                  },
+                  "endLine": 96,
+                  "startLine": 95
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-203",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "This API MD5 (MDX) is not a recommended cryptographic hash function \nAt HashingAssignment.java:[lines 44-108] \nIn class org.owasp.webgoat.crypto.HashingAssignment \nIn method org.owasp.webgoat.crypto.HashingAssignment.getMd5(HttpServletRequest) \nAt HashingAssignment.java:[line 57] \nValue MD5."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t    MessageDigest md = MessageDigest.getInstance(\"MD5\");\n"
+                  },
+                  "startLine": 57
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t         \n\t\t    MessageDigest md = MessageDigest.getInstance(\"MD5\");\n"
+                  },
+                  "endLine": 57,
+                  "startLine": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-328",
+          "ruleIndex": 6
+        },
+        {
+          "message": {
+            "text": "This use of org/slf4j/Logger.warn(Ljava/lang/String;Ljava/lang/Object;)V might be used to include CRLF characters into log messages \nAt SigningAssignment.java:[lines 47-83] \nIn class org.owasp.webgoat.crypto.SigningAssignment \nIn method org.owasp.webgoat.crypto.SigningAssignment.completed(HttpServletRequest, String, String) \nAt SigningAssignment.java:[line 75] \nSink method org/slf4j/Logger.warn(Ljava/lang/String;Ljava/lang/Object;)V \nSink parameter 0 \nTainted source org/owasp/webgoat/crypto/SigningAssignment.completed(Ljavax/servlet/http/HttpServletRequest;Ljava/lang/String;Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 1."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tlog.warn(\"modulus {} incorrect\", modulus);\n"
+                  },
+                  "startLine": 75
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/SigningAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tif (!DatatypeConverter.printHexBinary(rsaPubKey.getModulus().toByteArray()).equals(tempModulus.toUpperCase())) {\n\t\t\tlog.warn(\"modulus {} incorrect\", modulus);\n"
+                  },
+                  "endLine": 75,
+                  "startLine": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-117",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt SigningAssignment.java:[lines 47-83] \nIn class org.owasp.webgoat.crypto.SigningAssignment \nIn method org.owasp.webgoat.crypto.SigningAssignment.getPrivateKey(HttpServletRequest) \nAt SigningAssignment.java:[lines 54-61]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tString privateKey = (String) request.getSession().getAttribute(\"privateKeyString\");\n"
+                  },
+                  "startLine": 54
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/SigningAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\n\t\tString privateKey = (String) request.getSession().getAttribute(\"privateKeyString\");\n"
+                  },
+                  "endLine": 54,
+                  "startLine": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 45-89] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest, HttpServletResponse) \nAt CSRFGetFlag.java:[line 65] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                Random random = new Random();\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            if (req.getParameter(\"csrf\").equals(\"true\")) {\n                Random random = new Random();\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 45-89] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest, HttpServletResponse) \nAt CSRFGetFlag.java:[line 71] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                Random random = new Random();\n"
+                  },
+                  "startLine": 71
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            } else {\n                Random random = new Random();\n"
+                  },
+                  "endLine": 71,
+                  "startLine": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 45-89] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest, HttpServletResponse) \nAt CSRFGetFlag.java:[line 82] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Random random = new Random();\n"
+                  },
+                  "startLine": 82
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        } else {\n            Random random = new Random();\n"
+                  },
+                  "endLine": 82,
+                  "startLine": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "Object deserialization is used in org.owasp.webgoat.deserialization.InsecureDeserializationTask.completed(String) \nAt InsecureDeserializationTask.java:[lines 42-79] \nIn class org.owasp.webgoat.deserialization.InsecureDeserializationTask \nIn method org.owasp.webgoat.deserialization.InsecureDeserializationTask.completed(String) \nAt InsecureDeserializationTask.java:[line 56]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Object o = ois.readObject();\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/InsecureDeserializationTask.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            before = System.currentTimeMillis();\n            Object o = ois.readObject();\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-502",
+          "ruleIndex": 8
+        },
+        {
+          "message": {
+            "text": "Object deserialization is used in org.owasp.webgoat.deserialization.SerializationHelper.fromString(String) \nAt SerializationHelper.java:[lines 12-51] \nIn class org.owasp.webgoat.deserialization.SerializationHelper \nIn method org.owasp.webgoat.deserialization.SerializationHelper.fromString(String) \nAt SerializationHelper.java:[line 21]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        Object o = ois.readObject();\n"
+                  },
+                  "startLine": 21
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/SerializationHelper.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                new ByteArrayInputStream(data));\n        Object o = ois.readObject();\n"
+                  },
+                  "endLine": 21,
+                  "startLine": 20
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-502",
+          "ruleIndex": 8
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt HttpBasicsInterceptRequest.java:[lines 33-45] \nIn class org.owasp.webgoat.http_proxies.HttpBasicsInterceptRequest \nIn method org.owasp.webgoat.http_proxies.HttpBasicsInterceptRequest.completed(Boolean, String, HttpServletRequest) \nAt HttpBasicsInterceptRequest.java:[lines 39-45]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        if (HttpMethod.POST.matches(request.getMethod())) {\n"
+                  },
+                  "startLine": 39
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/http-proxies/src/main/java/org/owasp/webgoat/http_proxies/HttpBasicsInterceptRequest.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                                  @RequestParam(value = \"changeMe\", required = false) String paramValue, HttpServletRequest request) {\n        if (HttpMethod.POST.matches(request.getMethod())) {\n"
+                  },
+                  "endLine": 39,
+                  "startLine": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Hard coded password found \nAt IDORLogin.java:[lines 37-72] \nIn class org.owasp.webgoat.idor.IDORLogin \nIn method org.owasp.webgoat.idor.IDORLogin.initIDORInfo() \nAt IDORLogin.java:[line 44] \nSink method java/util/Map.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        idorUserInfo.get(\"tom\").put(\"password\", \"cat\");\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/idor/src/main/java/org/owasp/webgoat/idor/IDORLogin.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        idorUserInfo.put(\"tom\", new HashMap<String, String>());\n        idorUserInfo.get(\"tom\").put(\"password\", \"cat\");\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-259",
+          "ruleIndex": 9
+        },
+        {
+          "message": {
+            "text": "Hard coded password found \nAt IDORLogin.java:[lines 37-72] \nIn class org.owasp.webgoat.idor.IDORLogin \nIn method org.owasp.webgoat.idor.IDORLogin.initIDORInfo() \nAt IDORLogin.java:[line 50] \nSink method java/util/Map.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        idorUserInfo.get(\"bill\").put(\"password\", \"buffalo\");\n"
+                  },
+                  "startLine": 50
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/idor/src/main/java/org/owasp/webgoat/idor/IDORLogin.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        idorUserInfo.put(\"bill\", new HashMap<String, String>());\n        idorUserInfo.get(\"bill\").put(\"password\", \"buffalo\");\n"
+                  },
+                  "endLine": 50,
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-259",
+          "ruleIndex": 9
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC) \nAt JWTFinalEndpoint.java:[lines 89-101] \nIn class org.owasp.webgoat.jwt.JWTFinalEndpoint$1 \nIn method org.owasp.webgoat.jwt.JWTFinalEndpoint$1.resolveSigningKeyBytes(JwsHeader, Claims) \nAt JWTFinalEndpoint.java:[line 94] \nSink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                            ResultSet rs = connection.createStatement().executeQuery(\"SELECT key FROM jwt_keys WHERE id = '\" + kid + \"'\");\n"
+                  },
+                  "startLine": 94
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTFinalEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        try (var connection = dataSource.getConnection()) {\n                            ResultSet rs = connection.createStatement().executeQuery(\"SELECT key FROM jwt_keys WHERE id = '\" + kid + \"'\");\n"
+                  },
+                  "endLine": 94,
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This random generator (java.util.Random) is predictable \nAt JWTSecretKeyEndpoint.java:[lines 48-89] \nIn class org.owasp.webgoat.jwt.JWTSecretKeyEndpoint \nIn method org.owasp.webgoat.jwt.JWTSecretKeyEndpoint.<static initializer for JWTSecretKeyEndpoint>() \nAt JWTSecretKeyEndpoint.java:[line 51] \nValue java.util.Random."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    public static final String JWT_SECRET = TextCodec.BASE64.encode(SECRETS[new Random().nextInt(SECRETS.length)]);\n"
+                  },
+                  "startLine": 51
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTSecretKeyEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public static final String[] SECRETS = {\"victory\", \"business\", \"available\", \"shipping\", \"washington\"};\n    public static final String JWT_SECRET = TextCodec.BASE64.encode(SECRETS[new Random().nextInt(SECRETS.length)]);\n"
+                  },
+                  "endLine": 51,
+                  "startLine": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-330",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt JWTSecretKeyEndpoint.java:[lines 48-89] \nIn class org.owasp.webgoat.jwt.JWTSecretKeyEndpoint \nIn method org.owasp.webgoat.jwt.JWTSecretKeyEndpoint.getSecretToken() \nAt JWTSecretKeyEndpoint.java:[line 58]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return Jwts.builder()\n"
+                  },
+                  "startLine": 58
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTSecretKeyEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String getSecretToken() {\n        return Jwts.builder()\n"
+                  },
+                  "endLine": 58,
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Cookie without the HttpOnly flag could be read by a malicious script in the browser \nAt JWTVotesEndpoint.java:[lines 61-173] \nIn class org.owasp.webgoat.jwt.JWTVotesEndpoint \nIn method org.owasp.webgoat.jwt.JWTVotesEndpoint.login(String, HttpServletResponse) \nAt JWTVotesEndpoint.java:[line 98]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Cookie cookie = new Cookie(\"access_token\", token);\n"
+                  },
+                  "startLine": 98
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    .compact();\n            Cookie cookie = new Cookie(\"access_token\", token);\n"
+                  },
+                  "endLine": 98,
+                  "startLine": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "HTTPONLY_COOKIE",
+          "ruleIndex": 10
+        },
+        {
+          "message": {
+            "text": "Cookie without the HttpOnly flag could be read by a malicious script in the browser \nAt JWTVotesEndpoint.java:[lines 61-173] \nIn class org.owasp.webgoat.jwt.JWTVotesEndpoint \nIn method org.owasp.webgoat.jwt.JWTVotesEndpoint.login(String, HttpServletResponse) \nAt JWTVotesEndpoint.java:[line 103]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Cookie cookie = new Cookie(\"access_token\", \"\");\n"
+                  },
+                  "startLine": 103
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        } else {\n            Cookie cookie = new Cookie(\"access_token\", \"\");\n"
+                  },
+                  "endLine": 103,
+                  "startLine": 102
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "HTTPONLY_COOKIE",
+          "ruleIndex": 10
+        },
+        {
+          "message": {
+            "text": "Cookie without the secure flag could be sent in clear text if a HTTP URL is visited \nAt JWTVotesEndpoint.java:[lines 61-173] \nIn class org.owasp.webgoat.jwt.JWTVotesEndpoint \nIn method org.owasp.webgoat.jwt.JWTVotesEndpoint.login(String, HttpServletResponse) \nAt JWTVotesEndpoint.java:[line 98]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Cookie cookie = new Cookie(\"access_token\", token);\n"
+                  },
+                  "startLine": 98
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    .compact();\n            Cookie cookie = new Cookie(\"access_token\", token);\n"
+                  },
+                  "endLine": 98,
+                  "startLine": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-614",
+          "ruleIndex": 11
+        },
+        {
+          "message": {
+            "text": "Cookie without the secure flag could be sent in clear text if a HTTP URL is visited \nAt JWTVotesEndpoint.java:[lines 61-173] \nIn class org.owasp.webgoat.jwt.JWTVotesEndpoint \nIn method org.owasp.webgoat.jwt.JWTVotesEndpoint.login(String, HttpServletResponse) \nAt JWTVotesEndpoint.java:[line 103]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            Cookie cookie = new Cookie(\"access_token\", \"\");\n"
+                  },
+                  "startLine": 103
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        } else {\n            Cookie cookie = new Cookie(\"access_token\", \"\");\n"
+                  },
+                  "endLine": 103,
+                  "startLine": 102
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-614",
+          "ruleIndex": 11
+        },
+        {
+          "message": {
+            "text": "Unsafe comparison of hash that are susceptible to timing attack \nAt MissingFunctionACYourHash.java:[lines 39-53] \nIn class org.owasp.webgoat.missing_ac.MissingFunctionACYourHash \nIn method org.owasp.webgoat.missing_ac.MissingFunctionACYourHash.completed(String) \nAt MissingFunctionACYourHash.java:[line 50] \nSink method java/lang/String.equals(Ljava/lang/Object;)Z \nSink parameter 0 \nUnknown source org/owasp/webgoat/missing_ac/DisplayUser.userHash \nUnknown source org/owasp/webgoat/missing_ac/DisplayUser.getUserHash()Ljava/lang/String; \nAt DisplayUser.java:[line 82] \nAt MissingFunctionACYourHash.java:[line 50]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        if (userHash.equals(displayUser.getUserHash())) {\n"
+                  },
+                  "startLine": 50
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACYourHash.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        DisplayUser displayUser = new DisplayUser(user);\n        if (userHash.equals(displayUser.getUserHash())) {\n"
+                  },
+                  "endLine": 50,
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-203",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "text": "Hard coded password found \nAt ResetLinkAssignment.java:[lines 46-123] \nIn class org.owasp.webgoat.password_reset.ResetLinkAssignment \nIn method org.owasp.webgoat.password_reset.ResetLinkAssignment.login(String, String) \nAt ResetLinkAssignment.java:[line 69] \nSink method java/lang/String.equals(Ljava/lang/Object;)Z \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            if (passwordTom.equals(PASSWORD_TOM_9)) {\n"
+                  },
+                  "startLine": 69
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/password-reset/src/main/java/org/owasp/webgoat/password_reset/ResetLinkAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            String passwordTom = usersToTomPassword.getOrDefault(getWebSession().getUserName(), PASSWORD_TOM_9);\n            if (passwordTom.equals(PASSWORD_TOM_9)) {\n"
+                  },
+                  "endLine": 69,
+                  "startLine": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-259",
+          "ruleIndex": 9
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionChallenge.java:[lines 44-95] \nIn class org.owasp.webgoat.sql_injection.advanced.SqlInjectionChallenge \nIn method org.owasp.webgoat.sql_injection.advanced.SqlInjectionChallenge.registerNewUser(String, String, String) \nAt SqlInjectionChallenge.java:[line 65] \nSink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                ResultSet resultSet = statement.executeQuery(checkUserQuery);\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/advanced/SqlInjectionChallenge.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                Statement statement = connection.createStatement();\n                ResultSet resultSet = statement.executeQuery(checkUserQuery);\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson6a.java:[lines 45-96] \nIn class org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a \nIn method org.owasp.webgoat.sql_injection.advanced.SqlInjectionLesson6a.injectableQuery(String) \nAt SqlInjectionLesson6a.java:[line 67] \nSink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "startLine": 67
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/advanced/SqlInjectionLesson6a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                    ResultSet.CONCUR_READ_ONLY)) {\n                ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "endLine": 67,
+                  "startLine": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson10.java:[lines 46-101] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson10 \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson10.injectableQueryAvailability(String) \nAt SqlInjectionLesson10.java:[line 63] \nSink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "startLine": 63
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson10.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);\n                ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "endLine": 63,
+                  "startLine": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson2.java:[lines 49-75] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson2 \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson2.injectableQuery(String) \nAt SqlInjectionLesson2.java:[line 62] \nSink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; \nSink parameter 0 \nUnknown source org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson2.injectableQuery(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nMethod usage with tainted arguments detected \nAt SqlInjectionLesson2.java:[line 56]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "startLine": 62
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson2.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);\n            ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "endLine": 62,
+                  "startLine": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeUpdate(Ljava/lang/String;)I can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson3.java:[lines 50-82] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson3 \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson3.injectableQuery(String) \nAt SqlInjectionLesson3.java:[line 65] \nSink method java/sql/Statement.executeUpdate(Ljava/lang/String;)I \nSink parameter 0 \nUnknown source org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson3.injectableQuery(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nMethod usage with tainted arguments detected \nAt SqlInjectionLesson3.java:[line 57]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                statement.executeUpdate(query);\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson3.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                        CONCUR_READ_ONLY);\n                statement.executeUpdate(query);\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeUpdate(Ljava/lang/String;)I can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson4.java:[lines 46-74] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson4 \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson4.injectableQuery(String) \nAt SqlInjectionLesson4.java:[line 59] \nSink method java/sql/Statement.executeUpdate(Ljava/lang/String;)I \nSink parameter 0 \nUnknown source org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson4.injectableQuery(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nMethod usage with tainted arguments detected \nAt SqlInjectionLesson4.java:[line 53]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                statement.executeUpdate(query);\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson4.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            try (Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY)) {\n                statement.executeUpdate(query);\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson5a.java:[lines 47-118] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5a \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5a.injectableQuery(String) \nAt SqlInjectionLesson5a.java:[line 62] \nSink method java/sql/Statement.executeQuery(Ljava/lang/String;)Ljava/sql/ResultSet; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "startLine": 62
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5a.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            try (Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {\n                ResultSet results = statement.executeQuery(query);\n"
+                  },
+                  "endLine": 62,
+                  "startLine": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Connection.prepareStatement(Ljava/lang/String;II)Ljava/sql/PreparedStatement; can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson5b.java:[lines 45-95] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5b \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson5b.injectableQuery(String, String) \nAt SqlInjectionLesson5b.java:[line 58] \nSink method java/sql/Connection.prepareStatement(Ljava/lang/String;II)Ljava/sql/PreparedStatement; \nSink parameter 2."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            PreparedStatement query = connection.prepareStatement(queryString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);\n"
+                  },
+                  "startLine": 58
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5b.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try (Connection connection = dataSource.getConnection()) {\n            PreparedStatement query = connection.prepareStatement(queryString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);\n"
+                  },
+                  "endLine": 58,
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Statement.executeUpdate(Ljava/lang/String;)I can be vulnerable to SQL injection (with JDBC) \nAt SqlInjectionLesson8.java:[lines 47-141] \nIn class org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson8 \nIn method org.owasp.webgoat.sql_injection.introduction.SqlInjectionLesson8.log(Connection, String) \nAt SqlInjectionLesson8.java:[line 137] \nSink method java/sql/Statement.executeUpdate(Ljava/lang/String;)I \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            statement.executeUpdate(logQuery);\n"
+                  },
+                  "startLine": 137
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson8.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "            Statement statement = connection.createStatement(TYPE_SCROLL_SENSITIVE, CONCUR_UPDATABLE);\n            statement.executeUpdate(logQuery);\n"
+                  },
+                  "endLine": 137,
+                  "startLine": 136
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This use of java/sql/Connection.prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement; can be vulnerable to SQL injection (with JDBC) \nAt Servers.java:[lines 46-80] \nIn class org.owasp.webgoat.sql_injection.mitigation.Servers \nIn method org.owasp.webgoat.sql_injection.mitigation.Servers.sort(String) \nAt Servers.java:[line 73] \nSink method java/sql/Connection.prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement; \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "             PreparedStatement preparedStatement = connection.prepareStatement(\"select id, hostname, ip, mac, status, description from servers  where status <> 'out of order' order by \" + column)) {\n"
+                  },
+                  "startLine": 73
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/mitigation/Servers.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try (Connection connection = dataSource.getConnection();\n             PreparedStatement preparedStatement = connection.prepareStatement(\"select id, hostname, ip, mac, status, description from servers  where status <> 'out of order' order by \" + column)) {\n"
+                  },
+                  "endLine": 73,
+                  "startLine": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-89",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "This web server request could be used by an attacker to expose internal services and filesystem. \nAt SSRFTask2.java:[lines 41-79] \nIn class org.owasp.webgoat.ssrf.SSRFTask2 \nIn method org.owasp.webgoat.ssrf.SSRFTask2.furBall(String) \nAt SSRFTask2.java:[line 55] \nSink method java/net/URL.openConnection()Ljava/net/URLConnection; \nSink parameter 0 \nUnknown source java/net/URL.<init>(Ljava/lang/String;)V \nUnknown source org/owasp/webgoat/ssrf/SSRFTask2.furBall(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nMethod usage with tainted arguments detected \nAt SSRFTask2.java:[line 46] \nAt SSRFTask2.java:[line 54]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "                URLConnection urlConnection = u.openConnection();\n"
+                  },
+                  "startLine": 55
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/ssrf/src/main/java/org/owasp/webgoat/ssrf/SSRFTask2.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                URL u = new URL(url);\n                URLConnection urlConnection = u.openConnection();\n"
+                  },
+                  "endLine": 55,
+                  "startLine": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-918",
+          "ruleIndex": 12
+        },
+        {
+          "message": {
+            "text": "This use of org/slf4j/Logger.debug(Ljava/lang/String;)V might be used to include CRLF characters into log messages \nAt CrossSiteScriptingLesson4.java:[lines 37-58] \nIn class org.owasp.webgoat.xss.CrossSiteScriptingLesson4 \nIn method org.owasp.webgoat.xss.CrossSiteScriptingLesson4.completed(String) \nAt CrossSiteScriptingLesson4.java:[line 46] \nSink method org/slf4j/Logger.debug(Ljava/lang/String;)V \nSink parameter 0 \nTainted source org/owasp/webgoat/xss/CrossSiteScriptingLesson4.completed(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nAt CrossSiteScriptingLesson4.java:[line 45]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        log.debug(editor);\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson4.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        String editor = editor2.replaceAll(\"\\\\<.*?>\", \"\");\n        log.debug(editor);\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-117",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt BlindSendFileAssignment.java:[lines 52-90] \nIn class org.owasp.webgoat.xxe.BlindSendFileAssignment \nIn method org.owasp.webgoat.xxe.BlindSendFileAssignment.createSecretFileWithRandomContents() \nAt BlindSendFileAssignment.java:[line 65] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 1 \nUnknown source org/owasp/webgoat/xxe/BlindSendFileAssignment.webGoatHomeDirectory \nAt BlindSendFileAssignment.java:[line 65]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File targetDirectory = new File(webGoatHomeDirectory, \"/XXE\");\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/BlindSendFileAssignment.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public void createSecretFileWithRandomContents() {\n        File targetDirectory = new File(webGoatHomeDirectory, \"/XXE\");\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "The XML parsing is vulnerable to XML External Entity attacks \nAt Comments.java:[lines 53-112] \nIn class org.owasp.webgoat.xxe.Comments \nIn method org.owasp.webgoat.xxe.Comments.parseXml(String) \nAt Comments.java:[line 87]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        XMLStreamReader xsr = xif.createXMLStreamReader(new StringReader(xml));\n"
+                  },
+                  "startLine": 87
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Comments.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        xif.setProperty(XMLInputFactory.SUPPORT_DTD, true);\n        XMLStreamReader xsr = xif.createXMLStreamReader(new StringReader(xml));\n"
+                  },
+                  "endLine": 87,
+                  "startLine": 86
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-611",
+          "ruleIndex": 13
+        },
+        {
+          "message": {
+            "text": "This use of org/slf4j/Logger.debug(Ljava/lang/String;)V might be used to include CRLF characters into log messages \nAt Ping.java:[lines 35-56] \nIn class org.owasp.webgoat.xxe.Ping \nIn method org.owasp.webgoat.xxe.Ping.logRequest(String, String) \nAt Ping.java:[line 47] \nSink method org/slf4j/Logger.debug(Ljava/lang/String;)V \nSink parameter 0 \nTainted source org/owasp/webgoat/xxe/Ping.logRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String; parameter 0 \nTainted source org/owasp/webgoat/xxe/Ping.logRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String; parameter 1 \nAt Ping.java:[line 46]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        log.debug(logLine);\n"
+                  },
+                  "startLine": 47
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Ping.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        String logLine = String.format(\"%s %s %s\", \"GET\", userAgent, text);\n        log.debug(logLine);\n"
+                  },
+                  "endLine": 47,
+                  "startLine": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-117",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt Ping.java:[lines 35-56] \nIn class org.owasp.webgoat.xxe.Ping \nIn method org.owasp.webgoat.xxe.Ping.logRequest(String, String) \nAt Ping.java:[line 48] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File logFile = new File(webGoatHomeDirectory, \"/XXE/log\" + webSession.getUserName() + \".txt\");\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Ping.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        log.debug(logLine);\n        File logFile = new File(webGoatHomeDirectory, \"/XXE/log\" + webSession.getUserName() + \".txt\");\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt SimpleXXE.java:[lines 49-98] \nIn class org.owasp.webgoat.xxe.SimpleXXE \nIn method org.owasp.webgoat.xxe.SimpleXXE.getSampleDTDFile() \nAt SimpleXXE.java:[line 98]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n\"\n"
+                  },
+                  "startLine": 98
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/SimpleXXE.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String getSampleDTDFile() {\n        return \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n\"\n"
+                  },
+                  "endLine": 98,
+                  "startLine": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt SimpleXXE.java:[lines 49-98] \nIn class org.owasp.webgoat.xxe.SimpleXXE \nIn method org.owasp.webgoat.xxe.SimpleXXE.getWebGoatHomeDirectory() \nAt SimpleXXE.java:[line 92]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return webGoatHomeDirectory;\n"
+                  },
+                  "startLine": 92
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/SimpleXXE.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String getWebGoatHomeDirectory() {\n        return webGoatHomeDirectory;\n"
+                  },
+                  "endLine": 92,
+                  "startLine": 91
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.getFiles(HttpServletRequest) \nAt FileServer.java:[line 97] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/user/WebGoatUser.username \nUnknown source org/owasp/webwolf/user/WebGoatUser.getUsername()Ljava/lang/String; \nAt FileServer.java:[line 96] \nAt WebGoatUser.java:[line 49]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File destinationDir = new File(fileLocation, username);\n"
+                  },
+                  "startLine": 97
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        String username = user.getUsername();\n        File destinationDir = new File(fileLocation, username);\n"
+                  },
+                  "endLine": 97,
+                  "startLine": 96
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.getFiles(HttpServletRequest) \nAt FileServer.java:[line 101] \nSink method java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File changeIndicatorFile = new File(destinationDir, user.getUsername() + \"_changed\");\n"
+                  },
+                  "startLine": 101
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        modelAndView.setViewName(\"files\");\n        File changeIndicatorFile = new File(destinationDir, user.getUsername() + \"_changed\");\n"
+                  },
+                  "endLine": 101,
+                  "startLine": 100
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.importFile(MultipartFile) \nAt FileServer.java:[line 71] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/user/WebGoatUser.username \nUnknown source org/owasp/webwolf/user/WebGoatUser.getUsername()Ljava/lang/String; \nAt FileServer.java:[line 71] \nAt WebGoatUser.java:[line 49]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File destinationDir = new File(fileLocation, user.getUsername());\n"
+                  },
+                  "startLine": 71
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        WebGoatUser user = (WebGoatUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();\n        File destinationDir = new File(fileLocation, user.getUsername());\n"
+                  },
+                  "endLine": 71,
+                  "startLine": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.importFile(MultipartFile) \nAt FileServer.java:[line 73] \nSink method java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/springframework/web/multipart/MultipartFile.getOriginalFilename()Ljava/lang/String;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        myFile.transferTo(new File(destinationDir, myFile.getOriginalFilename()));\n"
+                  },
+                  "startLine": 73
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        destinationDir.mkdirs();\n        myFile.transferTo(new File(destinationDir, myFile.getOriginalFilename()));\n"
+                  },
+                  "endLine": 73,
+                  "startLine": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.importFile(MultipartFile) \nAt FileServer.java:[line 74] \nSink method java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/springframework/web/multipart/MultipartFile.getOriginalFilename()Ljava/lang/String;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        log.debug(\"File saved to {}\", new File(destinationDir, myFile.getOriginalFilename()));\n"
+                  },
+                  "startLine": 74
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        myFile.transferTo(new File(destinationDir, myFile.getOriginalFilename()));\n        log.debug(\"File saved to {}\", new File(destinationDir, myFile.getOriginalFilename()));\n"
+                  },
+                  "endLine": 74,
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.importFile(MultipartFile) \nAt FileServer.java:[line 75] \nSink method java/io/File.<init>(Ljava/io/File;Ljava/lang/String;)V \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        Files.createFile(new File(destinationDir, user.getUsername() + \"_changed\").toPath());\n"
+                  },
+                  "startLine": 75
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        log.debug(\"File saved to {}\", new File(destinationDir, myFile.getOriginalFilename()));\n        Files.createFile(new File(destinationDir, user.getUsername() + \"_changed\").toPath());\n"
+                  },
+                  "endLine": 75,
+                  "startLine": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.getFileLocation() \nAt FileServer.java:[line 65]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return fileLocation;\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public String getFileLocation() {\n        return fileLocation;\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt MvcConfiguration.java:[lines 44-66] \nIn class org.owasp.webwolf.MvcConfiguration \nIn method org.owasp.webwolf.MvcConfiguration.createDirectory() \nAt MvcConfiguration.java:[line 62] \nSink method java/io/File.<init>(Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/MvcConfiguration.fileLocatation \nAt MvcConfiguration.java:[line 62]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        File file = new File(fileLocatation);\n"
+                  },
+                  "startLine": 62
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/MvcConfiguration.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public void createDirectory() {\n        File file = new File(fileLocatation);\n"
+                  },
+                  "endLine": 62,
+                  "startLine": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-22",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Disabling Spring Security's CSRF protection is unsafe for standard web applications \nAt WebSecurityConfig.java:[lines 43-87] \nIn class org.owasp.webwolf.WebSecurityConfig \nIn method org.owasp.webwolf.WebSecurityConfig.configure(HttpSecurity) \nAt WebSecurityConfig.java:[line 56]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        security.and().csrf().disable().formLogin()\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/WebSecurityConfig.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                .anyRequest().permitAll();\n        security.and().csrf().disable().formLogin()\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "The persistent objects could be exploited by attacker to read sensitive information. \nAt MailboxController.java:[lines 44-67] \nIn class org.owasp.webwolf.mailbox.MailboxController \nIn method org.owasp.webwolf.mailbox.MailboxController.sendEmail(Email) \nAt MailboxController.java:[line 65]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return () -> {\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/mailbox/MailboxController.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public Callable<ResponseEntity<?>> sendEmail(@RequestBody Email email) {\n        return () -> {\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-915",
+          "ruleIndex": 14
+        },
+        {
+          "message": {
+            "text": "This use of org/slf4j/Logger.trace(Ljava/lang/String;Ljava/lang/Object;)V might be used to include CRLF characters into log messages \nAt LandingPage.java:[lines 35-43] \nIn class org.owasp.webwolf.requests.LandingPage \nIn method org.owasp.webwolf.requests.LandingPage.lambda$ok$0(HttpServletRequest) \nAt LandingPage.java:[line 42] \nSink method org/slf4j/Logger.trace(Ljava/lang/String;Ljava/lang/Object;)V \nSink parameter 0 \nTainted source javax/servlet/http/HttpServletRequest.getRequestURL()Ljava/lang/StringBuffer; \nAt LandingPage.java:[line 42]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            log.trace(\"Incoming request for: {}\", request.getRequestURL());\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/requests/LandingPage.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        return () -> {\n            log.trace(\"Incoming request for: {}\", request.getRequestURL());\n"
+                  },
+                  "endLine": 42,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "ruleId": "CWE-117",
+          "ruleIndex": 7
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LandingPage.java:[lines 35-43] \nIn class org.owasp.webwolf.requests.LandingPage \nIn method org.owasp.webwolf.requests.LandingPage.ok(HttpServletRequest) \nAt LandingPage.java:[line 41]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return () -> {\n"
+                  },
+                  "startLine": 41
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/requests/LandingPage.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public Callable<ResponseEntity<?>> ok(HttpServletRequest request) {\n        return () -> {\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "ruleId": "CWE-352",
+          "ruleIndex": 4
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+}

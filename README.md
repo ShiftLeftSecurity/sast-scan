@@ -2,11 +2,13 @@
 
 This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
 
-Some reports get converted into an open-standard called [SARIF](https://sarifweb.azurewebsites.net/). Please see the section on `Viewing reports` for various viewer options for this.
-
-RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine to help with enterprise adoption of this tool.
-
 [![Docker Repository on Quay](https://quay.io/repository/appthreat/sast-scan/status "Docker Repository on Quay")](https://quay.io/repository/appthreat/sast-scan)
+
+## Features
+
+- No messy configuration and no server required.
+- Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of mins
+- Automatic exit code 1 (build breaker) with critical and high vulnerabilities
 
 ## Bundled tools
 
@@ -41,9 +43,68 @@ RedHat's `ubi8/ubi-minimal` is used as a base image instead of the usual alpine 
 - Node.js 10
 - Yarnpkg
 
+Some reports get converted into an open-standard called [SARIF](https://sarifweb.azurewebsites.net/). Please see the section on `Viewing reports` for various viewer options for this.
+
+### Tools enabled for SARIF conversion
+
+- Bash - shellcheck
+- Credscan - gitleaks
+- Python - bandit
+- Node.js - NodeJsScan
+- Java - pmd, find-sec-bugs
+- Golang - gosec
+- Terraform - tfsec
+
 ## Usage
 
-### Scanning various project
+sast-scan is ideal for use with CI and also as a pre-commit hook for local development.
+
+## Integration with Azure DevOps
+
+Refer to the sample yaml [configuration](docs/azure-pipelines.yml.sample) to add sast-scan to an Azure DevOps pipeline.
+
+## Integration with GitHub action
+
+This tool can be used with GitHub actions using this [action](https://github.com/marketplace/actions/sast-scan). All the supported languages can be used.
+
+This repo self-tests itself with sast-scan! Check the GitHub [workflow file](https://github.com/AppThreat/sast-scan/blob/master/.github/workflows/pythonapp.yml) of this repo.
+
+```yaml
+- name: Self sast-scan
+  uses: AppThreat/sast-scan-action@v1.0.0
+  with:
+    output: reports
+    type: python,bash
+- name: Upload scan reports
+  uses: actions/upload-artifact@v1.0.0
+  with:
+    name: sast-scan-reports
+    path: reports
+```
+
+## Integration with Google CloudBuild
+
+Use this [custom builder](https://github.com/CloudBuildr/google-custom-builders/tree/master/sast-scan) to add sast-scan as a build step.
+
+The full steps are reproduced below.
+
+1. Add the custom builder to your project
+
+```bash
+git clone https://github.com/CloudBuildr/google-custom-builders.git
+cd google-custom-builders/sast-scan
+gcloud builds submit --config cloudbuild.yaml .
+```
+
+2. Use it in cloudbuild.yaml
+
+```yaml
+steps:
+  - name: "gcr.io/$PROJECT_ID/sast-scan"
+    args: ["--type", "python"]
+```
+
+### Scanning projects locally
 
 Scan python project
 
@@ -103,16 +164,6 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=sariftools.sarif-viewer-build-tab
 
-### Tools enabled for SARIF conversion
-
-- Bash - shellcheck
-- Credscan - gitleaks
-- Python - bandit
-- Node.js - NodeJsScan
-- Java - pmd, find-sec-bugs
-- Golang - gosec
-- Terraform - tfsec
-
 **Example reports:**
 
 Online viewer can be used to manually upload the .sarif files as shown.
@@ -122,51 +173,6 @@ Online viewer can be used to manually upload the .sarif files as shown.
 Azure DevOps SARIF plugin can be integrated to show the analysis integrated with the build run as shown.
 
 ![Azure DevOps integration](docs/azure-devops.png)
-
-## Integration with Azure DevOps
-
-Refer to the sample yaml [configuration](docs/azure-pipelines.yml.sample) to add sast-scan to an Azure DevOps pipeline.
-
-## Integration with GitHub action
-
-This tool can be used with GitHub actions using this [action](https://github.com/marketplace/actions/sast-scan). All the supported languages can be used.
-
-This repo self-tests itself with sast-scan! Check the GitHub [workflow file](https://github.com/AppThreat/sast-scan/blob/master/.github/workflows/pythonapp.yml) of this repo.
-
-```yaml
-- name: Self sast-scan
-  uses: AppThreat/sast-scan-action@v1.0.0
-  with:
-    output: reports
-    type: python,bash
-- name: Upload scan reports
-  uses: actions/upload-artifact@v1.0.0
-  with:
-    name: sast-scan-reports
-    path: reports
-```
-
-## Integration with Google CloudBuild
-
-Use this [custom builder](https://github.com/CloudBuildr/google-custom-builders/tree/master/sast-scan) to add sast-scan as a build step.
-
-The full steps are reproduced below.
-
-1. Add the custom builder to your project
-
-```bash
-git clone https://github.com/CloudBuildr/google-custom-builders.git
-cd google-custom-builders/sast-scan
-gcloud builds submit --config cloudbuild.yaml .
-```
-
-2. Use it in cloudbuild.yaml
-
-```yaml
-steps:
-  - name: "gcr.io/$PROJECT_ID/sast-scan"
-    args: ["--type", "python"]
-```
 
 ## Alternatives
 
