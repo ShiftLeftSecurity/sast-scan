@@ -136,7 +136,7 @@ def report(
             om.Run(
                 tool=om.Tool(
                     driver=om.ToolComponent(
-                        name=config.tool_purpose_message.get("tool_name", tool_name)
+                        name=config.tool_purpose_message.get(tool_name, tool_name)
                     )
                 ),
                 invocations=[
@@ -256,8 +256,12 @@ def create_result(
     # Substitute workspace prefix
     # Override file path prefix with workspace
     filename = issue_dict["filename"]
-    if working_dir and WORKSPACE_PREFIX and filename.startswith(working_dir):
-        filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
+    if working_dir:
+        # Issue 5 fix. Convert relative to full path automatically
+        if not filename.startswith(working_dir):
+            filename = os.path.join(working_dir, filename)
+        if WORKSPACE_PREFIX:
+            filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
 
     physical_location = om.PhysicalLocation(
         artifact_location=om.ArtifactLocation(uri=to_uri(filename))

@@ -122,3 +122,6 @@ tool_purpose_message = {
 tool_ref_url = {
     "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s"
 }
+
+# Build break rules
+build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium": 5}}

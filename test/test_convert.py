@@ -12,7 +12,10 @@ def test_nodejsscan_convert_empty():
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report("nodejsscan", [], ".", {}, {}, [], cfile.name)
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "nodejsscan"
+        assert (
+            jsondata["runs"][0]["tool"]["driver"]["name"]
+            == "Static security code scan by NodeJsScan"
+        )
         assert not jsondata["runs"][0]["results"]
         assert not jsondata["runs"][0]["properties"]["metrics"]
 
@@ -40,7 +43,10 @@ def test_nodejsscan_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "nodejsscan"
+        assert (
+            jsondata["runs"][0]["tool"]["driver"]["name"]
+            == "Static security code scan by NodeJsScan"
+        )
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "MD5 is a a weak hash which is known to have collision. Use a strong hashing function."
@@ -66,7 +72,10 @@ def test_nodejsscan_convert_metrics():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "nodejsscan"
+        assert (
+            jsondata["runs"][0]["tool"]["driver"]["name"]
+            == "Static security code scan by NodeJsScan"
+        )
         assert jsondata["runs"][0]["properties"]["metrics"]
 
 
@@ -103,6 +112,31 @@ def test_create_result():
     assert (
         data.locations[0].physical_location.artifact_location.uri
         == "https://github.com/appthreat/cdxgen/blob/master/CWE-916/examples/InsufficientPasswordHash.js"
+    )
+
+
+def test_create_result_relative():
+    os.environ["WORKSPACE"] = ""
+    importlib.reload(convertLib)
+    issue = issueLib.issue_from_dict(
+        {
+            "line": "VERY_REDACTED ",
+            "offender": "REDACTED",
+            "commit": "06fd7b1f844f88fb7821df498ce6d209cb9ad875",
+            "repo": "app",
+            "rule": "Generic Credential",
+            "commitMessage": "Add secret\n",
+            "author": "Prabhu Subramanian",
+            "email": "prabhu@appthreat.com",
+            "file": "src/main/README-new.md",
+            "date": "2020-01-12T19:45:43Z",
+            "tags": "key, API, generic",
+        }
+    )
+    data = convertLib.create_result("gitleaks", issue, {}, {}, None, "/app")
+    assert (
+        data.locations[0].physical_location.artifact_location.uri
+        == "file:///app/src/main/README-new.md"
     )
 
 
@@ -158,7 +192,10 @@ def test_gosec_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "gosec"
+        assert (
+            jsondata["runs"][0]["tool"]["driver"]["name"]
+            == "Golang security checks by gosec"
+        )
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
 
 
@@ -186,7 +223,10 @@ def test_tfsec_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "tfsec"
+        assert (
+            jsondata["runs"][0]["tool"]["driver"]["name"]
+            == "Terraform static analysis by tfsec"
+        )
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "Resource 'aws_security_group_rule.my-rule' should include a description for auditing purposes."
