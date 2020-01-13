@@ -95,7 +95,6 @@ ENV APP_SRC_DIR=/usr/local/src \
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/go /usr/local/go
 COPY --from=builder /usr/local/bin/railroader /usr/local/bin/railroader
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
@@ -113,12 +112,9 @@ USER root
 
 RUN pip3 install --no-cache-dir wheel bandit bandit_sarif_formatter ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install --production -g retire @appthreat/cdxgen eslint \
+    && npm install -g retire @appthreat/cdxgen eslint \
     && chmod +x /usr/local/src/scan \
-    && microdnf remove -y wget unzip xz ruby-devel shadow-utils \
-    && mkdir -p /.cache /opt/dependency-check/data \
-    && microdnf clean all \
-    && rm -rf /tmp/
+    && mkdir -p /.cache /opt/dependency-check/data
 
 COPY lib /usr/local/src/lib
 
