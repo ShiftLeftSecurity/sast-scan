@@ -61,7 +61,7 @@ sast-scan is ideal for use with CI and also as a pre-commit hook for local devel
 
 ## Integration with Azure DevOps
 
-Refer to the sample yaml [configuration](docs/azure-pipelines.yml.sample) to add sast-scan to an Azure DevOps pipeline.
+Refer to the [document](docs/azure-devops.md)
 
 ## Integration with GitHub action
 
@@ -103,6 +103,10 @@ steps:
   - name: "gcr.io/$PROJECT_ID/sast-scan"
     args: ["--type", "python"]
 ```
+
+## Integration with CircleCI
+
+Refer to the [document](docs/circleci.md)
 
 ### Scanning projects locally
 

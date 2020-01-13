@@ -4,12 +4,14 @@ sast-scan has good integration with Azure Pipelines. This repo contains an [exam
 
 ```yaml
 - script: |
-    docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" \
-    	-v $(Build.SourcesDirectory):/app quay.io/appthreat/sast-scan scan \
-    	--src /app \
-    	--type credscan,java,bash,nodejs \
-    	--out_dir /app/reports
+      docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" \
+        -v $(Build.SourcesDirectory):/app \
+        -v $(Build.ArtifactStagingDirectory):/reports \
+        quay.io/appthreat/sast-scan scan --src /app \
+        --type credscan,java,bash,nodejs \
+        --out_dir /reports/CodeAnalysisLogs
   displayName: "Java and Credscan"
+  continueOnError: "true"
 ```
 
 ## Suggested DevSecOps workflow
@@ -37,23 +39,10 @@ The following extension called [SARIF viewer](https://marketplace.visualstudio.c
 The yaml pipeline should include the below steps to enable the analysis.
 
 ```yaml
-# Bring together all the .sarif files to a directory called CodeAnalysisLogs
-- task: CopyFiles@2
-  displayName: "Copy analysis logs"
-  inputs:
-    SourceFolder: "$(Build.SourcesDirectory)"
-    Contents: "**/*.sarif"
-    TargetFolder: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
-    flattenFolders: true
-
-# To integrate with the SARIF Azure DevOps Extension it is necessary to publish the CodeAnalysisLogs folder
-# as an artifact with the same name
 - task: PublishBuildArtifacts@1
   displayName: "Publish analysis logs"
   inputs:
-    PathtoPublish: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
-    ArtifactName: "CodeAnalysisLogs"
-    publishLocation: "Container"
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
+      ArtifactName: "CodeAnalysisLogs"
+      publishLocation: "Container"
 ```
-
-You can also mount the `$(Build.ArtifactStagingDirectory)` as a volume in the docker run command and specify `$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs` as the `out_dir` parameter. With this configuration, the `CopyFiles` step can then be ignored since the reports would get created in the right directory.
