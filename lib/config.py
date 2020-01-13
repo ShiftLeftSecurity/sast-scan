@@ -116,6 +116,7 @@ tool_purpose_message = {
     "gosec": "Golang security checks by gosec",
     "tfsec": "Terraform static analysis by tfsec",
     "shellcheck": "Shell script analysis by shellcheck",
+    "bandit": "Security audit for python by bandit",
 }
 
 # Map to link to the reference for the given rule

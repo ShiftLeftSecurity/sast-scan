@@ -17,6 +17,7 @@ def find_tool_shortname(desc):
     for key, value in config.tool_purpose_message.items():
         if value.lower() == desc.lower():
             return key
+    return desc
 
 
 def summary(sarif_files, override_rules={}):
