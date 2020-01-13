@@ -31,7 +31,7 @@ RUN mkdir -p /usr/local/bin/appthreat \
     && chmod +x /usr/local/bin/appthreat/gosec \
     && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz
 RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
-    && unzip gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
+    && unzip -q gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
     && chmod +x /opt/gradle-${GRADLE_VERSION}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-bin.zip \
     && curl -LO "https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz" \
@@ -51,12 +51,12 @@ RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEA
 RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/appthreat/kube-score" \
     && chmod +x /usr/local/bin/appthreat/kube-score \
     && wget "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip" \
-    && unzip pmd-bin-${PMD_VERSION}.zip -d /opt/ \
+    && unzip -q pmd-bin-${PMD_VERSION}.zip -d /opt/ \
     && rm pmd-bin-${PMD_VERSION}.zip \
     && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/appthreat/jq" \
     && chmod +x /usr/local/bin/appthreat/jq \
     && curl -LO "https://dl.bintray.com/jeremy-long/owasp/dependency-check-${DC_VERSION}-release.zip" \
-    && unzip dependency-check-${DC_VERSION}-release.zip -d /opt/ \
+    && unzip -q dependency-check-${DC_VERSION}-release.zip -d /opt/ \
     && rm dependency-check-${DC_VERSION}-release.zip \
     && chmod +x /opt/dependency-check/bin/dependency-check.sh
 RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/appthreat/detekt-cli.jar" \
@@ -64,14 +64,14 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && tar -C /usr/local/bin/appthreat/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz \
     && curl -LO "http://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/${SB_VERSION}/spotbugs-${SB_VERSION}.zip" \
-    && unzip spotbugs-${SB_VERSION}.zip -d /opt/ \
+    && unzip -q spotbugs-${SB_VERSION}.zip -d /opt/ \
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
     && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
 RUN gem install -q railroader cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
-FROM quay.io/appthreat/scan-base-slim as sast-scan-nonjava
+FROM quay.io/appthreat/scan-base-slim as sast-scan-tools
 
 LABEL maintainer="AppThreat" \
       org.label-schema.schema-version="1.0" \
@@ -79,7 +79,7 @@ LABEL maintainer="AppThreat" \
       org.label-schema.name="sast-scan" \
       org.label-schema.version=$CLI_VERSION \
       org.label-schema.license="MIT" \
-      org.label-schema.description="Container with various opensource static analysis tools (shellcheck, gosec, tfsec, gitleaks, ...) for multiple programming languages" \
+      org.label-schema.description="Container with various opensource static analysis security testing tools (shellcheck, gosec, tfsec, gitleaks, ...) for multiple programming languages" \
       org.label-schema.url="https://appthreat.io" \
       org.label-schema.usage="https://github.com/appthreat/sast-scan" \
       org.label-schema.build-date=$BUILD_DATE \
