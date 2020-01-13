@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/python-36 as builder
+FROM quay.io/appthreat/scan-base as builder
 
 ARG CLI_VERSION
 ARG BUILD_DATE
@@ -29,9 +29,7 @@ RUN mkdir -p /usr/local/bin/appthreat \
     && curl -LO "https://github.com/securego/gosec/releases/download/v${GOSEC_VERSION}/gosec_${GOSEC_VERSION}_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/appthreat/ -xvf gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
     && chmod +x /usr/local/bin/appthreat/gosec \
-    && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
-    && yum update -y \
-    && yum install -y ruby ruby-libs ruby-devel rubygems nodejs
+    && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz
 RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && unzip gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
     && chmod +x /opt/gradle-${GRADLE_VERSION}/bin/gradle \
@@ -49,12 +47,7 @@ RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEA
     && chmod +x /usr/local/bin/appthreat/gitleaks \
     && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/appthreat/tfsec" \
     && chmod +x /usr/local/bin/appthreat/tfsec \
-    && rm shellcheck-stable.linux.x86_64.tar.xz \
-    && curl -L https://sh.rustup.rs > rust-installer.sh \
-    && chmod +x rust-installer.sh \
-    && bash rust-installer.sh -y \
-    && rm rust-installer.sh \
-    && cargo install cargo-audit
+    && rm shellcheck-stable.linux.x86_64.tar.xz
 RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/appthreat/kube-score" \
     && chmod +x /usr/local/bin/appthreat/kube-score \
     && wget "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip" \
@@ -75,14 +68,10 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
-    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
-    && curl -LO "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" \
-    && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
-    && rm -rf /usr/local/go/src /usr/local/go/test \
-    && rm go${GO_VERSION}.linux-amd64.tar.gz
-RUN gem install railroader cfn-nag puppet-lint cyclonedx-ruby
+    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
+RUN gem install -q railroader cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal as sast-scan-nonjava
+FROM quay.io/appthreat/scan-base-slim as sast-scan-nonjava
 
 LABEL maintainer="AppThreat" \
       org.label-schema.schema-version="1.0" \
@@ -98,7 +87,10 @@ LABEL maintainer="AppThreat" \
       org.label-schema.docker.cmd="docker run --rm -it --name sast-scan appthreat/sast-scan"
 
 ENV APP_SRC_DIR=/usr/local/src \
-    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:
+    PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
+    SPOTBUGS_HOME=/opt/spotbugs \
+    JAVA_HOME=/usr/lib/jvm/jre-11 \
+    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:/opt/dependency-check/bin/:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
@@ -109,46 +101,27 @@ COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
-
-USER root
-
-COPY scan /usr/local/src/
-COPY lib /usr/local/src/lib
-COPY requirements.txt /usr/local/src/
-
-RUN microdnf install -y python36 ruby ruby-libs nodejs git-core \
-    && pip3 install --no-cache-dir wheel bandit bandit_sarif_formatter ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
-    && pip3 install -r /usr/local/src/requirements.txt \
-    && npm install -g yarn retire @appthreat/cdxgen eslint \
-    && chmod +x /usr/local/src/scan \
-    && microdnf clean all \
-    && rm -rf /tmp/
-
-# Split java related tools separately so that we can build a slim version in the future
-FROM sast-scan-nonjava
-
-ENV PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
-    SPOTBUGS_HOME=/opt/spotbugs \
-    JAVA_HOME=/usr/lib/jvm/jre-11 \
-    PATH=/opt/dependency-check/bin/:${PATH}
-
-USER root
-
 COPY rules-pmd.xml /usr/local/src/
 COPY spotbugs /usr/local/src/spotbugs
 COPY --from=builder /opt/dependency-check /opt/dependency-check
 COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-4.0.0-beta4 /opt/spotbugs
+COPY requirements.txt /usr/local/src/
+COPY scan /usr/local/src/
 
-RUN microdnf install -y java-11-openjdk-headless \
-    && microdnf remove -y shadow-utils \
+USER root
+
+RUN pip3 install --no-cache-dir wheel bandit bandit_sarif_formatter ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
+    && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
+    && npm install --production -g retire @appthreat/cdxgen eslint \
+    && chmod +x /usr/local/src/scan \
+    && microdnf remove -y wget unzip xz ruby-devel shadow-utils \
     && mkdir -p /.cache /opt/dependency-check/data \
     && microdnf clean all \
     && rm -rf /tmp/
 
-WORKDIR /usr/local/src
+COPY lib /usr/local/src/lib
 
-# Run as default user
-# USER nobody
+WORKDIR /usr/local/src
 
 CMD [ "python3", "/usr/local/src/scan" ]

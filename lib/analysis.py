@@ -37,8 +37,8 @@ def summary(sarif_files, override_rules={}):
             tool_name = find_tool_shortname(tool_desc)
             # Initialise
             report_summary[tool_name] = {
-                "tool_name": tool_name,
-                "tool_desc": tool_desc,
+                "tool": tool_name,
+                "description": tool_desc,
                 "critical": 0,
                 "high": 0,
                 "medium": 0,
@@ -72,4 +72,5 @@ def print_summary(report_summary):
         if not headers:
             headers = v.keys()
         table.append(v.values())
+    print("\n", flush=True)
     print(tabulate(table, headers, tablefmt="simple"), flush=True)

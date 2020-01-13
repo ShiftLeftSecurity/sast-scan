@@ -116,7 +116,12 @@ def scan(type_list, src, reports_dir, convert):
                     cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
                 )
         else:
-            getattr(sys.modules[__name__], "%s_scan" % type)(src, reports_dir, convert)
+            try:
+                getattr(sys.modules[__name__], "%s_scan" % type)(
+                    src, reports_dir, convert
+                )
+            except:
+                LOG.warn("Project type is not supported: {}".format(type))
 
 
 def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
@@ -127,7 +132,7 @@ def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
       args cli command and args
     """
     try:
-        LOG.info('♒︎ Executing "{}"'.format(" ".join(args)))
+        LOG.info('⚡︎ Executing "{}"'.format(" ".join(args)))
         subprocess.run(
             args,
             stdout=stdout,

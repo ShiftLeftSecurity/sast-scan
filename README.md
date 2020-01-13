@@ -174,6 +174,8 @@ Azure DevOps SARIF plugin can be integrated to show the analysis integrated with
 
 ![Azure DevOps integration](docs/azure-devops.png)
 
+![Build breaker](docs/build-breaker.png)
+
 ## Alternatives
 
 GitLab [SAST](https://docs.gitlab.com/ee/user/application_security/sast/) uses numerous single purpose [analyzers](https://gitlab.com/gitlab-org/security-products/analyzers) and Go based converters to produce a custom json format. This model has the downside of increasing build times since multiple container images should get downloaded and hence is not suitable for CI environments such as Azure Pipelines, CodeBuild and Google CloudBuild. Plus the license used by GitLab is not opensource even though the analyzers merely wrap existing oss tools!
