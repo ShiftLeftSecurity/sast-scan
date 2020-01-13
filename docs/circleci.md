@@ -50,4 +50,3 @@ In the above snippet, almost all the steps are necessary.
 ![CircleCI Sample](circleci-sample.png)
 
 ![CircleCI Build Artifacts](circleci-artifacts.png)
-

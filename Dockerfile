@@ -107,6 +107,7 @@ COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-4.0.0-beta4 /opt/spotbugs
 COPY requirements.txt /usr/local/src/
 COPY scan /usr/local/src/
+COPY lib /usr/local/src/lib
 
 USER root
 
@@ -114,9 +115,8 @@ RUN pip3 install --no-cache-dir wheel bandit bandit_sarif_formatter ansible-lint
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install -g retire @appthreat/cdxgen eslint \
     && chmod +x /usr/local/src/scan \
+    && microdnf remove -y ruby-devel xz shadow-utils \
     && mkdir -p /.cache /opt/dependency-check/data
-
-COPY lib /usr/local/src/lib
 
 WORKDIR /usr/local/src
 
