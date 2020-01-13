@@ -29,7 +29,7 @@ jobs:
         pip install pytest
         pytest
     - name: Self sast-scan
-      uses: AppThreat/sast-scan-action@v1.0.0
+      uses: AppThreat/sast-scan-action@v1.0.1
       with:
         output: reports
         type: python,bash
