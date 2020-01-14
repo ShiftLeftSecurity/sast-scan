@@ -79,7 +79,7 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
     # Should we store the aggregate data
     if aggregate_file:
         aggregate.jsonl_aggregate(run_data_list, aggregate_file)
-        LOG.info("\n\nAggregate report written to {}".format(aggregate_file))
+        LOG.info("\nAggregate report written to {}".format(aggregate_file))
     return report_summary, build_status
 
 
