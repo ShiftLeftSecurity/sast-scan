@@ -33,4 +33,5 @@ def test_override():
     # Test if we are able to override a command
     golang_cmd = config.get("scan_tools_args_map").get("golang")
     assert golang_cmd[0] == "echo"
+    assert config.get("projectType") == "credscan,java"
     del os.environ["SAST_SCAN_SRC_DIR"]

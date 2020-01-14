@@ -4,6 +4,7 @@
 Multi-language static analysis scanner
 """
 import argparse
+import importlib
 import io
 import logging
 import os
@@ -462,15 +463,22 @@ def bomgen(src, reports_dir, convert):
 if __name__ == "__main__":
     args = build_args()
     type = args.scan_type
+    # Set the source directory as an environment variable
+    os.environ["SAST_SCAN_SRC_DIR"] = args.src_dir
+    # Reload config so that any local .sastscanrc file could be used
+    try:
+        importlib.reload(config)
+    except:
+        pass
     # Identify project type
     if not type:
-        type = utils.detect_project_type(args.src_dir)
+        # Check the local config first. If not try auto detection
+        type = config.get("projectType").split(",")
+        if not type:
+            utils.detect_project_type(args.src_dir)
     else:
         type = type.split(",")
     print(at_logo, flush=True)
-
-    # Set the source directory as an environment variable
-    os.environ["SAST_SCAN_SRC_DIR"] = args.src_dir
     LOG.info("Scanning {} using scan plugins {}".format(args.src_dir, type))
     scan(type, args.src_dir, args.reports_dir, args.convert)
     if args.reports_dir:
