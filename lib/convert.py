@@ -11,6 +11,7 @@ import urllib.parse as urlparse
 from lib.issue import issue_from_dict
 import lib.csv_parser as csv_parser
 import lib.config as config
+from lib.context import find_repo_details
 import lib.xml_parser as xml_parser
 
 import sarif_om as om
@@ -129,6 +130,7 @@ def report(
     tool_args_str = tool_args
     if isinstance(tool_args, list):
         tool_args_str = " ".join(tool_args)
+    repo_details = find_repo_details(working_dir)
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
         version="2.1.0",
@@ -159,6 +161,13 @@ def report(
                     ),
                 },
                 properties={"metrics": metrics},
+                version_control_provenance=[
+                    om.VersionControlDetails(
+                        repository_uri=repo_details["repositoryUri"],
+                        branch=repo_details["branch"],
+                        revision_id=repo_details["revisionId"],
+                    )
+                ],
             )
         ],
     )
