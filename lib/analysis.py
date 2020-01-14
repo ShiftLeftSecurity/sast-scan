@@ -66,8 +66,8 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                     sev = aresult["properties"]["issue_severity"].lower()
                     report_summary[tool_name][sev] += 1
                 # Compare against the build break rule to determine status
-                default_rules = config.build_break_rules.get("default")
-                tool_rules = config.build_break_rules.get(tool_name, {})
+                default_rules = config.get("build_break_rules").get("default")
+                tool_rules = config.get("build_break_rules").get(tool_name, {})
                 build_break_rules = {**default_rules, **tool_rules, **override_rules}
                 for rsev in ["critical", "high", "medium", "low"]:
                     if build_break_rules.get("max_" + rsev) != None:

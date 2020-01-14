@@ -1,3 +1,12 @@
+import importlib
+import json
+import logging
+import os
+import sys
+
+
+LOG = logging.getLogger(__name__)
+
 """
 Supported language scan types
 """
@@ -126,3 +135,33 @@ tool_ref_url = {
 
 # Build break rules
 build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium": 5}}
+
+# Load any .sastscanrc file from the root
+if os.environ.get("SAST_SCAN_SRC_DIR"):
+    scanrc = os.path.join(os.environ.get("SAST_SCAN_SRC_DIR"), ".sastscanrc")
+    if os.path.exists(scanrc):
+        try:
+            with open(scanrc, "r") as rcfile:
+                new_config = json.loads(rcfile.read())
+                for key, value in new_config.items():
+                    exis_config = getattr(sys.modules[__name__], "key")
+                    if isinstance(exis_config, dict):
+                        exis_config = exis_config.update(value)
+                        setattr(sys.modules[__name__], key, exis_config)
+                    else:
+                        setattr(sys.modules[__name__], key, value)
+        except:
+            pass
+
+
+def get(configName):
+    """Method to retrieve a config given a name. This method lazy loads configuration
+    values and helps with overriding using a local config
+
+    :param configName: Name of the config
+    :return Config value
+    """
+    try:
+        return getattr(sys.modules[__name__], configName, None)
+    except:
+        return None

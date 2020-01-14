@@ -54,6 +54,13 @@ def build_args():
         dest="convert",
         help="Convert results to sarif json format",
     )
+    parser.add_argument(
+        "--no-error",
+        action="store_true",
+        default=False,
+        dest="noerror",
+        help="Continue on error to prevent build from breaking",
+    )
     return parser.parse_args()
 
 
@@ -68,11 +75,11 @@ def scan(type_list, src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     for type in type_list:
-        if config.scan_tools_args_map.get(type):
+        if config.get("scan_tools_args_map").get(type):
             os.makedirs(reports_dir, exist_ok=True)
             report_fname_prefix = os.path.join(reports_dir, type + "-report")
             report_fname = report_fname_prefix + ".json"
-            default_cmd = " ".join(config.scan_tools_args_map.get(type)) % dict(
+            default_cmd = " ".join(config.get("scan_tools_args_map").get(type)) % dict(
                 src=src,
                 reports_dir=reports_dir,
                 report_fname_prefix=report_fname_prefix,
@@ -209,7 +216,7 @@ def bandit_scan(src, reports_dir, convert):
         "-ll",
         *convert_args,
         "-x",
-        ",".join(config.ignore_directories),
+        ",".join(config.get("ignore_directories")),
         src,
     ]
     exec_tool(bandit_args)
@@ -359,7 +366,7 @@ def dep_check_scan(src, reports_dir, convert):
         *convert_args,
         "--enableExperimental",
         "--exclude",
-        ",".join(config.ignore_directories),
+        ",".join(config.get("ignore_directories")),
     ]
     exec_tool(dc_args, src)
 
@@ -433,7 +440,7 @@ def retirejs_scan(src, reports_dir, convert):
         "-p",
         *convert_args,
         "--ignore",
-        ",".join(config.ignore_directories),
+        ",".join(config.get("ignore_directories")),
     ]
     exec_tool(retire_args, src)
 
@@ -461,6 +468,9 @@ if __name__ == "__main__":
     else:
         type = type.split(",")
     print(at_logo, flush=True)
+
+    # Set the source directory as an environment variable
+    os.environ["SAST_SCAN_SRC_DIR"] = args.src_dir
     LOG.info("Scanning {} using scan plugins {}".format(args.src_dir, type))
     scan(type, args.src_dir, args.reports_dir, args.convert)
     if args.reports_dir:
@@ -469,4 +479,5 @@ if __name__ == "__main__":
         report_summary, build_status = analysis.summary(sarif_files, agg_fname)
         if report_summary:
             analysis.print_summary(report_summary)
-            sys.exit(1 if build_status == "fail" else 0)
+            if not args.noerror:
+                sys.exit(1 if build_status == "fail" else 0)

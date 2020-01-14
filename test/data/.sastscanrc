@@ -1,0 +1,8 @@
+{
+    "build_break_rules": {
+        "default": { "max_critical": 0, "max_high": 0, "max_medium": 0 }
+    },
+    "scan_tools_args_map": {
+        "golang": ["echo", "hello", "world"]
+    }
+}
