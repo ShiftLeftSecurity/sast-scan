@@ -72,7 +72,6 @@ scan_tools_args_map = {
     "golang": [
         "gosec",
         "-fmt=json",
-        "-nosec",
         "-confidence=medium",
         "-severity=medium",
         "-no-fail",
@@ -121,7 +120,8 @@ tool_purpose_message = {
 
 # Map to link to the reference for the given rule
 tool_ref_url = {
-    "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s"
+    "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s",
+    "gosec": "https://github.com/securego/gosec#available-rules",
 }
 
 # Build break rules

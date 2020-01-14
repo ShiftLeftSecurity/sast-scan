@@ -63,7 +63,7 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/appthreat/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz \
-    && curl -LO "http://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/${SB_VERSION}/spotbugs-${SB_VERSION}.zip" \
+    && curl -LO "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/${SB_VERSION}/spotbugs-${SB_VERSION}.zip" \
     && unzip -q spotbugs-${SB_VERSION}.zip -d /opt/ \
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \

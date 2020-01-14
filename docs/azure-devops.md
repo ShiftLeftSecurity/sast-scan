@@ -4,12 +4,12 @@ sast-scan has good integration with Azure Pipelines. This repo contains an [exam
 
 ```yaml
 - script: |
-      docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" \
-        -v $(Build.SourcesDirectory):/app \
-        -v $(Build.ArtifactStagingDirectory):/reports \
-        quay.io/appthreat/sast-scan scan --src /app \
-        --type credscan,java,bash,nodejs \
-        --out_dir /reports/CodeAnalysisLogs
+    docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" \
+      -v $(Build.SourcesDirectory):/app \
+      -v $(Build.ArtifactStagingDirectory):/reports \
+      quay.io/appthreat/sast-scan scan --src /app \
+      --type credscan,java,bash,nodejs \
+      --out_dir /reports/CodeAnalysisLogs
   displayName: "Java and Credscan"
   continueOnError: "true"
 ```
@@ -42,7 +42,7 @@ The yaml pipeline should include the below steps to enable the analysis.
 - task: PublishBuildArtifacts@1
   displayName: "Publish analysis logs"
   inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
-      ArtifactName: "CodeAnalysisLogs"
-      publishLocation: "Container"
+    PathtoPublish: "$(Build.ArtifactStagingDirectory)/CodeAnalysisLogs"
+    ArtifactName: "CodeAnalysisLogs"
+    publishLocation: "Container"
 ```
