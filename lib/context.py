@@ -64,8 +64,8 @@ def find_repo_details(src_dir):
             revisionId = head.commit.hexsha
         if not repositoryUri:
             repositoryUri = next(iter(repo.remote().urls))
-    except:
-        pass
+    except Exception as e:
+        print(e)
 
     # Cleanup the variables
     branch = branch.replace("refs/heads/", "")
@@ -73,6 +73,6 @@ def find_repo_details(src_dir):
         "git@github.com:", "https://github.com/"
     ).replace(".git", "")
     # Is it a repo slug?
-    if not repositoryUri.startswith("http"):
+    if repositoryUri and not repositoryUri.startswith("http"):
         repositoryUri = "https://github.com/" + repositoryUri
     return {"repositoryUri": repositoryUri, "revisionId": revisionId, "branch": branch}
