@@ -5,5 +5,5 @@
     "scan_tools_args_map": {
         "golang": ["echo", "hello", "world"]
     },
-    "projectType": "credscan,java"
+    "scan_type": "credscan,java"
 }

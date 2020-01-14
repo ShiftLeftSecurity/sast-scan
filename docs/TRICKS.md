@@ -24,3 +24,27 @@ export WORKSPACE="$(Build.Repository.Uri)?_a=contents&version=GB$(Build.SourceBr
 However, note that because of the way `Build.SourceBranchName` is [computed](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml) this variable may not work if the branch contains slashes in them such as `feature/foo/bar`. In such cases, the branch name has to be derived based on the variable `Build.SourceBranch` by removing the `/refs/heads` or `/refs/pull/` prefixes.
 
 Let us know if you find a better way to support direct linking for Azure Repos.
+
+## Config file
+
+sast-scan can load configurations automatically from `.sastscanrc` in the repo root directory. This file is a json file containing the keys from [config.py](lib/config.py).
+
+Below is an example.
+
+```json
+{
+    "scan_type": "java,credscan,bash",
+    "scan_tools_args_map": {
+        "credscan": [
+            "gitleaks",
+            "--branch=master",
+            "--repo-path=%(src)s",
+            "--redact",
+            "--report=%(report_fname_prefix)s.json",
+            "--report-format=json"
+        ]
+    }
+}
+```
+
+With a local config you can override the scan type and even configure the command line args for the tools as shown.

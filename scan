@@ -473,7 +473,7 @@ if __name__ == "__main__":
     # Identify project type
     if not type:
         # Check the local config first. If not try auto detection
-        type = config.get("projectType").split(",")
+        type = config.get("scan_type").split(",")
         if not type:
             utils.detect_project_type(args.src_dir)
     else:
