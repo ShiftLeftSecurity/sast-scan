@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import io
 import json
 import logging
 
@@ -70,7 +69,7 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                 tool_rules = config.get("build_break_rules").get(tool_name, {})
                 build_break_rules = {**default_rules, **tool_rules, **override_rules}
                 for rsev in ["critical", "high", "medium", "low"]:
-                    if build_break_rules.get("max_" + rsev) != None:
+                    if build_break_rules.get("max_" + rsev) is not None:
                         if (report_summary[tool_name][rsev]) > build_break_rules[
                             "max_" + rsev
                         ]:

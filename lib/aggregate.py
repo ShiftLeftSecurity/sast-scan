@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
 
-import lib.config as config
-
 
 def jsonl_aggregate(run_data_list, out_file_name):
     """Produce aggregated report in jsonl format

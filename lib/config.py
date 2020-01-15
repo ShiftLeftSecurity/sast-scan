@@ -1,4 +1,3 @@
-import importlib
 import json
 import logging
 import os
@@ -150,8 +149,8 @@ if os.environ.get("SAST_SCAN_SRC_DIR"):
                         setattr(sys.modules[__name__], key, exis_config)
                     else:
                         setattr(sys.modules[__name__], key, value)
-        except:
-            pass
+        except Exception:
+            LOG.warn("Error loading local config from {}".format(scanrc))
 
 
 def get(configName):
@@ -163,5 +162,5 @@ def get(configName):
     """
     try:
         return getattr(sys.modules[__name__], configName, None)
-    except:
+    except Exception:
         return None

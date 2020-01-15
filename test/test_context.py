@@ -1,4 +1,5 @@
 import os
+import importlib
 
 import lib.context as context
 
@@ -10,11 +11,10 @@ def test_find_repo():
 
 
 def test_env_detection():
-    os.environ["BUILD_REPOSITORY_URI"] = "https://foo.com/bar"
-    os.environ["BUILD_SOURCEVERSION"] = "123"
-    os.environ["BUILD_SOURCEBRANCH"] = "develop"
+    os.environ["COMMIT_SHA"] = "123"
+    os.environ["BRANCH"] = "develop"
+    importlib.reload(context)
 
     repo_details = context.find_repo_details(None)
-    assert repo_details["repositoryUri"] == "https://foo.com/bar"
     assert repo_details["revisionId"] == "123"
     assert repo_details["branch"] == "develop"
