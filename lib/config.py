@@ -153,7 +153,7 @@ if os.environ.get("SAST_SCAN_SRC_DIR"):
             LOG.warn("Error loading local config from {}".format(scanrc))
 
 
-def get(configName):
+def get(configName, default_value=None):
     """Method to retrieve a config given a name. This method lazy loads configuration
     values and helps with overriding using a local config
 
@@ -163,4 +163,4 @@ def get(configName):
     try:
         return getattr(sys.modules[__name__], configName, None)
     except Exception:
-        return None
+        return default_value

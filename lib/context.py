@@ -15,7 +15,7 @@ def find_repo_details(src_dir=None):
     :param src_dir: Source directory
     """
     # See if repository uri is specified in the config
-    repositoryUri = config.get("repository_uri")
+    repositoryUri = config.get("repository_uri", "")
     revisionId = ""
     branch = ""
     """
@@ -85,10 +85,11 @@ def find_repo_details(src_dir=None):
 
     # Cleanup the variables
     branch = branch.replace("refs/heads/", "")
-    repositoryUri = repositoryUri.replace(
-        "git@github.com:", "https://github.com/"
-    ).replace(".git", "")
-    # Is it a repo slug?
-    if repositoryUri and not repositoryUri.startswith("http"):
-        repositoryUri = "https://github.com/" + repositoryUri
+    if repositoryUri:
+        repositoryUri = repositoryUri.replace(
+            "git@github.com:", "https://github.com/"
+        ).replace(".git", "")
+        # Is it a repo slug?
+        if not repositoryUri.startswith("http"):
+            repositoryUri = "https://github.com/" + repositoryUri
     return {"repositoryUri": repositoryUri, "revisionId": revisionId, "branch": branch}
