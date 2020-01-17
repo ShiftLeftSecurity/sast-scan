@@ -1,5 +1,6 @@
 # Introduction
 
+```bash
   ___            _____ _                    _
  / _ \          |_   _| |                  | |
 / /_\ \_ __  _ __ | | | |__  _ __ ___  __ _| |_
@@ -8,6 +9,7 @@
 \_| |_/ .__/| .__/\_/ |_| |_|_|  \___|\__,_|\__|
       | |   | |
       |_|   |_|
+```
 
 This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
 
