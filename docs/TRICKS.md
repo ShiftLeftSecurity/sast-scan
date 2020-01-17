@@ -33,17 +33,17 @@ Below is an example.
 
 ```json
 {
-    "scan_type": "java,credscan,bash",
-    "scan_tools_args_map": {
-        "credscan": [
-            "gitleaks",
-            "--branch=master",
-            "--repo-path=%(src)s",
-            "--redact",
-            "--report=%(report_fname_prefix)s.json",
-            "--report-format=json"
-        ]
-    }
+  "scan_type": "java,credscan,bash",
+  "scan_tools_args_map": {
+    "credscan": [
+      "gitleaks",
+      "--branch=master",
+      "--repo-path=%(src)s",
+      "--redact",
+      "--report=%(report_fname_prefix)s.json",
+      "--report-format=json"
+    ]
+  }
 }
 ```
 

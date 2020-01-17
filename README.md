@@ -119,6 +119,10 @@ steps:
 
 Refer to the [document](docs/circleci.md)
 
+## Custom integration
+
+SARIF reports produced by sast-scan can be integrated with other compatible tools. It can also be easily imported into databases such as BigQuery for visualization purposes. Refer to [integration](docs/integration.md) document for detailed explanation on the SARIF format.
+
 ### Scanning projects locally
 
 Scan python project

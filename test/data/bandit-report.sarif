@@ -8,22 +8,22 @@
             {
               "id": "B322",
               "name": "blacklist",
-              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+bandit+B322+blacklist"
+              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b322-input"
             },
             {
               "id": "B201",
               "name": "flask_debug_true",
-              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+bandit+B201+flask_debug_true"
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html"
             },
             {
               "id": "B608",
               "name": "hardcoded_sql_expressions",
-              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+bandit+B608+hardcoded_sql_expressions"
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html"
             },
             {
               "id": "B108",
               "name": "hardcoded_tmp_directory",
-              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+bandit+B108+hardcoded_tmp_directory"
+              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html"
             }
           ]
         }
@@ -51,7 +51,7 @@
           ],
           "executionSuccessful": true,
           "commandLine": "-r -a vuln -ii -ll -o /app/reports/bandit-report.json -f json -x .git,.svn,.mvn,.idea,dist,bin,obj,backup,docs,tests,test,tmp,reports /app",
-          "endTimeUtc": "2020-01-17T19:08:01Z",
+          "endTimeUtc": "2020-01-17T20:14:17Z",
           "workingDirectory": {
             "uri": "file:///app"
           }
@@ -60,7 +60,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2020-01-17T19:08:01Z",
+          "endTimeUtc": "2020-01-17T20:14:17Z",
           "workingDirectory": {
             "uri": "file:///app"
           }
@@ -69,8 +69,10 @@
       "properties": {
         "metrics": {
           "total": 35,
+          "critical": 0,
           "high": 5,
-          "medium": 30
+          "medium": 30,
+          "low": 0
         }
       },
       "results": [
@@ -1274,7 +1276,7 @@
         "description": {
           "text": "Static Analysis Security Test results using @AppThreat/sast-scan"
         },
-        "guid": "bda8ac10-0d40-4f5c-97f6-967121b8394b"
+        "guid": "2d52877a-404b-4136-a2a7-9d99bec89e2c"
       },
       "versionControlProvenance": [
         {
@@ -1289,8 +1291,8 @@
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
   "inlineExternalProperties": [
     {
-      "guid": "bda8ac10-0d40-4f5c-97f6-967121b8394b",
-      "runGuid": "e2150101-d4e4-4a8c-a9e1-0c89e514550f"
+      "guid": "2d52877a-404b-4136-a2a7-9d99bec89e2c",
+      "runGuid": "e19e432b-c6ba-4fb7-99eb-329dbc7bdebf"
     }
   ]
 }
