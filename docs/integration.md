@@ -14,7 +14,7 @@ sast-tool implements version 2.1.0 specification which can be found [here](https
 - \$schema: https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json
 - inlineExternalProperties:
   - guid - UUID representing each report from the tool
-  - runGuid - UUID representing an invocation of sast-scan which can produce multiple reports
+  - runGuid - UUID representing an invocation of sast-scan which can produce multiple reports. This can be specified by setting the environment variable `SCAN_ID`
 - runs: Array with a single run object representing a single run of a tool. This might however change in the future to represent tools that perform multiple scans per invocation.
 
 ### run

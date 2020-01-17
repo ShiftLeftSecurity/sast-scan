@@ -48,3 +48,7 @@ Below is an example.
 ```
 
 With a local config you can override the scan type and even configure the command line args for the tools as shown.
+
+## Use CI build reference as runGuid
+
+By setting the environment variable `SCAN_ID` you can re-use the CI build reference as the run guid for the reports. This is useful to reverse lookup the pipeline result based on the sast-scan result.
