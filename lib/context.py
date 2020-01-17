@@ -79,7 +79,7 @@ def find_repo_details(src_dir=None):
             if not repositoryUri:
                 repositoryUri = next(iter(repo.remote().urls))
         except Exception:
-            LOG.warn(
+            LOG.warning(
                 "Unable to find repo details from the local repository. Consider adding a local .sastscanrc file with the url details."
             )
 
