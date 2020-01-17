@@ -23,7 +23,13 @@ def test_nodejsscan_convert_empty():
         )
         assert uuid.UUID(jsondata["inlineExternalProperties"][0]["guid"]).version == 4
         assert not jsondata["runs"][0]["results"]
-        assert jsondata["runs"][0]["properties"]["metrics"] == {"total": 0}
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "total": 0,
+            "critical": 0,
+            "high": 0,
+            "low": 0,
+            "medium": 0,
+        }
 
 
 def test_nodejsscan_convert_issue():
@@ -174,7 +180,13 @@ def test_credscan_convert_issue():
         jsondata = json.loads(data)
         assert jsondata["runs"][0]["tool"]["driver"]["name"] == "credscan"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
-        assert jsondata["runs"][0]["properties"]["metrics"] == {"high": 1, "total": 1}
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "high": 1,
+            "total": 1,
+            "critical": 0,
+            "medium": 0,
+            "low": 0,
+        }
 
 
 def test_gosec_convert_issue():
@@ -204,7 +216,13 @@ def test_gosec_convert_issue():
             == "Golang security checks by gosec"
         )
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
-        assert jsondata["runs"][0]["properties"]["metrics"] == {"medium": 1, "total": 1}
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "medium": 1,
+            "total": 1,
+            "critical": 0,
+            "high": 0,
+            "low": 0,
+        }
 
 
 def test_tfsec_convert_issue():
@@ -242,4 +260,7 @@ def test_tfsec_convert_issue():
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "critical": 1,
             "total": 1,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
         }

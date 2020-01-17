@@ -127,6 +127,10 @@ def report(
     # Populate metrics
     metrics = {
         "total": 0,
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
     }
     metrics["total"] = len(issues)
     for issue in issues:
