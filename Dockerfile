@@ -111,7 +111,7 @@ COPY lib /usr/local/src/lib
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel bandit bandit_sarif_formatter ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
+RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install -g retire @appthreat/cdxgen eslint \
     && chmod +x /usr/local/src/scan \

@@ -44,17 +44,7 @@
         }
       ],
       "properties": {
-        "metrics": {
-          "total_count": {
-            "good": 616,
-            "mis": 8,
-            "sec": 78
-          },
-          "vuln_count": {
-            "Password Hardcoded": 4,
-            "Unescaped variable in Pug.js template file": 74
-          }
-        }
+
       },
       "results": [
         {

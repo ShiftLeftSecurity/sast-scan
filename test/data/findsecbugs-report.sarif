@@ -11,9 +11,19 @@
               "helpUri": "https://cwe.mitre.org/data/definitions/78.html"
             },
             {
-              "id": "CWE-89",
-              "name": "Potential JDBC Injection",
-              "helpUri": "https://cwe.mitre.org/data/definitions/89.html"
+              "id": "CWE-79",
+              "name": "Potential XSS in Servlet",
+              "helpUri": "https://cwe.mitre.org/data/definitions/79.html"
+            },
+            {
+              "id": "CWE-352",
+              "name": "Spring CSRF unrestricted RequestMapping",
+              "helpUri": "https://cwe.mitre.org/data/definitions/352.html"
+            },
+            {
+              "id": "SPRING_FILE_DISCLOSURE",
+              "name": "Spring File Disclosure",
+              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+findsecbugs+SPRING_FILE_DISCLOSURE+Spring File Disclosure"
             },
             {
               "id": "CWE-22",
@@ -21,14 +31,14 @@
               "helpUri": "https://cwe.mitre.org/data/definitions/22.html"
             },
             {
+              "id": "CWE-89",
+              "name": "Potential JDBC Injection",
+              "helpUri": "https://cwe.mitre.org/data/definitions/89.html"
+            },
+            {
               "id": "CWE-330",
               "name": "Predictable pseudorandom number generator",
               "helpUri": "https://cwe.mitre.org/data/definitions/330.html"
-            },
-            {
-              "id": "CWE-352",
-              "name": "Spring CSRF unrestricted RequestMapping",
-              "helpUri": "https://cwe.mitre.org/data/definitions/352.html"
             },
             {
               "id": "CWE-203",
@@ -66,6 +76,16 @@
               "helpUri": "https://cwe.mitre.org/data/definitions/614.html"
             },
             {
+              "id": "CWE-212",
+              "name": "Unexpected property leak",
+              "helpUri": "https://cwe.mitre.org/data/definitions/212.html"
+            },
+            {
+              "id": "CWE-915",
+              "name": "Mass assignment",
+              "helpUri": "https://cwe.mitre.org/data/definitions/915.html"
+            },
+            {
               "id": "CWE-918",
               "name": "URLConnection Server-Side Request Forgery (SSRF) and File Disclosure",
               "helpUri": "https://cwe.mitre.org/data/definitions/918.html"
@@ -74,11 +94,6 @@
               "id": "CWE-611",
               "name": "XML parsing vulnerable to XXE (XMLStreamReader)",
               "helpUri": "https://cwe.mitre.org/data/definitions/611.html"
-            },
-            {
-              "id": "CWE-915",
-              "name": "Mass assignment",
-              "helpUri": "https://cwe.mitre.org/data/definitions/915.html"
             }
           ]
         }
@@ -100,7 +115,7 @@
             "/usr/local/src/spotbugs/exclude.xml",
             "-noClassOk",
             "-auxclasspathFromFile",
-            "/tmp/tmpiqwlx49v",
+            "/tmp/tmp0st06iab",
             "-sourcepath",
             "/app",
             "-quiet",
@@ -113,8 +128,8 @@
             "/app"
           ],
           "executionSuccessful": true,
-          "commandLine": "-jar /opt/spotbugs/lib/spotbugs.jar -textui -include /usr/local/src/spotbugs/include.xml -exclude /usr/local/src/spotbugs/exclude.xml -noClassOk -auxclasspathFromFile /tmp/tmpiqwlx49v -sourcepath /app -quiet -medium -xml:withMessages -effort:max -nested:false -output /app/reports/findsecbugs-report.xml /app",
-          "endTimeUtc": "2020-01-12T20:03:49Z",
+          "commandLine": "-jar /opt/spotbugs/lib/spotbugs.jar -textui -include /usr/local/src/spotbugs/include.xml -exclude /usr/local/src/spotbugs/exclude.xml -noClassOk -auxclasspathFromFile /tmp/tmp0st06iab -sourcepath /app -quiet -medium -xml:withMessages -effort:max -nested:false -output /app/reports/findsecbugs-report.xml /app",
+          "endTimeUtc": "2020-01-17T18:35:36Z",
           "workingDirectory": {
             "uri": "file:///app"
           }
@@ -123,7 +138,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2020-01-12T20:03:49Z",
+          "endTimeUtc": "2020-01-17T18:35:36Z",
           "workingDirectory": {
             "uri": "file:///app"
           }
@@ -131,23 +146,9 @@
       ],
       "properties": {
         "metrics": {
-          "summary": {
-            "timestamp": "Sun, 12 Jan 2020 20:03:20 +0000",
-            "total_classes": "189",
-            "referenced_classes": "394",
-            "total_bugs": "65",
-            "total_size": "3991",
-            "num_packages": "43",
-            "java_version": "11.0.5",
-            "vm_version": "11.0.5+10-LTS",
-            "cpu_seconds": "36.59",
-            "clock_seconds": "26.95",
-            "peak_mbytes": "314.31",
-            "alloc_mbytes": "988.00",
-            "gc_seconds": "0.38",
-            "priority_2": "47",
-            "priority_1": "18"
-          }
+          "total": 82,
+          "high": 52,
+          "critical": 30
         }
       },
       "results": [
@@ -182,8 +183,184 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-78",
           "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "This use of javax/servlet/http/HttpServletResponse.sendError(ILjava/lang/String;)V could be vulnerable to XSS in the Servlet \nAt AjaxAuthenticationEntryPoint.java:[lines 48-57] \nIn class org.owasp.webgoat.AjaxAuthenticationEntryPoint \nIn method org.owasp.webgoat.AjaxAuthenticationEntryPoint.commence(HttpServletRequest, HttpServletResponse, AuthenticationException) \nAt AjaxAuthenticationEntryPoint.java:[line 53] \nSink method javax/servlet/http/HttpServletResponse.sendError(ILjava/lang/String;)V \nSink parameter 0 \nUnknown source org/springframework/security/core/AuthenticationException.getMessage()Ljava/lang/String;."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            response.sendError(401, authException.getMessage());\n"
+                  },
+                  "startLine": 53
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/AjaxAuthenticationEntryPoint.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        if (request.getHeader(\"x-requested-with\") != null) {\n            response.sendError(401, authException.getMessage());\n"
+                  },
+                  "endLine": 53,
+                  "startLine": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-79",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt HammerHead.java:[lines 49-59] \nIn class org.owasp.webgoat.HammerHead \nIn method org.owasp.webgoat.HammerHead.attack(Authentication, HttpServletRequest, HttpServletResponse) \nAt HammerHead.java:[line 59]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return new ModelAndView(\"redirect:\" + \"start.mvc\" + course.getFirstLesson().getLink());\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/HammerHead.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public ModelAndView attack(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {\n        return new ModelAndView(\"redirect:\" + \"start.mvc\" + course.getFirstLesson().getLink());\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "ModelAndView populated with user controlled parameters \nAt HammerHead.java:[lines 49-59] \nIn class org.owasp.webgoat.HammerHead \nIn method org.owasp.webgoat.HammerHead.attack(Authentication, HttpServletRequest, HttpServletResponse) \nAt HammerHead.java:[line 59] \nSink method org/springframework/web/servlet/ModelAndView.<init>(Ljava/lang/String;)V \nSink parameter 0."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return new ModelAndView(\"redirect:\" + \"start.mvc\" + course.getFirstLesson().getLink());\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/HammerHead.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public ModelAndView attack(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {\n        return new ModelAndView(\"redirect:\" + \"start.mvc\" + course.getFirstLesson().getLink());\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "SPRING_FILE_DISCLOSURE",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt WebGoat.java:[lines 46-67] \nIn class org.owasp.webgoat.WebGoat \nIn method org.owasp.webgoat.WebGoat.pluginTargetDirectory(String) \nAt WebGoat.java:[line 50] \nSink method java/io/File.<init>(Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webgoat/WebGoat.pluginTargetDirectory(Ljava/lang/String;)Ljava/io/File; parameter 0 \nMethod usage not detected."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        return new File(webgoatHome);\n"
+                  },
+                  "startLine": 50
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/WebGoat.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public File pluginTargetDirectory(@Value(\"${webgoat.user.directory}\") final String webgoatHome) {\n        return new File(webgoatHome);\n"
+                  },
+                  "endLine": 50,
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-22",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Disabling Spring Security's CSRF protection is unsafe for standard web applications \nAt WebSecurityConfig.java:[lines 51-98] \nIn class org.owasp.webgoat.WebSecurityConfig \nIn method org.owasp.webgoat.WebSecurityConfig.configure(HttpSecurity) \nAt WebSecurityConfig.java:[line 72]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        security.and().csrf().disable();\n"
+                  },
+                  "startLine": 72
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/WebSecurityConfig.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "                .logout().deleteCookies(\"JSESSIONID\").invalidateHttpSession(true);\n        security.and().csrf().disable();\n"
+                  },
+                  "endLine": 72,
+                  "startLine": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -216,8 +393,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -250,8 +428,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -284,8 +463,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -318,8 +498,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -352,7 +533,78 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt StartLesson.java:[lines 55-90] \nIn class org.owasp.webgoat.controller.StartLesson \nIn method org.owasp.webgoat.controller.StartLesson.lessonPage(HttpServletRequest) \nAt StartLesson.java:[lines 78-90]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        ModelAndView model = new ModelAndView();\n"
+                  },
+                  "startLine": 78
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/controller/StartLesson.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        // I will set here the thymeleaf fragment location based on the resource requested.\n        ModelAndView model = new ModelAndView();\n"
+                  },
+                  "endLine": 78,
+                  "startLine": 77
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt StartLesson.java:[lines 55-90] \nIn class org.owasp.webgoat.controller.StartLesson \nIn method org.owasp.webgoat.controller.StartLesson.start() \nAt StartLesson.java:[lines 67-72]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        ModelAndView model = new ModelAndView();\n"
+                  },
+                  "startLine": 67
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/controller/StartLesson.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public ModelAndView start() {\n        ModelAndView model = new ModelAndView();\n"
+                  },
+                  "endLine": 67,
+                  "startLine": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
           "ruleIndex": 2
         },
         {
@@ -386,8 +638,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -420,8 +673,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -454,8 +708,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -488,8 +743,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -522,8 +778,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -556,8 +813,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-203",
-          "ruleIndex": 5
+          "ruleIndex": 7
         },
         {
           "message": {
@@ -590,8 +848,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-203",
-          "ruleIndex": 5
+          "ruleIndex": 7
         },
         {
           "message": {
@@ -624,8 +883,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-203",
-          "ruleIndex": 5
+          "ruleIndex": 7
         },
         {
           "message": {
@@ -658,8 +918,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-203",
-          "ruleIndex": 5
+          "ruleIndex": 7
         },
         {
           "message": {
@@ -692,8 +953,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-328",
-          "ruleIndex": 6
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -726,8 +988,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-117",
-          "ruleIndex": 7
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -760,12 +1023,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
-            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 45-89] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest, HttpServletResponse) \nAt CSRFGetFlag.java:[line 65] \nValue java.util.Random."
+            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 42-86] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest) \nAt CSRFGetFlag.java:[line 62] \nValue java.util.Random."
           },
           "level": "error",
           "locations": [
@@ -775,17 +1039,17 @@
                   "snippet": {
                     "text": "                Random random = new Random();\n"
                   },
-                  "startLine": 65
+                  "startLine": 62
                 },
                 "artifactLocation": {
                   "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
                 },
                 "contextRegion": {
                   "snippet": {
-                    "text": "            if (req.getParameter(\"csrf\").equals(\"true\")) {\n                Random random = new Random();\n"
+                    "text": "            if (\"true\".equals(req.getParameter(\"csrf\"))) {\n                Random random = new Random();\n"
                   },
-                  "endLine": 65,
-                  "startLine": 64
+                  "endLine": 62,
+                  "startLine": 61
                 }
               }
             }
@@ -794,12 +1058,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
-            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 45-89] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest, HttpServletResponse) \nAt CSRFGetFlag.java:[line 71] \nValue java.util.Random."
+            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 42-86] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest) \nAt CSRFGetFlag.java:[line 68] \nValue java.util.Random."
           },
           "level": "error",
           "locations": [
@@ -809,7 +1074,7 @@
                   "snippet": {
                     "text": "                Random random = new Random();\n"
                   },
-                  "startLine": 71
+                  "startLine": 68
                 },
                 "artifactLocation": {
                   "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
@@ -818,8 +1083,8 @@
                   "snippet": {
                     "text": "            } else {\n                Random random = new Random();\n"
                   },
-                  "endLine": 71,
-                  "startLine": 70
+                  "endLine": 68,
+                  "startLine": 67
                 }
               }
             }
@@ -828,12 +1093,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
-            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 45-89] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest, HttpServletResponse) \nAt CSRFGetFlag.java:[line 82] \nValue java.util.Random."
+            "text": "This random generator (java.util.Random) is predictable \nAt CSRFGetFlag.java:[lines 42-86] \nIn class org.owasp.webgoat.csrf.CSRFGetFlag \nIn method org.owasp.webgoat.csrf.CSRFGetFlag.invoke(HttpServletRequest) \nAt CSRFGetFlag.java:[line 79] \nValue java.util.Random."
           },
           "level": "error",
           "locations": [
@@ -843,7 +1109,7 @@
                   "snippet": {
                     "text": "            Random random = new Random();\n"
                   },
-                  "startLine": 82
+                  "startLine": 79
                 },
                 "artifactLocation": {
                   "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
@@ -852,8 +1118,8 @@
                   "snippet": {
                     "text": "        } else {\n            Random random = new Random();\n"
                   },
-                  "endLine": 82,
-                  "startLine": 81
+                  "endLine": 79,
+                  "startLine": 78
                 }
               }
             }
@@ -862,8 +1128,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -896,8 +1163,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-502",
-          "ruleIndex": 8
+          "ruleIndex": 10
         },
         {
           "message": {
@@ -930,8 +1198,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-502",
-          "ruleIndex": 8
+          "ruleIndex": 10
         },
         {
           "message": {
@@ -964,8 +1233,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -998,8 +1268,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-259",
-          "ruleIndex": 9
+          "ruleIndex": 11
         },
         {
           "message": {
@@ -1032,8 +1303,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-259",
-          "ruleIndex": 9
+          "ruleIndex": 11
         },
         {
           "message": {
@@ -1066,8 +1338,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1100,8 +1373,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-330",
-          "ruleIndex": 3
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -1134,8 +1408,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1168,8 +1443,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "HTTPONLY_COOKIE",
-          "ruleIndex": 10
+          "ruleIndex": 12
         },
         {
           "message": {
@@ -1202,8 +1478,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "HTTPONLY_COOKIE",
-          "ruleIndex": 10
+          "ruleIndex": 12
         },
         {
           "message": {
@@ -1236,8 +1513,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-614",
-          "ruleIndex": 11
+          "ruleIndex": 13
         },
         {
           "message": {
@@ -1270,8 +1548,79 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-614",
-          "ruleIndex": 11
+          "ruleIndex": 13
+        },
+        {
+          "message": {
+            "text": "Unexpected property could be leaked because a persistence class is directly exposed to the client \nAt MissingFunctionACUsers.java:[lines 44-93] \nIn class org.owasp.webgoat.missing_ac.MissingFunctionACUsers \nIn method org.owasp.webgoat.missing_ac.MissingFunctionACUsers.addUser(WebGoatUser) \nAt MissingFunctionACUsers.java:[lines 84-93]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            userService.addUser(newUser.getUsername(),newUser.getPassword(),newUser.getRole());\n"
+                  },
+                  "startLine": 84
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try {\n            userService.addUser(newUser.getUsername(),newUser.getPassword(),newUser.getRole());\n"
+                  },
+                  "endLine": 84,
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-212",
+          "ruleIndex": 14
+        },
+        {
+          "message": {
+            "text": "The persistent objects could be exploited by attacker to read sensitive information. \nAt MissingFunctionACUsers.java:[lines 44-93] \nIn class org.owasp.webgoat.missing_ac.MissingFunctionACUsers \nIn method org.owasp.webgoat.missing_ac.MissingFunctionACUsers.addUser(WebGoatUser) \nAt MissingFunctionACUsers.java:[lines 84-93]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "            userService.addUser(newUser.getUsername(),newUser.getPassword(),newUser.getRole());\n"
+                  },
+                  "startLine": 84
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        try {\n            userService.addUser(newUser.getUsername(),newUser.getPassword(),newUser.getRole());\n"
+                  },
+                  "endLine": 84,
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "HIGH"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-915",
+          "ruleIndex": 15
         },
         {
           "message": {
@@ -1304,8 +1653,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-203",
-          "ruleIndex": 5
+          "ruleIndex": 7
         },
         {
           "message": {
@@ -1338,8 +1688,289 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-259",
-          "ruleIndex": 9
+          "ruleIndex": 11
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LabelDebugService.java:[lines 53-99] \nIn class org.owasp.webgoat.service.LabelDebugService \nIn method org.owasp.webgoat.service.LabelDebugService.checkDebuggingStatus() \nAt LabelDebugService.java:[lines 71-73]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        log.debug(\"Checking label debugging, it is {}\", labelDebugger.isEnabled());\n"
+                  },
+                  "startLine": 71
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LabelDebugService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    ResponseEntity<Map<String, Object>> checkDebuggingStatus() {\n        log.debug(\"Checking label debugging, it is {}\", labelDebugger.isEnabled());\n"
+                  },
+                  "endLine": 71,
+                  "startLine": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LabelDebugService.java:[lines 53-99] \nIn class org.owasp.webgoat.service.LabelDebugService \nIn method org.owasp.webgoat.service.LabelDebugService.setDebuggingStatus(Boolean) \nAt LabelDebugService.java:[lines 85-88]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        log.debug(\"Setting label debugging to {} \", labelDebugger.isEnabled());\n"
+                  },
+                  "startLine": 85
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LabelDebugService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    ResponseEntity<Map<String, Object>> setDebuggingStatus(@RequestParam(\"enabled\") Boolean enabled) throws Exception {\n        log.debug(\"Setting label debugging to {} \", labelDebugger.isEnabled());\n"
+                  },
+                  "endLine": 85,
+                  "startLine": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LessonInfoService.java:[lines 19-33] \nIn class org.owasp.webgoat.service.LessonInfoService \nIn method org.owasp.webgoat.service.LessonInfoService.getLessonInfo() \nAt LessonInfoService.java:[lines 32-33]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        Lesson lesson = webSession.getCurrentLesson();\n"
+                  },
+                  "startLine": 32
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonInfoService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    LessonInfoModel getLessonInfo() {\n        Lesson lesson = webSession.getCurrentLesson();\n"
+                  },
+                  "endLine": 32,
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LessonMenuService.java:[lines 60-117] \nIn class org.owasp.webgoat.service.LessonMenuService \nIn method org.owasp.webgoat.service.LessonMenuService.showLeftNav() \nAt LessonMenuService.java:[lines 77-101]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        List<LessonMenuItem> menu = new ArrayList<>();\n"
+                  },
+                  "startLine": 77
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonMenuService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    List<LessonMenuItem> showLeftNav() {\n        List<LessonMenuItem> menu = new ArrayList<>();\n"
+                  },
+                  "endLine": 77,
+                  "startLine": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LessonProgressService.java:[lines 28-89] \nIn class org.owasp.webgoat.service.LessonProgressService \nIn method org.owasp.webgoat.service.LessonProgressService.lessonOverview() \nAt LessonProgressService.java:[lines 43-50]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        UserTracker userTracker = userTrackerRepository.findByUser(webSession.getUserName());\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonProgressService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public List<LessonOverview> lessonOverview() {\n        UserTracker userTracker = userTrackerRepository.findByUser(webSession.getUserName());\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt LessonTitleService.java:[lines 21-35] \nIn class org.owasp.webgoat.service.LessonTitleService \nIn method org.owasp.webgoat.service.LessonTitleService.showPlan() \nAt LessonTitleService.java:[lines 34-35]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        Lesson lesson = webSession.getCurrentLesson();\n"
+                  },
+                  "startLine": 34
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonTitleService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    String showPlan() {\n        Lesson lesson = webSession.getCurrentLesson();\n"
+                  },
+                  "endLine": 34,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt RestartLessonService.java:[lines 40-60] \nIn class org.owasp.webgoat.service.RestartLessonService \nIn method org.owasp.webgoat.service.RestartLessonService.restartLesson() \nAt RestartLessonService.java:[lines 51-60]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        Lesson al = webSession.getCurrentLesson();\n"
+                  },
+                  "startLine": 51
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/RestartLessonService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    public void restartLesson() {\n        Lesson al = webSession.getCurrentLesson();\n"
+                  },
+                  "endLine": 51,
+                  "startLine": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "text": "Unrestricted Spring's RequestMapping makes the method vulnerable to CSRF attacks \nAt SessionService.java:[lines 28-60] \nIn class org.owasp.webgoat.service.SessionService \nIn method org.owasp.webgoat.service.SessionService.showSession(HttpServletRequest, HttpSession) \nAt SessionService.java:[lines 40-60]."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        StringBuilder sb = new StringBuilder();\n"
+                  },
+                  "startLine": 40
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    String showSession(HttpServletRequest request, HttpSession session) {\n        StringBuilder sb = new StringBuilder();\n"
+                  },
+                  "endLine": 40,
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "LOW",
+            "issue_severity": "CRITICAL"
+          },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
+          "ruleId": "CWE-352",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1372,8 +2003,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1406,8 +2038,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1440,8 +2073,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1474,8 +2108,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1508,8 +2143,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1542,8 +2178,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1576,8 +2213,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1610,8 +2248,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1644,8 +2283,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -1678,12 +2318,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-89",
-          "ruleIndex": 1
+          "ruleIndex": 5
         },
         {
           "message": {
-            "text": "This web server request could be used by an attacker to expose internal services and filesystem. \nAt SSRFTask2.java:[lines 41-79] \nIn class org.owasp.webgoat.ssrf.SSRFTask2 \nIn method org.owasp.webgoat.ssrf.SSRFTask2.furBall(String) \nAt SSRFTask2.java:[line 55] \nSink method java/net/URL.openConnection()Ljava/net/URLConnection; \nSink parameter 0 \nUnknown source java/net/URL.<init>(Ljava/lang/String;)V \nUnknown source org/owasp/webgoat/ssrf/SSRFTask2.furBall(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nMethod usage with tainted arguments detected \nAt SSRFTask2.java:[line 46] \nAt SSRFTask2.java:[line 54]."
+            "text": "This web server request could be used by an attacker to expose internal services and filesystem. \nAt SSRFTask2.java:[lines 41-79] \nIn class org.owasp.webgoat.ssrf.SSRFTask2 \nIn method org.owasp.webgoat.ssrf.SSRFTask2.furBall(String) \nAt SSRFTask2.java:[line 55] \nSink method java/net/URL.openConnection()Ljava/net/URLConnection; \nSink parameter 0 \nUnknown source org/owasp/webgoat/ssrf/SSRFTask2.furBall(Ljava/lang/String;)Lorg/owasp/webgoat/assignments/AttackResult; parameter 0 \nUnknown source java/net/URL.<init>(Ljava/lang/String;)V \nMethod usage with tainted arguments detected \nAt SSRFTask2.java:[line 46] \nAt SSRFTask2.java:[line 54]."
           },
           "level": "error",
           "locations": [
@@ -1712,8 +2353,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-918",
-          "ruleIndex": 12
+          "ruleIndex": 16
         },
         {
           "message": {
@@ -1746,8 +2388,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-117",
-          "ruleIndex": 7
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -1780,8 +2423,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -1814,12 +2458,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-611",
-          "ruleIndex": 13
+          "ruleIndex": 17
         },
         {
           "message": {
-            "text": "This use of org/slf4j/Logger.debug(Ljava/lang/String;)V might be used to include CRLF characters into log messages \nAt Ping.java:[lines 35-56] \nIn class org.owasp.webgoat.xxe.Ping \nIn method org.owasp.webgoat.xxe.Ping.logRequest(String, String) \nAt Ping.java:[line 47] \nSink method org/slf4j/Logger.debug(Ljava/lang/String;)V \nSink parameter 0 \nTainted source org/owasp/webgoat/xxe/Ping.logRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String; parameter 0 \nTainted source org/owasp/webgoat/xxe/Ping.logRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String; parameter 1 \nAt Ping.java:[line 46]."
+            "text": "This use of org/slf4j/Logger.debug(Ljava/lang/String;)V might be used to include CRLF characters into log messages \nAt Ping.java:[lines 35-56] \nIn class org.owasp.webgoat.xxe.Ping \nIn method org.owasp.webgoat.xxe.Ping.logRequest(String, String) \nAt Ping.java:[line 47] \nSink method org/slf4j/Logger.debug(Ljava/lang/String;)V \nSink parameter 0 \nTainted source org/owasp/webgoat/xxe/Ping.logRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String; parameter 1 \nTainted source org/owasp/webgoat/xxe/Ping.logRequest(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String; parameter 0 \nAt Ping.java:[line 46]."
           },
           "level": "error",
           "locations": [
@@ -1848,8 +2493,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-117",
-          "ruleIndex": 7
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -1882,8 +2528,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -1916,8 +2563,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1950,12 +2598,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
-            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.getFiles(HttpServletRequest) \nAt FileServer.java:[line 97] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/user/WebGoatUser.username \nUnknown source org/owasp/webwolf/user/WebGoatUser.getUsername()Ljava/lang/String; \nAt FileServer.java:[line 96] \nAt WebGoatUser.java:[line 49]."
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.getFiles(HttpServletRequest) \nAt FileServer.java:[line 97] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/user/WebGoatUser.getUsername()Ljava/lang/String; \nUnknown source org/owasp/webwolf/user/WebGoatUser.username \nAt FileServer.java:[line 96] \nAt WebGoatUser.java:[line 49]."
           },
           "level": "error",
           "locations": [
@@ -1984,8 +2633,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -2018,12 +2668,13 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
-            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.importFile(MultipartFile) \nAt FileServer.java:[line 71] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/user/WebGoatUser.username \nUnknown source org/owasp/webwolf/user/WebGoatUser.getUsername()Ljava/lang/String; \nAt FileServer.java:[line 71] \nAt WebGoatUser.java:[line 49]."
+            "text": "This API (java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V) reads a file whose location might be specified by user input \nAt FileServer.java:[lines 52-119] \nIn class org.owasp.webwolf.FileServer \nIn method org.owasp.webwolf.FileServer.importFile(MultipartFile) \nAt FileServer.java:[line 71] \nSink method java/io/File.<init>(Ljava/lang/String;Ljava/lang/String;)V \nSink parameter 0 \nUnknown source org/owasp/webwolf/user/WebGoatUser.getUsername()Ljava/lang/String; \nUnknown source org/owasp/webwolf/user/WebGoatUser.username \nAt FileServer.java:[line 71] \nAt WebGoatUser.java:[line 49]."
           },
           "level": "error",
           "locations": [
@@ -2052,8 +2703,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -2086,8 +2738,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -2120,8 +2773,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -2154,8 +2808,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -2188,8 +2843,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -2222,8 +2878,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-22",
-          "ruleIndex": 2
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -2256,8 +2913,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -2290,8 +2948,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-915",
-          "ruleIndex": 14
+          "ruleIndex": 15
         },
         {
           "message": {
@@ -2324,8 +2983,9 @@
             "issue_confidence": "LOW",
             "issue_severity": "HIGH"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-117",
-          "ruleIndex": 7
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -2358,12 +3018,32 @@
             "issue_confidence": "LOW",
             "issue_severity": "CRITICAL"
           },
+          "hostedViewerUri": "https://sarifviewer.azurewebsites.net",
           "ruleId": "CWE-352",
-          "ruleIndex": 4
+          "ruleIndex": 2
+        }
+      ],
+      "automationDetails": {
+        "description": {
+          "text": "Static Analysis Security Test results using @AppThreat/sast-scan"
+        },
+        "guid": "b16a7480-f6b3-4275-8e5a-af96bb538aba"
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "develop",
+          "repositoryUri": "https://github.com/AppThreat/WebGoat",
+          "revisionId": "08038b71884c156dd35d834ad3920e9a1f7bcfa6"
         }
       ]
     }
   ],
   "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "inlineExternalProperties": [
+    {
+      "guid": "b16a7480-f6b3-4275-8e5a-af96bb538aba",
+      "runGuid": "cbe51600-3927-4fce-a22a-0be26673ef23"
+    }
+  ]
 }

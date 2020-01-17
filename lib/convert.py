@@ -6,6 +6,8 @@ import os
 import pathlib
 import re
 import sys
+import uuid
+
 import urllib.parse as urlparse
 
 from lib.issue import issue_from_dict
@@ -21,9 +23,7 @@ LOG = logging.getLogger(__name__)
 
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
-WORKSPACE_PREFIX = None
-if "WORKSPACE" in os.environ:
-    WORKSPACE_PREFIX = os.environ["WORKSPACE"]
+WORKSPACE_PREFIX = os.environ.get("WORKSPACE", None)
 
 
 def extract_from_file(tool_name, report_file, file_path_list=None):
@@ -36,7 +36,7 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
     :return issues, metrics, skips information
     """
     issues = []
-    metrics = {}
+    metrics = None
     skips = []
     extn = pathlib.PurePosixPath(report_file).suffix
 
@@ -45,7 +45,6 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
             report_data = json.loads(rfile.read())
             if isinstance(report_data, list):
                 issues = report_data
-                metrics = {"total": len(issues)}
             else:
                 # NodeJsScan uses sec_issues
                 if "sec_issues" in report_data:
@@ -60,18 +59,10 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                         "Issues", report_data.get("results", [])
                     ):
                         issues.append(issue)
-                if "total_count" in report_data:
-                    metrics["total_count"] = report_data["total_count"]
-                if "vuln_count" in report_data:
-                    metrics["vuln_count"] = report_data["vuln_count"]
-                if "Stats" in report_data:
-                    metrics = report_data["Stats"]
         if extn == ".csv":
             headers, issues = csv_parser.get_report_data(rfile)
-            metrics = {"total": len(issues)}
         if extn == ".xml":
             issues, metrics = xml_parser.get_report_data(rfile, file_path_list)
-
     return issues, metrics, skips
 
 
@@ -131,11 +122,34 @@ def report(
     if isinstance(tool_args, list):
         tool_args_str = " ".join(tool_args)
     repo_details = find_repo_details(working_dir)
+    log_uuid = str(uuid.uuid4())
+    run_uuid = config.get("run_uuid")
+    # Populate metrics
+    metrics = {
+        "total": 0,
+    }
+    metrics["total"] = len(issues)
+    for issue in issues:
+        issue_dict = issue_from_dict(issue).as_dict()
+        key = issue_dict["issue_severity"].lower()
+        if not metrics.get(key):
+            metrics[key] = 0
+        metrics[key] += 1
+    # Construct SARIF log
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
         version="2.1.0",
+        inline_external_properties=[
+            om.ExternalProperties(guid=log_uuid, run_guid=run_uuid)
+        ],
         runs=[
             om.Run(
+                automation_details=om.RunAutomationDetails(
+                    guid=log_uuid,
+                    description=om.Message(
+                        text="Static Analysis Security Test results using @AppThreat/sast-scan"
+                    ),
+                ),
                 tool=om.Tool(
                     driver=om.ToolComponent(
                         name=config.tool_purpose_message.get(tool_name, tool_name)
@@ -290,6 +304,7 @@ def create_result(
             "issue_confidence": issue_dict["issue_confidence"],
             "issue_severity": issue_dict["issue_severity"],
         },
+        hosted_viewer_uri=config.get("hosted_viewer_uri", ""),
     )
 
 
@@ -297,13 +312,13 @@ def level_from_severity(severity):
     """Converts tool's severity to the 4 level
         suggested by SARIF
     """
-    if severity == "CRITICAL" or severity == "ERROR":
+    if severity == "CRITICAL":
         return "error"
     elif severity == "HIGH":
         return "error"
-    elif severity == "MEDIUM" or severity == "WARN" or severity == "WARNING":
+    elif severity == "MEDIUM":
         return "warning"
-    elif severity == "LOW" or severity == "INFO":
+    elif severity == "LOW":
         return "note"
     else:
         return "warning"

@@ -6,6 +6,8 @@ import sys
 
 LOG = logging.getLogger(__name__)
 
+runtimeValues = {}
+
 """
 Supported language scan types
 """
@@ -135,22 +137,8 @@ tool_ref_url = {
 # Build break rules
 build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium": 5}}
 
-# Load any .sastscanrc file from the root
-if os.environ.get("SAST_SCAN_SRC_DIR"):
-    scanrc = os.path.join(os.environ.get("SAST_SCAN_SRC_DIR"), ".sastscanrc")
-    if os.path.exists(scanrc):
-        try:
-            with open(scanrc, "r") as rcfile:
-                new_config = json.loads(rcfile.read())
-                for key, value in new_config.items():
-                    exis_config = getattr(sys.modules[__name__], "key")
-                    if isinstance(exis_config, dict):
-                        exis_config = exis_config.update(value)
-                        setattr(sys.modules[__name__], key, exis_config)
-                    else:
-                        setattr(sys.modules[__name__], key, value)
-        except Exception:
-            LOG.warn("Error loading local config from {}".format(scanrc))
+# URL for viewing reports online
+hosted_viewer_uri = "https://sarifviewer.azurewebsites.net"
 
 
 def get(configName, default_value=None):
@@ -161,6 +149,36 @@ def get(configName, default_value=None):
     :return Config value
     """
     try:
-        return getattr(sys.modules[__name__], configName, None)
+        value = runtimeValues.get(configName)
+        if not value:
+            value = os.environ.get(configName)
+        if not value:
+            value = getattr(sys.modules[__name__], configName, None)
+        return value
     except Exception:
         return default_value
+
+
+def set(configName, value):
+    """Method to set a config during runtime
+
+    :param configName: Config name
+    :param value: Value
+    """
+    runtimeValues[configName] = value
+
+
+def reload():
+    # Load any .sastscanrc file from the root
+    if get("SAST_SCAN_SRC_DIR"):
+        scanrc = os.path.join(get("SAST_SCAN_SRC_DIR"), ".sastscanrc")
+        if os.path.exists(scanrc):
+            with open(scanrc, "r") as rcfile:
+                new_config = json.loads(rcfile.read())
+                for key, value in new_config.items():
+                    exis_config = get(key)
+                    if isinstance(exis_config, dict):
+                        exis_config = exis_config.update(value)
+                        set(key, exis_config)
+                    else:
+                        set(key, value)

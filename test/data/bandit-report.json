@@ -1,952 +1,1194 @@
 {
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "name": "Bandit",
-          "rules": [
-            {
-              "id": "B104",
-              "name": "hardcoded_bind_all_interfaces",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b104_hardcoded_bind_all_interfaces.html"
-            },
-            {
-              "id": "B108",
-              "name": "hardcoded_tmp_directory",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html"
-            },
-            {
-              "id": "B701",
-              "name": "jinja2_autoescape_false",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b701_jinja2_autoescape_false.html"
-            },
-            {
-              "id": "B608",
-              "name": "hardcoded_sql_expressions",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html"
-            },
-            {
-              "id": "B102",
-              "name": "exec_used",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b102_exec_used.html"
-            },
-            {
-              "id": "B201",
-              "name": "flask_debug_true",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html"
-            },
-            {
-              "id": "B501",
-              "name": "request_with_no_cert_validation",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b501_request_with_no_cert_validation.html"
-            },
-            {
-              "id": "B507",
-              "name": "ssh_no_host_key_verification",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b507_ssh_no_host_key_verification.html"
-            },
-            {
-              "id": "B413",
-              "name": "blacklist",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_imports.html#b413-import-pycrypto"
-            },
-            {
-              "id": "B304",
-              "name": "blacklist",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b304-b305-ciphers-and-modes"
-            },
-            {
-              "id": "B502",
-              "name": "ssl_with_bad_version",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/plugins/b502_ssl_with_bad_version.html"
-            },
-            {
-              "id": "B306",
-              "name": "blacklist",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b306-mktemp-q"
-            },
-            {
-              "id": "B301",
-              "name": "blacklist",
-              "helpUri": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b301-pickle"
-            }
-          ]
-        }
-      },
-      "invocations": [
-        {
-          "executionSuccessful": true,
-          "endTimeUtc": "2020-01-07T18:44:54Z"
-        }
-      ],
-      "properties": {
-        "metrics": {
-          "_totals": {
-            "loc": 280,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 7.0,
-            "CONFIDENCE.LOW": 0.0,
-            "SEVERITY.MEDIUM": 8.0,
-            "CONFIDENCE.MEDIUM": 9.0,
-            "SEVERITY.HIGH": 8.0,
-            "CONFIDENCE.HIGH": 14.0
-          },
-          "/github/workspace/CVE-2018-1281/BindToAllInterfaces.py": {
-            "loc": 7,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-020/examples/IncompleteHostnameRegExp.py": {
-            "loc": 15,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-020/examples/IncompleteUrlSubstringSanitization.py": {
-            "loc": 28,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-022/examples/tainted_path.py": {
-            "loc": 27,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-022/examples/tarslip_bad.py": {
-            "loc": 4,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-022/examples/tarslip_good.py": {
-            "loc": 7,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-078/examples/command_injection.py": {
-            "loc": 16,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 4.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 4.0
-          },
-          "/github/workspace/CWE-079/examples/jinja2.py": {
-            "loc": 20,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 1.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 1.0
-          },
-          "/github/workspace/CWE-079/examples/xss.py": {
-            "loc": 10,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-089/examples/sql_injection.py": {
-            "loc": 11,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-094/examples/code_injection.py": {
-            "loc": 12,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 1.0
-          },
-          "/github/workspace/CWE-209/StackTraceExposure.py": {
-            "loc": 18,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-215/FlaskDebug.py": {
-            "loc": 6,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 1.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-295/examples/make_request.py": {
-            "loc": 10,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 1.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 1.0
-          },
-          "/github/workspace/CWE-295/examples/paramiko_host_key.py": {
-            "loc": 11,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 1.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-312/examples/password_in_cookie.py": {
-            "loc": 8,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-327/examples/broken_crypto.py": {
-            "loc": 7,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 3.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 3.0
-          },
-          "/github/workspace/CWE-327/examples/insecure_default_protocol.py": {
-            "loc": 4,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 1.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-327/examples/insecure_protocol.py": {
-            "loc": 6,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 1.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 1.0
-          },
-          "/github/workspace/CWE-377/InsecureTemporaryFile.py": {
-            "loc": 6,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 1.0
-          },
-          "/github/workspace/CWE-377/SecureTemporaryFile.py": {
-            "loc": 5,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-502/JsonGood.py": {
-            "loc": 7,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-502/UnpicklingBad.py": {
-            "loc": 7,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 1.0,
-            "SEVERITY.MEDIUM": 1.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 2.0
-          },
-          "/github/workspace/CWE-601/examples/redirect_bad.py": {
-            "loc": 6,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-601/examples/redirect_good.py": {
-            "loc": 10,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 0.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 0.0,
-            "CONFIDENCE.HIGH": 0.0
-          },
-          "/github/workspace/CWE-798/HardcodedCredentials.py": {
-            "loc": 12,
-            "nosec": 0,
-            "SEVERITY.UNDEFINED": 0.0,
-            "SEVERITY.LOW": 1.0,
-            "SEVERITY.MEDIUM": 0.0,
-            "SEVERITY.HIGH": 0.0,
-            "CONFIDENCE.UNDEFINED": 0.0,
-            "CONFIDENCE.LOW": 0.0,
-            "CONFIDENCE.MEDIUM": 1.0,
-            "CONFIDENCE.HIGH": 0.0
-          }
-        }
-      },
-      "results": [
-        {
-          "message": {
-            "text": "Possible binding to all interfaces."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "s.bind(('0.0.0.0', 31137))\n"
-                  },
-                  "startLine": 5
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CVE-2018-1281/BindToAllInterfaces.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\ns.bind(('0.0.0.0', 31137))\n\n"
-                  },
-                  "endLine": 6,
-                  "startLine": 4
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B104",
-          "ruleIndex": 0
-        },
-        {
-          "message": {
-            "text": "Probable insecure usage of temp file/directory."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "        tar.extract(entry, \"/tmp/unpack/\")\n"
-                  },
-                  "startLine": 7
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-022/examples/tarslip_bad.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "    for entry in tar:\n        tar.extract(entry, \"/tmp/unpack/\")\n"
-                  },
-                  "endLine": 7,
-                  "startLine": 6
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B108",
-          "ruleIndex": 1
-        },
-        {
-          "message": {
-            "text": "Probable insecure usage of temp file/directory."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "        tar.extract(entry, \"/tmp/unpack/\")\n"
-                  },
-                  "startLine": 10
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-022/examples/tarslip_good.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "            raise ValueError(\"Illegal tar archive entry\")\n        tar.extract(entry, \"/tmp/unpack/\")\n"
-                  },
-                  "endLine": 10,
-                  "startLine": 9
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B108",
-          "ruleIndex": 1
-        },
-        {
-          "message": {
-            "text": "By default, jinja2 sets autoescape to False. Consider using autoescape=True or use the select_autoescape function to mitigate XSS vulnerabilities."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "unsafe_env = Environment(loader=loader)\n"
-                  },
-                  "startLine": 7
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-079/examples/jinja2.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "\nunsafe_env = Environment(loader=loader)\nsafe1_env = Environment(loader=loader, autoescape=True)\n"
-                  },
-                  "endLine": 8,
-                  "startLine": 6
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B701",
-          "ruleIndex": 2
-        },
-        {
-          "message": {
-            "text": "Possible SQL injection vector through string-based query construction."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "        cursor.execute(\"SELECT * FROM users WHERE username = '%s'\" % username)\n"
-                  },
-                  "startLine": 8
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-089/examples/sql_injection.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "        # BAD -- Using string formatting\n        cursor.execute(\"SELECT * FROM users WHERE username = '%s'\" % username)\n        user = cursor.fetchone()\n"
-                  },
-                  "endLine": 9,
-                  "startLine": 7
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B608",
-          "ruleIndex": 3
-        },
-        {
-          "message": {
-            "text": "Use of exec detected."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "        exec(\"setname('%s')\" % first_name)\n"
-                  },
-                  "startLine": 12
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-094/examples/code_injection.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "        #BAD -- Allow user to define code to be run.\n        exec(\"setname('%s')\" % first_name)\n\n"
-                  },
-                  "endLine": 13,
-                  "startLine": 11
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B102",
-          "ruleIndex": 4
-        },
-        {
-          "message": {
-            "text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "app.run(debug=True)\n"
-                  },
-                  "startLine": 9
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-215/FlaskDebug.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "\napp.run(debug=True)\n"
-                  },
-                  "endLine": 9,
-                  "startLine": 8
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B201",
-          "ruleIndex": 5
-        },
-        {
-          "message": {
-            "text": "Requests call with verify=False disabling SSL certificate checks, security issue."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "requests.get('https://semmle.com', verify=False) # UNSAFE\n"
-                  },
-                  "startLine": 5
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-295/examples/make_request.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "\nrequests.get('https://semmle.com', verify=False) # UNSAFE\nrequests.get('https://semmle.com', verify=0) # UNSAFE\n"
-                  },
-                  "endLine": 6,
-                  "startLine": 4
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B501",
-          "ruleIndex": 6
-        },
-        {
-          "message": {
-            "text": "Paramiko call with policy set to automatically trust the unknown host key."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "    client.set_missing_host_key_policy(AutoAddPolicy)\n"
-                  },
-                  "startLine": 5
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-295/examples/paramiko_host_key.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "    client = SSHClient()\n    client.set_missing_host_key_policy(AutoAddPolicy)\n    client.connect(\"example.com\")\n"
-                  },
-                  "endLine": 6,
-                  "startLine": 4
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B507",
-          "ruleIndex": 7
-        },
-        {
-          "message": {
-            "text": "The pyCrypto library and its module DES are no longer actively maintained and have been deprecated. Consider using pyca/cryptography library."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "from Crypto.Cipher import DES, Blowfish\n"
-                  },
-                  "startLine": 1
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-327/examples/broken_crypto.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "from Crypto.Cipher import DES, Blowfish\n\ncipher = DES.new(SECRET_KEY)\n\n"
-                  },
-                  "endLine": 4,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B413",
-          "ruleIndex": 8
-        },
-        {
-          "message": {
-            "text": "Use of insecure cipher Crypto.Cipher.DES.new. Replace with a known secure cipher such as AES."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "cipher = DES.new(SECRET_KEY)\n"
-                  },
-                  "startLine": 3
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-327/examples/broken_crypto.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "\ncipher = DES.new(SECRET_KEY)\n\n"
-                  },
-                  "endLine": 4,
-                  "startLine": 2
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B304",
-          "ruleIndex": 9
-        },
-        {
-          "message": {
-            "text": "Use of insecure cipher Crypto.Cipher.Blowfish.new. Replace with a known secure cipher such as AES."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "cipher = Blowfish.new(SECRET_KEY)\n"
-                  },
-                  "startLine": 9
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-327/examples/broken_crypto.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "\ncipher = Blowfish.new(SECRET_KEY)\n\n"
-                  },
-                  "endLine": 10,
-                  "startLine": 8
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B304",
-          "ruleIndex": 9
-        },
-        {
-          "message": {
-            "text": "ssl.wrap_socket call with insecure SSL/TLS protocol version identified, security issue."
-          },
-          "level": "error",
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "ssl.wrap_socket(socket.socket(), ssl_version=ssl.PROTOCOL_SSLv2)\n"
-                  },
-                  "startLine": 5
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-327/examples/insecure_protocol.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "# Using the deprecated ssl.wrap_socket method\nssl.wrap_socket(socket.socket(), ssl_version=ssl.PROTOCOL_SSLv2)\n\n"
-                  },
-                  "endLine": 6,
-                  "startLine": 4
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH"
-          },
-          "ruleId": "B502",
-          "ruleIndex": 10
-        },
-        {
-          "message": {
-            "text": "Function call with insecure SSL/TLS protocol identified, possible security issue."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "context = ssl.SSLContext(ssl_version=ssl.PROTOCOL_SSLv3)\n"
-                  },
-                  "startLine": 8
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-327/examples/insecure_protocol.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "# Using SSLContext\ncontext = ssl.SSLContext(ssl_version=ssl.PROTOCOL_SSLv3)\n\n"
-                  },
-                  "endLine": 9,
-                  "startLine": 7
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "MEDIUM",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B502",
-          "ruleIndex": 10
-        },
-        {
-          "message": {
-            "text": "Use of insecure and deprecated function (mktemp)."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "    filename = mktemp()\n"
-                  },
-                  "startLine": 4
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-377/InsecureTemporaryFile.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "def write_results(results):\n    filename = mktemp()\n    with open(filename, \"w+\") as f:\n"
-                  },
-                  "endLine": 5,
-                  "startLine": 3
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B306",
-          "ruleIndex": 11
-        },
-        {
-          "message": {
-            "text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "region": {
-                  "snippet": {
-                    "text": "    return pickle.loads(pickled)\n"
-                  },
-                  "startLine": 6
-                },
-                "artifactLocation": {
-                  "uri": "file:///github/workspace/CWE-502/UnpicklingBad.py"
-                },
-                "contextRegion": {
-                  "snippet": {
-                    "text": "def unsafe(pickled):\n    return pickle.loads(pickled)\n\n"
-                  },
-                  "endLine": 7,
-                  "startLine": 5
-                }
-              }
-            }
-          ],
-          "properties": {
-            "issue_confidence": "HIGH",
-            "issue_severity": "MEDIUM"
-          },
-          "ruleId": "B301",
-          "ruleIndex": 12
-        }
-      ]
+  "errors": [],
+  "generated_at": "2020-01-17T19:41:46Z",
+  "metrics": {
+    "/app/bad/api_list.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 14,
+      "nosec": 0
+    },
+    "/app/bad/api_post.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 23,
+      "nosec": 0
+    },
+    "/app/bad/brute.py": {
+      "CONFIDENCE.HIGH": 2.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 2.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 19,
+      "nosec": 0
+    },
+    "/app/bad/db.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 18,
+      "nosec": 0
+    },
+    "/app/bad/db_init.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 32,
+      "nosec": 0
+    },
+    "/app/bad/libapi.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 3.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 3.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 22,
+      "nosec": 0
+    },
+    "/app/bad/libmfa.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 55,
+      "nosec": 0
+    },
+    "/app/bad/libposts.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 18,
+      "nosec": 0
+    },
+    "/app/bad/libsession.py": {
+      "CONFIDENCE.HIGH": 1.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 20,
+      "nosec": 0
+    },
+    "/app/bad/libuser.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 3.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 3.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 38,
+      "nosec": 0
+    },
+    "/app/bad/mod_api.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 50,
+      "nosec": 0
+    },
+    "/app/bad/mod_csp.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 5,
+      "nosec": 0
+    },
+    "/app/bad/mod_hello.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 5,
+      "nosec": 0
+    },
+    "/app/bad/mod_mfa.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 42,
+      "nosec": 0
+    },
+    "/app/bad/mod_posts.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 23,
+      "nosec": 0
+    },
+    "/app/bad/mod_user.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 51,
+      "nosec": 0
+    },
+    "/app/bad/vulpy-ssl.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 4.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 2.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 19,
+      "nosec": 0
+    },
+    "/app/bad/vulpy.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 41,
+      "nosec": 0
+    },
+    "/app/good/cutpasswd.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 13,
+      "nosec": 0
+    },
+    "/app/good/db_init.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 33,
+      "nosec": 0
+    },
+    "/app/good/httpbrute.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 19,
+      "nosec": 0
+    },
+    "/app/good/libapi.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 37,
+      "nosec": 0
+    },
+    "/app/good/libmfa.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 55,
+      "nosec": 0
+    },
+    "/app/good/libposts.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 18,
+      "nosec": 0
+    },
+    "/app/good/libsession.py": {
+      "CONFIDENCE.HIGH": 1.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 39,
+      "nosec": 0
+    },
+    "/app/good/libuser.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 90,
+      "nosec": 0
+    },
+    "/app/good/mod_api.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 47,
+      "nosec": 0
+    },
+    "/app/good/mod_csp.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 5,
+      "nosec": 0
+    },
+    "/app/good/mod_hello.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 5,
+      "nosec": 0
+    },
+    "/app/good/mod_mfa.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 47,
+      "nosec": 0
+    },
+    "/app/good/mod_posts.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 23,
+      "nosec": 0
+    },
+    "/app/good/mod_user.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 58,
+      "nosec": 0
+    },
+    "/app/good/mod_welcome1.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 19,
+      "nosec": 0
+    },
+    "/app/good/vulpy-ssl.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 4.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 2.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 19,
+      "nosec": 0
+    },
+    "/app/good/vulpy.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 1.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 40,
+      "nosec": 0
+    },
+    "/app/utils/aes-decrypt.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 20,
+      "nosec": 0
+    },
+    "/app/utils/aes-encrypt.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 21,
+      "nosec": 0
+    },
+    "/app/utils/ca-create.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 3.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 3.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 43,
+      "nosec": 0
+    },
+    "/app/utils/ca-csr-create.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 2.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 26,
+      "nosec": 0
+    },
+    "/app/utils/ca-csr-load.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 4.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 4.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 27,
+      "nosec": 0
+    },
+    "/app/utils/crack-cvv.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 15,
+      "nosec": 0
+    },
+    "/app/utils/crack-hash.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 15,
+      "nosec": 0
+    },
+    "/app/utils/fernet-generate-key.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 3,
+      "nosec": 0
+    },
+    "/app/utils/generate_bad_passwords.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 29,
+      "nosec": 0
+    },
+    "/app/utils/hashfile.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 14,
+      "nosec": 0
+    },
+    "/app/utils/hmac_generate.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 13,
+      "nosec": 0
+    },
+    "/app/utils/httpbrute.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 24,
+      "nosec": 0
+    },
+    "/app/utils/luncheck.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 13,
+      "nosec": 0
+    },
+    "/app/utils/rsa-decrypt.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 21,
+      "nosec": 0
+    },
+    "/app/utils/rsa-encrypt.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 20,
+      "nosec": 0
+    },
+    "/app/utils/rsa-keygen.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 2.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 23,
+      "nosec": 0
+    },
+    "/app/utils/rsa-sign.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 27,
+      "nosec": 0
+    },
+    "/app/utils/rsa-verify.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 1.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 31,
+      "nosec": 0
+    },
+    "/app/utils/scrypt-crack.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 36,
+      "nosec": 0
+    },
+    "/app/utils/scrypt-generate.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 23,
+      "nosec": 0
+    },
+    "/app/utils/scrypt-verify.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 28,
+      "nosec": 0
+    },
+    "/app/utils/skey.py": {
+      "CONFIDENCE.HIGH": 1.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 22,
+      "nosec": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 5.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 39.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 5.0,
+      "SEVERITY.LOW": 9.0,
+      "SEVERITY.MEDIUM": 30.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 1556,
+      "nosec": 0
     }
-  ],
-  "version": "2.1.0",
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+  },
+  "results": [
+    {
+      "code": "23     while True:\n24         response = input('Enter the hash that follows ' + lastkey + ': ')\n25         result = hashlib.new(ALGORITHM, response.encode()).hexdigest()\n",
+      "filename": "/app/utils/skey.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "HIGH",
+      "issue_text": "The input method in Python 2 will read from standard input, evaluate and run the resulting string as python source code. This is similar, though in many ways worse, then using eval. On Python 2, use raw_input instead, input is safe in Python 3.",
+      "line_number": 24,
+      "line_range": [
+        24
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b322-input",
+      "test_id": "B322",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "28 \n29 app.run(debug=True, host='127.0.1.1', ssl_context=('/tmp/acme.cert', '/tmp/acme.key'))\n",
+      "filename": "/app/bad/vulpy-ssl.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "54 \n55 app.run(debug=True, host='127.0.1.1', port=5000, extra_files='csp.txt')\n",
+      "filename": "/app/bad/vulpy.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 55,
+      "line_range": [
+        55
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "28 \n29 app.run(debug=True, host='127.0.1.1', ssl_context=('/tmp/acme.cert', '/tmp/acme.key'))\n",
+      "filename": "/app/good/vulpy-ssl.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "52 \n53 app.run(debug=True, host='127.0.1.1', port=5001, extra_files='csp.txt')\n54 \n",
+      "filename": "/app/good/vulpy.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 53,
+      "line_range": [
+        53
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "18     for u,p in users:\n19         c.execute(\"INSERT INTO users (user, password, failures) VALUES ('%s', '%s', '%d')\" %(u, p, 0))\n20 \n",
+      "filename": "/app/bad/db.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 19,
+      "line_range": [
+        19
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "19     for u,p in users:\n20         c.execute(\"INSERT INTO users (username, password, failures, mfa_enabled, mfa_secret) VALUES ('%s', '%s', '%d', '%d', '%s')\" %(u, p, 0, 0, ''))\n21 \n",
+      "filename": "/app/bad/db_init.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 20,
+      "line_range": [
+        20
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "11 \n12     user = c.execute(\"SELECT * FROM users WHERE username = '{}' and password = '{}'\".format(username, password)).fetchone()\n13 \n",
+      "filename": "/app/bad/libuser.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 12,
+      "line_range": [
+        12
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "24 \n25     c.execute(\"INSERT INTO users (username, password, failures, mfa_enabled, mfa_secret) VALUES ('%s', '%s', '%d', '%d', '%s')\" %(username, password, 0, 0, ''))\n26 \n",
+      "filename": "/app/bad/libuser.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 25,
+      "line_range": [
+        25
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "52 \n53     c.execute(\"UPDATE users SET password = '{}' WHERE username = '{}'\".format(password, username))\n54     conn.commit()\n",
+      "filename": "/app/bad/libuser.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 53,
+      "line_range": [
+        53
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "60     c = conn.cursor()\n61     c.execute(\"INSERT INTO users (username, password, salt, failures, mfa_enabled, mfa_secret) VALUES ('%s', '%s', '%s', '%d', '%d', '%s')\" %(username, '', '', 0, 0, ''))\n62     conn.commit()\n",
+      "filename": "/app/good/libuser.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 61,
+      "line_range": [
+        61
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "5 \n6 api_key_file = Path('/tmp/supersecret.txt')\n7 \n",
+      "filename": "/app/bad/api_post.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 6,
+      "line_range": [
+        6
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "15 \n16     for f in Path('/tmp/').glob('vulpy.apikey.' + username + '.*'):\n17         print('removing', f)\n",
+      "filename": "/app/bad/libapi.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 16,
+      "line_range": [
+        16
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "19 \n20     keyfile = '/tmp/vulpy.apikey.{}.{}'.format(username, key)\n21 \n",
+      "filename": "/app/bad/libapi.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 20,
+      "line_range": [
+        20
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "32 \n33     for f in Path('/tmp/').glob('vulpy.apikey.*.' + key):\n34         return f.name.split('.')[2]\n",
+      "filename": "/app/bad/libapi.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 33,
+      "line_range": [
+        33
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "28 \n29 app.run(debug=True, host='127.0.1.1', ssl_context=('/tmp/acme.cert', '/tmp/acme.key'))\n",
+      "filename": "/app/bad/vulpy-ssl.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "28 \n29 app.run(debug=True, host='127.0.1.1', ssl_context=('/tmp/acme.cert', '/tmp/acme.key'))\n",
+      "filename": "/app/bad/vulpy-ssl.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "2 \n3 with open('/tmp/darkweb2017-top10000.txt') as f:\n4     for password in f.readlines():\n",
+      "filename": "/app/good/cutpasswd.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 3,
+      "line_range": [
+        3
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "28 \n29 app.run(debug=True, host='127.0.1.1', ssl_context=('/tmp/acme.cert', '/tmp/acme.key'))\n",
+      "filename": "/app/good/vulpy-ssl.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "28 \n29 app.run(debug=True, host='127.0.1.1', ssl_context=('/tmp/acme.cert', '/tmp/acme.key'))\n",
+      "filename": "/app/good/vulpy-ssl.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "30 \n31 with open('/tmp/ca.key', 'wb') as out:\n32     out.write(pem_private)\n",
+      "filename": "/app/utils/ca-create.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 31,
+      "line_range": [
+        31
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "33 \n34 with open('/tmp/ca.pub', 'wb') as out:\n35     out.write(pem_public)\n",
+      "filename": "/app/utils/ca-create.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 34,
+      "line_range": [
+        34
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "57 # Write our certificate out to disk.\n58 with open('/tmp/ca.cert', 'wb') as out:\n59     out.write(cert.public_bytes(serialization.Encoding.PEM))\n",
+      "filename": "/app/utils/ca-create.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 58,
+      "line_range": [
+        58
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "11 \n12 with open(\"/tmp/acme.key\", \"rb\") as key_file:\n13     private_key = serialization.load_pem_private_key(\n",
+      "filename": "/app/utils/ca-csr-create.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 12,
+      "line_range": [
+        12
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "34 # Write our CSR out to disk.\n35 with open(\"/tmp/acme.csr\", \"wb\") as out:\n36     out.write(csr.public_bytes(serialization.Encoding.PEM))\n",
+      "filename": "/app/utils/ca-csr-create.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 35,
+      "line_range": [
+        35
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "12 \n13 with open(\"/tmp/ca.cert\", \"rb\") as ca_cert_file:\n14     ca_cert = x509.load_pem_x509_certificate(ca_cert_file.read(), default_backend())\n",
+      "filename": "/app/utils/ca-csr-load.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 13,
+      "line_range": [
+        13
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "15 \n16 with open(\"/tmp/acme.csr\", \"rb\") as csr_file:\n17     csr = x509.load_pem_x509_csr(csr_file.read(), default_backend())\n",
+      "filename": "/app/utils/ca-csr-load.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 16,
+      "line_range": [
+        16
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "18 \n19 with open(\"/tmp/ca.key\", \"rb\") as key_file:\n20     private_key = serialization.load_pem_private_key(\n",
+      "filename": "/app/utils/ca-csr-load.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 19,
+      "line_range": [
+        19
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "34 # Write our certificate out to disk.\n35 with open('/tmp/acme.cert', 'wb') as out:\n36     out.write(cert.public_bytes(serialization.Encoding.PEM))\n",
+      "filename": "/app/utils/ca-csr-load.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 35,
+      "line_range": [
+        35
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "13 \n14 with open(\"/tmp/acme.key\", \"rb\") as key_file:\n15     private_key = serialization.load_pem_private_key(\n",
+      "filename": "/app/utils/rsa-decrypt.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 14,
+      "line_range": [
+        14
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "13 \n14 with open(\"/tmp/acme.pub\", \"rb\") as key_file:\n15     public_key = serialization.load_pem_public_key(\n",
+      "filename": "/app/utils/rsa-encrypt.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 14,
+      "line_range": [
+        14
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "25 \n26 with open('/tmp/acme.key', 'wb') as out:\n27     out.write(pem_private)\n",
+      "filename": "/app/utils/rsa-keygen.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 26,
+      "line_range": [
+        26
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "28 \n29 with open('/tmp/acme.pub', 'wb') as out:\n30     out.write(pem_public)\n",
+      "filename": "/app/utils/rsa-keygen.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "14 \n15 with open(\"/tmp/acme.key\", \"rb\") as key_file:\n16     private_key = serialization.load_pem_private_key(\n",
+      "filename": "/app/utils/rsa-sign.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 15,
+      "line_range": [
+        15
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    },
+    {
+      "code": "15 \n16 with open(\"/tmp/acme.pub\", \"rb\") as key_file:\n17     public_key = serialization.load_pem_public_key(\n",
+      "filename": "/app/utils/rsa-verify.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Probable insecure usage of temp file/directory.",
+      "line_number": 16,
+      "line_range": [
+        16
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b108_hardcoded_tmp_directory.html",
+      "test_id": "B108",
+      "test_name": "hardcoded_tmp_directory"
+    }
+  ]
 }

@@ -6,6 +6,7 @@ import importlib
 import json
 import os
 import tempfile
+import uuid
 
 
 def test_nodejsscan_convert_empty():
@@ -16,8 +17,13 @@ def test_nodejsscan_convert_empty():
             jsondata["runs"][0]["tool"]["driver"]["name"]
             == "Static security code scan by NodeJsScan"
         )
+        assert (
+            jsondata["runs"][0]["automationDetails"]["description"]["text"]
+            == "Static Analysis Security Test results using @AppThreat/sast-scan"
+        )
+        assert uuid.UUID(jsondata["inlineExternalProperties"][0]["guid"]).version == 4
         assert not jsondata["runs"][0]["results"]
-        assert not jsondata["runs"][0]["properties"]["metrics"]
+        assert jsondata["runs"][0]["properties"]["metrics"] == {"total": 0}
 
 
 def test_nodejsscan_convert_issue():
@@ -168,6 +174,7 @@ def test_credscan_convert_issue():
         jsondata = json.loads(data)
         assert jsondata["runs"][0]["tool"]["driver"]["name"] == "credscan"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
+        assert jsondata["runs"][0]["properties"]["metrics"] == {"high": 1, "total": 1}
 
 
 def test_gosec_convert_issue():
@@ -197,6 +204,7 @@ def test_gosec_convert_issue():
             == "Golang security checks by gosec"
         )
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
+        assert jsondata["runs"][0]["properties"]["metrics"] == {"medium": 1, "total": 1}
 
 
 def test_tfsec_convert_issue():
@@ -231,3 +239,7 @@ def test_tfsec_convert_issue():
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "Resource 'aws_security_group_rule.my-rule' should include a description for auditing purposes."
         )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 1,
+            "total": 1,
+        }

@@ -61,24 +61,30 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                     "status": "✅",
                 }
                 results = run.get("results", [])
-                for aresult in results:
-                    sev = aresult["properties"]["issue_severity"].lower()
-                    report_summary[tool_name][sev] += 1
+                metrics = run.get("properties", {}).get("metrics", None)
+                # If the result includes metrics use it. If not compute it
+                if metrics:
+                    report_summary[tool_name].update(metrics)
+                else:
+                    for aresult in results:
+                        sev = aresult["properties"]["issue_severity"].lower()
+                        report_summary[tool_name][sev] += 1
                 # Compare against the build break rule to determine status
                 default_rules = config.get("build_break_rules").get("default")
                 tool_rules = config.get("build_break_rules").get(tool_name, {})
                 build_break_rules = {**default_rules, **tool_rules, **override_rules}
                 for rsev in ["critical", "high", "medium", "low"]:
                     if build_break_rules.get("max_" + rsev) is not None:
-                        if (report_summary[tool_name][rsev]) > build_break_rules[
-                            "max_" + rsev
-                        ]:
+                        if (
+                            report_summary.get(tool_name).get(rsev)
+                            > build_break_rules["max_" + rsev]
+                        ):
                             report_summary[tool_name]["status"] = "❌"
                             build_status = "fail"
     # Should we store the aggregate data
     if aggregate_file:
         aggregate.jsonl_aggregate(run_data_list, aggregate_file)
-        LOG.info("\nAggregate report written to {}".format(aggregate_file))
+        LOG.info("Aggregate report written to {}\n".format(aggregate_file))
     return report_summary, build_status
 
 

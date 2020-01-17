@@ -133,6 +133,19 @@ class Issue(object):
             out["code"] = self.get_code()
         return out
 
+    def norm_severity(self, severity):
+        """Method to normalize severity and convert non-standard strings
+
+        :param severity: String severity for the issue
+        """
+        if severity == "ERROR":
+            return "CRITICAL"
+        if severity == "WARN" or severity == "WARNING":
+            return "MEDIUM"
+        if severity == "INFO":
+            return "LOW"
+        return severity.upper()
+
     def find_severity(self, data):
         severity = constants.SEVERITY_DEFAULT
         if "issue_severity" in data:
@@ -149,10 +162,10 @@ class Issue(object):
                 elif sev > 8:
                     severity = "CRITICAL"
         if "severity" in data:
-            severity = str(data["severity"]).upper()
+            severity = str(data["severity"])
         if "commit" in data:
             severity = "HIGH"
-        return severity
+        return self.norm_severity(severity)
 
     def get_lineno(self, data):
         """Extract line number with any int conversion"""
@@ -224,6 +237,8 @@ class Issue(object):
             self.test_id = data["rule_id"]
         if "link" in data:
             self.test_ref_url = data["link"]
+        if "more_info" in data:
+            self.test_ref_url = data["more_info"]
         self.lineno = self.get_lineno(data)
         if "line_range" in data:
             self.linerange = data["line_range"]
