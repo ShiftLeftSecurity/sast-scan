@@ -20,6 +20,7 @@ ENV GOSEC_VERSION=2.1.0 \
     FB_CONTRIB_VERSION=7.4.7 \
     SB_VERSION=4.0.0-beta4 \
     GO_VERSION=1.13.6 \
+    INSIDER_SEC_VERSION=1.0.0 \
     GOPATH=/opt/app-root/go \
     PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:/opt/dependency-check/bin/:${GOPATH}/bin:
 
@@ -68,7 +69,9 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
-    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
+    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
+    && curl -L "https://github.com/insidersec/insider/releases/download/${INSIDER_SEC_VERSION}/insider" -o "/usr/local/bin/appthreat/insider" \
+    && chmod +x /usr/local/bin/appthreat/insider
 RUN gem install -q railroader cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM quay.io/appthreat/scan-base-slim as sast-scan-tools
@@ -111,9 +114,9 @@ COPY lib /usr/local/src/lib
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan \
+RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan qark \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install -g retire @appthreat/cdxgen eslint \
+    && npm install -g retire @appthreat/cdxgen \
     && chmod +x /usr/local/src/scan \
     && microdnf remove -y ruby-devel xz shadow-utils \
     && mkdir -p /.cache /opt/dependency-check/data

@@ -25,12 +25,14 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 
 | Programming Language | Tools                                                |
 | -------------------- | ---------------------------------------------------- |
+| android              | insider                                              |
 | ansible              | ansible-lint                                         |
 | aws                  | cfn-lint, cfn_nag                                    |
 | bash                 | shellcheck                                           |
 | bom                  | cdxgen                                               |
 | credscan             | gitleaks                                             |
 | golang               | gosec, staticcheck                                   |
+| ios                  | insider                                              |
 | java                 | cdxgen, gradle, find-sec-bugs, pmd, dependency-check |
 | json                 | jq, jsondiff, jsonschema                             |
 | kotlin               | detekt                                               |

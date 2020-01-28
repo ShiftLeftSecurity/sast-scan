@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 
 def find_python_reqfiles(path):
@@ -73,3 +74,23 @@ def detect_project_type(src_dir):
     if find_files(src_dir, ".sh"):
         project_types.append("bash")
     return project_types
+
+
+def get_report_file(tool_name, reports_dir, convert, ext_name="json"):
+    """
+    Method to construct a report filename
+
+    Args:
+      tool_name Name of the tool
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+      ext_name Extension for the report
+    """
+    report_fname = ""
+    if reports_dir:
+        os.makedirs(reports_dir, exist_ok=True)
+        report_fname = os.path.join(reports_dir, tool_name + "-report." + ext_name)
+    else:
+        fp = tempfile.NamedTemporaryFile(delete=False)
+        report_fname = fp.name
+    return report_fname

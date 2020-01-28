@@ -53,6 +53,17 @@ ignore_directories = [
 Mapping for application types to scan tools for projects requiring just a single tool
 """
 scan_tools_args_map = {
+    "android": {
+        "insider": ["insider", "-no-banner", "-tech", "%(type)s", "-target", "%(src)s"],
+        "qark": [
+            "qark",
+            "--java",
+            "%(src)s",
+            "--no-exploit-apk",
+            "--report-type",
+            "json",
+        ],
+    },
     "ansible": [
         "ansible-lint",
         *["--exclude " + d for d in ignore_directories],
