@@ -37,16 +37,23 @@ def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
 
 
 def execute_default_cmd(
-    cmd_map_list,
-    report_fname_prefix,
-    report_fname,
-    type_str,
-    src,
-    reports_dir,
-    convert,
+    cmd_map_list, type_str, src, reports_dir, convert,
 ):
     """
+    Method to execute default command for the given type
+
+    Args:
+      cmd_map_list Default commands in the form of a dict (multiple) or list
+      type_str Project type
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
     """
+    # Check if there is a default command specified for the given type
+    # Create the reports dir
+    os.makedirs(reports_dir, exist_ok=True)
+    report_fname_prefix = os.path.join(reports_dir, type_str + "-report")
+    report_fname = report_fname_prefix + ".json"
     default_cmd = " ".join(cmd_map_list) % dict(
         src=src,
         reports_dir=reports_dir,

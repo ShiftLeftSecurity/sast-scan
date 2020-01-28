@@ -79,33 +79,16 @@ def scan(type_list, src, reports_dir, convert):
     """
     for type_str in type_list:
         if config.get("scan_tools_args_map").get(type_str):
-            # Check if there is a default command specified for the given type
-            # Create the reports dir
-            os.makedirs(reports_dir, exist_ok=True)
-            report_fname_prefix = os.path.join(reports_dir, type_str + "-report")
-            report_fname = report_fname_prefix + ".json"
             cmd_map_list = config.get("scan_tools_args_map").get(type_str)
             # Default command list can be in the form of a list or dict
             if isinstance(cmd_map_list, list):
                 execute_default_cmd(
-                    cmd_map_list,
-                    report_fname_prefix,
-                    report_fname,
-                    type_str,
-                    src,
-                    reports_dir,
-                    convert,
+                    cmd_map_list, type_str, src, reports_dir, convert,
                 )
             elif isinstance(cmd_map_list, dict):
                 for cmd_key, cmd_val in cmd_map_list.items():
                     execute_default_cmd(
-                        cmd_val,
-                        report_fname_prefix,
-                        report_fname,
-                        type_str,
-                        src,
-                        reports_dir,
-                        convert,
+                        cmd_val, type_str, src, reports_dir, convert,
                     )
         else:
             # Look for any _scan function in this module for execution
