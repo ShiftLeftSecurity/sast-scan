@@ -261,7 +261,6 @@ def java_scan(src, reports_dir, convert):
     """
     pmd_scan(src, reports_dir, convert)
     findsecbugs_scan(src, reports_dir, convert)
-    dep_check_scan(src, reports_dir, convert)
 
 
 def pmd_scan(src, reports_dir, convert):
@@ -385,7 +384,6 @@ def nodejs_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     sec_scan(src, reports_dir, convert)
-    retirejs_scan(src, reports_dir, convert)
 
 
 def sec_scan(src, reports_dir, convert):
