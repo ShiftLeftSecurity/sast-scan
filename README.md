@@ -23,27 +23,25 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 
 ## Bundled tools
 
-| Programming Language | Tools                                                |
-| -------------------- | ---------------------------------------------------- |
-| android              | insider                                              |
-| ansible              | ansible-lint                                         |
-| aws                  | cfn-lint, cfn_nag                                    |
-| bash                 | shellcheck                                           |
-| bom                  | cdxgen                                               |
-| credscan             | gitleaks                                             |
-| golang               | gosec, staticcheck                                   |
-| ios                  | insider                                              |
-| java                 | cdxgen, gradle, find-sec-bugs, pmd, dependency-check |
-| json                 | jq, jsondiff, jsonschema                             |
-| kotlin               | detekt                                               |
-| kubernetes           | kube-score                                           |
-| nodejs               | cdxgen, NodeJsScan, retire, eslint, yarn             |
-| puppet               | puppet-lint                                          |
-| python               | bandit, cdxgen, ossaudit, pipenv                     |
-| ruby                 | railroader, cyclonedx-ruby                           |
-| rust                 | cargo-audit                                          |
-| terraform            | tfsec                                                |
-| yaml                 | yamllint                                             |
+| Programming Language | Tools                              |
+| -------------------- | ---------------------------------- |
+| ansible              | ansible-lint                       |
+| aws                  | cfn-lint, cfn_nag                  |
+| bash                 | shellcheck                         |
+| bom                  | cdxgen                             |
+| credscan             | gitleaks                           |
+| golang               | gosec, staticcheck                 |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd |
+| json                 | jq, jsondiff, jsonschema           |
+| kotlin               | detekt                             |
+| kubernetes           | kube-score                         |
+| nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
+| puppet               | puppet-lint                        |
+| python               | bandit, cdxgen, pipenv             |
+| ruby                 | railroader, cyclonedx-ruby         |
+| rust                 | cargo-audit                        |
+| terraform            | tfsec                              |
+| yaml                 | yamllint                           |
 
 ## Bundled languages/runtime
 
@@ -160,18 +158,6 @@ Bandit
 
 ```bash
 docker run --rm -v <source path>:/app appthreat/sast-scan bandit -r /app
-```
-
-dependency-check
-
-```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan /opt/dependency-check/bin/dependency-check.sh -s /app
-```
-
-Retire.js
-
-```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan retire -p --path /app
 ```
 
 ## Viewing reports

@@ -15,12 +15,10 @@ ENV GOSEC_VERSION=2.1.0 \
     PMD_VERSION=6.20.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
-    DC_VERSION=5.2.4 \
     FSB_VERSION=1.10.1 \
     FB_CONTRIB_VERSION=7.4.7 \
     SB_VERSION=4.0.0-beta4 \
     GO_VERSION=1.13.6 \
-    INSIDER_SEC_VERSION=1.0.0 \
     GOPATH=/opt/app-root/go \
     PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:/opt/dependency-check/bin/:${GOPATH}/bin:
 
@@ -55,11 +53,7 @@ RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_
     && unzip -q pmd-bin-${PMD_VERSION}.zip -d /opt/ \
     && rm pmd-bin-${PMD_VERSION}.zip \
     && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/appthreat/jq" \
-    && chmod +x /usr/local/bin/appthreat/jq \
-    && curl -LO "https://dl.bintray.com/jeremy-long/owasp/dependency-check-${DC_VERSION}-release.zip" \
-    && unzip -q dependency-check-${DC_VERSION}-release.zip -d /opt/ \
-    && rm dependency-check-${DC_VERSION}-release.zip \
-    && chmod +x /opt/dependency-check/bin/dependency-check.sh
+    && chmod +x /usr/local/bin/appthreat/jq
 RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/appthreat/detekt-cli.jar" \
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/appthreat/ -xvf kubesec_linux_amd64.tar.gz \
@@ -69,9 +63,7 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
-    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
-    && curl -L "https://github.com/insidersec/insider/releases/download/${INSIDER_SEC_VERSION}/insider" -o "/usr/local/bin/appthreat/insider" \
-    && chmod +x /usr/local/bin/appthreat/insider
+    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
 RUN gem install -q railroader cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM quay.io/appthreat/scan-base-slim as sast-scan-tools
@@ -90,10 +82,11 @@ LABEL maintainer="AppThreat" \
       org.label-schema.docker.cmd="docker run --rm -it --name sast-scan appthreat/sast-scan"
 
 ENV APP_SRC_DIR=/usr/local/src \
+    DEPSCAN_CMD="/usr/local/bin/depscan" \
     PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-11 \
-    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:/opt/dependency-check/bin/:
+    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
@@ -105,7 +98,6 @@ COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 COPY rules-pmd.xml /usr/local/src/
 COPY spotbugs /usr/local/src/spotbugs
-COPY --from=builder /opt/dependency-check /opt/dependency-check
 COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-4.0.0-beta4 /opt/spotbugs
 COPY requirements.txt /usr/local/src/
@@ -114,12 +106,13 @@ COPY lib /usr/local/src/lib
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint ossaudit nodejsscan qark \
+RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint nodejsscan \
+    && pip3 install --no-cache-dir appthreat-depscan \
+    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install -g retire @appthreat/cdxgen \
+    && npm install -g @appthreat/cdxgen \
     && chmod +x /usr/local/src/scan \
-    && microdnf remove -y ruby-devel xz shadow-utils \
-    && mkdir -p /.cache /opt/dependency-check/data
+    && microdnf remove -y ruby-devel xz shadow-utils
 
 WORKDIR /usr/local/src
 

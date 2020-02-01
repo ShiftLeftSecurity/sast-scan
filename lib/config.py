@@ -17,6 +17,7 @@ scan_types = [
     "bash",
     "bom",
     "credscan",
+    "depscan",
     "golang",
     "java",
     "kotlin",
@@ -49,21 +50,37 @@ ignore_directories = [
 ]
 
 
+def get(configName, default_value=None):
+    """Method to retrieve a config given a name. This method lazy loads configuration
+    values and helps with overriding using a local config
+
+    :param configName: Name of the config
+    :return Config value
+    """
+    try:
+        value = runtimeValues.get(configName)
+        if not value:
+            value = os.environ.get(configName.upper())
+        if not value:
+            value = getattr(sys.modules[__name__], configName, None)
+        return value
+    except Exception:
+        return default_value
+
+
+def set(configName, value):
+    """Method to set a config during runtime
+
+    :param configName: Config name
+    :param value: Value
+    """
+    runtimeValues[configName] = value
+
+
 """
 Mapping for application types to scan tools for projects requiring just a single tool
 """
 scan_tools_args_map = {
-    "android": {
-        "insider": ["insider", "-no-banner", "-tech", "%(type)s", "-target", "%(src)s"],
-        "qark": [
-            "qark",
-            "--java",
-            "%(src)s",
-            "--no-exploit-apk",
-            "--report-type",
-            "json",
-        ],
-    },
     "ansible": [
         "ansible-lint",
         *["--exclude " + d for d in ignore_directories],
@@ -90,6 +107,18 @@ scan_tools_args_map = {
         "--color=never",
         "(filelist=sh)",
     ],
+    "depscan": {
+        "cdxgen": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
+        "depscan": [
+            get("DEPSCAN_CMD"),
+            "--src",
+            "%(src)s",
+            "--bom",
+            "%(report_fname_prefix)s.xml",
+            "--report_file",
+            "%(report_fname_prefix)s.json",
+        ],
+    },
     "golang": [
         "gosec",
         "-fmt=json",
@@ -150,33 +179,6 @@ build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium":
 
 # URL for viewing reports online
 hosted_viewer_uri = "https://sarifviewer.azurewebsites.net"
-
-
-def get(configName, default_value=None):
-    """Method to retrieve a config given a name. This method lazy loads configuration
-    values and helps with overriding using a local config
-
-    :param configName: Name of the config
-    :return Config value
-    """
-    try:
-        value = runtimeValues.get(configName)
-        if not value:
-            value = os.environ.get(configName)
-        if not value:
-            value = getattr(sys.modules[__name__], configName, None)
-        return value
-    except Exception:
-        return default_value
-
-
-def set(configName, value):
-    """Method to set a config during runtime
-
-    :param configName: Config name
-    :param value: Value
-    """
-    runtimeValues[configName] = value
 
 
 def reload():

@@ -155,30 +155,6 @@ def bandit_scan(src, reports_dir, convert):
         )
 
 
-def ossaudit_scan(src, reports_dir, convert):
-    """
-    Method to initiate ossaudit scan of the python codebase
-
-    Args:
-      src Project dir
-      reports_dir Directory for output reports
-      convert Boolean to enable normalisation of reports json
-    """
-    reqfiles = utils.find_python_reqfiles(src)
-    if not reqfiles:
-        return
-    aargs = []
-    for req in reqfiles:
-        aargs.append("-f")
-        aargs.append(req)
-    oss_cmd = "ossaudit"
-    oss_args = [oss_cmd, *aargs]
-    for c in "cve,name,version,cvss_score,title,description".split(","):
-        oss_args.append("--column")
-        oss_args.append(c)
-    exec_tool(oss_args, src)
-
-
 def java_scan(src, reports_dir, convert):
     """
     Method to initiate scan of the java codebase
@@ -281,32 +257,6 @@ def findsecbugs_scan(src, reports_dir, convert):
             )
 
 
-def dep_check_scan(src, reports_dir, convert):
-    """
-    Method to initiate dependency check scan of the java codebase
-
-    Args:
-      src Project dir
-      reports_dir Directory for output reports
-      convert Boolean to enable normalisation of reports json
-    """
-    convert_args = []
-    report_fname = utils.get_report_file("dep_check", reports_dir, convert)
-    if reports_dir or convert:
-        convert_args = ["-o", reports_dir, "-f", "JSON", "-f", "HTML", "-f", "JUNIT"]
-    dc_cmd = "/opt/dependency-check/bin/dependency-check.sh"
-    dc_args = [
-        dc_cmd,
-        "-s",
-        src,
-        *convert_args,
-        "--enableExperimental",
-        "--exclude",
-        ",".join(config.get("ignore_directories")),
-    ]
-    exec_tool(dc_args, src)
-
-
 def nodejs_scan(src, reports_dir, convert):
     """
     Method to initiate scan of the node.js codebase
@@ -345,39 +295,6 @@ def sec_scan(src, reports_dir, convert):
         convertLib.convert_file(
             "nodejsscan", sec_args[1:], src, report_fname, crep_fname,
         )
-
-
-def retirejs_scan(src, reports_dir, convert):
-    """
-    Method to initiate retire.js scan of the node.js codebase
-
-    Args:
-      src Project dir
-      reports_dir Directory for output reports
-      convert Boolean to enable normalisation of reports json
-    """
-    convert_args = []
-    report_fname = utils.get_report_file("retire", reports_dir, convert)
-    if reports_dir or convert:
-        convert_args = [
-            "--outputpath",
-            report_fname,
-            "--outputformat",
-            "jsonsimple",
-        ]
-    retire_cmd = "retire"
-    retire_args = [
-        retire_cmd,
-        "--node",
-        "--nocache",
-        "--nodepath",
-        src,
-        "-p",
-        *convert_args,
-        "--ignore",
-        ",".join(config.get("ignore_directories")),
-    ]
-    exec_tool(retire_args, src)
 
 
 def bomgen(src, reports_dir, convert):
