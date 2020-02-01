@@ -35,10 +35,11 @@ jobs:
       uses: AppThreat/sast-scan-action@master
       with:
         output: reports
-        type: python,bash,credscan
+        type: python,bash,credscan,depscan
       env:
         SCAN_ID: ${{ github.sha }}
         WORKSPACE: https://github.com/${{ github.repository }}/blob/${{ github.sha }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload scan reports
       uses: actions/upload-artifact@v1.0.0
       with:
