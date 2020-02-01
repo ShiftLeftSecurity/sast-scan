@@ -184,7 +184,6 @@ def python_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     bandit_scan(src, reports_dir, convert)
-    ossaudit_scan(src, reports_dir, convert)
 
 
 def bandit_scan(src, reports_dir, convert):
