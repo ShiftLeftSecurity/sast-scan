@@ -91,7 +91,9 @@ def execute_default_cmd(
         and config.tool_purpose_message.get(cmd_with_args[0])
         and os.path.isfile(report_fname)
     ):
-        crep_fname = utils.get_report_file(type, reports_dir, convert, ext_name="sarif")
+        crep_fname = utils.get_report_file(
+            type_str, reports_dir, convert, ext_name="sarif"
+        )
         convertLib.convert_file(
             cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
         )
