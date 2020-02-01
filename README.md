@@ -30,6 +30,7 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 | bash                 | shellcheck                         |
 | bom                  | cdxgen                             |
 | credscan             | gitleaks                           |
+| depscan              | dep-scan                           |
 | golang               | gosec, staticcheck                 |
 | java                 | cdxgen, gradle, find-sec-bugs, pmd |
 | json                 | jq, jsondiff, jsonschema           |
