@@ -162,7 +162,7 @@ class Issue(object):
                 elif sev > 8:
                     severity = "CRITICAL"
         if "severity" in data:
-            severity = str(data["severity"])
+            severity = str(data["severity"]).upper()
         if "commit" in data:
             severity = "HIGH"
         return self.norm_severity(severity)
@@ -177,6 +177,8 @@ class Issue(object):
             tmp_no = data["line"]
         elif "location" in data and "start_line" in data["location"]:
             tmp_no = data["location"]["start_line"]
+        elif "location" in data and "line" in data["location"]:
+            tmp_no = data["location"]["line"]
         if str(tmp_no).isdigit():
             lineno = int(tmp_no)
         return lineno
@@ -200,6 +202,8 @@ class Issue(object):
             self.fname = data["filename"]
         if "location" in data and "filename" in data["location"]:
             self.fname = data["location"]["filename"]
+        if "location" in data and "file" in data["location"]:
+            self.fname = data["location"]["file"]
         if "file" in data:
             self.fname = data["file"]
         if "path" in data:

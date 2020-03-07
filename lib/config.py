@@ -119,15 +119,18 @@ scan_tools_args_map = {
             "%(report_fname_prefix)s.json",
         ],
     },
-    "golang": [
-        "gosec",
-        "-fmt=json",
-        "-confidence=medium",
-        "-severity=medium",
-        "-no-fail",
-        "-out=%(report_fname_prefix)s.json",
-        "./...",
-    ],
+    "golang": {
+        "gosec": [
+            "gosec",
+            "-fmt=json",
+            "-confidence=medium",
+            "-severity=medium",
+            "-no-fail",
+            "-out=%(report_fname_prefix)s.json",
+            "./...",
+        ],
+        "staticcheck": ["staticcheck", "-f", "json", "./..."],
+    },
     "kotlin": [
         "java",
         "-jar",
@@ -166,12 +169,14 @@ tool_purpose_message = {
     "tfsec": "Terraform static analysis by tfsec",
     "shellcheck": "Shell script analysis by shellcheck",
     "bandit": "Security audit for python by bandit",
+    "staticcheck": "Go static analysis",
 }
 
 # Map to link to the reference for the given rule
 tool_ref_url = {
     "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s",
     "gosec": "https://github.com/securego/gosec#available-rules",
+    "staticcheck": "https://staticcheck.io/docs/checks#%(rule_id)s",
 }
 
 # Build break rules

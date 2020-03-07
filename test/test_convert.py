@@ -264,3 +264,45 @@ def test_tfsec_convert_issue():
             "medium": 0,
             "low": 0,
         }
+
+
+def test_staticcheck_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "staticcheck",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "code": "ST1005",
+                    "severity": "error",
+                    "location": {
+                        "file": "/Users/prabhu/go/kube-score/cmd/kube-score/main.go",
+                        "line": 156,
+                        "column": 10,
+                    },
+                    "end": {
+                        "file": "/Users/prabhu/go/kube-score/cmd/kube-score/main.go",
+                        "line": 156,
+                        "column": 86,
+                    },
+                    "message": "error strings should not be capitalized",
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "Go static analysis"
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "error strings should not be capitalized."
+        )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 1,
+            "total": 1,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
+        }

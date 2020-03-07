@@ -83,12 +83,12 @@ def scan(type_list, src, reports_dir, convert):
             # Default command list can be in the form of a list or dict
             if isinstance(cmd_map_list, list):
                 execute_default_cmd(
-                    cmd_map_list, type_str, src, reports_dir, convert,
+                    cmd_map_list, type_str, type_str, src, reports_dir, convert,
                 )
             elif isinstance(cmd_map_list, dict):
                 for cmd_key, cmd_val in cmd_map_list.items():
                     execute_default_cmd(
-                        cmd_val, type_str, src, reports_dir, convert,
+                        cmd_val, type_str, cmd_key, src, reports_dir, convert,
                     )
         else:
             # Look for any _scan function in this module for execution

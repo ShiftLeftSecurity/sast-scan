@@ -22,7 +22,7 @@ def test_scan_tools_map():
 def test_override():
     build_break_rules = config.get("build_break_rules").copy()
     golang_cmd = config.get("scan_tools_args_map").get("golang")
-    assert golang_cmd[0] == "gosec"
+    assert list(golang_cmd.keys()) == ["gosec", "staticcheck"]
     test_data_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
     config.set("SAST_SCAN_SRC_DIR", test_data_dir)
     config.reload()

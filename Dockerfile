@@ -101,8 +101,6 @@ COPY spotbugs /usr/local/src/spotbugs
 COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-4.0.0-beta4 /opt/spotbugs
 COPY requirements.txt /usr/local/src/
-COPY scan /usr/local/src/
-COPY lib /usr/local/src/lib
 
 USER root
 
@@ -111,9 +109,11 @@ RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamlli
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install -g @appthreat/cdxgen \
-    && chmod +x /usr/local/src/scan \
     && microdnf remove -y ruby-devel xz shadow-utils
 
 WORKDIR /usr/local/src
+
+COPY scan /usr/local/src/
+COPY lib /usr/local/src/lib
 
 CMD [ "python3", "/usr/local/src/scan" ]

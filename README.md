@@ -17,8 +17,8 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 
 ## Features
 
-- No messy configuration and no server required.
-- Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of mins
+- No messy configuration and no server required
+- Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of minutes
 - Automatic exit code 1 (build breaker) with critical and high vulnerabilities
 
 ## Bundled tools
@@ -64,7 +64,7 @@ Some reports get converted into an open-standard called [SARIF](https://sarifweb
 - Python - bandit
 - Node.js - NodeJsScan
 - Java - pmd, find-sec-bugs
-- Golang - gosec
+- Golang - gosec, staticcheck
 - Terraform - tfsec
 
 ## Usage

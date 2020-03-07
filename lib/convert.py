@@ -41,8 +41,16 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
     extn = pathlib.PurePosixPath(report_file).suffix
 
     with io.open(report_file, "r") as rfile:
+        # Static check use jsonlines format, duh
+        if tool_name == "staticcheck":
+            contents = rfile.read()
+            issues = [json.loads(str(item)) for item in contents.strip().split("\n")]
+            return issues, metrics, skips
         if extn == ".json":
-            report_data = json.loads(rfile.read())
+            try:
+                report_data = json.loads(rfile.read())
+            except json.decoder.JSONDecodeError:
+                return issues, metrics, skips
             if isinstance(report_data, list):
                 issues = report_data
             else:
