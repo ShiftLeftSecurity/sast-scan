@@ -6,18 +6,18 @@ import os
 import pathlib
 import re
 import sys
-import uuid
-
 import urllib.parse as urlparse
-
-from lib.issue import issue_from_dict
-import lib.csv_parser as csv_parser
-import lib.config as config
-from lib.context import find_repo_details
-import lib.xml_parser as xml_parser
+import uuid
 
 import sarif_om as om
 from jschema_to_python.to_json import to_json
+from reporter.sarif import render_html
+
+import lib.config as config
+import lib.csv_parser as csv_parser
+import lib.xml_parser as xml_parser
+from lib.context import find_repo_details
+from lib.issue import issue_from_dict
 
 LOG = logging.getLogger(__name__)
 
@@ -132,6 +132,7 @@ def report(
     repo_details = find_repo_details(working_dir)
     log_uuid = str(uuid.uuid4())
     run_uuid = config.get("run_uuid")
+
     # Populate metrics
     metrics = {
         "total": 0,
@@ -207,11 +208,16 @@ def report(
     serialized_log = to_json(log)
 
     if crep_fname:
+        html_file = crep_fname.replace(".sarif", ".html")
         with io.open(crep_fname, "w") as fileobj:
             fileobj.write(serialized_log)
-
+        render_html(json.loads(serialized_log), html_file)
         if fileobj.name != sys.stdout.name:
-            LOG.info("SARIF output written to file: %s 👍", fileobj.name)
+            LOG.debug(
+                "SARIF and HTML report written to file: %s, %s 👍",
+                fileobj.name,
+                html_file,
+            )
     return serialized_log
 
 

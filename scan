@@ -4,10 +4,8 @@
 Multi-language static analysis scanner
 """
 import argparse
-import io
 import logging
 import os
-import subprocess
 import sys
 import tempfile
 import uuid
@@ -16,7 +14,6 @@ import lib.analysis as analysis
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
-
 from lib.executor import exec_tool, execute_default_cmd
 
 logging.basicConfig(
@@ -97,7 +94,7 @@ def scan(type_list, src, reports_dir, convert):
                     src, reports_dir, convert
                 )
             except:
-                LOG.warn("Project type is not supported: {}".format(type_str))
+                LOG.warning("Project type is not supported: {}".format(type_str))
 
 
 def python_scan(src, reports_dir, convert):

@@ -7,7 +7,6 @@ from tabulate import tabulate
 import lib.aggregate as aggregate
 import lib.config as config
 
-
 LOG = logging.getLogger(__name__)
 
 
@@ -65,6 +64,7 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                 # If the result includes metrics use it. If not compute it
                 if metrics:
                     report_summary[tool_name].update(metrics)
+                    report_summary[tool_name].pop("total", None)
                 else:
                     for aresult in results:
                         sev = aresult["properties"]["issue_severity"].lower()

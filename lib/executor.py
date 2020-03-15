@@ -7,7 +7,6 @@ import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
 
-
 logging.basicConfig(
     level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
 )
