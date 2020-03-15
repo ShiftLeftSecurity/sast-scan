@@ -19,7 +19,7 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 
 - No messy configuration and no server required
 - Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of minutes
-- Gorgeous [HTML](docs/findsecbugs-report.html) [reports](docs/pmd-report.html) that you can proudly share with your colleagues and the security team
+- Gorgeous [HTML](http://htmlpreview.github.io/?https://github.com/AppThreat/sast-scan/blob/master/docs/findsecbugs-report.html) [reports](http://htmlpreview.github.io/?https://github.com/AppThreat/sast-scan/blob/master/docs/pmd-report.html) that you can proudly share with your colleagues and the security team
 - Automatic exit code 1 (build breaker) with critical and high vulnerabilities
 - There are a number of small things that will bring smile to any DevOps team
 
