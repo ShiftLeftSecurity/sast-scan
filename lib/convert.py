@@ -148,6 +148,8 @@ def report(
         if not metrics.get(key):
             metrics[key] = 0
         metrics[key] += 1
+    # working directory to use in the log
+    wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX else working_dir
     # Construct SARIF log
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
@@ -172,7 +174,7 @@ def report(
                     om.Invocation(
                         end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
                         execution_successful=True,
-                        working_directory=om.ArtifactLocation(uri=to_uri(working_dir)),
+                        working_directory=om.ArtifactLocation(uri=to_uri(wd_dir_log)),
                     )
                 ],
                 conversion={
@@ -183,7 +185,7 @@ def report(
                         execution_successful=True,
                         command_line=tool_args_str,
                         arguments=tool_args,
-                        working_directory=om.ArtifactLocation(uri=to_uri(working_dir)),
+                        working_directory=om.ArtifactLocation(uri=to_uri(wd_dir_log)),
                         end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
                     ),
                 },

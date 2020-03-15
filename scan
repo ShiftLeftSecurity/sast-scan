@@ -330,11 +330,14 @@ def main():
         type = type.split(",")
     print(at_logo, flush=True)
     LOG.info("Scanning {} using scan plugins {}".format(args.src_dir, type))
-    scan(type, args.src_dir, args.reports_dir, args.convert)
-    if args.reports_dir:
-        sarif_files = utils.find_files(args.reports_dir, ".sarif")
+    reports_dir = args.reports_dir
+    if not reports_dir:
+        reports_dir = os.path.join(args.src_dir, "reports")
+    scan(type, args.src_dir, reports_dir, args.convert)
+    if reports_dir:
+        sarif_files = utils.find_files(reports_dir, ".sarif")
         agg_fname = utils.get_report_file(
-            "all-" + run_uuid, args.reports_dir, False, ext_name="json"
+            "all-" + run_uuid, reports_dir, False, ext_name="json"
         )
         report_summary, build_status = analysis.summary(sarif_files, agg_fname)
         if report_summary:

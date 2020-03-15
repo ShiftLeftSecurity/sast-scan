@@ -19,7 +19,9 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 
 - No messy configuration and no server required
 - Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of minutes
+- Gorgeous [HTML](docs/findsecbugs-report.html) [reports](docs/pmd-report.html) that you can proudly share with your colleagues and the security team
 - Automatic exit code 1 (build breaker) with critical and high vulnerabilities
+- There are a number of small things that will bring smile to any DevOps team
 
 ## Bundled tools
 
@@ -129,24 +131,24 @@ SARIF reports produced by sast-scan can be integrated with other compatible tool
 Scan python project
 
 ```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v <source path>:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
 ```
 
 Scan multiple projects
 
 ```bash
-docker run --rm --tmpfs /tmp -v <source path>:/app appthreat/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v <source path>:/app appthreat/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
 ```
 
 Scan java project
 
-For java and jvm language based projects, it is important to mount the volumes containing .m2 or .gradle directories. It is therefore necessary to compile the projects before invoking sast-scan in the dev and CI workflow.
+For java and jvm language based projects, it is important to compile the projects before invoking sast-scan in the dev and CI workflow.
 
 ```bash
-docker run --rm --tmpfs /tmp -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
 
 # For gradle project
-docker run --rm --tmpfs /tmp -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
 ```
 
 **Automatic project detection**
@@ -183,12 +185,6 @@ Azure DevOps SARIF plugin can be integrated to show the analysis integrated with
 ![Azure DevOps integration](docs/azure-devops.png)
 
 ![Build breaker](docs/build-breaker.png)
-
-## OWASP Benchmark
-
-sast-scan scored a whopping 42% on the [OWASP Benchmark](https://github.com/AppThreat/sast-scan/issues/16)
-
-![Results comparison](https://user-images.githubusercontent.com/7842/73694146-6d0d8a80-46cf-11ea-8d66-130de2d65d81.png)
 
 ## Alternatives
 
