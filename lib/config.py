@@ -118,8 +118,6 @@ scan_tools_args_map = {
         "--no-banner",
         "--src",
         "%(src)s",
-        "--bom",
-        "%(report_fname_prefix)s.xml",
         "--report_file",
         "%(report_fname_prefix)s.json",
     ],
