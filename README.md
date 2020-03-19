@@ -38,7 +38,6 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 | json                 | jq, jsondiff, jsonschema           |
 | kotlin               | detekt                             |
 | kubernetes           | kube-score                         |
-| .Net                 | cdxgen, SecurityCodeScan           |
 | nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
 | puppet               | puppet-lint                        |
 | python               | bandit, cdxgen, pipenv             |
@@ -49,7 +48,6 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 
 ## Bundled languages/runtime
 
-- dotnet 3.1
 - jq
 - Golang 1.12
 - Python 3.6
