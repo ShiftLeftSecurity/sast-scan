@@ -133,7 +133,7 @@ SARIF reports produced by sast-scan can be integrated with other compatible tool
 Scan python project
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type python
 ```
 
 Scan multiple projects
@@ -147,16 +147,10 @@ Scan java project
 For java and jvm language based projects, it is important to compile the projects before invoking sast-scan in the dev and CI workflow.
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java
 
 # For gradle project
-docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
-```
-
-Scan .Net project
-
-```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type dotnet --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java
 ```
 
 **Automatic project detection**

@@ -98,6 +98,7 @@ scan_tools_args_map = {
         "--depth=" + get("credscan_depth"),
         "--repo-path=%(src)s",
         "--redact",
+        "--timeout=2m",
         "--report=%(report_fname_prefix)s.json",
         "--report-format=json",
     ],
@@ -108,22 +109,20 @@ scan_tools_args_map = {
         "-f",
         "json",
         "-S",
-        "info",
+        "error",
         "--color=never",
         "(filelist=sh)",
     ],
-    "depscan": {
-        "cdxgen": ["cdxgen", "-r", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
-        "depscan": [
-            get("DEPSCAN_CMD"),
-            "--src",
-            "%(src)s",
-            "--bom",
-            "%(report_fname_prefix)s.xml",
-            "--report_file",
-            "%(report_fname_prefix)s.json",
-        ],
-    },
+    "depscan": [
+        get("DEPSCAN_CMD"),
+        "--no-banner",
+        "--src",
+        "%(src)s",
+        "--bom",
+        "%(report_fname_prefix)s.xml",
+        "--report_file",
+        "%(report_fname_prefix)s.json",
+    ],
     "golang": {
         "gosec": [
             "gosec",
@@ -173,7 +172,6 @@ tool_ref_url = {
     "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s",
     "gosec": "https://github.com/securego/gosec#available-rules",
     "staticcheck": "https://staticcheck.io/docs/checks#%(rule_id)s",
-    "security-code-scan": "https://security-code-scan.github.io/#%(rule_id)s",
 }
 
 # Build break rules

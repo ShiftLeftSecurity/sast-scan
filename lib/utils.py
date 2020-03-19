@@ -56,25 +56,31 @@ def detect_project_type(src_dir):
 
     :return List of detected types
     """
-    project_types = []
+    project_types = ["credscan"]
+    depscan_supported = False
     if find_python_reqfiles(src_dir):
         project_types.append("python")
+        depscan_supported = True
     if find_files(src_dir, "pom.xml") or find_files(src_dir, ".gradle"):
         project_types.append("java")
+        depscan_supported = True
     if find_files(src_dir, "package.json"):
         project_types.append("nodejs")
-    if find_files(src_dir, ".csproj"):
-        project_types.append("dotnet")
+        depscan_supported = True
     if find_files(src_dir, "go.sum") or find_files(src_dir, "Gopkg.lock"):
         project_types.append("golang")
+        depscan_supported = True
     if find_files(src_dir, "Cargo.lock"):
         project_types.append("rust")
+        depscan_supported = True
     if find_files(src_dir, ".tf"):
         project_types.append("terraform")
     if find_files(src_dir, ".yaml"):
         project_types.append("yaml")
     if find_files(src_dir, ".sh"):
         project_types.append("bash")
+    if depscan_supported:
+        project_types.append("depscan")
     return project_types
 
 

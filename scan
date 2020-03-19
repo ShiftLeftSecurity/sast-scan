@@ -272,40 +272,6 @@ def bomgen(src, reports_dir, convert):
     exec_tool(bom_args, src)
 
 
-def dotnet_scan(src, reports_dir, convert):
-    """
-    Method to initiate scan of the .Net codebase
-
-    Args:
-      src Project dir
-      reports_dir Directory for output reports
-      convert Boolean to enable normalisation of reports json
-    """
-    csproj_files = utils.find_files(src, ".csproj")
-    for proj in csproj_files:
-        proj_name = os.path.basename(proj)
-        proj_dir = os.path.dirname(proj)
-        install_args = [
-            "dotnet",
-            "add",
-            proj,
-            "package",
-            "SecurityCodeScan.VS2017",
-            "--version",
-            "3.5.0",
-        ]
-        exec_tool(install_args, src)
-        dbuild_args = ["dotnet", "build", "-v", "q", proj]
-        report_fname = utils.get_report_file(
-            "security-code-scan-{}".format(proj_name),
-            reports_dir,
-            convert,
-            ext_name="out",
-        )
-        stdout_file = open(report_fname, "w")
-        exec_tool(dbuild_args, src, stdout=stdout_file)
-
-
 def main():
     args = build_args()
     type = args.scan_type
@@ -326,7 +292,7 @@ def main():
             type = utils.detect_project_type(args.src_dir)
     else:
         type = type.split(",")
-    print(at_logo, flush=True)
+    print(at_logo)
     LOG.info("Scanning {} using scan plugins {}".format(args.src_dir, type))
     reports_dir = args.reports_dir
     if not reports_dir:

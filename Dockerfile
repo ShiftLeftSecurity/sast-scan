@@ -3,20 +3,19 @@ FROM quay.io/appthreat/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.1.0 \
-    TFSEC_VERSION=0.16.0 \
+ENV GOSEC_VERSION=2.2.0 \
+    TFSEC_VERSION=0.19.0 \
     KUBESEC_VERSION=2.3.1 \
-    KUBE_SCORE_VERSION=1.4.0 \
-    DETEKT_VERSION=1.3.0 \
-    GITLEAKS_VERSION=3.0.3 \
+    KUBE_SCORE_VERSION=1.5.1 \
+    DETEKT_VERSION=1.6.0 \
+    GITLEAKS_VERSION=4.1.0 \
     GRADLE_VERSION=6.0.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     SC_VERSION=2019.2.3 \
     JQ_VERSION=1.6 \
     FSB_VERSION=1.10.1 \
     FB_CONTRIB_VERSION=7.4.7 \
-    SB_VERSION=4.0.0-beta4 \
-    GO_VERSION=1.13.6 \
+    SB_VERSION=4.0.1 \
     GOPATH=/opt/app-root/go \
     PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:/opt/dependency-check/bin/:${GOPATH}/bin:
 
@@ -80,7 +79,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-11 \
-    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
+    PYTHONUNBUFFERED=1 \
     PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
@@ -91,7 +90,7 @@ COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 COPY spotbugs /usr/local/src/spotbugs
-COPY --from=builder /opt/spotbugs-4.0.0-beta4 /opt/spotbugs
+COPY --from=builder /opt/spotbugs-4.0.1 /opt/spotbugs
 COPY requirements.txt /usr/local/src/
 
 USER root

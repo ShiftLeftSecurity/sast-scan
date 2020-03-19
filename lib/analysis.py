@@ -97,5 +97,5 @@ def print_summary(report_summary):
         if not headers:
             headers = v.keys()
         table.append(v.values())
-    print("\n", flush=True)
-    print(tabulate(table, headers, tablefmt="simple"), flush=True)
+    print("\n")
+    print(tabulate(table, headers, tablefmt="simple"))

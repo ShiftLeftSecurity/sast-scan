@@ -26,6 +26,18 @@ TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 WORKSPACE_PREFIX = os.environ.get("WORKSPACE", None)
 
 
+def tweak_severity(tool_name, issue_severity):
+    """
+    Tweak severity for certain tools
+    :param tool_name:
+    :param issue_severity:
+    :return:
+    """
+    if tool_name == "staticcheck":
+        issue_severity = "MEDIUM"
+    return issue_severity
+
+
 def extract_from_file(tool_name, report_file, file_path_list=None):
     """Extract properties from reports
 
@@ -144,7 +156,10 @@ def report(
     metrics["total"] = len(issues)
     for issue in issues:
         issue_dict = issue_from_dict(issue).as_dict()
-        key = issue_dict["issue_severity"].lower()
+        issue_severity = issue_dict["issue_severity"]
+        # Fix up severity for certain tools
+        issue_severity = tweak_severity(tool_name, issue_severity)
+        key = issue_severity.lower()
         if not metrics.get(key):
             metrics[key] = 0
         metrics[key] += 1
@@ -313,16 +328,17 @@ def create_result(
     add_region_and_context_region(
         physical_location, issue_dict["line_number"], issue_dict["code"]
     )
-
+    issue_severity = issue_dict["issue_severity"]
+    issue_severity = tweak_severity(tool_name, issue_severity)
     return om.Result(
         rule_id=rule.id,
         rule_index=rule_index,
         message=om.Message(text=issue_dict["issue_text"]),
-        level=level_from_severity(issue_dict["issue_severity"]),
+        level=level_from_severity(issue_severity),
         locations=[om.Location(physical_location=physical_location)],
         properties={
             "issue_confidence": issue_dict["issue_confidence"],
-            "issue_severity": issue_dict["issue_severity"],
+            "issue_severity": issue_severity,
         },
         hosted_viewer_uri=config.get("hosted_viewer_uri", ""),
     )
@@ -357,7 +373,7 @@ def add_region_and_context_region(physical_location, line_number, code):
         end_line_number = first_line_number + 3
     index = line_number - first_line_number
     snippet_line = ""
-    if len(snippet_lines) > index:
+    if len(snippet_lines) > index and index > 0:
         snippet_line = snippet_lines[index]
 
     physical_location.region = om.Region(
