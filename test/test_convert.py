@@ -300,9 +300,9 @@ def test_staticcheck_convert_issue():
             == "error strings should not be capitalized."
         )
         assert jsondata["runs"][0]["properties"]["metrics"] == {
-            "critical": 1,
+            "critical": 0,
             "total": 1,
             "high": 0,
-            "medium": 0,
+            "medium": 1,
             "low": 0,
         }

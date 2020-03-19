@@ -11,6 +11,8 @@ runtimeValues = {}
 # Depth of credscan
 credscan_depth = "2"
 
+DEPSCAN_CMD = "/usr/local/bin/depscan"
+
 """
 Supported language scan types
 """
