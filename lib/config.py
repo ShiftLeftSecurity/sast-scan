@@ -8,6 +8,9 @@ LOG = logging.getLogger(__name__)
 
 runtimeValues = {}
 
+# Depth of credscan
+credscan_depth = "2"
+
 """
 Supported language scan types
 """
@@ -91,6 +94,8 @@ scan_tools_args_map = {
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
+        "--uncommitted",
+        "--depth=" + get("credscan_depth"),
         "--repo-path=%(src)s",
         "--redact",
         "--report=%(report_fname_prefix)s.json",
@@ -108,7 +113,7 @@ scan_tools_args_map = {
         "(filelist=sh)",
     ],
     "depscan": {
-        "cdxgen": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
+        "cdxgen": ["cdxgen", "-r", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
         "depscan": [
             get("DEPSCAN_CMD"),
             "--src",
@@ -142,15 +147,6 @@ scan_tools_args_map = {
     ],
     "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
-    "ruby": [
-        "railroader",
-        "--skip-files",
-        ",".join(ignore_directories),
-        "-o",
-        "%(report_fname_prefix)s.json",
-        "-q",
-        "%(src)s",
-    ],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
@@ -158,7 +154,7 @@ scan_tools_args_map = {
 
 
 """
-This map contains the purpose string for various tools
+This map contains the SARIF purpose string for various tools
 """
 tool_purpose_message = {
     "nodejsscan": "Static security code scan by NodeJsScan",
@@ -177,6 +173,7 @@ tool_ref_url = {
     "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s",
     "gosec": "https://github.com/securego/gosec#available-rules",
     "staticcheck": "https://staticcheck.io/docs/checks#%(rule_id)s",
+    "security-code-scan": "https://security-code-scan.github.io/#%(rule_id)s",
 }
 
 # Build break rules

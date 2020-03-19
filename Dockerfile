@@ -12,8 +12,6 @@ ENV GOSEC_VERSION=2.1.0 \
     GRADLE_VERSION=6.0.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     SC_VERSION=2019.2.3 \
-    PMD_VERSION=6.20.0 \
-    PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
     FSB_VERSION=1.10.1 \
     FB_CONTRIB_VERSION=7.4.7 \
@@ -49,9 +47,6 @@ RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEA
     && rm shellcheck-stable.linux.x86_64.tar.xz
 RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/appthreat/kube-score" \
     && chmod +x /usr/local/bin/appthreat/kube-score \
-    && wget "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip" \
-    && unzip -q pmd-bin-${PMD_VERSION}.zip -d /opt/ \
-    && rm pmd-bin-${PMD_VERSION}.zip \
     && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/appthreat/jq" \
     && chmod +x /usr/local/bin/appthreat/jq
 RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/appthreat/detekt-cli.jar" \
@@ -64,7 +59,7 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
     && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
-RUN gem install -q railroader cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
+RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM quay.io/appthreat/scan-base-slim as sast-scan-tools
 
@@ -83,22 +78,19 @@ LABEL maintainer="AppThreat" \
 
 ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
-    PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-11 \
+    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:
 
 COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/railroader /usr/local/bin/railroader
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
-COPY rules-pmd.xml /usr/local/src/
 COPY spotbugs /usr/local/src/spotbugs
-COPY --from=builder /opt/pmd-bin-6.20.0 /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-4.0.0-beta4 /opt/spotbugs
 COPY requirements.txt /usr/local/src/
 

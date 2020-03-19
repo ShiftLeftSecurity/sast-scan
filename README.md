@@ -38,16 +38,18 @@ This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a co
 | json                 | jq, jsondiff, jsonschema           |
 | kotlin               | detekt                             |
 | kubernetes           | kube-score                         |
+| .Net                 | cdxgen, SecurityCodeScan           |
 | nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
 | puppet               | puppet-lint                        |
 | python               | bandit, cdxgen, pipenv             |
-| ruby                 | railroader, cyclonedx-ruby         |
-| rust                 | cargo-audit                        |
+| ruby                 | cyclonedx-ruby                     |
+| rust                 | cdxgen, cargo-audit                |
 | terraform            | tfsec                              |
 | yaml                 | yamllint                           |
 
 ## Bundled languages/runtime
 
+- dotnet 3.1
 - jq
 - Golang 1.12
 - Python 3.6
@@ -131,13 +133,13 @@ SARIF reports produced by sast-scan can be integrated with other compatible tool
 Scan python project
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v <source path>:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
 ```
 
 Scan multiple projects
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v <source path>:/app appthreat/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
 ```
 
 Scan java project
@@ -149,6 +151,12 @@ docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app appthr
 
 # For gradle project
 docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java --out_dir /app/reports
+```
+
+Scan .Net project
+
+```bash
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type dotnet --out_dir /app/reports
 ```
 
 **Automatic project detection**

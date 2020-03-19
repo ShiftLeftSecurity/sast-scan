@@ -161,43 +161,7 @@ def java_scan(src, reports_dir, convert):
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
     """
-    pmd_scan(src, reports_dir, convert)
     findsecbugs_scan(src, reports_dir, convert)
-
-
-def pmd_scan(src, reports_dir, convert):
-    """
-    Method to initiate pmd scan of the java codebase
-
-    Args:
-      src Project dir
-      reports_dir Directory for output reports
-      convert Boolean to enable normalisation of reports json
-    """
-    convert_args = []
-    report_fname = utils.get_report_file("pmd", reports_dir, convert, ext_name="csv")
-    if reports_dir or convert:
-        convert_args = ["-r", report_fname, "-f", "csv"]
-    pmd_cmd = os.environ["PMD_CMD"].split(" ")
-    pmd_args = [
-        *pmd_cmd,
-        "-no-cache",
-        "--failOnViolation",
-        "false",
-        "-d",
-        src,
-        *convert_args,
-        "-R",
-        os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
-    ]
-    exec_tool(pmd_args, src)
-    if convert:
-        crep_fname = utils.get_report_file(
-            "pmd", reports_dir, convert, ext_name="sarif"
-        )
-        convertLib.convert_file(
-            "pmd", pmd_args[1:], src, report_fname, crep_fname,
-        )
 
 
 def findsecbugs_scan(src, reports_dir, convert):
@@ -306,6 +270,40 @@ def bomgen(src, reports_dir, convert):
     report_fname = utils.get_report_file("bom", reports_dir, convert, ext_name="xml")
     bom_args = ["cdxgen", "-o", report_fname, src]
     exec_tool(bom_args, src)
+
+
+def dotnet_scan(src, reports_dir, convert):
+    """
+    Method to initiate scan of the .Net codebase
+
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+    """
+    csproj_files = utils.find_files(src, ".csproj")
+    for proj in csproj_files:
+        proj_name = os.path.basename(proj)
+        proj_dir = os.path.dirname(proj)
+        install_args = [
+            "dotnet",
+            "add",
+            proj,
+            "package",
+            "SecurityCodeScan.VS2017",
+            "--version",
+            "3.5.0",
+        ]
+        exec_tool(install_args, src)
+        dbuild_args = ["dotnet", "build", "-v", "q", proj]
+        report_fname = utils.get_report_file(
+            "security-code-scan-{}".format(proj_name),
+            reports_dir,
+            convert,
+            ext_name="out",
+        )
+        stdout_file = open(report_fname, "w")
+        exec_tool(dbuild_args, src, stdout=stdout_file)
 
 
 def main():

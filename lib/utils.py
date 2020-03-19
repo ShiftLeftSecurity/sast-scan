@@ -63,6 +63,8 @@ def detect_project_type(src_dir):
         project_types.append("java")
     if find_files(src_dir, "package.json"):
         project_types.append("nodejs")
+    if find_files(src_dir, ".csproj"):
+        project_types.append("dotnet")
     if find_files(src_dir, "go.sum") or find_files(src_dir, "Gopkg.lock"):
         project_types.append("golang")
     if find_files(src_dir, "Cargo.lock"):
