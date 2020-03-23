@@ -96,7 +96,6 @@ scan_tools_args_map = {
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
-        "--uncommitted",
         "--depth=" + get("credscan_depth"),
         "--repo-path=%(src)s",
         "--redact",
