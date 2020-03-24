@@ -88,7 +88,7 @@ Example of a result is shown below:
           "startLine": 24
         },
         "artifactLocation": {
-          "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/skey.py"
+          "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/skey.py"
         },
         "contextRegion": {
           "snippet": {

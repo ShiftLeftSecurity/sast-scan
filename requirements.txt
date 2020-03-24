@@ -3,4 +3,4 @@ jschema_to_python
 defusedxml
 tabulate
 gitpython
-appthreat-scan-reports
+shiftleft-scan-reports

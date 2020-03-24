@@ -1,6 +1,6 @@
 # Integration with CircleCI
 
-sast-scan has decent integration with CircleCI. This repo contains an [example for a yaml pipeline](https://github.com/AppThreat/WebGoat/blob/develop/.circleci/config.yml) that invokes sast-scan using docker run.
+sast-scan has decent integration with CircleCI. This repo contains an [example for a yaml pipeline](https://github.com/ShiftLeftSecurity/WebGoat/blob/develop/.circleci/config.yml) that invokes sast-scan using docker run.
 
 Note:
 
@@ -28,7 +28,7 @@ steps:
       command: |
         set +e
         # start an application container using this volume
-        docker run --name sastscan -e "WORKSPACE=${CIRCLE_REPOSITORY_URL}" --volumes-from appcon quay.io/appthreat/sast-scan scan --src /app --out_dir /app/reports
+        docker run --name sastscan -e "WORKSPACE=${CIRCLE_REPOSITORY_URL}" --volumes-from appcon quay.io/shiftleft/sast-scan scan --src /app --out_dir /app/reports
         # Copy the reports
         docker cp sastscan:/app/reports reports
   - store_artifacts:

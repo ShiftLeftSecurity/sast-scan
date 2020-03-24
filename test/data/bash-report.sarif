@@ -61,7 +61,7 @@
       "conversion": {
         "tool": {
           "driver": {
-            "name": "@AppThreat/sast-scan"
+            "name": "@ShiftLeft/sast-scan"
           }
         },
         "invocation": {
@@ -118,7 +118,7 @@
                   "startLine": 8
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/start.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -152,7 +152,7 @@
                   "startLine": 8
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/start.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -186,7 +186,7 @@
                   "startLine": 8
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/start.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -220,7 +220,7 @@
                   "startLine": 13
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/start.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/start.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -254,7 +254,7 @@
                   "startLine": 18
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/build-all.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -288,7 +288,7 @@
                   "startLine": 21
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/build-all.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -322,7 +322,7 @@
                   "startLine": 24
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/build-all.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -356,7 +356,7 @@
                   "startLine": 28
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build-all.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/build-all.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -390,7 +390,7 @@
                   "startLine": 5
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build_docker.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/build_docker.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -424,7 +424,7 @@
                   "startLine": 8
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/build_docker.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/build_docker.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -458,7 +458,7 @@
                   "startLine": 3
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -492,7 +492,7 @@
                   "startLine": 3
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -526,7 +526,7 @@
                   "startLine": 6
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -560,7 +560,7 @@
                   "startLine": 11
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -594,7 +594,7 @@
                   "startLine": 11
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -628,7 +628,7 @@
                   "startLine": 26
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -662,7 +662,7 @@
                   "startLine": 27
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -696,7 +696,7 @@
                   "startLine": 32
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -730,7 +730,7 @@
                   "startLine": 32
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/scripts/deploy-webgoat.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/scripts/deploy-webgoat.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -764,7 +764,7 @@
                   "startLine": 1
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -798,7 +798,7 @@
                   "startLine": 2
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -832,7 +832,7 @@
                   "startLine": 3
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -866,7 +866,7 @@
                   "startLine": 4
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/platformQuickStarts/GCP/GKE-Docker/gke-deploy-config.sh"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -900,7 +900,7 @@
                   "startLine": 7
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/start-webwolf.sh"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/start-webwolf.sh"
                 },
                 "contextRegion": {
                   "snippet": {

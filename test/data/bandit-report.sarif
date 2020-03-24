@@ -31,7 +31,7 @@
       "conversion": {
         "tool": {
           "driver": {
-            "name": "@AppThreat/sast-scan"
+            "name": "@ShiftLeft/sast-scan"
           }
         },
         "invocation": {
@@ -91,7 +91,7 @@
                   "startLine": 24
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/skey.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/skey.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -126,7 +126,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/vulpy-ssl.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/vulpy-ssl.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -161,7 +161,7 @@
                   "startLine": 55
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/vulpy.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/vulpy.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -196,7 +196,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/good/vulpy-ssl.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/good/vulpy-ssl.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -231,7 +231,7 @@
                   "startLine": 53
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/good/vulpy.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/good/vulpy.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -265,7 +265,7 @@
                   "startLine": 19
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/db.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/db.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -299,7 +299,7 @@
                   "startLine": 20
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/db_init.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/db_init.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -333,7 +333,7 @@
                   "startLine": 12
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/libuser.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/libuser.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -367,7 +367,7 @@
                   "startLine": 25
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/libuser.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/libuser.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -401,7 +401,7 @@
                   "startLine": 53
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/libuser.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/libuser.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -435,7 +435,7 @@
                   "startLine": 61
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/good/libuser.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/good/libuser.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -469,7 +469,7 @@
                   "startLine": 6
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/api_post.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/api_post.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -503,7 +503,7 @@
                   "startLine": 16
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/libapi.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/libapi.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -537,7 +537,7 @@
                   "startLine": 20
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/libapi.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/libapi.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -571,7 +571,7 @@
                   "startLine": 33
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/libapi.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/libapi.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -605,7 +605,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/vulpy-ssl.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/vulpy-ssl.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -639,7 +639,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/bad/vulpy-ssl.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/bad/vulpy-ssl.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -673,7 +673,7 @@
                   "startLine": 3
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/good/cutpasswd.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/good/cutpasswd.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -707,7 +707,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/good/vulpy-ssl.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/good/vulpy-ssl.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -741,7 +741,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/good/vulpy-ssl.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/good/vulpy-ssl.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -775,7 +775,7 @@
                   "startLine": 31
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-create.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-create.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -809,7 +809,7 @@
                   "startLine": 34
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-create.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-create.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -843,7 +843,7 @@
                   "startLine": 58
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-create.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-create.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -877,7 +877,7 @@
                   "startLine": 12
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-csr-create.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-csr-create.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -911,7 +911,7 @@
                   "startLine": 35
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-csr-create.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-csr-create.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -945,7 +945,7 @@
                   "startLine": 13
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-csr-load.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-csr-load.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -979,7 +979,7 @@
                   "startLine": 16
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-csr-load.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-csr-load.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1013,7 +1013,7 @@
                   "startLine": 19
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-csr-load.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-csr-load.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1047,7 +1047,7 @@
                   "startLine": 35
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/ca-csr-load.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/ca-csr-load.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1081,7 +1081,7 @@
                   "startLine": 14
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/rsa-decrypt.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/rsa-decrypt.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1115,7 +1115,7 @@
                   "startLine": 14
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/rsa-encrypt.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/rsa-encrypt.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1149,7 +1149,7 @@
                   "startLine": 26
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/rsa-keygen.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/rsa-keygen.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1183,7 +1183,7 @@
                   "startLine": 29
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/rsa-keygen.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/rsa-keygen.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1217,7 +1217,7 @@
                   "startLine": 15
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/rsa-sign.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/rsa-sign.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1251,7 +1251,7 @@
                   "startLine": 16
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/appthreat/vulpy/utils/rsa-verify.py"
+                  "uri": "file:///Users/guest/work/shiftleft/vulpy/utils/rsa-verify.py"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1274,14 +1274,14 @@
       ],
       "automationDetails": {
         "description": {
-          "text": "Static Analysis Security Test results using @AppThreat/sast-scan"
+          "text": "Static Analysis Security Test results using @ShiftLeft/sast-scan"
         },
         "guid": "2d52877a-404b-4136-a2a7-9d99bec89e2c"
       },
       "versionControlProvenance": [
         {
           "branch": "master",
-          "repositoryUri": "https://github.com/AppThreat/vulpy",
+          "repositoryUri": "https://github.com/ShiftLeftSecurity/vulpy",
           "revisionId": "6495197047b585e8c94531922cf5a4f323ffd1a4"
         }
       ]

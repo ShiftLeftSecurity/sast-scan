@@ -19,7 +19,7 @@ def test_nodejsscan_convert_empty():
         )
         assert (
             jsondata["runs"][0]["automationDetails"]["description"]["text"]
-            == "Static Analysis Security Test results using @AppThreat/sast-scan"
+            == "Static Analysis Security Test results using @ShiftLeft/sast-scan"
         )
         assert uuid.UUID(jsondata["inlineExternalProperties"][0]["guid"]).version == 4
         assert not jsondata["runs"][0]["results"]
@@ -118,12 +118,12 @@ def test_create_result():
         == "file:///foo/bar/CWE-916/examples/InsufficientPasswordHash.js"
     )
     # Override the workspace and check the location
-    os.environ["WORKSPACE"] = "https://github.com/appthreat/cdxgen/blob/master"
+    os.environ["WORKSPACE"] = "https://github.com/ShiftLeftSecurity/cdxgen/blob/master"
     importlib.reload(convertLib)
     data = convertLib.create_result("nodetest", issue, {}, {}, None, "/app/src")
     assert (
         data.locations[0].physical_location.artifact_location.uri
-        == "https://github.com/appthreat/cdxgen/blob/master/CWE-916/examples/InsufficientPasswordHash.js"
+        == "https://github.com/ShiftLeftSecurity/cdxgen/blob/master/CWE-916/examples/InsufficientPasswordHash.js"
     )
 
 
@@ -138,8 +138,8 @@ def test_create_result_relative():
             "repo": "app",
             "rule": "Generic Credential",
             "commitMessage": "Add secret\n",
-            "author": "Prabhu Subramanian",
-            "email": "prabhu@appthreat.com",
+            "author": "Team ShiftLeft",
+            "email": "hello@shiftleft.io",
             "file": "src/main/README-new.md",
             "date": "2020-01-12T19:45:43Z",
             "tags": "key, API, generic",
@@ -169,7 +169,7 @@ def test_credscan_convert_issue():
                     "rule": "Generic Credential",
                     "commitMessage": "password\n",
                     "author": "Prabhu Subramanian",
-                    "email": "prabhu@ngcloud.io",
+                    "email": "guest@ngcloud.io",
                     "file": "README.md",
                     "date": "2020-01-02T21:02:40Z",
                     "tags": "key, API, generic",
@@ -279,12 +279,12 @@ def test_staticcheck_convert_issue():
                     "code": "ST1005",
                     "severity": "error",
                     "location": {
-                        "file": "/Users/prabhu/go/kube-score/cmd/kube-score/main.go",
+                        "file": "/Users/guest/go/kube-score/cmd/kube-score/main.go",
                         "line": 156,
                         "column": 10,
                     },
                     "end": {
-                        "file": "/Users/prabhu/go/kube-score/cmd/kube-score/main.go",
+                        "file": "/Users/guest/go/kube-score/cmd/kube-score/main.go",
                         "line": 156,
                         "column": 86,
                     },

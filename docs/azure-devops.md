@@ -1,13 +1,13 @@
 # Integration with Azure DevOps Pipelines
 
-sast-scan has good integration with Azure Pipelines. This repo contains an [example for a yaml pipeline](https://github.com/AppThreat/WebGoat/blob/develop/azure-pipelines.yml) that invokes sast-scan as a build step. The step is reproduced below for convenience.
+sast-scan has good integration with Azure Pipelines. This repo contains an [example for a yaml pipeline](https://github.com/ShiftLeftSecurity/WebGoat/blob/develop/azure-pipelines.yml) that invokes sast-scan as a build step. The step is reproduced below for convenience.
 
 ```yaml
 - script: |
-    docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" \
+    docker run -e "WORKSPACE=https://github.com/ShiftLeftSecurity/WebGoat/blob/$(Build.SourceVersion)" \
       -v $(Build.SourcesDirectory):/app \
       -v $(Build.ArtifactStagingDirectory):/reports \
-      quay.io/appthreat/sast-scan scan --src /app \
+      shiftleft/sast-scan scan --src /app \
       --type credscan,java,bash,nodejs \
       --out_dir /reports/CodeAnalysisLogs
   displayName: "Java and Credscan"
