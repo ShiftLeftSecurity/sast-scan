@@ -28,7 +28,7 @@ steps:
       command: |
         set +e
         # start an application container using this volume
-        docker run --name sastscan -e "WORKSPACE=${CIRCLE_REPOSITORY_URL}" --volumes-from appcon quay.io/shiftleft/sast-scan scan --src /app --out_dir /app/reports
+        docker run --name sastscan -e "WORKSPACE=${CIRCLE_REPOSITORY_URL}" --volumes-from appcon shiftleft/sast-scan scan --src /app --out_dir /app/reports
         # Copy the reports
         docker cp sastscan:/app/reports reports
   - store_artifacts:

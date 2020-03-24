@@ -67,7 +67,7 @@ LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.vendor="shiftleft" \
       org.label-schema.name="sast-scan" \
       org.label-schema.version=$CLI_VERSION \
-      org.label-schema.license="MIT" \
+      org.label-schema.license="UNLICENSED" \
       org.label-schema.description="Container with various opensource static analysis security testing tools (shellcheck, gosec, tfsec, gitleaks, ...) for multiple programming languages" \
       org.label-schema.url="https://www.shiftleft.io" \
       org.label-schema.usage="https://github.com/ShiftLeftSecurity/sast-scan" \
@@ -96,7 +96,7 @@ COPY requirements.txt /usr/local/src/
 USER root
 
 RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint nodejsscan \
-    && pip3 install --no-cache-dir shiftleft-depscan \
+    && pip3 install --no-cache-dir appthreat-depscan \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install -g @appthreat/cdxgen \

@@ -11,7 +11,7 @@
       |_|   |_|
 ```
 
-This repo builds `shiftleft/sast-scan`, a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
+This repo builds `shiftleft/sast-scan` (or `gcr.io/sl-appthreat/sast-scan`), a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
 
 ## Features
 
