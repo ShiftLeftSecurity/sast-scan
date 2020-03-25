@@ -99,7 +99,7 @@ RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamlli
     && pip3 install --no-cache-dir shiftleft-depscan \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install -g @shiftleft/cdxgen \
+    && npm install -g @appthreat/cdxgen \
     && microdnf remove -y ruby-devel xz shadow-utils
 
 WORKDIR /usr/local/src
