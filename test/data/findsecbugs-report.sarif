@@ -23,7 +23,7 @@
             {
               "id": "SPRING_FILE_DISCLOSURE",
               "name": "Spring File Disclosure",
-              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+findsecbugs+SPRING_FILE_DISCLOSURE+Spring File Disclosure"
+              "helpUri": "https://stackoverflow.com/search?q=shiftleft/sast-scan+findsecbugs+SPRING_FILE_DISCLOSURE+Spring File Disclosure"
             },
             {
               "id": "CWE-22",
@@ -68,7 +68,7 @@
             {
               "id": "HTTPONLY_COOKIE",
               "name": "Cookie without the HttpOnly flag",
-              "helpUri": "https://stackoverflow.com/search?q=appthreat/sast-scan+findsecbugs+HTTPONLY_COOKIE+Cookie without the HttpOnly flag"
+              "helpUri": "https://stackoverflow.com/search?q=shiftleft/sast-scan+findsecbugs+HTTPONLY_COOKIE+Cookie without the HttpOnly flag"
             },
             {
               "id": "CWE-614",
@@ -101,7 +101,7 @@
       "conversion": {
         "tool": {
           "driver": {
-            "name": "@AppThreat/sast-scan"
+            "name": "@ShiftLeft/sast-scan"
           }
         },
         "invocation": {
@@ -167,7 +167,7 @@
                   "startLine": 56
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/dummy/insecure/framework/VulnerableTaskHolder.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/dummy/insecure/framework/VulnerableTaskHolder.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -202,7 +202,7 @@
                   "startLine": 53
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/AjaxAuthenticationEntryPoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/AjaxAuthenticationEntryPoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -237,7 +237,7 @@
                   "startLine": 59
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/HammerHead.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/HammerHead.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -272,7 +272,7 @@
                   "startLine": 59
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/HammerHead.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/HammerHead.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -307,7 +307,7 @@
                   "startLine": 50
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/WebGoat.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/WebGoat.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -342,7 +342,7 @@
                   "startLine": 72
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/WebSecurityConfig.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/WebSecurityConfig.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -377,7 +377,7 @@
                   "startLine": 59
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge5/Assignment5.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge5/Assignment5.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -412,7 +412,7 @@
                   "startLine": 55
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/MD5.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -447,7 +447,7 @@
                   "startLine": 14
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/PasswordResetLink.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/challenge/src/main/java/org/owasp/webgoat/challenges/challenge7/PasswordResetLink.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -482,7 +482,7 @@
                   "startLine": 59
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -517,7 +517,7 @@
                   "startLine": 74
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/client-side-filtering/src/main/java/org/owasp/webgoat/client_side_filtering/Salaries.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -552,7 +552,7 @@
                   "startLine": 78
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/controller/StartLesson.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/controller/StartLesson.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -587,7 +587,7 @@
                   "startLine": 67
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/controller/StartLesson.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/controller/StartLesson.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -622,7 +622,7 @@
                   "startLine": 53
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/EncodingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/EncodingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -657,7 +657,7 @@
                   "startLine": 55
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -692,7 +692,7 @@
                   "startLine": 74
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -727,7 +727,7 @@
                   "startLine": 52
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -762,7 +762,7 @@
                   "startLine": 72
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -797,7 +797,7 @@
                   "startLine": 90
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -832,7 +832,7 @@
                   "startLine": 91
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -867,7 +867,7 @@
                   "startLine": 95
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -902,7 +902,7 @@
                   "startLine": 96
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -937,7 +937,7 @@
                   "startLine": 57
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/HashingAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -972,7 +972,7 @@
                   "startLine": 75
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/SigningAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/SigningAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1007,7 +1007,7 @@
                   "startLine": 54
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/SigningAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/crypto/src/main/java/org/owasp/webgoat/crypto/SigningAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1042,7 +1042,7 @@
                   "startLine": 62
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1077,7 +1077,7 @@
                   "startLine": 68
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1112,7 +1112,7 @@
                   "startLine": 79
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/csrf/src/main/java/org/owasp/webgoat/csrf/CSRFGetFlag.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1147,7 +1147,7 @@
                   "startLine": 56
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/InsecureDeserializationTask.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/InsecureDeserializationTask.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1182,7 +1182,7 @@
                   "startLine": 21
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/SerializationHelper.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/SerializationHelper.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1217,7 +1217,7 @@
                   "startLine": 39
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/http-proxies/src/main/java/org/owasp/webgoat/http_proxies/HttpBasicsInterceptRequest.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/http-proxies/src/main/java/org/owasp/webgoat/http_proxies/HttpBasicsInterceptRequest.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1252,7 +1252,7 @@
                   "startLine": 44
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/idor/src/main/java/org/owasp/webgoat/idor/IDORLogin.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/idor/src/main/java/org/owasp/webgoat/idor/IDORLogin.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1287,7 +1287,7 @@
                   "startLine": 50
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/idor/src/main/java/org/owasp/webgoat/idor/IDORLogin.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/idor/src/main/java/org/owasp/webgoat/idor/IDORLogin.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1322,7 +1322,7 @@
                   "startLine": 94
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTFinalEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTFinalEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1357,7 +1357,7 @@
                   "startLine": 51
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTSecretKeyEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTSecretKeyEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1392,7 +1392,7 @@
                   "startLine": 58
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTSecretKeyEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTSecretKeyEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1427,7 +1427,7 @@
                   "startLine": 98
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1462,7 +1462,7 @@
                   "startLine": 103
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1497,7 +1497,7 @@
                   "startLine": 98
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1532,7 +1532,7 @@
                   "startLine": 103
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTVotesEndpoint.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1567,7 +1567,7 @@
                   "startLine": 84
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1602,7 +1602,7 @@
                   "startLine": 84
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACUsers.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1637,7 +1637,7 @@
                   "startLine": 50
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACYourHash.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/missing-function-ac/src/main/java/org/owasp/webgoat/missing_ac/MissingFunctionACYourHash.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1672,7 +1672,7 @@
                   "startLine": 69
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/password-reset/src/main/java/org/owasp/webgoat/password_reset/ResetLinkAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/password-reset/src/main/java/org/owasp/webgoat/password_reset/ResetLinkAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1707,7 +1707,7 @@
                   "startLine": 71
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LabelDebugService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LabelDebugService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1742,7 +1742,7 @@
                   "startLine": 85
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LabelDebugService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LabelDebugService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1777,7 +1777,7 @@
                   "startLine": 32
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonInfoService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonInfoService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1812,7 +1812,7 @@
                   "startLine": 77
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonMenuService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonMenuService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1847,7 +1847,7 @@
                   "startLine": 43
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonProgressService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonProgressService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1882,7 +1882,7 @@
                   "startLine": 34
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonTitleService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/LessonTitleService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1917,7 +1917,7 @@
                   "startLine": 51
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/RestartLessonService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/RestartLessonService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1952,7 +1952,7 @@
                   "startLine": 40
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-container/src/main/java/org/owasp/webgoat/service/SessionService.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -1987,7 +1987,7 @@
                   "startLine": 65
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/advanced/SqlInjectionChallenge.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/advanced/SqlInjectionChallenge.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2022,7 +2022,7 @@
                   "startLine": 67
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/advanced/SqlInjectionLesson6a.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/advanced/SqlInjectionLesson6a.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2057,7 +2057,7 @@
                   "startLine": 63
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson10.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson10.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2092,7 +2092,7 @@
                   "startLine": 62
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson2.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson2.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2127,7 +2127,7 @@
                   "startLine": 65
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson3.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson3.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2162,7 +2162,7 @@
                   "startLine": 59
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson4.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson4.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2197,7 +2197,7 @@
                   "startLine": 62
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5a.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5a.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2232,7 +2232,7 @@
                   "startLine": 58
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5b.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson5b.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2267,7 +2267,7 @@
                   "startLine": 137
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson8.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/introduction/SqlInjectionLesson8.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2302,7 +2302,7 @@
                   "startLine": 73
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/mitigation/Servers.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/sql-injection/src/main/java/org/owasp/webgoat/sql_injection/mitigation/Servers.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2337,7 +2337,7 @@
                   "startLine": 55
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/ssrf/src/main/java/org/owasp/webgoat/ssrf/SSRFTask2.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/ssrf/src/main/java/org/owasp/webgoat/ssrf/SSRFTask2.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2372,7 +2372,7 @@
                   "startLine": 46
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson4.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/cross-site-scripting/src/main/java/org/owasp/webgoat/xss/CrossSiteScriptingLesson4.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2407,7 +2407,7 @@
                   "startLine": 65
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/BlindSendFileAssignment.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/BlindSendFileAssignment.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2442,7 +2442,7 @@
                   "startLine": 87
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Comments.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Comments.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2477,7 +2477,7 @@
                   "startLine": 47
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Ping.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Ping.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2512,7 +2512,7 @@
                   "startLine": 48
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Ping.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Ping.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2547,7 +2547,7 @@
                   "startLine": 98
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/SimpleXXE.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/SimpleXXE.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2582,7 +2582,7 @@
                   "startLine": 92
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/SimpleXXE.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/SimpleXXE.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2617,7 +2617,7 @@
                   "startLine": 97
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2652,7 +2652,7 @@
                   "startLine": 101
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2687,7 +2687,7 @@
                   "startLine": 71
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2722,7 +2722,7 @@
                   "startLine": 73
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2757,7 +2757,7 @@
                   "startLine": 74
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2792,7 +2792,7 @@
                   "startLine": 75
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2827,7 +2827,7 @@
                   "startLine": 65
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/FileServer.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2862,7 +2862,7 @@
                   "startLine": 62
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/MvcConfiguration.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/MvcConfiguration.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2897,7 +2897,7 @@
                   "startLine": 56
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/WebSecurityConfig.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/WebSecurityConfig.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2932,7 +2932,7 @@
                   "startLine": 65
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/mailbox/MailboxController.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/mailbox/MailboxController.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -2967,7 +2967,7 @@
                   "startLine": 42
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/requests/LandingPage.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/requests/LandingPage.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -3002,7 +3002,7 @@
                   "startLine": 41
                 },
                 "artifactLocation": {
-                  "uri": "file:///Users/prabhu/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/requests/LandingPage.java"
+                  "uri": "file:///Users/guest/work/WebGoat/webwolf/src/main/java/org/owasp/webwolf/requests/LandingPage.java"
                 },
                 "contextRegion": {
                   "snippet": {
@@ -3025,14 +3025,14 @@
       ],
       "automationDetails": {
         "description": {
-          "text": "Static Analysis Security Test results using @AppThreat/sast-scan"
+          "text": "Static Analysis Security Test results using @ShiftLeft/sast-scan"
         },
         "guid": "b16a7480-f6b3-4275-8e5a-af96bb538aba"
       },
       "versionControlProvenance": [
         {
           "branch": "develop",
-          "repositoryUri": "https://github.com/AppThreat/WebGoat",
+          "repositoryUri": "https://github.com/ShiftLeftSecurity/WebGoat",
           "revisionId": "08038b71884c156dd35d834ad3920e9a1f7bcfa6"
         }
       ]

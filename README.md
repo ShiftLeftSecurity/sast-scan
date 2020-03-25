@@ -11,15 +11,13 @@
       |_|   |_|
 ```
 
-This repo builds `appthreat/sast-scan` (and `quay.io/appthreat/sast-scan`), a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
-
-[![Docker Repository on Quay](https://quay.io/repository/appthreat/sast-scan/status "Docker Repository on Quay")](https://quay.io/repository/appthreat/sast-scan)
+This repo builds `shiftleft/sast-scan`, a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
 
 ## Features
 
 - No messy configuration and no server required
 - Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of minutes
-- Gorgeous [HTML](http://htmlpreview.github.io/?https://github.com/AppThreat/sast-scan/blob/master/docs/findsecbugs-report.html) [reports](http://htmlpreview.github.io/?https://github.com/AppThreat/sast-scan/blob/master/docs/pmd-report.html) that you can proudly share with your colleagues and the security team
+- Gorgeous [HTML](http://htmlpreview.github.io/?https://github.com/ShiftLeftSecurity/sast-scan/blob/master/docs/findsecbugs-report.html) [reports](http://htmlpreview.github.io/?https://github.com/ShiftLeftSecurity/sast-scan/blob/master/docs/pmd-report.html) that you can proudly share with your colleagues and the security team
 - Automatic exit code 1 (build breaker) with critical and high vulnerabilities
 - There are a number of small things that will bring smile to any DevOps team
 
@@ -81,7 +79,7 @@ Refer to the [document](docs/azure-devops.md)
 
 This tool can be used with GitHub actions using this [action](https://github.com/marketplace/actions/sast-scan). All the supported languages can be used.
 
-This repo self-tests itself with sast-scan! Check the GitHub [workflow file](https://github.com/AppThreat/sast-scan/blob/master/.github/workflows/pythonapp.yml) of this repo.
+This repo self-tests itself with sast-scan! Check the GitHub [workflow file](https://github.com/ShiftLeftSecurity/sast-scan/blob/master/.github/workflows/pythonapp.yml) of this repo.
 
 ```yaml
 - name: Self sast-scan
@@ -131,13 +129,13 @@ SARIF reports produced by sast-scan can be integrated with other compatible tool
 Scan python project
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type python
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/sast-scan scan --src /app --type python
 ```
 
 Scan multiple projects
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app appthreat/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
 ```
 
 Scan java project
@@ -145,10 +143,10 @@ Scan java project
 For java and jvm language based projects, it is important to compile the projects before invoking sast-scan in the dev and CI workflow.
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app appthreat/sast-scan scan --src /app --type java
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app shiftleft/sast-scan scan --src /app --type java
 
 # For gradle project
-docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app appthreat/sast-scan scan --src /app --type java
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app shiftleft/sast-scan scan --src /app --type java
 ```
 
 **Automatic project detection**
@@ -160,7 +158,7 @@ Feel free to skip `--type` to enable auto-detection. Or pass comma-separated val
 Bandit
 
 ```bash
-docker run --rm -v <source path>:/app appthreat/sast-scan bandit -r /app
+docker run --rm -v <source path>:/app shiftleft/sast-scan bandit -r /app
 ```
 
 ## Viewing reports

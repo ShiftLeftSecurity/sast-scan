@@ -9,10 +9,10 @@ sast-scan tool is typically invoked using the docker container image with volume
 To override the prefix, simply pass the environment variable `WORKSPACE` with the path that should get prefixed in the reports.
 
 ```bash
-export WORKSPACE="/home/appthreat/src"
+export WORKSPACE="/home/shiftleft/src"
 
 # To specify url
-export WORKSPACE="https://github.com/appthreat/cdxgen/blob/master"
+export WORKSPACE="https://github.com/ShiftLeftSecurity/cdxgen/blob/master"
 ```
 
 If your organization use `Azure Repos` for hosting git repositories then the above approach would not work because of the way url gets constructed. You can construct the url for Azure Repos as follows:

@@ -1,4 +1,4 @@
-FROM quay.io/appthreat/scan-base as builder
+FROM shiftleft/scan-base as builder
 
 ARG CLI_VERSION
 ARG BUILD_DATE
@@ -21,10 +21,10 @@ ENV GOSEC_VERSION=2.2.0 \
 
 USER root
 
-RUN mkdir -p /usr/local/bin/appthreat \
+RUN mkdir -p /usr/local/bin/shiftleft \
     && curl -LO "https://github.com/securego/gosec/releases/download/v${GOSEC_VERSION}/gosec_${GOSEC_VERSION}_linux_amd64.tar.gz" \
-    && tar -C /usr/local/bin/appthreat/ -xvf gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
-    && chmod +x /usr/local/bin/appthreat/gosec \
+    && tar -C /usr/local/bin/shiftleft/ -xvf gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
+    && chmod +x /usr/local/bin/shiftleft/gosec \
     && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz
 RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && unzip -q gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
@@ -32,25 +32,25 @@ RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     && rm gradle-${GRADLE_VERSION}-bin.zip \
     && curl -LO "https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz" \
     && tar -C /tmp/ -xvf shellcheck-stable.linux.x86_64.tar.xz \
-    && cp /tmp/shellcheck-stable/shellcheck /usr/local/bin/appthreat/shellcheck \
-    && chmod +x /usr/local/bin/appthreat/shellcheck \
+    && cp /tmp/shellcheck-stable/shellcheck /usr/local/bin/shiftleft/shellcheck \
+    && chmod +x /usr/local/bin/shiftleft/shellcheck \
     && curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
     && tar -C /tmp -xvf staticcheck_linux_amd64.tar.gz \
     && chmod +x /tmp/staticcheck/staticcheck \
-    && cp /tmp/staticcheck/staticcheck /usr/local/bin/appthreat/staticcheck \
+    && cp /tmp/staticcheck/staticcheck /usr/local/bin/shiftleft/staticcheck \
     && rm staticcheck_linux_amd64.tar.gz
-RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/appthreat/gitleaks" \
-    && chmod +x /usr/local/bin/appthreat/gitleaks \
-    && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/appthreat/tfsec" \
-    && chmod +x /usr/local/bin/appthreat/tfsec \
+RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
+    && chmod +x /usr/local/bin/shiftleft/gitleaks \
+    && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
+    && chmod +x /usr/local/bin/shiftleft/tfsec \
     && rm shellcheck-stable.linux.x86_64.tar.xz
-RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/appthreat/kube-score" \
-    && chmod +x /usr/local/bin/appthreat/kube-score \
-    && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/appthreat/jq" \
-    && chmod +x /usr/local/bin/appthreat/jq
-RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/appthreat/detekt-cli.jar" \
+RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
+    && chmod +x /usr/local/bin/shiftleft/kube-score \
+    && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/shiftleft/jq" \
+    && chmod +x /usr/local/bin/shiftleft/jq
+RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/shiftleft/detekt-cli.jar" \
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
-    && tar -C /usr/local/bin/appthreat/ -xvf kubesec_linux_amd64.tar.gz \
+    && tar -C /usr/local/bin/shiftleft/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz \
     && curl -LO "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/${SB_VERSION}/spotbugs-${SB_VERSION}.zip" \
     && unzip -q spotbugs-${SB_VERSION}.zip -d /opt/ \
@@ -60,20 +60,20 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
 RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
-FROM quay.io/appthreat/scan-base-slim as sast-scan-tools
+FROM shiftleft/scan-base-slim as sast-scan-tools
 
-LABEL maintainer="AppThreat" \
+LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.schema-version="1.0" \
-      org.label-schema.vendor="AppThreat" \
+      org.label-schema.vendor="shiftleft" \
       org.label-schema.name="sast-scan" \
       org.label-schema.version=$CLI_VERSION \
       org.label-schema.license="MIT" \
       org.label-schema.description="Container with various opensource static analysis security testing tools (shellcheck, gosec, tfsec, gitleaks, ...) for multiple programming languages" \
-      org.label-schema.url="https://appthreat.io" \
-      org.label-schema.usage="https://github.com/appthreat/sast-scan" \
+      org.label-schema.url="https://www.shiftleft.io" \
+      org.label-schema.usage="https://github.com/ShiftLeftSecurity/sast-scan" \
       org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/appthreat/sast-scan.git" \
-      org.label-schema.docker.cmd="docker run --rm -it --name sast-scan appthreat/sast-scan"
+      org.label-schema.vcs-url="https://github.com/ShiftLeftSecurity/sast-scan.git" \
+      org.label-schema.docker.cmd="docker run --rm -it --name sast-scan shiftleft/sast-scan"
 
 ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
@@ -82,7 +82,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     PYTHONUNBUFFERED=1 \
     PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:
 
-COPY --from=builder /usr/local/bin/appthreat /usr/local/bin
+COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
 COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
@@ -96,7 +96,7 @@ COPY requirements.txt /usr/local/src/
 USER root
 
 RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint nodejsscan \
-    && pip3 install --no-cache-dir appthreat-depscan \
+    && pip3 install --no-cache-dir shiftleft-depscan \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install -g @appthreat/cdxgen \

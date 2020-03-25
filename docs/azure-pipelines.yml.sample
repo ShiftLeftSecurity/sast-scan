@@ -7,14 +7,14 @@ jobs:
     steps:
       # Pull the sast-scan image from the container registry. Feel free to cache it locally within acr, ecr or gcr to
       # improve performance and security
-      - script: docker pull quay.io/appthreat/sast-scan
+      - script: docker pull shiftleft/sast-scan
       # This step assumes that python source code are inside a directory called python
       - script: |
-          docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" -v $(Build.SourcesDirectory)/python:/app quay.io/appthreat/sast-scan scan --src /app --type python --out_dir /app/reports
+          docker run -e "WORKSPACE=https://github.com/ShiftLeftSecurity/WebGoat/blob/$(Build.SourceVersion)" -v $(Build.SourcesDirectory)/python:/app shiftleft/sast-scan scan --src /app --type python --out_dir /app/reports
         displayName: "Python scan"
       # This step assumes that node.js source code are inside a directory called javascript
       - script: |
-          docker run -e "WORKSPACE=https://github.com/AppThreat/WebGoat/blob/$(Build.SourceVersion)" -v $(Build.SourcesDirectory)/javascript:/app quay.io/appthreat/sast-scan scan --src /app --type nodejs --out_dir /app/reports
+          docker run -e "WORKSPACE=https://github.com/ShiftLeftSecurity/WebGoat/blob/$(Build.SourceVersion)" -v $(Build.SourcesDirectory)/javascript:/app shiftleft/sast-scan scan --src /app --type nodejs --out_dir /app/reports
         displayName: "Node.js scan"
       # Bring together all the .sarif files to a directory called CodeAnalysisLogs
       - task: CopyFiles@2

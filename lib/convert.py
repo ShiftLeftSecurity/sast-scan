@@ -177,7 +177,7 @@ def report(
                 automation_details=om.RunAutomationDetails(
                     guid=log_uuid,
                     description=om.Message(
-                        text="Static Analysis Security Test results using @AppThreat/sast-scan"
+                        text="Static Analysis Security Test results using @ShiftLeft/sast-scan"
                     ),
                 ),
                 tool=om.Tool(
@@ -194,7 +194,7 @@ def report(
                 ],
                 conversion={
                     "tool": om.Tool(
-                        driver=om.ToolComponent(name="@AppThreat/sast-scan")
+                        driver=om.ToolComponent(name="@ShiftLeft/sast-scan")
                     ),
                     "invocation": om.Invocation(
                         execution_successful=True,
@@ -434,7 +434,7 @@ def get_url(tool_name, rule_id, test_name, issue_dict):
         return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
             "CWE-", ""
         )
-    return "https://stackoverflow.com/search?q=appthreat/sast-scan+{}+{}+{}".format(
+    return "https://stackoverflow.com/search?q=shiftleft/sast-scan+{}+{}+{}".format(
         tool_name, rule_id, test_name
     )
 
