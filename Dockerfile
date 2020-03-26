@@ -11,13 +11,15 @@ ENV GOSEC_VERSION=2.2.0 \
     GITLEAKS_VERSION=4.1.0 \
     GRADLE_VERSION=6.0.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
+    MAVEN_VERSION=3.6.3 \
+    MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
     SC_VERSION=2019.2.3 \
     JQ_VERSION=1.6 \
     FSB_VERSION=1.10.1 \
     FB_CONTRIB_VERSION=7.4.7 \
     SB_VERSION=4.0.1 \
     GOPATH=/opt/app-root/go \
-    PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:/opt/dependency-check/bin/:${GOPATH}/bin:
+    PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:${GOPATH}/bin:
 
 USER root
 
@@ -30,6 +32,10 @@ RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     && unzip -q gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
     && chmod +x /opt/gradle-${GRADLE_VERSION}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-bin.zip \
+    && curl -LO "https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" \
+    && unzip -q apache-maven-${MAVEN_VERSION}-bin.zip -d /opt/ \
+    && chmod +x /opt/apache-maven-${MAVEN_VERSION}/bin/mvn \
+    && rm apache-maven-${MAVEN_VERSION}-bin.zip \
     && curl -LO "https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz" \
     && tar -C /tmp/ -xvf shellcheck-stable.linux.x86_64.tar.xz \
     && cp /tmp/shellcheck-stable/shellcheck /usr/local/bin/shiftleft/shellcheck \
@@ -77,10 +83,16 @@ LABEL maintainer="ShiftLeftSecurity" \
 
 ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
+    MVN_CMD="/opt/apache-maven/bin/mvn" \
+    SB_VERSION=4.0.1 \
     SPOTBUGS_HOME=/opt/spotbugs \
-    JAVA_HOME=/usr/lib/jvm/jre-11 \
+    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.6.10-0.el8_1.x86_64 \
+    GRADLE_VERSION=6.0.1 \
+    GRADLE_HOME=/opt/gradle \
+    MAVEN_VERSION=3.6.3 \
+    MAVEN_HOME=/opt/apache-maven \
     PYTHONUNBUFFERED=1 \
-    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:
+    PATH=/usr/local/src/:${PATH}:${GRADLE_HOME}/bin:${MAVEN_HOME}/bin:${JAVA_HOME}/bin:/usr/local/go/bin:/opt/.cargo/bin:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
@@ -90,7 +102,10 @@ COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 COPY spotbugs /usr/local/src/spotbugs
-COPY --from=builder /opt/spotbugs-4.0.1 /opt/spotbugs
+COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
+COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
+COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
+
 COPY requirements.txt /usr/local/src/
 
 USER root

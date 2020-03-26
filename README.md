@@ -1,25 +1,15 @@
 # Introduction
 
 ```bash
-  ___            _____ _                    _
- / _ \          |_   _| |                  | |
-/ /_\ \_ __  _ __ | | | |__  _ __ ___  __ _| |_
-|  _  | '_ \| '_ \| | | '_ \| '__/ _ \/ _` | __|
-| | | | |_) | |_) | | | | | | | |  __/ (_| | |_
-\_| |_/ .__/| .__/\_/ |_| |_|_|  \___|\__,_|\__|
-      | |   | |
-      |_|   |_|
+███████╗██╗  ██╗██╗███████╗████████╗██╗     ███████╗███████╗████████╗    ███████╗ ██████╗ █████╗ ███╗   ██╗
+██╔════╝██║  ██║██║██╔════╝╚══██╔══╝██║     ██╔════╝██╔════╝╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗████╗  ██║
+███████╗███████║██║█████╗     ██║   ██║     █████╗  █████╗     ██║       ███████╗██║     ███████║██╔██╗ ██║
+╚════██║██╔══██║██║██╔══╝     ██║   ██║     ██╔══╝  ██╔══╝     ██║       ╚════██║██║     ██╔══██║██║╚██╗██║
+███████║██║  ██║██║██║        ██║   ███████╗███████╗██║        ██║       ███████║╚██████╗██║  ██║██║ ╚████║
+╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-This repo builds `shiftleft/sast-scan` (or `gcr.io/sl-appthreat/sast-scan`), a container image with a number of bundled open-source static analysis security testing (SAST) tools. This is like a Swiss Army knife for DevSecOps engineers.
-
-## Features
-
-- No messy configuration and no server required
-- Scanning is performed directly in the CI and is extremely quick. Full scan often takes only couple of minutes
-- Gorgeous [HTML](http://htmlpreview.github.io/?https://github.com/ShiftLeftSecurity/sast-scan/blob/master/docs/findsecbugs-report.html) [reports](http://htmlpreview.github.io/?https://github.com/ShiftLeftSecurity/sast-scan/blob/master/docs/pmd-report.html) that you can proudly share with your colleagues and the security team
-- Automatic exit code 1 (build breaker) with critical and high vulnerabilities
-- There are a number of small things that will bring smile to any DevOps team
+This repo builds `shiftleft/sast-scan` (or `gcr.io/sl-appthreat/sast-scan`), a container image that powers the ShiftLeft Scan product.
 
 ## Bundled tools
 
@@ -170,7 +160,7 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Online viewer - http://sarifviewer.azurewebsites.net/
 - VS Code extension - https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
-- Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=sariftools.sarif-viewer-build-tab
+- Azure DevOps extension - <ShiftLeft Scan Reports url here>
 
 **Example reports:**
 
@@ -183,9 +173,3 @@ Azure DevOps SARIF plugin can be integrated to show the analysis integrated with
 ![Azure DevOps integration](docs/azure-devops.png)
 
 ![Build breaker](docs/build-breaker.png)
-
-## Alternatives
-
-GitLab [SAST](https://docs.gitlab.com/ee/user/application_security/sast/) uses numerous single purpose [analyzers](https://gitlab.com/gitlab-org/security-products/analyzers) and Go based converters to produce a custom json format. This model has the downside of increasing build times since multiple container images should get downloaded and hence is not suitable for CI environments such as Azure Pipelines, CodeBuild and Google CloudBuild. Plus the license used by GitLab is not opensource even though the analyzers merely wrap existing oss tools!
-
-MIR [SWAMP](https://www.mir-swamp.org/) is a free online service for running both oss and commercial static analysis for a number of languages simillar to sast-scan. There is a free SWAMP-in-a-box offering but the setup is a bit cumbersome. They use a xml format called SCARF with a number of perl based converters. SARIF, in contrast, is json based and is much easier to work with for integration and UI purposes. By adopting python, sast-scan is a bit easy to work with for customisation.
