@@ -8,9 +8,8 @@ sast-scan has good integration with Azure Pipelines. This repo contains an [exam
       -v $(Build.SourcesDirectory):/app \
       -v $(Build.ArtifactStagingDirectory):/reports \
       shiftleft/sast-scan scan --src /app \
-      --type credscan,java,bash,nodejs \
       --out_dir /reports/CodeAnalysisLogs
-  displayName: "Java and Credscan"
+  displayName: "Perform ShiftLeft Scan"
   continueOnError: "true"
 ```
 
@@ -34,7 +33,7 @@ Include `credscan` along with the type parameter as shown to enable credentials 
 
 ### Viewing sast-scan reports
 
-The following extension called [SARIF viewer](https://marketplace.visualstudio.com/items?itemName=sariftools.sarif-viewer-build-tab) must be installed and enabled by the administrator.
+The following extension called [ShiftLeft Scan Reports]() must be installed and enabled by the administrator.
 
 The yaml pipeline should include the below steps to enable the analysis.
 
