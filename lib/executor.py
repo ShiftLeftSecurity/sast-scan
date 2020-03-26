@@ -22,12 +22,13 @@ def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
     """
     try:
         LOG.info("=" * 80)
-        LOG.info('⚡︎ Executing "{}"'.format(" ".join(args)))
+        LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
         subprocess.run(
             args,
             stdout=stdout,
             stderr=subprocess.STDOUT,
             cwd=cwd,
+            env=os.environ,
             check=False,
             shell=False,
             encoding="utf-8",
