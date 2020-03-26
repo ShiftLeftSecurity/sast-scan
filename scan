@@ -91,8 +91,8 @@ def scan(type_list, src, reports_dir, convert):
                 getattr(sys.modules[__name__], "%s_scan" % type_str)(
                     src, reports_dir, convert
                 )
-            except:
-                LOG.warning("Project type is not supported: {}".format(type_str))
+            except Exception as e:
+                LOG.warning("Scan using the {} plugin did not produce valid result".format(type_str))
 
 
 def python_scan(src, reports_dir, convert):

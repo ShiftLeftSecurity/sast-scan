@@ -50,13 +50,23 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
     issues = []
     metrics = None
     skips = []
+    # If the tools did not produce any result do not crash
+    if not os.path.isfile(report_file):
+        return issues, metrics, skips
     extn = pathlib.PurePosixPath(report_file).suffix
 
     with io.open(report_file, "r") as rfile:
         # Static check use jsonlines format, duh
         if tool_name == "staticcheck":
             contents = rfile.read()
-            issues = [json.loads(str(item)) for item in contents.strip().split("\n")]
+            try:
+                issues = [
+                    json.loads(str(item)) for item in contents.strip().split("\n")
+                ]
+            except json.decoder.JSONDecodeError:
+                LOG.warning(
+                    "staticcheck produced no result since the project was not built before analysis!"
+                )
             return issues, metrics, skips
         if extn == ".json":
             try:
