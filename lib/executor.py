@@ -73,7 +73,7 @@ def execute_default_cmd(
             outext = ".sarif"
         report_fname = report_fname_prefix + outext
         stdout = io.open(report_fname, "w")
-        LOG.info("Output will be written to {}".format(report_fname))
+        LOG.debug("Output will be written to {}".format(report_fname))
 
     # If the command is requesting list of files then construct the argument
     filelist_prefix = "(filelist="
