@@ -47,6 +47,7 @@ def find_repo_details(src_dir=None):
                 "CIRCLE_REPOSITORY_URL",
                 "TRAVIS_REPO_SLUG",
                 "CODEBUILD_SOURCE_REPO_URL",
+                "CI_REPOSITORY_URL",
             ]:
                 repositoryUri = value
         if key in [
@@ -56,6 +57,7 @@ def find_repo_details(src_dir=None):
             "CIRCLE_SHA1",
             "TRAVIS_COMMIT",
             "CODEBUILD_SOURCE_VERSION",
+            "CI_COMMIT_SHA",
         ]:
             revisionId = value
         if key in [
@@ -65,6 +67,7 @@ def find_repo_details(src_dir=None):
             "BRANCH_NAME",
             "CIRCLE_BRANCH",
             "TRAVIS_BRANCH",
+            "CI_COMMIT_BRANCH",
         ]:
             branch = value
     if src_dir and os.path.isdir(os.path.join(src_dir, ".git")):
@@ -79,7 +82,7 @@ def find_repo_details(src_dir=None):
             if not repositoryUri:
                 repositoryUri = next(iter(repo.remote().urls))
         except Exception:
-            LOG.warning(
+            LOG.debug(
                 "Unable to find repo details from the local repository. Consider adding a local .sastscanrc file with the url details."
             )
 
