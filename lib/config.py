@@ -157,7 +157,6 @@ This map contains the SARIF purpose string for various tools
 tool_purpose_message = {
     "nodejsscan": "Static security code scan by NodeJsScan",
     "findsecbugs": "Security audit by Find Security Bugs",
-    "pmd": "Static code analysis by PMD",
     "gitleaks": "Secrets audit by gitleaks",
     "gosec": "Golang security checks by gosec",
     "tfsec": "Terraform static analysis by tfsec",

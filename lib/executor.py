@@ -7,6 +7,8 @@ import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
 
+from reporter.grafeas import parse, render_html
+
 logging.basicConfig(
     level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
 )
@@ -99,3 +101,13 @@ def execute_default_cmd(
         convertLib.convert_file(
             cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
         )
+    elif type_str == "depscan":
+        depscan_files = utils.find_files(reports_dir, "depscan", True)
+        for df in depscan_files:
+            depscan_data = parse(df)
+            if depscan_data and len(depscan_data):
+                html_fname = df.replace(".json", ".html")
+                render_html(depscan_data, html_fname)
+                LOG.debug(
+                    "Depscan and HTML report written to file: %s, %s 👍", df, html_fname,
+                )
