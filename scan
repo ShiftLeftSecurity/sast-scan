@@ -38,7 +38,7 @@ def build_args():
     parser = argparse.ArgumentParser(
         description="Wrapper for various static analysis tools"
     )
-    parser.add_argument("--src", dest="src_dir", help="Source directory", required=True)
+    parser.add_argument("--src", dest="src_dir", help="Source directory")
     parser.add_argument("--out_dir", dest="reports_dir", help="Reports directory")
     parser.add_argument(
         "--type",
@@ -276,6 +276,9 @@ def bomgen(src, reports_dir, convert):
 
 def main():
     args = build_args()
+    src_dir = args.src_dir
+    if not args.src_dir:
+        src_dir = os.getcwd()
     type = args.scan_type
     # Get or construct the run uuid
     run_uuid = os.environ.get("SCAN_ID", str(uuid.uuid4()))
@@ -283,7 +286,6 @@ def main():
     # Set the source directory as an environment variable
     config.set("SAST_SCAN_SRC_DIR", args.src_dir)
     config.reload()
-
     # Identify project type
     if not type:
         # Check the local config first. If not try auto detection
@@ -291,15 +293,15 @@ def main():
         if type:
             type = type.split(",")
         else:
-            type = utils.detect_project_type(args.src_dir)
+            type = utils.detect_project_type(src_dir)
     else:
         type = type.split(",")
     print(product_logo)
-    LOG.info("Scanning {} using scan plugins {}".format(args.src_dir, type))
+    LOG.info("Scanning {} using scan plugins {}".format(src_dir, type))
     reports_dir = args.reports_dir
     if not reports_dir:
-        reports_dir = os.path.join(args.src_dir, "reports")
-    scan(type, args.src_dir, reports_dir, args.convert)
+        reports_dir = os.path.join(src_dir, "reports")
+    scan(type, src_dir, reports_dir, args.convert)
     if reports_dir:
         sarif_files = utils.find_files(reports_dir, ".sarif")
         agg_fname = utils.get_report_file(

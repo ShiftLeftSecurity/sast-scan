@@ -3,11 +3,11 @@ import logging
 import os
 import subprocess
 
+from reporter.grafeas import parse, render_html
+
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
-
-from reporter.grafeas import parse, render_html
 
 logging.basicConfig(
     level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
