@@ -92,7 +92,11 @@ def scan(type_list, src, reports_dir, convert):
                     src, reports_dir, convert
                 )
             except Exception as e:
-                LOG.warning("Scan using the {} plugin did not produce valid result".format(type_str))
+                LOG.warning(
+                    "Scan using the {} plugin did not produce valid result".format(
+                        type_str
+                    )
+                )
 
 
 def python_scan(src, reports_dir, convert):

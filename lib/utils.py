@@ -37,14 +37,16 @@ def find_jar_files():
     return result
 
 
-def find_files(src, src_ext_name):
+def find_files(src, src_ext_name, use_start=False):
     """
-    Method to find files with given extenstion
+    Method to find files with given extension
     """
     result = []
     for root, dirs, files in os.walk(src):
         for file in files:
             if file == src_ext_name or file.endswith(src_ext_name):
+                result.append(os.path.join(root, file))
+            elif use_start and file.startswith(src_ext_name):
                 result.append(os.path.join(root, file))
     return result
 
