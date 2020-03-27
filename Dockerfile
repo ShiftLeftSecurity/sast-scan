@@ -92,7 +92,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     MAVEN_VERSION=3.6.3 \
     MAVEN_HOME=/opt/apache-maven \
     PYTHONUNBUFFERED=1 \
-    PATH=/usr/local/src/:${PATH}:${GRADLE_HOME}/bin:${MAVEN_HOME}/bin:${JAVA_HOME}/bin:/usr/local/go/bin:/opt/.cargo/bin:
+    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/lib/jvm/java-11-openjdk-11.0.6.10-0.el8_1.x86_64/bin:/usr/local/go/bin:/opt/.cargo/bin:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
