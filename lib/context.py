@@ -67,7 +67,7 @@ def find_repo_details(src_dir=None):
             "TRAVIS_BRANCH",
         ]:
             branch = value
-    if src_dir:
+    if src_dir and os.path.isdir(os.path.join(src_dir, ".git")):
         # Try interacting with git
         try:
             repo = Repo(src_dir)

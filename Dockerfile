@@ -117,7 +117,7 @@ RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamlli
     && npm install -g @appthreat/cdxgen \
     && microdnf remove -y ruby-devel xz shadow-utils
 
-WORKDIR /usr/local/src
+WORKDIR /app
 
 COPY scan /usr/local/src/
 COPY lib /usr/local/src/lib
