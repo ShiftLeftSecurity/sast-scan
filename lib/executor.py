@@ -3,7 +3,8 @@ import logging
 import os
 import subprocess
 
-from reporter.grafeas import parse, render_html
+import reporter.grafeas as grafeas
+import reporter.licence as licence
 
 import lib.config as config
 import lib.convert as convertLib
@@ -102,12 +103,24 @@ def execute_default_cmd(
             cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
         )
     elif type_str == "depscan":
+        # Convert depscan and license scan files to html
         depscan_files = utils.find_files(reports_dir, "depscan", True)
         for df in depscan_files:
-            depscan_data = parse(df)
+            depscan_data = grafeas.parse(df)
             if depscan_data and len(depscan_data):
                 html_fname = df.replace(".json", ".html")
-                render_html(depscan_data, html_fname)
+                grafeas.render_html(depscan_data, html_fname)
                 LOG.debug(
                     "Depscan and HTML report written to file: %s, %s 👍", df, html_fname,
+                )
+        licence_files = utils.find_files(reports_dir, "license", True)
+        for lf in licence_files:
+            licence_data = licence.parse(lf)
+            if licence_data and len(licence_data):
+                html_fname = lf.replace(".json", ".html")
+                licence.render_html(licence_data, html_fname)
+                LOG.debug(
+                    "Licence check and HTML report written to file: %s, %s 👍",
+                    lf,
+                    html_fname,
                 )
