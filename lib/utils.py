@@ -65,8 +65,15 @@ def detect_project_type(src_dir):
     if find_python_reqfiles(src_dir):
         project_types.append("python")
         depscan_supported = True
+    if find_files(src_dir, ".sql"):
+        project_types.append("plsql")
+    if find_files(src_dir, ".scala"):
+        project_types.append("scala")
     if find_files(src_dir, "pom.xml") or find_files(src_dir, ".gradle"):
         project_types.append("java")
+        depscan_supported = True
+    if find_files(src_dir, ".jsp"):
+        project_types.append("jsp")
         depscan_supported = True
     if find_files(src_dir, "package.json"):
         project_types.append("nodejs")
@@ -87,6 +94,9 @@ def detect_project_type(src_dir):
         or find_files(src_dir, ".page")
     ):
         project_types.append("vf")
+    if find_files(src_dir, ".vm"):
+        project_types.append("vm")
+        depscan_supported = True
     if find_files(src_dir, ".sh"):
         project_types.append("bash")
     if depscan_supported:
