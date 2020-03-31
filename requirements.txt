@@ -4,3 +4,4 @@ defusedxml
 tabulate
 gitpython
 shiftleft-scan-reports
+requests

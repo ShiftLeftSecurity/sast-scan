@@ -18,6 +18,7 @@ def find_repo_details(src_dir=None):
     repositoryUri = config.get("repository_uri", "")
     revisionId = ""
     branch = ""
+    invokedBy = ""
     """
     Since CI servers typically checkout repo in detached mode, we need to rely on environment
     variables as a starting point to find the repo details. To make matters worse, since we
@@ -34,6 +35,8 @@ def find_repo_details(src_dir=None):
     CircleCI - https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
     Travis - https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
     AWS CodeBuild - https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
+    GitLab - https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+    Jenkins - https://jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables
     """
     for key, value in os.environ.items():
         # Check REPOSITORY_URL first followed CI specific vars
@@ -70,6 +73,14 @@ def find_repo_details(src_dir=None):
             "CI_COMMIT_BRANCH",
         ]:
             branch = value
+        if key in [
+            "BUILD_REQUESTEDFOREMAIL",
+            "GITHUB_ACTOR",
+            "PROJECT_ID",
+            "CIRCLE_USERNAME",
+            "GITLAB_USER_EMAIL",
+        ]:
+            invokedBy = value
     if src_dir and os.path.isdir(os.path.join(src_dir, ".git")):
         # Try interacting with git
         try:
@@ -81,6 +92,10 @@ def find_repo_details(src_dir=None):
                 revisionId = head.commit.hexsha
             if not repositoryUri:
                 repositoryUri = next(iter(repo.remote().urls))
+            if not invokedBy:
+                invokedBy = "{} <{}>".format(
+                    head.commit.author.name, head.commit.author.email
+                )
         except Exception:
             LOG.debug(
                 "Unable to find repo details from the local repository. Consider adding a local .sastscanrc file with the url details."
@@ -95,4 +110,9 @@ def find_repo_details(src_dir=None):
         # Is it a repo slug?
         if not repositoryUri.startswith("http"):
             repositoryUri = "https://github.com/" + repositoryUri
-    return {"repositoryUri": repositoryUri, "revisionId": revisionId, "branch": branch}
+    return {
+        "repositoryUri": repositoryUri,
+        "revisionId": revisionId,
+        "branch": branch,
+        "invokedBy": invokedBy,
+    }
