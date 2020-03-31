@@ -14,7 +14,6 @@
     <rule ref="category/java/security.xml" />
     <rule ref="category/jsp/errorprone.xml" />
     <rule ref="category/jsp/security.xml" />
-    <rule ref="category/plsql/design.xml" />
     <rule ref="category/plsql/errorprone.xml" />
     <rule ref="category/vm/errorprone.xml" />
     <rule ref="category/xml/errorprone.xml" />
