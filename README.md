@@ -24,16 +24,19 @@ This repo builds `shiftleft/sast-scan` (or `gcr.io/sl-appthreat/sast-scan`), a c
 | depscan              | dep-scan                           |
 | go                   | gosec, staticcheck                 |
 | java                 | cdxgen, gradle, find-sec-bugs, pmd |
+| jsp                  | pmd                                |
 | json                 | jq, jsondiff, jsonschema           |
 | kotlin               | detekt                             |
 | kubernetes           | kube-score                         |
 | nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
 | puppet               | puppet-lint                        |
+| plsql                | pmd                                |
 | python               | bandit, cdxgen, pipenv             |
 | ruby                 | cyclonedx-ruby                     |
 | rust                 | cdxgen, cargo-audit                |
 | terraform            | tfsec                              |
 | Visual Force (vf)    | pmd                                |
+| Apache Velocity (vm) | pmd                                |
 | yaml                 | yamllint                           |
 
 ## Bundled languages/runtime

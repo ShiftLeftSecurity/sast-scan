@@ -9,16 +9,13 @@
     <exclude-pattern>.*/.mvn/.*</exclude-pattern>
     <exclude-pattern>.*/test/.*</exclude-pattern>
     <exclude-pattern>.*/.sfdx/.*</exclude-pattern>
-    <rule ref="category/java/design.xml" />
     <rule ref="category/java/errorprone.xml" />
     <rule ref="category/java/multithreading.xml" />
     <rule ref="category/java/security.xml" />
-    <rule ref="category/jsp/design.xml" />
     <rule ref="category/jsp/errorprone.xml" />
     <rule ref="category/jsp/security.xml" />
     <rule ref="category/plsql/design.xml" />
     <rule ref="category/plsql/errorprone.xml" />
-    <rule ref="category/vm/design.xml" />
     <rule ref="category/vm/errorprone.xml" />
     <rule ref="category/xml/errorprone.xml" />
     <rule ref="category/xsl/performance.xml" />
