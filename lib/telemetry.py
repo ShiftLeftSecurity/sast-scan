@@ -14,6 +14,8 @@ def track(track_obj):
     disable_telemetry = config.get("DISABLE_TELEMETRY", False)
     if disable_telemetry == "true" or disable_telemetry == "1":
         disable_telemetry = True
+    else:
+        disable_telemetry = False
     if track_obj and not disable_telemetry:
         try:
             requests.post(config.TELEMETRY_URL, json=track_obj)

@@ -60,6 +60,8 @@ def detect_project_type(src_dir):
     """
     project_types = ["credscan"]
     depscan_supported = False
+    if find_files(src_dir, ".cls"):
+        project_types.append("apex")
     if find_python_reqfiles(src_dir):
         project_types.append("python")
         depscan_supported = True
@@ -70,7 +72,7 @@ def detect_project_type(src_dir):
         project_types.append("nodejs")
         depscan_supported = True
     if find_files(src_dir, "go.sum") or find_files(src_dir, "Gopkg.lock"):
-        project_types.append("golang")
+        project_types.append("go")
         depscan_supported = True
     if find_files(src_dir, "Cargo.lock"):
         project_types.append("rust")
@@ -79,6 +81,12 @@ def detect_project_type(src_dir):
         project_types.append("terraform")
     if find_files(src_dir, ".yaml"):
         project_types.append("yaml")
+    if (
+        find_files(src_dir, ".component")
+        or find_files(src_dir, ".cmp")
+        or find_files(src_dir, ".page")
+    ):
+        project_types.append("vf")
     if find_files(src_dir, ".sh"):
         project_types.append("bash")
     if depscan_supported:
