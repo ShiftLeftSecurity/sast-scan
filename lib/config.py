@@ -173,6 +173,24 @@ scan_tools_args_map = {
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
+    "vf": {
+        "pmd": [
+            *os.environ["PMD_CMD"].split(" "),
+            "-no-cache",
+            "--failOnViolation",
+            "false",
+            "-language",
+            "vf",
+            "-d",
+            "%(src)s",
+            "-r",
+            "%(report_fname_prefix)s.csv",
+            "-f",
+            "csv",
+            "-R",
+            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+        ]
+    },
     "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
 }
 
