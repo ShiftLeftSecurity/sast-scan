@@ -92,10 +92,11 @@ def find_repo_details(src_dir=None):
                 revisionId = head.commit.hexsha
             if not repositoryUri:
                 repositoryUri = next(iter(repo.remote().urls))
-            if not invokedBy:
-                invokedBy = "{} <{}>".format(
-                    head.commit.author.name, head.commit.author.email
-                )
+            if not invokedBy or "@" not in invokedBy:
+                if head.commit.author and head.commit.author.email:
+                    invokedBy = "{} <{}>".format(
+                        head.commit.author.name, head.commit.author.email
+                    )
         except Exception:
             LOG.debug(
                 "Unable to find repo details from the local repository. Consider adding a local .sastscanrc file with the url details."
