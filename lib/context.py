@@ -3,8 +3,6 @@ import os
 
 from git import Repo
 
-import lib.config as config
-
 LOG = logging.getLogger(__name__)
 
 
@@ -15,7 +13,7 @@ def find_repo_details(src_dir=None):
     :param src_dir: Source directory
     """
     # See if repository uri is specified in the config
-    repositoryUri = config.get("repository_uri", "")
+    repositoryUri = ""
     revisionId = ""
     branch = ""
     invokedBy = ""
@@ -85,22 +83,20 @@ def find_repo_details(src_dir=None):
         # Try interacting with git
         try:
             repo = Repo(src_dir)
-            if not branch:
+            head = repo.head
+            if not branch and not head.is_detached:
                 branch = repo.active_branch.name
-            if not revisionId:
-                head = repo.heads[0]
+            if not revisionId and head:
                 revisionId = head.commit.hexsha
             if not repositoryUri:
                 repositoryUri = next(iter(repo.remote().urls))
             if not invokedBy or "@" not in invokedBy:
-                if head.commit.author and head.commit.author.email:
+                if head and head.commit.author and head.commit.author.email:
                     invokedBy = "{} <{}>".format(
                         head.commit.author.name, head.commit.author.email
                     )
         except Exception:
-            LOG.debug(
-                "Unable to find repo details from the local repository. Consider adding a local .sastscanrc file with the url details."
-            )
+            LOG.debug("Unable to find repo details from the local repository")
 
     # Cleanup the variables
     branch = branch.replace("refs/heads/", "")
