@@ -1,12 +1,11 @@
-import lib.convert as convertLib
-import lib.issue as issueLib
-
-
 import importlib
 import json
 import os
 import tempfile
 import uuid
+
+import lib.convert as convertLib
+import lib.issue as issueLib
 
 
 def test_nodejsscan_convert_empty():

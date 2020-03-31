@@ -1,6 +1,6 @@
-import lib.xml_parser as xml_parser
-
 import os
+
+import lib.xml_parser as xml_parser
 
 
 def test_findsec_parse():

@@ -13,6 +13,12 @@ credscan_depth = "2"
 
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 
+# Flag to disable telemetry
+DISABLE_TELEMETRY = False
+
+# Telemetry server
+TELEMETRY_URL = "https://telemetry.appthreat.io/track"
+
 """
 Supported language scan types
 """

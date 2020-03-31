@@ -1,6 +1,6 @@
-import lib.csv_parser as csv_parser
-
 import os
+
+import lib.csv_parser as csv_parser
 
 
 def test_pmd_parse():

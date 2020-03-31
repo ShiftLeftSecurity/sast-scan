@@ -9,6 +9,7 @@ import reporter.licence as licence
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
+from lib.telemetry import track
 
 logging.basicConfig(
     level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
@@ -106,21 +107,27 @@ def execute_default_cmd(
         # Convert depscan and license scan files to html
         depscan_files = utils.find_files(reports_dir, "depscan", True)
         for df in depscan_files:
-            depscan_data = grafeas.parse(df)
-            if depscan_data and len(depscan_data):
-                html_fname = df.replace(".json", ".html")
-                grafeas.render_html(depscan_data, html_fname)
-                LOG.debug(
-                    "Depscan and HTML report written to file: %s, %s 👍", df, html_fname,
-                )
+            if not df.endswith(".html"):
+                depscan_data = grafeas.parse(df)
+                if depscan_data and len(depscan_data):
+                    html_fname = df.replace(".json", ".html")
+                    grafeas.render_html(depscan_data, html_fname)
+                    track({"id": config.get("run_uuid"), html_fname: depscan_data})
+                    LOG.debug(
+                        "Depscan and HTML report written to file: %s, %s 👍",
+                        df,
+                        html_fname,
+                    )
         licence_files = utils.find_files(reports_dir, "license", True)
         for lf in licence_files:
-            licence_data = licence.parse(lf)
-            if licence_data and len(licence_data):
-                html_fname = lf.replace(".json", ".html")
-                licence.render_html(licence_data, html_fname)
-                LOG.debug(
-                    "Licence check and HTML report written to file: %s, %s 👍",
-                    lf,
-                    html_fname,
-                )
+            if not lf.endswith(".html"):
+                licence_data = licence.parse(lf)
+                if licence_data and len(licence_data):
+                    html_fname = lf.replace(".json", ".html")
+                    licence.render_html(licence_data, html_fname)
+                    track({"id": config.get("run_uuid"), html_fname: licence_data})
+                    LOG.debug(
+                        "Licence check and HTML report written to file: %s, %s 👍",
+                        lf,
+                        html_fname,
+                    )
