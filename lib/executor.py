@@ -59,22 +59,25 @@ def execute_default_cmd(
     # Create the reports dir
     os.makedirs(reports_dir, exist_ok=True)
     report_fname_prefix = os.path.join(reports_dir, tool_name + "-report")
-    report_fname = report_fname_prefix + ".json"
     default_cmd = " ".join(cmd_map_list) % dict(
         src=src,
         reports_dir=reports_dir,
         report_fname_prefix=report_fname_prefix,
         type=type_str,
     )
+    # Try to detect if the output could be json
+    outext = ".out"
+    if default_cmd.find("json") > -1:
+        outext = ".json"
+    if default_cmd.find("csv") > -1:
+        outext = ".csv"
+    if default_cmd.find("sarif") > -1:
+        outext = ".sarif"
+    report_fname = report_fname_prefix + outext
+
     # If the command doesn't support file output then redirect stdout automatically
     stdout = None
     if reports_dir and default_cmd.find(report_fname_prefix) == -1:
-        outext = ".out"
-        # Try to detect if the output could be json
-        if default_cmd.find("json") > -1:
-            outext = ".json"
-        if default_cmd.find("sarif") > -1:
-            outext = ".sarif"
         report_fname = report_fname_prefix + outext
         stdout = io.open(report_fname, "w")
         LOG.debug("Output will be written to {}".format(report_fname))
@@ -86,8 +89,9 @@ def execute_default_cmd(
         ei = default_cmd.find(")", si + 10)
         ext = default_cmd[si + 10 : ei]
         filelist = utils.find_files(src, ext)
+        delim = " "
         default_cmd = default_cmd.replace(
-            filelist_prefix + ext + ")", " ".join(filelist)
+            filelist_prefix + ext + ")", delim.join(filelist)
         )
     cmd_with_args = default_cmd.split(" ")
     exec_tool(cmd_with_args, cwd=src, stdout=stdout)

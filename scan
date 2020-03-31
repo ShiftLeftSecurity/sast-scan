@@ -166,6 +166,45 @@ def java_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     findsecbugs_scan(src, reports_dir, convert)
+    pmd_scan(src, reports_dir, convert)
+
+
+def pmd_scan(src, reports_dir, convert):
+    """
+    Method to initiate pmd scan of the java codebase
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+    """
+    convert_args = []
+    report_fname = utils.get_report_file("pmd", reports_dir, convert, ext_name="csv")
+    if reports_dir or convert:
+        convert_args = ["-r", report_fname, "-f", "csv"]
+    pmd_cmd = os.environ["PMD_CMD"].split(" ")
+    pmd_args = [
+        *pmd_cmd,
+        "-no-cache",
+        "--failOnViolation",
+        "false",
+        "-language",
+        "java",
+        "-version",
+        "11",
+        "-d",
+        src,
+        *convert_args,
+        "-R",
+        os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+    ]
+    exec_tool(pmd_args, src)
+    if convert:
+        crep_fname = utils.get_report_file(
+            "pmd", reports_dir, convert, ext_name="sarif"
+        )
+        convertLib.convert_file(
+            "pmd", pmd_args[1:], src, report_fname, crep_fname,
+        )
 
 
 def findsecbugs_scan(src, reports_dir, convert):

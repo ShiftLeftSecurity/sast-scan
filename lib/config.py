@@ -24,12 +24,13 @@ Supported language scan types
 """
 scan_types = [
     "ansible",
+    "apex",
     "aws",
     "bash",
     "bom",
     "credscan",
     "depscan",
-    "golang",
+    "go",
     "java",
     "kotlin",
     "kubernetes",
@@ -39,6 +40,7 @@ scan_types = [
     "ruby",
     "rust",
     "terraform",
+    "vf",
     "yaml",
 ]
 
@@ -98,6 +100,24 @@ scan_tools_args_map = {
         "--parseable-severity",
         "*.yml",
     ],
+    "apex": {
+        "pmd": [
+            *os.environ["PMD_CMD"].split(" "),
+            "-no-cache",
+            "--failOnViolation",
+            "false",
+            "-language",
+            "apex",
+            "-d",
+            "%(src)s",
+            "-r",
+            "%(report_fname_prefix)s.csv",
+            "-f",
+            "csv",
+            "-R",
+            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+        ]
+    },
     "aws": ["cfn-lint", "-f", "json", "-e", "%(src)s/**/*.yaml"],
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
@@ -128,7 +148,7 @@ scan_tools_args_map = {
         "--report_file",
         "%(report_fname_prefix)s.json",
     ],
-    "golang": {
+    "go": {
         "gosec": [
             "gosec",
             "-fmt=json",
@@ -153,6 +173,24 @@ scan_tools_args_map = {
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
+    "vf": {
+        "pmd": [
+            *os.environ["PMD_CMD"].split(" "),
+            "-no-cache",
+            "--failOnViolation",
+            "false",
+            "-language",
+            "vf",
+            "-d",
+            "%(src)s",
+            "-r",
+            "%(report_fname_prefix)s.csv",
+            "-f",
+            "csv",
+            "-R",
+            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+        ]
+    },
     "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
 }
 
@@ -163,6 +201,8 @@ This map contains the SARIF purpose string for various tools
 tool_purpose_message = {
     "nodejsscan": "Static security code scan by NodeJsScan",
     "findsecbugs": "Security audit by Find Security Bugs",
+    "pmd": "Static code analysis by PMD",
+    "/opt/pmd-bin/bin/run.sh": "Static code analysis by PMD",
     "gitleaks": "Secrets audit by gitleaks",
     "gosec": "Golang security checks by gosec",
     "tfsec": "Terraform static analysis by tfsec",

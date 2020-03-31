@@ -13,26 +13,28 @@ This repo builds `shiftleft/sast-scan` (or `gcr.io/sl-appthreat/sast-scan`), a c
 
 ## Bundled tools
 
-| Programming Language | Tools                            |
-| -------------------- | -------------------------------- |
-| ansible              | ansible-lint                     |
-| aws                  | cfn-lint, cfn_nag                |
-| bash                 | shellcheck                       |
-| bom                  | cdxgen                           |
-| credscan             | gitleaks                         |
-| depscan              | dep-scan                         |
-| golang               | gosec, staticcheck               |
-| java                 | cdxgen, gradle, find-sec-bugs    |
-| json                 | jq, jsondiff, jsonschema         |
-| kotlin               | detekt                           |
-| kubernetes           | kube-score                       |
-| nodejs               | cdxgen, NodeJsScan, eslint, yarn |
-| puppet               | puppet-lint                      |
-| python               | bandit, cdxgen, pipenv           |
-| ruby                 | cyclonedx-ruby                   |
-| rust                 | cdxgen, cargo-audit              |
-| terraform            | tfsec                            |
-| yaml                 | yamllint                         |
+| Programming Language | Tools                              |
+| -------------------- | ---------------------------------- |
+| ansible              | ansible-lint                       |
+| apex                 | pmd                                |
+| aws                  | cfn-lint, cfn_nag                  |
+| bash                 | shellcheck                         |
+| bom                  | cdxgen                             |
+| credscan             | gitleaks                           |
+| depscan              | dep-scan                           |
+| go                   | gosec, staticcheck                 |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd |
+| json                 | jq, jsondiff, jsonschema           |
+| kotlin               | detekt                             |
+| kubernetes           | kube-score                         |
+| nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
+| puppet               | puppet-lint                        |
+| python               | bandit, cdxgen, pipenv             |
+| ruby                 | cyclonedx-ruby                     |
+| rust                 | cdxgen, cargo-audit                |
+| terraform            | tfsec                              |
+| Visual Force (vf)    | pmd                                |
+| yaml                 | yamllint                           |
 
 ## Bundled languages/runtime
 

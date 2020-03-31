@@ -148,8 +148,8 @@ class Issue(object):
 
     def find_severity(self, data):
         severity = constants.SEVERITY_DEFAULT
-        if "issue_severity" in data:
-            sev = data["issue_severity"]
+        if "issue_severity" in data or "priority" in data:
+            sev = data.get("issue_severity", data.get("priority"))
             severity = sev
             if isinstance(sev, int) or sev.isdigit():
                 sev = int(sev)
