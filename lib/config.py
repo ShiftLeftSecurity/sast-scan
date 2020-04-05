@@ -132,6 +132,14 @@ scan_tools_args_map = {
         "--report=%(report_fname_prefix)s.json",
         "--report-format=json",
     ],
+    "credscan-ide": [
+        "gitleaks",
+        "--uncommitted",
+        "--repo-path=%(src)s",
+        "--timeout=2m",
+        "--report=%(report_fname_prefix)s.json",
+        "--report-format=json",
+    ],
     "bash": [
         "shellcheck",
         "-a",
@@ -261,7 +269,7 @@ tool_purpose_message = {
     "pmd": "Static code analysis by PMD",
     "/opt/pmd-bin/bin/run.sh": "Static code analysis by PMD",
     "gitleaks": "Secrets audit by gitleaks",
-    "gosec": "Golang security checks by gosec",
+    "gosec": "Go security checks by gosec",
     "tfsec": "Terraform static analysis by tfsec",
     "shellcheck": "Shell script analysis by shellcheck",
     "bandit": "Security audit for python by bandit",

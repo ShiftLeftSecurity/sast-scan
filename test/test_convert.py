@@ -212,7 +212,7 @@ def test_gosec_convert_issue():
         jsondata = json.loads(data)
         assert (
             jsondata["runs"][0]["tool"]["driver"]["name"]
-            == "Golang security checks by gosec"
+            == "Go security checks by gosec"
         )
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
         assert jsondata["runs"][0]["properties"]["metrics"] == {
