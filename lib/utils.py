@@ -51,14 +51,18 @@ def find_files(src, src_ext_name, use_start=False):
     return result
 
 
-def detect_project_type(src_dir):
+def detect_project_type(src_dir, scan_mode):
     """Detect project type by looking for certain files
 
     :param src_dir: Source directory
 
     :return List of detected types
     """
-    project_types = ["credscan"]
+    project_types = []
+    if scan_mode == "ide":
+        project_types.append("credscan-ide")
+    else:
+        project_types.append("credscan")
     depscan_supported = False
     if find_files(src_dir, ".cls"):
         project_types.append("apex")
@@ -99,7 +103,7 @@ def detect_project_type(src_dir):
         depscan_supported = True
     if find_files(src_dir, ".sh"):
         project_types.append("bash")
-    if depscan_supported:
+    if depscan_supported and scan_mode != "ide":
         project_types.append("depscan")
     return project_types
 
@@ -122,3 +126,26 @@ def get_report_file(tool_name, reports_dir, convert, ext_name="json"):
         fp = tempfile.NamedTemporaryFile(delete=False)
         report_fname = fp.name
     return report_fname
+
+
+def get_workspace(repo_context):
+    """
+    Construct the workspace url from the given repo context
+
+    :param repo_context: Repo context from context.py
+    :return: Workspace url for known VCS or None
+    """
+    if not repo_context["repositoryUri"]:
+        return None
+    revision = repo_context.get("revisionId", repo_context.get("branch"))
+    if "github.com" in repo_context["repositoryUri"]:
+        return "{}/blob/{}".format(repo_context["repositoryUri"], revision)
+    if "gitlab" in repo_context["repositoryUri"]:
+        return "{}/-/blob/{}".format(repo_context["repositoryUri"], revision)
+    if "bitbucket" in repo_context["repositoryUri"] and repo_context.get("revisionId"):
+        return "{}/src/{}".format(repo_context["repositoryUri"], revision)
+    if "azure.com" in repo_context["repositoryUri"] and repo_context.get("branch"):
+        return "{}?_a=contents&version=GB{}&path=".format(
+            repo_context["repositoryUri"], repo_context.get("branch")
+        )
+    return None

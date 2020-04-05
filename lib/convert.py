@@ -84,11 +84,18 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                             issues = issues + value
                         else:
                             issues.append(value)
-                if "Issues" in report_data or "results" in report_data:
-                    for issue in report_data.get(
-                        "Issues", report_data.get("results", [])
-                    ):
-                        issues.append(issue)
+                elif "Issues" in report_data:
+                    tmpL = report_data.get("Issues", [])
+                    if tmpL:
+                        issues += tmpL
+                    else:
+                        LOG.warning("%s produced no result" % tool_name)
+                elif "results" in report_data:
+                    tmpL = report_data.get("results", [])
+                    if tmpL:
+                        issues += tmpL
+                    else:
+                        LOG.warning("%s produced no result" % tool_name)
         if extn == ".csv":
             headers, issues = csv_parser.get_report_data(rfile)
         if extn == ".xml":

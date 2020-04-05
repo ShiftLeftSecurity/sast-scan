@@ -42,7 +42,7 @@ def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
 
 
 def execute_default_cmd(
-    cmd_map_list, type_str, tool_name, src, reports_dir, convert,
+    cmd_map_list, type_str, tool_name, src, reports_dir, convert, scan_mode,
 ):
     """
     Method to execute default command for the given type
@@ -54,6 +54,7 @@ def execute_default_cmd(
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      scan_mode Scan mode string
     """
     # Check if there is a default command specified for the given type
     # Create the reports dir
@@ -64,6 +65,7 @@ def execute_default_cmd(
         reports_dir=reports_dir,
         report_fname_prefix=report_fname_prefix,
         type=type_str,
+        scan_mode=scan_mode,
     )
     # Try to detect if the output could be json
     outext = ".out"
