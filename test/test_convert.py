@@ -188,6 +188,43 @@ def test_credscan_convert_issue():
         }
 
 
+def test_credscan_convert_unc():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "credscan",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "line": "\naws_access_key_id='AKIAIO5FODNN7EXAMPLE'",
+                    "offender": "AKIAIO5FODNN7EXAMPLE",
+                    "commit": "0000000000000000000000000000000000000000",
+                    "repo": "app",
+                    "rule": "AWS Manager ID",
+                    "commitMessage": "***STAGED CHANGES***",
+                    "author": "",
+                    "email": "",
+                    "file": "/Users/prabhu/work/ShiftLeft/HelloShiftLeft/README.md",
+                    "date": "1970-01-01T00:00:00Z",
+                    "tags": "key, AWS",
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "credscan"
+        assert jsondata["runs"][0]["results"][0]["message"]["text"]
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "high": 1,
+            "total": 1,
+            "critical": 0,
+            "medium": 0,
+            "low": 0,
+        }
+
+
 def test_gosec_convert_issue():
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report(

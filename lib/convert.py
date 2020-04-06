@@ -23,8 +23,6 @@ LOG = logging.getLogger(__name__)
 
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
-WORKSPACE_PREFIX = os.environ.get("WORKSPACE", None)
-
 
 def tweak_severity(tool_name, issue_severity):
     """
@@ -181,6 +179,7 @@ def report(
             metrics[key] = 0
         metrics[key] += 1
     # working directory to use in the log
+    WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX else working_dir
     # Construct SARIF log
     log = om.SarifLog(
@@ -321,6 +320,7 @@ def create_result(
     :param file_path_list: Full file path for any manipulation
     :param working_dir: Working directory
     """
+    WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     if isinstance(issue, dict):
         issue = issue_from_dict(issue)
 
@@ -337,7 +337,6 @@ def create_result(
             filename = os.path.join(working_dir, filename)
         if WORKSPACE_PREFIX:
             filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
-
     physical_location = om.PhysicalLocation(
         artifact_location=om.ArtifactLocation(uri=to_uri(filename))
     )
@@ -390,9 +389,11 @@ def add_region_and_context_region(physical_location, line_number, code):
         end_line_number = first_line_number + 3
     index = line_number - first_line_number
     snippet_line = ""
-    if len(snippet_lines) > index and index > 0:
-        snippet_line = snippet_lines[index]
-
+    if len(snippet_lines) > index:
+        if index > 0:
+            snippet_line = snippet_lines[index]
+        else:
+            snippet_line = snippet_lines[0]
     physical_location.region = om.Region(
         start_line=line_number, snippet=om.ArtifactContent(text=snippet_line)
     )

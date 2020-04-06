@@ -5,6 +5,7 @@ import linecache
 from six import moves
 
 import lib.constants as constants
+import logging
 
 
 class Issue(object):
@@ -30,6 +31,8 @@ class Issue(object):
         self.test_ref_url = None
         self.lineno = lineno
         self.linerange = []
+        # Does the tool operate in snippet mode. Eg: gitleaks
+        self.snippet_based = False
 
     def __str__(self):
         return ("Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i") % (
@@ -96,20 +99,37 @@ class Issue(object):
             return ""
         lines = []
         max_lines = max(max_lines, 1)
-        lmin = max(1, self.lineno - max_lines // 2)
-        lmax = lmin + len(self.linerange) + max_lines - 1
+        if not self.snippet_based:
+            lmin = max(1, self.lineno - max_lines // 2)
+            lmax = lmin + len(self.linerange) + max_lines - 1
 
-        tmplt = "%i\t%s" if tabbed else "%i %s"
-        for line in moves.xrange(lmin, lmax):
-            text = linecache.getline(self.fname, line)
+            tmplt = "%i\t%s" if tabbed else "%i %s"
+            for line in moves.xrange(lmin, lmax):
+                text = linecache.getline(self.fname, line)
 
-            if isinstance(text, bytes):
-                text = text.decode("utf-8")
+                if isinstance(text, bytes):
+                    text = text.decode("utf-8")
 
-            if not len(text):
-                break
-            lines.append(tmplt % (line, text))
-        return "".join(lines)
+                if not len(text):
+                    break
+                lines.append(tmplt % (line, text))
+            return "".join(lines)
+        else:
+            lineno = self.lineno
+            try:
+                tmplineno = 1
+                with open(self.fname, mode="r") as fp:
+                    for aline in fp:
+                        if aline.strip() == self.code.strip():
+                            lineno = tmplineno
+                            # Fix the line number
+                            self.lineno = lineno
+                            break
+                        tmplineno = tmplineno + 1
+            except Exception as e:
+                logging.debug(e)
+            tmplt = "%i\t%s" if tabbed else "%i %s"
+            return tmplt % (lineno, self.code)
 
     def as_dict(self, with_code=True):
         """Convert the issue to a dict of values for outputting."""
@@ -131,6 +151,10 @@ class Issue(object):
 
         if with_code:
             out["code"] = self.get_code()
+            # If the line number has changed since referring to the file
+            # use the latest line number
+            if self.lineno != out["line_number"]:
+                out["line_number"] = self.lineno
         return out
 
     def norm_severity(self, severity):
@@ -218,9 +242,22 @@ class Issue(object):
         if "title" in data:
             self.text = data["title"]
         if "commitMessage" in data and "commit" in data:
-            self.text = "Commit: {}\nLine: {}\n\nMessage: {}".format(
-                data.get("commit", ""), data.get("line"), data.get("commitMessage", "")
-            )
+            if data.get("commitMessage") == "***STAGED CHANGES***":
+                self.text = "Credential in plaintext?\n\nRule: {}, Secret: {}".format(
+                    data.get("rule"), data.get("offender")
+                )
+            else:
+                self.text = "Commit: {}\nLine: {}\n\nMessage: {}".format(
+                    data.get("commit", ""),
+                    data.get("line"),
+                    data.get("commitMessage", ""),
+                )
+            tmplines = data.get("line", "").split("\n")
+            tmplines = [l for l in tmplines if l and l.strip() != ""]
+            self.code = tmplines[0]
+            if len(tmplines) > 1:
+                self.linerange = tmplines
+            self.snippet_based = True
         if "details" in data:
             self.text = data["details"]
         if "description" in data:
