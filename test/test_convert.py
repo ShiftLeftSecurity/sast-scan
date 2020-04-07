@@ -342,3 +342,16 @@ def test_staticcheck_convert_issue():
             "medium": 1,
             "low": 0,
         }
+
+
+def test_to_uri():
+    p = convertLib.to_uri("https://github.com/shiftleft/sast-scan")
+    assert p == "https://github.com/shiftleft/sast-scan"
+    p = convertLib.to_uri("README.md")
+    assert p == "README.md"
+    p = convertLib.to_uri("/home/prabhu/work/README.md")
+    assert p == "file:///home/prabhu/work/README.md"
+    p = convertLib.to_uri("c:\\users\\prabhu\\work\\README.md")
+    assert p == "file:///c:/users/prabhu/work/README.md"
+    p = convertLib.to_uri("c:\\users\\prabhu\\work/com/src/main/README.md")
+    assert p == "file:///c:/users/prabhu/work/com/src/main/README.md"

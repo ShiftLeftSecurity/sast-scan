@@ -491,9 +491,14 @@ def to_uri(file_path):
     """
     if file_path.startswith("http"):
         return file_path
-    pure_path = pathlib.PurePath(file_path)
+    pure_path = ""
+    if "\\" in file_path:
+        if "/" in file_path:
+            file_path = file_path.replace("/", "\\")
+        pure_path = pathlib.PureWindowsPath(file_path)
+    else:
+        pure_path = pathlib.PurePath(file_path)
     if pure_path.is_absolute():
         return pure_path.as_uri()
     else:
-        posix_path = pure_path.as_posix()  # Replace backslashes with slashes.
-        return urlparse.quote(posix_path)  # %-encode special characters.
+        return pure_path.as_posix()  # Replace backslashes with slashes.
