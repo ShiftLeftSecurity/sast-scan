@@ -13,8 +13,7 @@ def test_nodejsscan_convert_empty():
         data = convertLib.report("nodejsscan", [], ".", {}, {}, [], cfile.name)
         jsondata = json.loads(data)
         assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"]
-            == "Static security code scan by NodeJsScan"
+            jsondata["runs"][0]["tool"]["driver"]["name"] == "Static security code scan"
         )
         assert (
             jsondata["runs"][0]["automationDetails"]["description"]["text"]
@@ -55,8 +54,7 @@ def test_nodejsscan_convert_issue():
         )
         jsondata = json.loads(data)
         assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"]
-            == "Static security code scan by NodeJsScan"
+            jsondata["runs"][0]["tool"]["driver"]["name"] == "Static security code scan"
         )
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
@@ -84,8 +82,7 @@ def test_nodejsscan_convert_metrics():
         )
         jsondata = json.loads(data)
         assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"]
-            == "Static security code scan by NodeJsScan"
+            jsondata["runs"][0]["tool"]["driver"]["name"] == "Static security code scan"
         )
         assert jsondata["runs"][0]["properties"]["metrics"]
 
@@ -247,10 +244,7 @@ def test_gosec_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"]
-            == "Go security checks by gosec"
-        )
+        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "Security audit for Go"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "medium": 1,
@@ -286,8 +280,7 @@ def test_tfsec_convert_issue():
         )
         jsondata = json.loads(data)
         assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"]
-            == "Terraform static analysis by tfsec"
+            jsondata["runs"][0]["tool"]["driver"]["name"] == "Terraform static analysis"
         )
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]

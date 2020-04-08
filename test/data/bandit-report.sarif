@@ -3,7 +3,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Security audit for python by bandit",
+          "name": "Security audit for python",
           "rules": [
             {
               "id": "B322",

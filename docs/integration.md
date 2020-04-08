@@ -25,7 +25,7 @@ sast-tool implements version 2.1.0 specification which can be found [here](https
 ```json
 "tool": {
   "driver": {
-    "name": "Security audit for python by bandit",
+    "name": "Security audit for python",
     "rules": [
       {
         "id": "B322",

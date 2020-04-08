@@ -3,7 +3,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Static code analysis by PMD",
+          "name": "Source code analyzer",
           "rules": [
             {
               "id": "Performance",
