@@ -146,7 +146,7 @@ def bandit_scan(src, reports_dir, convert):
     """
     convert_args = []
     report_fname = utils.get_report_file(
-        "bandit", reports_dir, convert, ext_name="json"
+        "source", reports_dir, convert, ext_name="json"
     )
     if reports_dir or convert:
         convert_args = [
@@ -171,10 +171,10 @@ def bandit_scan(src, reports_dir, convert):
     exec_tool(bandit_args)
     if convert:
         crep_fname = utils.get_report_file(
-            bandit_cmd, reports_dir, convert, ext_name="sarif"
+            "source", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            bandit_cmd, bandit_args[1:], src, report_fname, crep_fname,
+            "source", bandit_args[1:], src, report_fname, crep_fname,
         )
 
 
@@ -200,7 +200,7 @@ def pmd_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     convert_args = []
-    report_fname = utils.get_report_file("pmd", reports_dir, convert, ext_name="csv")
+    report_fname = utils.get_report_file("source", reports_dir, convert, ext_name="csv")
     if reports_dir or convert:
         convert_args = ["-r", report_fname, "-f", "csv"]
     pmd_cmd = os.environ["PMD_CMD"].split(" ")
@@ -222,10 +222,10 @@ def pmd_scan(src, reports_dir, convert):
     exec_tool(pmd_args, src)
     if convert:
         crep_fname = utils.get_report_file(
-            "pmd", reports_dir, convert, ext_name="sarif"
+            "source", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "pmd", pmd_args[1:], src, report_fname, crep_fname,
+            "source", pmd_args[1:], src, report_fname, crep_fname,
         )
 
 
@@ -238,9 +238,7 @@ def findsecbugs_scan(src, reports_dir, convert):
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
     """
-    report_fname = utils.get_report_file(
-        "findsecbugs", reports_dir, convert, ext_name="xml"
-    )
+    report_fname = utils.get_report_file("class", reports_dir, convert, ext_name="xml")
     findsec_cmd = [
         "java",
         "-jar",
@@ -276,10 +274,10 @@ def findsecbugs_scan(src, reports_dir, convert):
             # We need the filelist to fix the file location paths
             j_files = utils.find_files(src, ".java")
             crep_fname = utils.get_report_file(
-                "findsecbugs", reports_dir, convert, ext_name="sarif"
+                "class", reports_dir, convert, ext_name="sarif"
             )
             convertLib.convert_file(
-                "findsecbugs", findsec_args[1:], src, report_fname, crep_fname, j_files,
+                "class", findsec_args[1:], src, report_fname, crep_fname, j_files,
             )
 
 
@@ -305,7 +303,7 @@ def sec_scan(src, reports_dir, convert):
       convert Boolean to enable normalisation of reports json
     """
     convert_args = []
-    report_fname = utils.get_report_file("nodejsscan", reports_dir, convert)
+    report_fname = utils.get_report_file("source", reports_dir, convert)
     if reports_dir or convert:
         convert_args = [
             "--output",
@@ -316,10 +314,10 @@ def sec_scan(src, reports_dir, convert):
     exec_tool(sec_args, src)
     if convert:
         crep_fname = utils.get_report_file(
-            "nodejsscan", reports_dir, convert, ext_name="sarif"
+            "source", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "nodejsscan", sec_args[1:], src, report_fname, crep_fname,
+            "source", sec_args[1:], src, report_fname, crep_fname,
         )
 
 

@@ -48,11 +48,10 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                 # Add it to the run data list for aggregation
                 run_data_list.append(run)
                 tool_desc = run["tool"]["driver"]["name"]
-                tool_name = find_tool_shortname(tool_desc)
+                tool_name = tool_desc
                 # Initialise
                 report_summary[tool_name] = {
-                    "tool": tool_name,
-                    "description": tool_desc,
+                    "tool": tool_desc,
                     "critical": 0,
                     "high": 0,
                     "medium": 0,

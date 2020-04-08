@@ -3,7 +3,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Security audit by Find Security Bugs",
+          "name": "Java security audit",
           "rules": [
             {
               "id": "CWE-78",

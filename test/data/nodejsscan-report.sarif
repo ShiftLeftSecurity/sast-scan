@@ -3,7 +3,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Static security code scan by NodeJsScan",
+          "name": "Static security code scan",
           "rules": [
             {
               "id": "",

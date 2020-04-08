@@ -3,7 +3,7 @@
     {
       "tool": {
         "driver": {
-          "name": "Shell script analysis by shellcheck",
+          "name": "Shell script analysis",
           "rules": [
             {
               "id": "2034",

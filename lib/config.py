@@ -104,7 +104,7 @@ scan_tools_args_map = {
         "*.yml",
     ],
     "apex": {
-        "pmd": [
+        "source": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -172,7 +172,7 @@ scan_tools_args_map = {
         "staticcheck": ["staticcheck", "-f", "json", "./..."],
     },
     "jsp": {
-        "pmd": [
+        "source": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -200,7 +200,7 @@ scan_tools_args_map = {
     ],
     "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
     "plsql": {
-        "pmd": [
+        "source": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -221,7 +221,7 @@ scan_tools_args_map = {
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     "vf": {
-        "pmd": [
+        "source": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -239,7 +239,7 @@ scan_tools_args_map = {
         ]
     },
     "vm": {
-        "pmd": [
+        "source": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -264,16 +264,21 @@ scan_tools_args_map = {
 This map contains the SARIF purpose string for various tools
 """
 tool_purpose_message = {
-    "nodejsscan": "Static security code scan by NodeJsScan",
-    "findsecbugs": "Security audit by Find Security Bugs",
-    "pmd": "Static code analysis by PMD",
-    "/opt/pmd-bin/bin/run.sh": "Static code analysis by PMD",
-    "gitleaks": "Secrets audit by gitleaks",
-    "gosec": "Go security checks by gosec",
-    "tfsec": "Terraform static analysis by tfsec",
-    "shellcheck": "Shell script analysis by shellcheck",
-    "bandit": "Security audit for python by bandit",
+    "nodejsscan": "Static security code scan",
+    "findsecbugs": "Class file analyzer",
+    "pmd": "Source code analyzer",
+    "/opt/pmd-bin/bin/run.sh": "Source code analyzer",
+    "gitleaks": "Secrets audit",
+    "gosec": "Security audit for Go",
+    "tfsec": "Terraform static analysis",
+    "shellcheck": "Shell script analysis",
+    "bandit": "Security audit for python",
     "staticcheck": "Go static analysis",
+    "source": "Source code analyzer",
+    "binary": "Binary byte-code analyzer",
+    "class": "Class file analyzer",
+    "jar": "Jar file analyzer",
+    "cpg": "ShiftLeft graph analyzer",
 }
 
 # Map to link to the reference for the given rule
