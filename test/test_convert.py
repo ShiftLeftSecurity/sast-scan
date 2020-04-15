@@ -13,9 +13,6 @@ def test_nodejsscan_convert_empty():
         data = convertLib.report("nodejsscan", [], ".", {}, {}, [], cfile.name)
         jsondata = json.loads(data)
         assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"] == "Static security code scan"
-        )
-        assert (
             jsondata["runs"][0]["automationDetails"]["description"]["text"]
             == "Static Analysis Security Test results using @ShiftLeft/sast-scan"
         )
@@ -54,9 +51,6 @@ def test_nodejsscan_convert_issue():
         )
         jsondata = json.loads(data)
         assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"] == "Static security code scan"
-        )
-        assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "MD5 is a a weak hash which is known to have collision. Use a strong hashing function."
         )
@@ -81,9 +75,6 @@ def test_nodejsscan_convert_metrics():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"] == "Static security code scan"
-        )
         assert jsondata["runs"][0]["properties"]["metrics"]
 
 
@@ -174,7 +165,6 @@ def test_credscan_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "credscan"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "high": 1,
@@ -211,7 +201,6 @@ def test_credscan_convert_unc():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "credscan"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "high": 1,
@@ -244,7 +233,6 @@ def test_gosec_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "Security audit for Go"
         assert jsondata["runs"][0]["results"][0]["message"]["text"]
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "medium": 1,
@@ -253,6 +241,7 @@ def test_gosec_convert_issue():
             "high": 0,
             "low": 0,
         }
+        assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {}
 
 
 def test_tfsec_convert_issue():
@@ -279,9 +268,6 @@ def test_tfsec_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert (
-            jsondata["runs"][0]["tool"]["driver"]["name"] == "Terraform static analysis"
-        )
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "Resource 'aws_security_group_rule.my-rule' should include a description for auditing purposes."
@@ -323,7 +309,6 @@ def test_staticcheck_convert_issue():
             cfile.name,
         )
         jsondata = json.loads(data)
-        assert jsondata["runs"][0]["tool"]["driver"]["name"] == "Go static analysis"
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "error strings should not be capitalized."
@@ -335,6 +320,7 @@ def test_staticcheck_convert_issue():
             "medium": 1,
             "low": 0,
         }
+        assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {}
 
 
 def test_to_uri():

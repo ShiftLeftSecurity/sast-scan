@@ -16,6 +16,12 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
+import uuid
+
+import sarif_om as om
+from jschema_to_python.to_json import to_json
+
+import lib.config as config
 
 
 def jsonl_aggregate(run_data_list, out_file_name):
@@ -30,3 +36,25 @@ def jsonl_aggregate(run_data_list, out_file_name):
         for data in run_data_list:
             json.dump(data, outfile)
             outfile.write("\n")
+
+
+def sarif_aggregate(run_data_list, out_sarif_name):
+    """
+
+    :param run_data_list:
+    :param out_sarif_name:
+    :return:
+    """
+    log_uuid = str(uuid.uuid4())
+    run_uuid = config.get("run_uuid")
+    log = om.SarifLog(
+        schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+        version="2.1.0",
+        inline_external_properties=[
+            om.ExternalProperties(guid=log_uuid, run_guid=run_uuid)
+        ],
+        runs=run_data_list,
+    )
+    serialized_log = to_json(log)
+    with open(out_sarif_name, "w") as outfile:
+        outfile.write(serialized_log)

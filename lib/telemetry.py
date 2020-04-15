@@ -13,8 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
-import requests
 import logging
+
+import requests
 
 import lib.config as config
 
