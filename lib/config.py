@@ -34,6 +34,9 @@ DISABLE_TELEMETRY = False
 # Telemetry server
 TELEMETRY_URL = "https://telemetry.appthreat.io/track"
 
+# Line number hash size
+HASH_DIGEST_SIZE = 8
+
 """
 Supported language scan types
 """
@@ -94,6 +97,8 @@ def get(configName, default_value=None):
             value = os.environ.get(configName.upper())
         if not value:
             value = getattr(sys.modules[__name__], configName, None)
+        if not value:
+            value = default_value
         return value
     except Exception:
         return default_value

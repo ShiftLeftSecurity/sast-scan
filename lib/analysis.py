@@ -98,6 +98,8 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                             build_status = "fail"
     # Should we store the aggregate data
     if aggregate_file:
+        # agg_sarif_file = aggregate_file.replace(".json", ".sarif")
+        # aggregate.sarif_aggregate(run_data_list, agg_sarif_file)
         aggregate.jsonl_aggregate(run_data_list, aggregate_file)
         LOG.debug("Aggregate report written to {}\n".format(aggregate_file))
     return report_summary, build_status

@@ -16,11 +16,11 @@
 # Adapted from bandit/core
 
 import linecache
+import logging
 
 from six import moves
 
 import lib.constants as constants
-import logging
 
 
 class Issue(object):
@@ -48,6 +48,7 @@ class Issue(object):
         self.linerange = []
         # Does the tool operate in snippet mode. Eg: gitleaks
         self.snippet_based = False
+        self.line_hash = ""
 
     def __str__(self):
         return ("Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i") % (
@@ -70,6 +71,7 @@ class Issue(object):
             "fname",
             "test",
             "test_id",
+            "line_hash",
         ]
         return all(
             getattr(self, field) == getattr(other, field) for field in match_types

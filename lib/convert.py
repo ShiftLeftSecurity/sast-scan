@@ -21,8 +21,9 @@ import os
 import pathlib
 import re
 import sys
-import urllib.parse as urlparse
 import uuid
+
+# from hashlib import blake2b
 
 import sarif_om as om
 from jschema_to_python.to_json import to_json
@@ -31,12 +32,16 @@ from reporter.sarif import render_html
 import lib.config as config
 import lib.csv_parser as csv_parser
 import lib.xml_parser as xml_parser
+from lib.cwe import get_description, get_name
 from lib.context import find_repo_details
 from lib.issue import issue_from_dict
 
 LOG = logging.getLogger(__name__)
 
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+# Line number hash size
+HASH_DIGEST_SIZE = config.get("HASH_DIGEST_SIZE", 8)
 
 
 def tweak_severity(tool_name, issue_severity):
@@ -195,7 +200,10 @@ def report(
         metrics[key] += 1
     # working directory to use in the log
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
-    wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX else working_dir
+    wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX is not None else working_dir
+    driver_name = config.tool_purpose_message.get(tool_name, tool_name)
+    if config.get("CI") or config.get("GITHUB_ACTIONS"):
+        driver_name = "ShiftLeft " + driver_name
     # Construct SARIF log
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
@@ -211,11 +219,7 @@ def report(
                         text="Static Analysis Security Test results using @ShiftLeft/sast-scan"
                     ),
                 ),
-                tool=om.Tool(
-                    driver=om.ToolComponent(
-                        name=config.tool_purpose_message.get(tool_name, tool_name)
-                    )
-                ),
+                tool=om.Tool(driver=om.ToolComponent(name=driver_name)),
                 invocations=[
                     om.Invocation(
                         end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
@@ -350,7 +354,7 @@ def create_result(
         # Issue 5 fix. Convert relative to full path automatically
         if not filename.startswith(working_dir):
             filename = os.path.join(working_dir, filename)
-        if WORKSPACE_PREFIX:
+        if WORKSPACE_PREFIX is not None:
             filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
     physical_location = om.PhysicalLocation(
         artifact_location=om.ArtifactLocation(uri=to_uri(filename))
@@ -361,17 +365,26 @@ def create_result(
     )
     issue_severity = issue_dict["issue_severity"]
     issue_severity = tweak_severity(tool_name, issue_severity)
+    fingerprint = {}
+    """
+    if physical_location.region and physical_location.region.snippet.text:
+        snippet = physical_location.region.snippet.text
+        snippet = snippet.strip().replace("\t", "").replace("\n", "")
+        h = blake2b(digest_size=HASH_DIGEST_SIZE)
+        h.update(snippet.encode())
+        fingerprint = {"primaryLocationLineHash": h.hexdigest() + ":1"}
+    """
     return om.Result(
         rule_id=rule.id,
         rule_index=rule_index,
         message=om.Message(text=issue_dict["issue_text"]),
         level=level_from_severity(issue_severity),
         locations=[om.Location(physical_location=physical_location)],
+        partial_fingerprints=fingerprint,
         properties={
             "issue_confidence": issue_dict["issue_confidence"],
             "issue_severity": issue_severity,
         },
-        hosted_viewer_uri=config.get("hosted_viewer_uri", ""),
     )
 
 
@@ -453,6 +466,44 @@ def parse_code(code):
     return first_line_number, snippet_lines
 
 
+def get_rule_short_description(tool_name, rule_id, test_name, issue_dict):
+    """
+    Constructs a short description for the rule
+
+    :param tool_name:
+    :param rule_id:
+    :param test_name:
+    :param issue_dict:
+    :return:
+    """
+    if rule_id and rule_id.upper().startswith("CWE"):
+        return get_name(rule_id)
+    if not test_name.endswith("."):
+        test_name = test_name + "."
+    return test_name
+
+
+def get_rule_full_description(tool_name, rule_id, test_name, issue_dict):
+    """
+    Constructs a full description for the rule
+
+    :param tool_name:
+    :param rule_id:
+    :param test_name:
+    :param issue_dict:
+    :return:
+    """
+    if rule_id and rule_id.upper().startswith("CWE"):
+        return get_description(rule_id)
+    issue_text = issue_dict.get("issue_text", "")
+    # Extract just the first line alone
+    if issue_text:
+        issue_text = issue_text.split("\n")[0]
+    if not issue_text.endswith("."):
+        issue_text = issue_text + "."
+    return issue_text
+
+
 def get_url(tool_name, rule_id, test_name, issue_dict):
     # Return stackoverflow url for now
     # FIXME: The world needs an opensource SAST issue database!
@@ -486,11 +537,24 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     rule_id = issue_dict["test_id"]
     if rule_id in rules:
         return rules[rule_id], rule_indices[rule_id]
-
+    precision = "high"
+    if rule_id and rule_id.upper().startswith("CWE"):
+        precision = "very-high"
     rule = om.ReportingDescriptor(
         id=rule_id,
         name=issue_dict["test_name"],
+        short_description={
+            "text": get_rule_short_description(
+                tool_name, rule_id, issue_dict["test_name"], issue_dict
+            )
+        },
+        full_description={
+            "text": get_rule_full_description(
+                tool_name, rule_id, issue_dict["test_name"], issue_dict
+            )
+        },
         help_uri=get_url(tool_name, rule_id, issue_dict["test_name"], issue_dict),
+        properties={"tags": ["ShiftLeft", "Scan"], "precision": precision},
     )
 
     index = len(rules)
@@ -506,7 +570,6 @@ def to_uri(file_path):
     """
     if file_path.startswith("http"):
         return file_path
-    pure_path = ""
     if "\\" in file_path:
         if "/" in file_path:
             file_path = file_path.replace("/", "\\")

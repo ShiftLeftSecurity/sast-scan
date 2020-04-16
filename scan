@@ -367,7 +367,7 @@ def main():
     config.set("SAST_SCAN_SRC_DIR", src_dir)
     repo_context = context.find_repo_details(src_dir)
     workspace = os.environ.get("WORKSPACE", None)
-    if not workspace and scan_mode != "ide":
+    if workspace is None and scan_mode != "ide":
         workspace = utils.get_workspace(repo_context)
         if workspace:
             config.set("WORKSPACE", workspace)
@@ -394,7 +394,7 @@ def main():
         agg_fname = None
         if scan_mode != "ide":
             agg_fname = utils.get_report_file(
-                "all-" + run_uuid, reports_dir, False, ext_name="json"
+                "scan-full", reports_dir, False, ext_name="json"
             )
         report_summary, build_status = analysis.summary(sarif_files, agg_fname)
         if report_summary:
