@@ -352,10 +352,15 @@ def create_result(
     filename = issue_dict["filename"]
     if working_dir:
         # Issue 5 fix. Convert relative to full path automatically
-        if not filename.startswith(working_dir):
+        # Convert to full path only if the user wants
+        if WORKSPACE_PREFIX is None and not filename.startswith(working_dir):
             filename = os.path.join(working_dir, filename)
         if WORKSPACE_PREFIX is not None:
-            filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
+            # Make it relative path
+            if WORKSPACE_PREFIX == "":
+                filename = re.sub(r"^" + working_dir + "/", WORKSPACE_PREFIX, filename)
+            else:
+                filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
     physical_location = om.PhysicalLocation(
         artifact_location=om.ArtifactLocation(uri=to_uri(filename))
     )

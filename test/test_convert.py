@@ -135,7 +135,7 @@ def test_create_result_relative():
     data = convertLib.create_result("gitleaks", issue, {}, {}, None, "/app")
     assert (
         data.locations[0].physical_location.artifact_location.uri
-        == "file:///app/src/main/README-new.md"
+        == "src/main/README-new.md"
     )
 
 
