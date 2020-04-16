@@ -93,11 +93,11 @@ def get(configName, default_value=None):
     """
     try:
         value = runtimeValues.get(configName)
-        if not value:
+        if value is None:
             value = os.environ.get(configName.upper())
-        if not value:
+        if value is None:
             value = getattr(sys.modules[__name__], configName, None)
-        if not value:
+        if value is None:
             value = default_value
         return value
     except Exception:
