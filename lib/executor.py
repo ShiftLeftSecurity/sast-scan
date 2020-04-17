@@ -32,32 +32,51 @@ logging.basicConfig(
 LOG = logging.getLogger(__name__)
 
 
-def exec_tool(args, cwd=None, stdout=subprocess.PIPE):
+def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.PIPE):
     """
     Convenience method to invoke cli tools
 
     Args:
       args cli command and args
+      cwd Current working directory
+      env Environment variables
+      stdout stdout configuration for run command
+
+    Returns:
+      CompletedProcess instance
     """
     try:
+        if env.get("JAVA_HOME"):
+            env["PATH"] = env["PATH"] + ":" + os.path.join(env["JAVA_HOME"], "bin")
+        else:
+            env["PATH"] = env["PATH"] + ":" + os.path.join(env["JAVA_11_HOME"], "bin")
         LOG.info("=" * 80)
         LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
-        subprocess.run(
+        cp = subprocess.run(
             args,
             stdout=stdout,
             stderr=subprocess.STDOUT,
             cwd=cwd,
-            env=os.environ,
+            env=env,
             check=False,
             shell=False,
             encoding="utf-8",
         )
+        return cp
     except Exception as e:
         LOG.exception(e)
+        return None
 
 
 def execute_default_cmd(
-    cmd_map_list, type_str, tool_name, src, reports_dir, convert, scan_mode,
+    cmd_map_list,
+    type_str,
+    tool_name,
+    src,
+    reports_dir,
+    convert,
+    scan_mode,
+    repo_context,
 ):
     """
     Method to execute default command for the given type
@@ -70,6 +89,7 @@ def execute_default_cmd(
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
       scan_mode Scan mode string
+      repo_context Repo context
     """
     # Check if there is a default command specified for the given type
     # Create the reports dir

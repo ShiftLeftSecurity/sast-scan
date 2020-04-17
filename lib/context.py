@@ -28,6 +28,7 @@ def find_repo_details(src_dir=None):
     :param src_dir: Source directory
     """
     # See if repository uri is specified in the config
+    repositoryName = None
     repositoryUri = ""
     revisionId = ""
     branch = ""
@@ -54,6 +55,18 @@ def find_repo_details(src_dir=None):
     for key, value in os.environ.items():
         # Check REPOSITORY_URL first followed CI specific vars
         # Some CI such as GitHub pass only the slug instead of the full url :(
+        if not repositoryName:
+            if key in [
+                "BUILD_REPOSITORY_NAME",
+                "GITHUB_REPOSITORY",
+                "REPO_NAME",
+                "CIRCLE_PROJECT_REPONAME",
+                "TRAVIS_REPO_SLUG",
+                "CI_PROJECT_NAME",
+            ]:
+                if "/" in value:
+                    value = value.split("/")[-1]
+                repositoryName = value
         if not repositoryUri:
             if key in [
                 "REPOSITORY_URL",
@@ -123,6 +136,7 @@ def find_repo_details(src_dir=None):
         if not repositoryUri.startswith("http"):
             repositoryUri = "https://github.com/" + repositoryUri
     return {
+        "repositoryName": repositoryName,
         "repositoryUri": repositoryUri,
         "revisionId": revisionId,
         "branch": branch,

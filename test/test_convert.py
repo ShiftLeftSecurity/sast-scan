@@ -3,6 +3,7 @@ import json
 import os
 import tempfile
 import uuid
+from pathlib import Path
 
 import lib.convert as convertLib
 import lib.issue as issueLib
@@ -334,3 +335,150 @@ def test_to_uri():
     assert p == "file:///c:/users/prabhu/work/README.md"
     p = convertLib.to_uri("c:\\users\\prabhu\\work/com/src/main/README.md")
     assert p == "file:///c:/users/prabhu/work/com/src/main/README.md"
+
+
+def test_inspect_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "inspect",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "applicationId": "HelloShiftLeft",
+                    "vulnerability": {
+                        "firstDetected": "1587134045",
+                        "vulnerabilityId": "command-injection-attacker-controlled/b9790fedb5c49bf0c10a7cf72b0a5eab",
+                        "category": "a1-injection",
+                        "title": "Remote Code Execution: Command Injection through attacker-controlled data via `foo` in `SearchController.doGetSearch`",
+                        "description": "Attacker controlled data is used in a shell command without undergoing escaping or validation. This could allow an attacker to execute code on the server. Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query. By injecting hostile data, an attacker may trick the interpreter into executing unintended commands or accessing data without authorization which can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, denial of access or even a complete host takeover.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by using parameterized queries or by validating HTTP data (preferably on server-side by means of common input sanitation libraries or whitelisting) before using it.\n\n## Additional information\n\n**[CWE-77](https://cwe.mitre.org/data/definitions/77.html)**\n\n**[CWE-78](https://cwe.mitre.org/data/definitions/78.html)**\n\n**[CWE-917](https://cwe.mitre.org/data/definitions/917.html)**\n\n**[OWASP-A1](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection)**",
+                        "score": 9,
+                        "severity": "SEVERITY_HIGH_IMPACT",
+                        "dataFlow": {
+                            "spId": "sl/49089d37-68ff-47e3-9035-269e6e91a44d/HelloShiftLeft/86ad7190555ddb774563ac58d242919db87a0265/56f81248989870704c18042cc58d9ff18573e7aff5f1a8cb2a92f022556a20be/1",
+                            "occurrenceHash": "b9790fedb5c49bf0c10a7cf72b0a5eab",
+                            "dataFlow": {
+                                "list": [
+                                    {
+                                        "location": {
+                                            "lineNumber": 21,
+                                            "packageName": "io.shiftleft.controller",
+                                            "className": "io.shiftleft.controller.SearchController",
+                                            "methodName": "io.shiftleft.controller.SearchController.doGetSearch:java.lang.String(java.lang.String,javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest)",
+                                            "shortMethodName": "doGetSearch",
+                                            "fileName": "io/shiftleft/controller/SearchController.java",
+                                        },
+                                        "variableInfo": {
+                                            "parameter": {
+                                                "symbol": "foo",
+                                                "paramIndex": 1,
+                                                "type": "java.lang.String",
+                                            }
+                                        },
+                                        "methodId": "6974698689270346897",
+                                        "parameterId": "6974698689270346900",
+                                        "methodTags": [
+                                            {"key": "INTERFACE_WRITE"},
+                                            {"key": "EXPOSED_METHOD"},
+                                            {"key": "INTERFACE_READ"},
+                                            {
+                                                "key": "EXPOSED_METHOD_ROUTE",
+                                                "value": "/search/user",
+                                            },
+                                        ],
+                                        "parameterTags": [
+                                            {"key": "FROM_OUTSIDE", "value": "http"},
+                                            {
+                                                "key": "DATA_TYPE",
+                                                "value": "attacker-controlled",
+                                            },
+                                        ],
+                                        "id": "6974698689270346900",
+                                    },
+                                    {
+                                        "location": {
+                                            "lineNumber": 25,
+                                            "packageName": "io.shiftleft.controller",
+                                            "className": "io.shiftleft.controller.SearchController",
+                                            "methodName": "io.shiftleft.controller.SearchController.doGetSearch:java.lang.String(java.lang.String,javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest)",
+                                            "shortMethodName": "doGetSearch",
+                                            "fileName": "io/shiftleft/controller/SearchController.java",
+                                        },
+                                        "variableInfo": {
+                                            "local": {
+                                                "symbol": "foo",
+                                                "type": "java.lang.String",
+                                            }
+                                        },
+                                        "methodId": "6974698689270346897",
+                                        "methodTags": [
+                                            {"key": "INTERFACE_WRITE"},
+                                            {"key": "EXPOSED_METHOD"},
+                                            {"key": "INTERFACE_READ"},
+                                            {
+                                                "key": "EXPOSED_METHOD_ROUTE",
+                                                "value": "/search/user",
+                                            },
+                                        ],
+                                        "id": "6974698689270346957",
+                                    },
+                                    {
+                                        "location": {
+                                            "packageName": "org.springframework.expression.spel.standard",
+                                            "className": "org.springframework.expression.spel.standard.SpelExpressionParser",
+                                            "methodName": "org.springframework.expression.spel.standard.SpelExpressionParser.parseExpression:org.springframework.expression.Expression(java.lang.String)",
+                                            "shortMethodName": "parseExpression",
+                                            "fileName": "org/springframework/expression/spel/standard/SpelExpressionParser.java",
+                                        },
+                                        "variableInfo": {
+                                            "parameter": {
+                                                "symbol": "param0",
+                                                "paramIndex": 1,
+                                                "type": "java.lang.String",
+                                            }
+                                        },
+                                        "methodId": "2545",
+                                        "parameterId": "2548",
+                                        "methodTags": [
+                                            {"key": "INTERFACE_READ"},
+                                            {"key": "INTERFACE_WRITE"},
+                                        ],
+                                        "parameterTags": [
+                                            {"key": "TO_OUTSIDE", "value": "execute"},
+                                            {
+                                                "key": "DESCRIPTOR_USE",
+                                                "value": "execute",
+                                            },
+                                        ],
+                                        "id": "2548",
+                                    },
+                                ]
+                            },
+                        },
+                        "firstVersionDetected": "86ad7190555ddb774563ac58d242919db87a0265",
+                    },
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert jsondata
+
+
+def test_inspect_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "inspect", Path(__file__).parent / "data" / "inspect-report.json"
+    )
+    assert issues
+    assert len(issues) == 99
+    assert issues[0] == {
+        "rule_id": "a1-injection",
+        "title": "Remote Code Execution: Command Injection through attacker-controlled data via `foo` in `SearchController.doGetSearch`",
+        "description": "Attacker controlled data is used in a shell command without undergoing escaping or validation. This could allow an attacker to execute code on the server. Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query. By injecting hostile data, an attacker may trick the interpreter into executing unintended commands or accessing data without authorization which can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, denial of access or even a complete host takeover.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by using parameterized queries or by validating HTTP data (preferably on server-side by means of common input sanitation libraries or whitelisting) before using it.\n\n## Additional information\n\n**[CWE-77](https://cwe.mitre.org/data/definitions/77.html)**\n\n**[CWE-78](https://cwe.mitre.org/data/definitions/78.html)**\n\n**[CWE-917](https://cwe.mitre.org/data/definitions/917.html)**\n\n**[OWASP-A1](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection)**",
+        "score": 9,
+        "severity": "SEVERITY_HIGH_IMPACT",
+        "line_number": 21,
+        "filename": "io/shiftleft/controller/SearchController.java",
+    }

@@ -37,8 +37,14 @@ TELEMETRY_URL = "https://telemetry.appthreat.io/track"
 # Line number hash size
 HASH_DIGEST_SIZE = 8
 
+# ShiftLeft Inspect CLI command
+SHIFTLEFT_INSPECT_CMD = "/opt/sl-cli/sl-latest"
+
+# ShiftLeft vulnerabilities api url
+SHIFTLEFT_VULN_API = "https://www.shiftleft.io/api/v3/public/org/%(sl_org)s/app/%(app_name)s/version/%(version)s/vulnerabilities"
+
 """
-Supported language scan types
+Supported language scan types. Unused as a variable
 """
 scan_types = [
     "ansible",
@@ -81,6 +87,7 @@ ignore_directories = [
     "test",
     "tmp",
     "reports",
+    "node_modules",
 ]
 
 
@@ -299,6 +306,7 @@ tool_purpose_message = {
     "class": "Class file analyzer",
     "jar": "Jar file analyzer",
     "cpg": "ShiftLeft graph analyzer",
+    "inspect": "ShiftLeft Inspect deep analyzer",
 }
 
 # Map to link to the reference for the given rule
