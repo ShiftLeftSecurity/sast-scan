@@ -23,8 +23,6 @@ import re
 import sys
 import uuid
 
-# from hashlib import blake2b
-
 import sarif_om as om
 from jschema_to_python.to_json import to_json
 from reporter.sarif import render_html
@@ -32,9 +30,11 @@ from reporter.sarif import render_html
 import lib.config as config
 import lib.csv_parser as csv_parser
 import lib.xml_parser as xml_parser
-from lib.cwe import get_description, get_name
 from lib.context import find_repo_details
+from lib.cwe import get_description, get_name
 from lib.issue import issue_from_dict
+
+# from hashlib import blake2b
 
 LOG = logging.getLogger(__name__)
 
@@ -91,7 +91,27 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                 report_data = json.loads(rfile.read())
             except json.decoder.JSONDecodeError:
                 return issues, metrics, skips
-            if isinstance(report_data, list):
+            # Inspect uses vulnerabilities
+            if tool_name == "inspect":
+                for v in report_data.get("vulnerabilities"):
+                    if not v:
+                        continue
+                    vuln = v["vulnerability"]
+                    location = {}
+                    if vuln.get("dataFlow") and vuln.get("dataFlow").get("dataFlow"):
+                        location = vuln["dataFlow"]["dataFlow"]["list"][0]["location"]
+                    issues.append(
+                        {
+                            "rule_id": vuln["category"],
+                            "title": vuln["title"],
+                            "description": vuln["description"],
+                            "score": vuln["score"],
+                            "severity": vuln["severity"],
+                            "line_number": location.get("lineNumber"),
+                            "filename": location.get("fileName"),
+                        }
+                    )
+            elif isinstance(report_data, list):
                 issues = report_data
             else:
                 # NodeJsScan uses sec_issues

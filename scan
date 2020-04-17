@@ -31,6 +31,8 @@ import lib.config as config
 import lib.convert as convertLib
 import lib.context as context
 import lib.utils as utils
+import lib.inspect as inspect
+
 from lib.executor import exec_tool, execute_default_cmd
 from lib.telemetry import track
 
@@ -78,6 +80,13 @@ def build_args():
         help="Continue on error to prevent build from breaking",
     )
     parser.add_argument(
+        "--local-only",
+        action="store_true",
+        default=False,
+        dest="nocloud",
+        help="Do not enable cloud based scanning even for inspect users",
+    )
+    parser.add_argument(
         "--mode",
         default="ci",
         dest="scan_mode",
@@ -86,7 +95,7 @@ def build_args():
     return parser.parse_args()
 
 
-def scan(type_list, src, reports_dir, convert, scan_mode):
+def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
     """
     Method to initiate scan of the codebase
 
@@ -96,6 +105,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode):
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
       scan_mode Scan mode string
+      repo_context Repo context
     """
     for type_str in type_list:
         # Find if there is any scan mode specific config
@@ -113,6 +123,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode):
                     reports_dir,
                     convert,
                     scan_mode,
+                    repo_context,
                 )
             elif isinstance(cmd_map_list, dict):
                 for cmd_key, cmd_val in cmd_map_list.items():
@@ -124,12 +135,13 @@ def scan(type_list, src, reports_dir, convert, scan_mode):
                         reports_dir,
                         convert,
                         scan_mode,
+                        repo_context,
                     )
         else:
             # Look for any _scan function in this module for execution
             try:
                 getattr(sys.modules[__name__], "%s_scan" % type_str)(
-                    src, reports_dir, convert
+                    src, reports_dir, convert, repo_context
                 )
             except Exception as e:
                 LOG.warning(
@@ -139,7 +151,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode):
                 )
 
 
-def python_scan(src, reports_dir, convert):
+def python_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate scan of the python codebase
 
@@ -147,11 +159,12 @@ def python_scan(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
-    bandit_scan(src, reports_dir, convert)
+    bandit_scan(src, reports_dir, convert, repo_context)
 
 
-def bandit_scan(src, reports_dir, convert):
+def bandit_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate bandit scan of the python codebase
 
@@ -159,6 +172,7 @@ def bandit_scan(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
     convert_args = []
     report_fname = utils.get_report_file(
@@ -194,7 +208,7 @@ def bandit_scan(src, reports_dir, convert):
         )
 
 
-def java_scan(src, reports_dir, convert):
+def java_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate scan of the java codebase
 
@@ -202,18 +216,23 @@ def java_scan(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
-    findsecbugs_scan(src, reports_dir, convert)
-    pmd_scan(src, reports_dir, convert)
+    if inspect.is_authenticated():
+        inspect.inspect_scan("java", src, reports_dir, convert, repo_context)
+    else:
+        findsecbugs_scan(src, reports_dir, convert, repo_context)
+        pmd_scan(src, reports_dir, convert, repo_context)
 
 
-def pmd_scan(src, reports_dir, convert):
+def pmd_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate pmd scan of the java codebase
     Args:
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
     convert_args = []
     report_fname = utils.get_report_file("source", reports_dir, convert, ext_name="csv")
@@ -245,7 +264,7 @@ def pmd_scan(src, reports_dir, convert):
         )
 
 
-def findsecbugs_scan(src, reports_dir, convert):
+def findsecbugs_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate findsecbugs scan of the java codebase
 
@@ -253,6 +272,7 @@ def findsecbugs_scan(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
     report_fname = utils.get_report_file("class", reports_dir, convert, ext_name="xml")
     findsec_cmd = [
@@ -297,7 +317,7 @@ def findsecbugs_scan(src, reports_dir, convert):
             )
 
 
-def nodejs_scan(src, reports_dir, convert):
+def nodejs_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate scan of the node.js codebase
 
@@ -305,11 +325,12 @@ def nodejs_scan(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
     sec_scan(src, reports_dir, convert)
 
 
-def sec_scan(src, reports_dir, convert):
+def sec_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate Nodejs sec scan of the node.js codebase
 
@@ -317,6 +338,7 @@ def sec_scan(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
     convert_args = []
     report_fname = utils.get_report_file("source", reports_dir, convert)
@@ -337,7 +359,7 @@ def sec_scan(src, reports_dir, convert):
         )
 
 
-def bomgen(src, reports_dir, convert):
+def bomgen(src, reports_dir, convert, repo_context):
     """
     Method to generate cyclonedx bom file using cdxgen
 
@@ -345,6 +367,7 @@ def bomgen(src, reports_dir, convert):
       src Project dir
       reports_dir Directory for output reports
       convert Boolean to enable normalisation of reports json
+      repo_context Repo context
     """
     report_fname = utils.get_report_file("bom", reports_dir, convert, ext_name="xml")
     bom_args = ["cdxgen", "-o", report_fname, src]
@@ -372,6 +395,9 @@ def main():
         if workspace:
             config.set("WORKSPACE", workspace)
     config.reload()
+    # Check if we should authenticate with inspect
+    if not args.nocloud:
+        inspect.authenticate()
 
     # Identify project type
     if not type:
@@ -388,7 +414,7 @@ def main():
     reports_dir = args.reports_dir
     if not reports_dir:
         reports_dir = os.path.join(src_dir, "reports")
-    scan(type, src_dir, reports_dir, args.convert, scan_mode)
+    scan(type, src_dir, reports_dir, args.convert, scan_mode, repo_context)
     if reports_dir:
         sarif_files = utils.find_files(reports_dir, ".sarif")
         agg_fname = None

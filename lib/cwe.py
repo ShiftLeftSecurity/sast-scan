@@ -1,5 +1,5 @@
-from pathlib import Path
 import csv
+from pathlib import Path
 
 cwe_software_csv = Path(__file__).parent / "data" / "cwe_software.csv"
 cwe_research_csv = Path(__file__).parent / "data" / "cwe_research.csv"

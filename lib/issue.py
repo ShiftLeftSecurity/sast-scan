@@ -179,11 +179,15 @@ class Issue(object):
 
         :param severity: String severity for the issue
         """
-        if severity == "ERROR":
+        if severity == "ERROR" or severity == "SEVERITY_HIGH_IMPACT":
             return "CRITICAL"
-        if severity == "WARN" or severity == "WARNING":
+        if (
+            severity == "WARN"
+            or severity == "WARNING"
+            or severity == "SEVERITY_MEDIUM_IMPACT"
+        ):
             return "MEDIUM"
-        if severity == "INFO":
+        if severity == "INFO" or severity == "SEVERITY_LOW_IMPACT":
             return "LOW"
         return severity.upper()
 
@@ -241,6 +245,8 @@ class Issue(object):
             self.code = data["lines"]
         if "filename" in data:
             self.fname = data["filename"]
+        if "fileName" in data:
+            self.fname = data["fileName"]
         if "location" in data and "filename" in data["location"]:
             self.fname = data["location"]["filename"]
         if "location" in data and "file" in data["location"]:

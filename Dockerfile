@@ -21,6 +21,7 @@ ENV GOSEC_VERSION=2.2.0 \
     FB_CONTRIB_VERSION=7.4.7 \
     SB_VERSION=4.0.1 \
     GOPATH=/opt/app-root/go \
+    SHIFTLEFT_HOME=/opt/sl-cli \
     PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:${GOPATH}/bin:
 
 USER root
@@ -68,7 +69,12 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
-    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar
+    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
+    && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
+    && chmod a+rx /usr/local/bin/shiftleft/sl \
+    && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin \
+    && /usr/local/bin/shiftleft/sl update go2cpg \
+    && /usr/local/bin/shiftleft/sl update csharp2cpg
 RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM shiftleft/scan-base-slim as sast-scan-tools
@@ -94,13 +100,16 @@ ENV APP_SRC_DIR=/usr/local/src \
     PMD_VERSION=6.22.0 \
     PMD_JAVA_OPTS="--enable-preview" \
     SPOTBUGS_HOME=/opt/spotbugs \
-    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.6.10-0.el8_1.x86_64 \
+    JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
+    JAVA_11_HOME=/usr/lib/jvm/jre-11-openjdk \
+    JAVA_8_HOME=/usr/lib/jvm/jre-1.8.0 \
     GRADLE_VERSION=6.0.1 \
     GRADLE_HOME=/opt/gradle \
     MAVEN_VERSION=3.6.3 \
     MAVEN_HOME=/opt/apache-maven \
     PYTHONUNBUFFERED=1 \
-    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/lib/jvm/java-11-openjdk-11.0.6.10-0.el8_1.x86_64/bin:/usr/local/go/bin:/opt/.cargo/bin:
+    SHIFTLEFT_HOME=/opt/sl-cli \
+    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
@@ -114,6 +123,7 @@ COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
 COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
+COPY --from=builder /opt/sl-cli /opt/sl-cli
 COPY rules-pmd.xml /usr/local/src/
 
 COPY requirements.txt /usr/local/src/
