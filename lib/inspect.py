@@ -143,9 +143,9 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     java_target_dir = config.get("SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target"))
     jar_files = utils.find_files(java_target_dir, ".jar")
     app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
+    repository_uri = repo_context.get("repositoryUri")
     if not app_name:
         app_name = os.path.dirname(src)
-    repository_uri = repo_context.get("repositoryUri")
     branch = repo_context.get("revisionId")
     if not jar_files:
         LOG.warning(

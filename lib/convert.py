@@ -388,8 +388,7 @@ def create_result(
     add_region_and_context_region(
         physical_location, issue_dict["line_number"], issue_dict["code"]
     )
-    issue_severity = issue_dict["issue_severity"]
-    issue_severity = tweak_severity(tool_name, issue_severity)
+    issue_severity = tweak_severity(tool_name, issue_dict["issue_severity"])
     fingerprint = {}
     """
     if physical_location.region and physical_location.region.snippet.text:
@@ -402,7 +401,10 @@ def create_result(
     return om.Result(
         rule_id=rule.id,
         rule_index=rule_index,
-        message=om.Message(text=issue_dict["issue_text"]),
+        message=om.Message(
+            text=issue_dict["issue_text"],
+            markdown=issue_dict["issue_text"] if tool_name == "inspect" else "",
+        ),
         level=level_from_severity(issue_severity),
         locations=[om.Location(physical_location=physical_location)],
         partial_fingerprints=fingerprint,
@@ -519,13 +521,30 @@ def get_rule_full_description(tool_name, rule_id, test_name, issue_dict):
     :return:
     """
     if rule_id and rule_id.upper().startswith("CWE"):
-        return get_description(rule_id)
+        return get_description(rule_id, False)
     issue_text = issue_dict.get("issue_text", "")
     # Extract just the first line alone
     if issue_text:
         issue_text = issue_text.split("\n")[0]
     if not issue_text.endswith("."):
         issue_text = issue_text + "."
+    return issue_text
+
+
+def get_help(format, tool_name, rule_id, test_name, issue_dict):
+    """
+    Constructs a full description for the rule
+
+    :param format: text or markdown
+    :param tool_name:
+    :param rule_id:
+    :param test_name:
+    :param issue_dict:
+    :return: Help text
+    """
+    if rule_id and rule_id.upper().startswith("CWE"):
+        return get_description(rule_id, True)
+    issue_text = issue_dict.get("issue_text", "")
     return issue_text
 
 
@@ -563,8 +582,9 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     if rule_id in rules:
         return rules[rule_id], rule_indices[rule_id]
     precision = "high"
-    if rule_id and rule_id.upper().startswith("CWE"):
+    if rule_id and rule_id.upper().startswith("CWE") or tool_name == "inspect":
         precision = "very-high"
+    issue_severity = tweak_severity(tool_name, issue_dict["issue_severity"])
     rule = om.ReportingDescriptor(
         id=rule_id,
         name=issue_dict["test_name"],
@@ -578,8 +598,20 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
                 tool_name, rule_id, issue_dict["test_name"], issue_dict
             )
         },
+        help={
+            "text": get_help(
+                "text", tool_name, rule_id, issue_dict["test_name"], issue_dict
+            ),
+            "markdown": get_help(
+                "markdown", tool_name, rule_id, issue_dict["test_name"], issue_dict
+            ),
+        },
         help_uri=get_url(tool_name, rule_id, issue_dict["test_name"], issue_dict),
-        properties={"tags": ["ShiftLeft", "Scan"], "precision": precision},
+        properties={
+            "tags": ["ShiftLeft", "Inspect" if tool_name == "inspect" else "Scan"],
+            "precision": precision,
+        },
+        default_configuration={"level": level_from_severity(issue_severity),},
     )
 
     index = len(rules)

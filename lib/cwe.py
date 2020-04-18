@@ -51,16 +51,19 @@ def get_name(cid):
     return name
 
 
-def get_description(cid):
+def get_description(cid, extended=False):
     """
     Method to retrieve just the description for the given cwe
     :param cid: cwe id
+    :param extended Boolean to indicate if extended description is required
     :return: Description string
     """
     data = get(cid)
     if not data:
         return ""
     desc = data.get("Description")
+    if not extended:
+        return desc
     if data.get("Extended Description"):
         desc = desc + "\n" + data.get("Extended Description")
     desc = desc.replace("::TYPE:Relationship:NOTE:", "\n\nNOTE:\n")

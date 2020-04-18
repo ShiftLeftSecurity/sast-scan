@@ -34,6 +34,7 @@ def track(track_obj):
         disable_telemetry = False
     if track_obj and not disable_telemetry:
         try:
+            track_obj["tool"] = "@ShiftLeft/scan"
             requests.post(config.TELEMETRY_URL, json=track_obj)
         except Exception:
             logging.debug("Unable to send telemetry")
