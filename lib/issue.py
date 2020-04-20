@@ -49,6 +49,7 @@ class Issue(object):
         # Does the tool operate in snippet mode. Eg: gitleaks
         self.snippet_based = False
         self.line_hash = ""
+        self.first_found = None
 
     def __str__(self):
         return ("Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i") % (
@@ -164,6 +165,7 @@ class Issue(object):
             "issue_text": issue_text,
             "line_number": self.lineno,
             "line_range": self.linerange,
+            "first_found": self.first_found,
         }
 
         if with_code:
@@ -306,6 +308,8 @@ class Issue(object):
         self.lineno = self.get_lineno(data)
         if "line_range" in data:
             self.linerange = data["line_range"]
+        if "first_found" in data:
+            self.first_found = data["first_found"]
 
 
 def issue_from_dict(data):

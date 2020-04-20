@@ -484,4 +484,5 @@ def test_inspect_extract_issue():
         "line_number": 21,
         "filename": "io/shiftleft/controller/SearchController.java",
         "first_found": "86ad7190555ddb774563ac58d242919db87a0265",
+        "issue_confidence": "HIGH",
     }

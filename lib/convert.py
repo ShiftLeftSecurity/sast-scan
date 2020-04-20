@@ -102,8 +102,13 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                     vuln = v["vulnerability"]
                     location = {}
                     if vuln.get("dataFlow") and vuln.get("dataFlow").get("dataFlow"):
-                        location = vuln["dataFlow"]["dataFlow"]["list"][0]["location"]
+                        for l in vuln["dataFlow"]["dataFlow"]["list"]:
+                            if not l["location"].get("fileName").startswith("java"):
+                                location = l["location"]
+                                break
                     fileName = location.get("fileName")
+                    if fileName == "N/A":
+                        continue
                     if not file_name_prefix:
                         file_name_prefix = find_path_prefix(working_dir, fileName)
                     issues.append(
@@ -116,6 +121,7 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                             "line_number": location.get("lineNumber"),
                             "filename": os.path.join(file_name_prefix, fileName),
                             "first_found": vuln["firstVersionDetected"],
+                            "issue_confidence": "HIGH",
                         }
                     )
             elif isinstance(report_data, list):
@@ -356,9 +362,7 @@ def add_results(tool_name, issues, run, file_path_list=None, working_dir=None):
         run.tool.driver.rules = list(rules.values())
 
 
-def create_result(
-    tool_name, issue, rules, rule_indices, file_path_list=None, working_dir=None
-):
+def create_result(tool_name, issue, rules, rule_indices, file_path_list, working_dir):
     """Method to convert a single issue into result schema with rules
 
     :param tool_name: tool name
@@ -388,6 +392,8 @@ def create_result(
             # Make it relative path
             if WORKSPACE_PREFIX == "":
                 filename = re.sub(r"^" + working_dir + "/", WORKSPACE_PREFIX, filename)
+            elif not filename.startswith(working_dir):
+                filename = os.path.join(WORKSPACE_PREFIX, filename)
             else:
                 filename = re.sub(r"^" + working_dir, WORKSPACE_PREFIX, filename)
     physical_location = om.PhysicalLocation(
@@ -421,6 +427,7 @@ def create_result(
             "issue_confidence": issue_dict["issue_confidence"],
             "issue_severity": issue_severity,
         },
+        baseline_state="unchanged" if issue_dict["first_found"] else "new",
     )
 
 
@@ -458,6 +465,8 @@ def add_region_and_context_region(physical_location, line_number, code):
             snippet_line = snippet_lines[index]
         else:
             snippet_line = snippet_lines[0]
+    if snippet_line.strip().replace("\n", "") == "":
+        snippet_line = ""
     physical_location.region = om.Region(
         start_line=line_number, snippet=om.ArtifactContent(text=snippet_line)
     )

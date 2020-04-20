@@ -1,3 +1,18 @@
+# This file is part of Scan.
+
+# Scan is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Scan is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Scan.  If not, see <https://www.gnu.org/licenses/>.
+
 import json
 import logging
 import os
@@ -29,7 +44,7 @@ def is_authenticated():
 
 def authenticate():
     """
-    Method to authenticate with shiftleft inspect cloud when the required tokens gets passed via
+    Method to authenticate with ShiftLeft Inspect cloud when the required tokens gets passed via
     environment variables
     """
     if is_authenticated():
@@ -54,7 +69,7 @@ def authenticate():
                 "ShiftLeft Inspect authentication has failed. Please check the credentials"
             )
         else:
-            LOG.info("Successfully authenticated with inspect cloud")
+            LOG.info("Successfully authenticated with Inspect cloud")
 
 
 def fetch_findings(app_name, version, report_fname):
@@ -154,7 +169,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         if language == "java":
             analyze_files = utils.find_java_artifacts(analyze_target_dir)
     app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
-    no_cpg = config.get("SHIFTLEFT_NO_CPG")
+    cpg_mode = config.get("SHIFTLEFT_CPG")
     if not app_name:
         app_name = os.path.dirname(src)
     branch = repo_context.get("revisionId")
@@ -178,7 +193,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         "analyze",
         "--no-auto-update",
         "--wait",
-        "--cpg" if not no_cpg else "",
+        "--cpg" if cpg_mode else None,
         "--java",
         "--tag",
         "branch=" + branch,
@@ -186,6 +201,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         app_name,
     ]
     sl_args += [analyze_files[0]]
+    sl_args = [arg for arg in sl_args if arg is not None]
     env = os.environ.copy()
     env["JAVA_HOME"] = os.environ.get("JAVA_8_HOME")
     LOG.info(
