@@ -112,11 +112,18 @@ def fetch_findings(app_name, version, report_fname):
                         )
                 return findings_list
             else:
-                LOG.warning(
-                    "Unable to retrieve findings from Inspect Cloud. Status {}".format(
-                        r.status_code
+                if not findings_list:
+                    LOG.warning(
+                        "Unable to retrieve any findings from Inspect Cloud. Status {}".format(
+                            r.status_code
+                        )
                     )
-                )
+                else:
+                    LOG.debug(
+                        "Unable to retrieve some findings from Inspect Cloud. Proceeding with partial list. Status {}".format(
+                            r.status_code
+                        )
+                    )
                 return findings_list
         except Exception as e:
             logging.error(e)
@@ -140,24 +147,31 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         "inspect", reports_dir, convert, ext_name="json"
     )
     sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
-    java_target_dir = config.get("SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target"))
-    jar_files = utils.find_files(java_target_dir, ".jar")
+    analyze_target_dir = config.get(
+        "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
+    )
+    analyze_files = config.get("SHIFTLEFT_ANALYZE_FILE")
+    if not analyze_files:
+        if language == "java":
+            analyze_files = utils.find_java_artifacts(analyze_target_dir)
     app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
-    repository_uri = repo_context.get("repositoryUri")
+    no_cpg = config.get("SHIFTLEFT_NO_CPG")
     if not app_name:
         app_name = os.path.dirname(src)
     branch = repo_context.get("revisionId")
-    if not jar_files:
+    if not branch:
+        branch = "master"
+    if not analyze_files:
         LOG.warning(
-            "Unable to find any jar files in {}. Run mvn package or a similar command before invoking inspect scan".format(
-                java_target_dir
+            "Unable to find any build artifacts in {}. Run mvn package or a similar command before invoking inspect scan".format(
+                analyze_target_dir
             )
         )
         return
-    if len(jar_files) > 1:
+    if len(analyze_files) > 1:
         LOG.warning(
             "Multiple jar files found in {}. Only {} will be analyzed".format(
-                java_target_dir, jar_files[0]
+                analyze_target_dir, analyze_files[0]
             )
         )
     sl_args = [
@@ -165,15 +179,14 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         "analyze",
         "--no-auto-update",
         "--wait",
+        "--cpg" if not no_cpg else "",
         "--java",
+        "--tag",
+        "branch=" + branch,
         "--app",
         app_name,
     ]
-    if repository_uri:
-        sl_args += ["--git-remote-name", repository_uri]
-    if branch:
-        sl_args += ["--tag", "branch=" + branch]
-    sl_args += [jar_files[0]]
+    sl_args += [analyze_files[0]]
     env = os.environ.copy()
     env["JAVA_HOME"] = os.environ.get("JAVA_8_HOME")
     LOG.info("About to perform Inspect cloud analyze. This might take few minutes ...")
@@ -185,9 +198,13 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         return
     findings_data = fetch_findings(app_name, branch, report_fname)
     if findings_data and convert:
+        src_files_list = None
+        if language == "java":
+            # We need the filelist to fix the file location paths
+            src_files_list = utils.find_files(src, ".java")
         crep_fname = utils.get_report_file(
             "inspect", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "inspect", sl_args[1:], src, report_fname, crep_fname,
+            "inspect", sl_args[1:], src, report_fname, crep_fname, src_files_list
         )
