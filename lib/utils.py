@@ -74,11 +74,11 @@ def find_java_artifacts(search_dir):
     :param src: Directory to search
     :return: List of war or ear or jar files
     """
-    result = [p for p in Path(search_dir).rglob("*.war")]
+    result = [p.as_posix() for p in Path(search_dir).rglob("*.war")]
     if not result:
-        result = [p for p in Path(search_dir).rglob("*.ear")]
+        result = [p.as_posix() for p in Path(search_dir).rglob("*.ear")]
     if not result:
-        result = [p for p in Path(search_dir).rglob("*.jar")]
+        result = [p.as_posix() for p in Path(search_dir).rglob("*.jar")]
     # Zip up the target directory as a jar file for analysis
     if not result:
         with tempfile.NamedTemporaryFile(
