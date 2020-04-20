@@ -619,7 +619,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
             "tags": ["ShiftLeft", "Inspect" if tool_name == "inspect" else "Scan"],
             "precision": precision,
         },
-        default_configuration={"level": level_from_severity(issue_severity),},
+        default_configuration={"level": level_from_severity(issue_severity)},
     )
 
     index = len(rules)

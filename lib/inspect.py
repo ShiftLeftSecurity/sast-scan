@@ -142,7 +142,6 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
-    convert_args = []
     report_fname = utils.get_report_file(
         "inspect", reports_dir, convert, ext_name="json"
     )

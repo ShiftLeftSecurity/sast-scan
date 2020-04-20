@@ -89,8 +89,8 @@ def find_jar_files():
         os.path.join(os.environ["HOME"], ".gradle", "caches"),
     ]
     for path in jar_lib_path:
-        if not is_ignored_dir(path, root):
-            for root, dirs, files in os.walk(path):
+        for root, dirs, files in os.walk(path):
+            if not is_ignored_dir(path, root):
                 for file in files:
                     if file.endswith(".jar"):
                         result.append(os.path.join(root, file))
