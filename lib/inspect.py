@@ -189,7 +189,9 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     sl_args += [analyze_files[0]]
     env = os.environ.copy()
     env["JAVA_HOME"] = os.environ.get("JAVA_8_HOME")
-    LOG.info("About to perform Inspect cloud analyze. This might take few minutes ...")
+    LOG.info(
+        "About to perform ShiftLeft Inspect cloud analysis. This might take a few minutes ..."
+    )
     cp = exec_tool(sl_args, src, env=env)
     if cp.returncode != 0:
         LOG.warning("Inspect cloud analyze has failed with the below logs")
@@ -198,13 +200,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         return
     findings_data = fetch_findings(app_name, branch, report_fname)
     if findings_data and convert:
-        src_files_list = None
-        if language == "java":
-            # We need the filelist to fix the file location paths
-            src_files_list = utils.find_files(src, ".java")
         crep_fname = utils.get_report_file(
             "inspect", reports_dir, convert, ext_name="sarif"
         )
-        convertLib.convert_file(
-            "inspect", sl_args[1:], src, report_fname, crep_fname, src_files_list
-        )
+        convertLib.convert_file("inspect", sl_args[1:], src, report_fname, crep_fname)

@@ -144,6 +144,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                     src, reports_dir, convert, repo_context
                 )
             except Exception as e:
+                LOG.error(e)
                 LOG.warning(
                     "Scan using the {} plugin did not produce valid result".format(
                         type_str
@@ -327,7 +328,7 @@ def nodejs_scan(src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
-    sec_scan(src, reports_dir, convert)
+    sec_scan(src, reports_dir, convert, repo_context)
 
 
 def sec_scan(src, reports_dir, convert, repo_context):
@@ -391,7 +392,11 @@ def main():
     repo_context = context.find_repo_details(src_dir)
     workspace = os.environ.get("WORKSPACE", None)
     if workspace is None and scan_mode != "ide":
-        workspace = utils.get_workspace(repo_context)
+        # In case of GitHub action empty workspace forces relative url
+        if os.environ.get("GITHUB_ACTION") or os.environ.get("GITHUB_RUN_ID"):
+            workspace = ""
+        else:
+            workspace = utils.get_workspace(repo_context)
         if workspace:
             config.set("WORKSPACE", workspace)
     config.reload()
