@@ -469,7 +469,9 @@ def test_inspect_convert_issue():
 
 def test_inspect_extract_issue():
     issues, metrics, skips = convertLib.extract_from_file(
-        "inspect", Path(__file__).parent / "data" / "inspect-report.json"
+        "inspect",
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "inspect-report.json",
     )
     assert issues
     assert len(issues) == 99
@@ -481,4 +483,5 @@ def test_inspect_extract_issue():
         "severity": "SEVERITY_HIGH_IMPACT",
         "line_number": 21,
         "filename": "io/shiftleft/controller/SearchController.java",
+        "first_found": "86ad7190555ddb774563ac58d242919db87a0265",
     }

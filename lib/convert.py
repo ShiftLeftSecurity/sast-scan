@@ -33,6 +33,7 @@ import lib.xml_parser as xml_parser
 from lib.context import find_repo_details
 from lib.cwe import get_description, get_name
 from lib.issue import issue_from_dict
+from lib.utils import find_path_prefix
 
 # from hashlib import blake2b
 
@@ -56,10 +57,11 @@ def tweak_severity(tool_name, issue_severity):
     return issue_severity
 
 
-def extract_from_file(tool_name, report_file, file_path_list=None):
+def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
     """Extract properties from reports
 
     :param tool_name: tool name
+    :param working_dir: Working directory
     :param report_file: Report file
     :param file_path_list: Full file path for any manipulation
 
@@ -93,6 +95,7 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                 return issues, metrics, skips
             # Inspect uses vulnerabilities
             if tool_name == "inspect":
+                file_name_prefix = ""
                 for v in report_data.get("vulnerabilities"):
                     if not v:
                         continue
@@ -100,6 +103,9 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                     location = {}
                     if vuln.get("dataFlow") and vuln.get("dataFlow").get("dataFlow"):
                         location = vuln["dataFlow"]["dataFlow"]["list"][0]["location"]
+                    fileName = location.get("fileName")
+                    if not file_name_prefix:
+                        file_name_prefix = find_path_prefix(working_dir, fileName)
                     issues.append(
                         {
                             "rule_id": vuln["category"],
@@ -108,7 +114,8 @@ def extract_from_file(tool_name, report_file, file_path_list=None):
                             "score": vuln["score"],
                             "severity": vuln["severity"],
                             "line_number": location.get("lineNumber"),
-                            "filename": location.get("fileName"),
+                            "filename": os.path.join(file_name_prefix, fileName),
+                            "first_found": vuln["firstVersionDetected"],
                         }
                     )
             elif isinstance(report_data, list):
@@ -155,7 +162,9 @@ def convert_file(
 
     :return serialized_log: SARIF output data
     """
-    issues, metrics, skips = extract_from_file(tool_name, report_file, file_path_list)
+    issues, metrics, skips = extract_from_file(
+        tool_name, working_dir, report_file, file_path_list
+    )
     return report(
         tool_name,
         tool_args,
@@ -550,7 +559,6 @@ def get_help(format, tool_name, rule_id, test_name, issue_dict):
 
 def get_url(tool_name, rule_id, test_name, issue_dict):
     # Return stackoverflow url for now
-    # FIXME: The world needs an opensource SAST issue database!
     if issue_dict.get("test_ref_url"):
         return issue_dict.get("test_ref_url")
     if config.tool_ref_url.get(tool_name):
@@ -611,7 +619,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
             "tags": ["ShiftLeft", "Inspect" if tool_name == "inspect" else "Scan"],
             "precision": precision,
         },
-        default_configuration={"level": level_from_severity(issue_severity),},
+        default_configuration={"level": level_from_severity(issue_severity)},
     )
 
     index = len(rules)

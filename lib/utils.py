@@ -14,9 +14,50 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import re
 import tempfile
 import zipfile
 from pathlib import Path
+
+import lib.config as config
+
+
+def is_ignored_dir(base_dir, dir_name):
+    """
+    Method to find if the given directory is an ignored directory
+    :param base_dir: Base directory
+    :param dir_name: Directory to compare
+    :return:
+    """
+    if dir_name.startswith("/" + base_dir):
+        dir_name = re.sub(r"^/" + base_dir + "/", "", dir_name)
+    elif dir_name.startswith(base_dir):
+        dir_name = re.sub(r"^" + base_dir + "/", "", dir_name)
+    for d in config.ignore_directories:
+        if dir_name == d or dir_name.startswith(d):
+            return True
+    return False
+
+
+def find_path_prefix(base_dir, file_name):
+    """
+    Method to find path prefix by looking up the filename from the base_dir
+
+    :param base_dir: Base directory to search
+    :param file_name: Filename to search
+    :return: Path prefix to be added to the filename
+    """
+    file_path_obj = Path(file_name)
+    base_dir_obj = Path(base_dir)
+    if file_path_obj.is_absolute():
+        return ""
+    for f in base_dir_obj.rglob(file_path_obj.name):
+        if not is_ignored_dir(base_dir, f.parent.name):
+            ppath = f.as_posix()
+            if ppath.endswith(file_path_obj.name):
+                retpath = re.sub("^" + base_dir + "/", "", ppath)
+                return retpath.replace("/" + file_name, "")
+    return ""
 
 
 def find_python_reqfiles(path):
@@ -31,9 +72,10 @@ def find_python_reqfiles(path):
     result = []
     req_files = ["requirements.txt", "Pipfile", "Pipfile.lock", "conda.yml"]
     for root, dirs, files in os.walk(path):
-        for name in req_files:
-            if name in files:
-                result.append(os.path.join(root, name))
+        if not is_ignored_dir(path, root):
+            for name in req_files:
+                if name in files:
+                    result.append(os.path.join(root, name))
     return result
 
 
@@ -48,9 +90,10 @@ def find_jar_files():
     ]
     for path in jar_lib_path:
         for root, dirs, files in os.walk(path):
-            for file in files:
-                if file.endswith(".jar"):
-                    result.append(os.path.join(root, file))
+            if not is_ignored_dir(path, root):
+                for file in files:
+                    if file.endswith(".jar"):
+                        result.append(os.path.join(root, file))
     return result
 
 
@@ -60,11 +103,12 @@ def find_files(src, src_ext_name, use_start=False):
     """
     result = []
     for root, dirs, files in os.walk(src):
-        for file in files:
-            if file == src_ext_name or file.endswith(src_ext_name):
-                result.append(os.path.join(root, file))
-            elif use_start and file.startswith(src_ext_name):
-                result.append(os.path.join(root, file))
+        if not is_ignored_dir(src, root):
+            for file in files:
+                if file == src_ext_name or file.endswith(src_ext_name):
+                    result.append(os.path.join(root, file))
+                elif use_start and file.startswith(src_ext_name):
+                    result.append(os.path.join(root, file))
     return result
 
 
