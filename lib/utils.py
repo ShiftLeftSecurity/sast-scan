@@ -15,6 +15,8 @@
 
 import os
 import tempfile
+import zipfile
+from pathlib import Path
 
 
 def find_python_reqfiles(path):
@@ -63,6 +65,32 @@ def find_files(src, src_ext_name, use_start=False):
                 result.append(os.path.join(root, file))
             elif use_start and file.startswith(src_ext_name):
                 result.append(os.path.join(root, file))
+    return result
+
+
+def find_java_artifacts(search_dir):
+    """
+    Method to find java artifacts in the given directory
+    :param src: Directory to search
+    :return: List of war or ear or jar files
+    """
+    result = [p for p in Path(search_dir).rglob("*.war")]
+    if not result:
+        result = [p for p in Path(search_dir).rglob("*.ear")]
+    if not result:
+        result = [p for p in Path(search_dir).rglob("*.jar")]
+    # Zip up the target directory as a jar file for analysis
+    if not result:
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".jar", encoding="utf-8", delete=False
+        ) as zfile:
+            with zipfile.ZipFile(zfile.name, "w") as zf:
+                for dirname, subdirs, files in os.walk(search_dir):
+                    zf.write(dirname)
+                    for filename in files:
+                        if not filename.endswith(".jar"):
+                            zf.write(os.path.join(dirname, filename))
+        return [zfile.name]
     return result
 
 
