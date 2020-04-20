@@ -14,7 +14,7 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 RANKING = ["UNDEFINED", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
-CONFIDENCE_DEFAULT = "LOW"
+CONFIDENCE_DEFAULT = "MEDIUM"
 SEVERITY_DEFAULT = "LOW"
 
 PRIORITY_MAP = {
