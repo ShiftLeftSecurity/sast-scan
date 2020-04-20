@@ -236,3 +236,17 @@ def get_workspace(repo_context):
             repo_context["repositoryUri"], repo_context.get("branch")
         )
     return None
+
+
+def is_generic_package(filePath):
+    """
+    Method to determine if the filename belongs to any oss package.
+    Very basic and just checks for things that begin with java or org
+    :param filePath: filePath to check
+    :return: True if the filename begins with java or org. False otherwise
+    """
+    oss_package_prefixes = ["java", "org"]
+    for p in oss_package_prefixes:
+        if filePath.startswith(p):
+            return True
+    return False

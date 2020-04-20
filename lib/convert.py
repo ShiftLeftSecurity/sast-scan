@@ -33,7 +33,7 @@ import lib.xml_parser as xml_parser
 from lib.context import find_repo_details
 from lib.cwe import get_description, get_name
 from lib.issue import issue_from_dict
-from lib.utils import find_path_prefix
+from lib.utils import find_path_prefix, is_generic_package
 
 # from hashlib import blake2b
 
@@ -103,7 +103,7 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                     location = {}
                     if vuln.get("dataFlow") and vuln.get("dataFlow").get("dataFlow"):
                         for l in vuln["dataFlow"]["dataFlow"]["list"]:
-                            if not l["location"].get("fileName").startswith("java"):
+                            if not is_generic_package(l["location"].get("fileName")):
                                 location = l["location"]
                                 break
                     fileName = location.get("fileName")
