@@ -108,6 +108,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     MAVEN_VERSION=3.6.3 \
     MAVEN_HOME=/opt/apache-maven \
     PYTHONUNBUFFERED=1 \
+    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     SHIFTLEFT_HOME=/opt/sl-cli \
     PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:
 

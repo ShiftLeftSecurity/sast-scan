@@ -13,40 +13,42 @@ This repo builds `shiftleft/sast-scan`, a container image that powers the ShiftL
 
 ## Bundled tools
 
-| Programming Language | Tools                              |
-| -------------------- | ---------------------------------- |
-| ansible              | ansible-lint                       |
-| apex                 | pmd                                |
-| aws                  | cfn-lint, cfn_nag                  |
-| bash                 | shellcheck                         |
-| bom                  | cdxgen                             |
-| credscan             | gitleaks                           |
-| depscan              | dep-scan                           |
-| go                   | gosec, staticcheck                 |
-| java                 | cdxgen, gradle, find-sec-bugs, pmd |
-| jsp                  | pmd                                |
-| json                 | jq, jsondiff, jsonschema           |
-| kotlin               | detekt                             |
-| kubernetes           | kube-score                         |
-| nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
-| puppet               | puppet-lint                        |
-| plsql                | pmd                                |
-| python               | bandit, cdxgen, pipenv             |
-| ruby                 | cyclonedx-ruby                     |
-| rust                 | cdxgen, cargo-audit                |
-| terraform            | tfsec                              |
-| Visual Force (vf)    | pmd                                |
-| Apache Velocity (vm) | pmd                                |
-| yaml                 | yamllint                           |
+| Programming Language | Tools                                                 |
+| -------------------- | ----------------------------------------------------- |
+| ansible              | ansible-lint                                          |
+| apex                 | pmd                                                   |
+| aws                  | cfn-lint, cfn_nag                                     |
+| bash                 | shellcheck                                            |
+| bom                  | cdxgen                                                |
+| credscan             | gitleaks                                              |
+| depscan              | dep-scan                                              |
+| go                   | gosec, staticcheck                                    |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd, ShiftLeft Inspect |
+| jsp                  | pmd                                                   |
+| json                 | jq, jsondiff, jsonschema                              |
+| kotlin               | detekt                                                |
+| kubernetes           | kube-score                                            |
+| .Net                 | ShiftLeft Inspect, dep-scan                           |
+| nodejs               | cdxgen, NodeJsScan, eslint, yarn                      |
+| puppet               | puppet-lint                                           |
+| plsql                | pmd                                                   |
+| python               | bandit, cdxgen, pipenv                                |
+| ruby                 | cyclonedx-ruby                                        |
+| rust                 | cdxgen, cargo-audit                                   |
+| terraform            | tfsec                                                 |
+| Visual Force (vf)    | pmd                                                   |
+| Apache Velocity (vm) | pmd                                                   |
+| yaml                 | yamllint                                              |
 
 ## Bundled languages/runtime
 
 - jq
 - Golang 1.12
 - Python 3.6
-- OpenJDK 11 (jre)
+- OpenJDK 8 and 11 (jre)
 - Ruby 2.5.5
 - Rust
+- .Net core 2.1 and 3.1
 - Node.js 10
 - Yarnpkg
 
@@ -97,3 +99,7 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - VS Code extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.shiftleft-scan
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.sl-scan-results
+
+## Already a Scan user?
+
+Please let us [know](https://github.com/ShiftLeftSecurity/sast-scan/issues) so that we can add your logo or link here.

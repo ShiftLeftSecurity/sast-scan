@@ -64,7 +64,7 @@ def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.PIPE):
         )
         return cp
     except Exception as e:
-        LOG.exception(e)
+        LOG.error(e)
         return None
 
 

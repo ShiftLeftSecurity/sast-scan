@@ -51,6 +51,9 @@ def find_path_prefix(base_dir, file_name):
     base_dir_obj = Path(base_dir)
     if file_path_obj.is_absolute():
         return ""
+    tmpf = os.path.join(base_dir, file_name)
+    if os.path.exists(tmpf):
+        return ""
     for f in base_dir_obj.rglob(file_path_obj.name):
         if not is_ignored_dir(base_dir, f.parent.name):
             ppath = f.as_posix()
@@ -125,16 +128,30 @@ def find_java_artifacts(search_dir):
         result = [p.as_posix() for p in Path(search_dir).rglob("*.jar")]
     # Zip up the target directory as a jar file for analysis
     if not result:
+        is_empty = True
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".jar", encoding="utf-8", delete=False
         ) as zfile:
             with zipfile.ZipFile(zfile.name, "w") as zf:
                 for dirname, subdirs, files in os.walk(search_dir):
                     zf.write(dirname)
+                    is_empty = False
                     for filename in files:
                         if not filename.endswith(".jar"):
                             zf.write(os.path.join(dirname, filename))
-        return [zfile.name]
+        return [] if is_empty else [zfile.name]
+    return result
+
+
+def find_csharp_artifacts(search_dir):
+    """
+    Method to find .Net and .Net core project files in the given directory
+    :param src: Directory to search
+    :return: List of war or ear or jar files
+    """
+    result = [p.as_posix() for p in Path(search_dir).rglob("*.csproj")]
+    if not result:
+        result = [p.as_posix() for p in Path(search_dir).rglob("*.sln")]
     return result
 
 
@@ -160,7 +177,11 @@ def detect_project_type(src_dir, scan_mode):
         project_types.append("plsql")
     if find_files(src_dir, ".scala"):
         project_types.append("scala")
-    if find_files(src_dir, "pom.xml") or find_files(src_dir, ".gradle"):
+    if (
+        find_files(src_dir, "pom.xml")
+        or find_files(src_dir, ".gradle")
+        or os.environ.get("SHIFTLEFT_LANG_JAVA")
+    ):
         project_types.append("java")
         depscan_supported = True
     if find_files(src_dir, ".jsp"):
@@ -168,6 +189,13 @@ def detect_project_type(src_dir, scan_mode):
         depscan_supported = True
     if find_files(src_dir, "package.json"):
         project_types.append("nodejs")
+        depscan_supported = True
+    if (
+        find_files(src_dir, ".csproj")
+        or find_files(src_dir, ".sln")
+        or os.environ.get("SHIFTLEFT_LANG_CSHARP")
+    ):
+        project_types.append("csharp")
         depscan_supported = True
     if find_files(src_dir, "go.sum") or find_files(src_dir, "Gopkg.lock"):
         project_types.append("go")
@@ -245,8 +273,8 @@ def is_generic_package(filePath):
     :param filePath: filePath to check
     :return: True if the filename begins with java or org. False otherwise
     """
-    oss_package_prefixes = ["java", "org"]
+    oss_package_prefixes = ["java", "org", "microsoft"]
     for p in oss_package_prefixes:
-        if filePath.startswith(p):
+        if filePath.lower().startswith(p):
             return True
     return False
