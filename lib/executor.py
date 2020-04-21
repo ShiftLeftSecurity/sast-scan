@@ -32,7 +32,7 @@ logging.basicConfig(
 LOG = logging.getLogger(__name__)
 
 
-def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.PIPE):
+def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
     """
     Convenience method to invoke cli tools
 

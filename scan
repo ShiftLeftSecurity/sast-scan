@@ -50,6 +50,15 @@ product_logo = """
 ╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 """
 
+inspect_logo = """
+██╗███╗   ██╗███████╗██████╗ ███████╗ ██████╗████████╗
+██║████╗  ██║██╔════╝██╔══██╗██╔════╝██╔════╝╚══██╔══╝
+██║██╔██╗ ██║███████╗██████╔╝█████╗  ██║        ██║   
+██║██║╚██╗██║╚════██║██╔═══╝ ██╔══╝  ██║        ██║   
+██║██║ ╚████║███████║██║     ███████╗╚██████╗   ██║   
+╚═╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚══════╝ ╚═════╝   ╚═╝   
+"""
+
 
 def build_args():
     """
@@ -224,6 +233,9 @@ def java_scan(src, reports_dir, convert, repo_context):
     else:
         findsecbugs_scan(src, reports_dir, convert, repo_context)
         pmd_scan(src, reports_dir, convert, repo_context)
+        LOG.info(
+            "NOTE: ShiftLeft Inspect offers a higher quality result for Java projects than scan. To enable Inspect, visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
+        )
 
 
 def csharp_scan(src, reports_dir, convert, repo_context):
@@ -240,10 +252,10 @@ def csharp_scan(src, reports_dir, convert, repo_context):
         inspect.inspect_scan("csharp", src, reports_dir, convert, repo_context)
     else:
         LOG.info(
-            "Scanning C# and .Net core projects is only possible with ShiftLeft Inspect. Visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables for scan."
+            "Scanning C# and .Net core projects is only possible with ShiftLeft Inspect. To enable Inspect, visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
         )
         LOG.info(
-            "Alternatively, know any other open-source scanner for .Net? Send us a PR 👍"
+            "Alternatively, know any alternative open-source scanner for .Net? Kindly send us a PR 👍"
         )
 
 
@@ -435,8 +447,11 @@ def main():
             type = utils.detect_project_type(src_dir, scan_mode)
     else:
         type = type.split(",")
-    print(product_logo)
-    LOG.info("Scanning {} using scan plugins {}".format(src_dir, type))
+    if inspect.is_authenticated():
+        print(inspect_logo)
+    else:
+        print(product_logo)
+    LOG.info("Scanning {} using plugins {}".format(src_dir, type))
     reports_dir = args.reports_dir
     if not reports_dir:
         reports_dir = os.path.join(src_dir, "reports")
