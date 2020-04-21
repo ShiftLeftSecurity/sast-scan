@@ -23,6 +23,7 @@ import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
 from lib.executor import exec_tool
+from lib.telemetry import track
 
 logging.basicConfig(
     level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
@@ -49,9 +50,10 @@ def authenticate():
     """
     if is_authenticated():
         return
-    sl_org = config.get("SHIFTLEFT_ORG_ID")
+    sl_org = config.get("SHIFTLEFT_ORG_ID", config.get("SHIFTLEFT_ORGANIZATION_ID"))
     sl_token = config.get("SHIFTLEFT_ACCESS_TOKEN")
     sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
+    run_uuid = config.get("run_uuid")
     if sl_org and sl_token and sl_cmd:
         inspect_login_args = [
             sl_cmd,
@@ -70,14 +72,17 @@ def authenticate():
             )
         else:
             LOG.info("Successfully authenticated with Inspect cloud")
+        track({"id": run_uuid, "scan_mode": "inspect", "sl_org": sl_org})
 
 
 def fetch_findings(app_name, version, report_fname):
     """
     Fetch findings from the Inspect Cloud
     """
-    sl_org = config.get("SHIFTLEFT_ORG_ID")
-    sl_org_token = config.get("SHIFTLEFT_ORG_TOKEN")
+    sl_org = config.get("SHIFTLEFT_ORG_ID", config.get("SHIFTLEFT_ORGANIZATION_ID"))
+    sl_org_token = config.get(
+        "SHIFTLEFT_ORG_TOKEN", config.get("SHIFTLEFT_ORGANIZATION_TOKEN")
+    )
     findings_api = config.get("SHIFTLEFT_VULN_API")
     findings_list = []
     if sl_org and sl_org_token:
@@ -157,19 +162,27 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
+    run_uuid = config.get("run_uuid")
+    cpg_mode = config.get("SHIFTLEFT_CPG")
+    env = os.environ.copy()
     report_fname = utils.get_report_file(
         "inspect", reports_dir, convert, ext_name="json"
     )
     sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
-    analyze_target_dir = config.get(
-        "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
-    )
     analyze_files = config.get("SHIFTLEFT_ANALYZE_FILE")
     if not analyze_files:
         if language == "java":
+            analyze_target_dir = config.get(
+                "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
+            )
             analyze_files = utils.find_java_artifacts(analyze_target_dir)
-    app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
-    cpg_mode = config.get("SHIFTLEFT_CPG")
+            env["JAVA_HOME"] = os.environ.get("JAVA_8_HOME")
+        if language == "csharp":
+            analyze_files = utils.find_csharp_artifacts(src)
+            cpg_mode = True
+    app_name = config.get("SHIFTLEFT_PROJECT_NAME")
+    if not app_name:
+        app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
     if not app_name:
         app_name = os.path.dirname(src)
     branch = repo_context.get("revisionId")
@@ -177,9 +190,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         branch = "master"
     if not analyze_files:
         LOG.warning(
-            "Unable to find any build artifacts in {}. Run mvn package or a similar command before invoking inspect scan".format(
-                analyze_target_dir
-            )
+            "Unable to find any build artifacts. Compile your project first before invoking scan."
         )
         return
     if len(analyze_files) > 1:
@@ -191,10 +202,10 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     sl_args = [
         sl_cmd,
         "analyze",
-        "--no-auto-update",
+        "--no-auto-update" if language == "java" else None,
         "--wait",
         "--cpg" if cpg_mode else None,
-        "--java",
+        "--" + language,
         "--tag",
         "branch=" + branch,
         "--app",
@@ -202,8 +213,6 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     ]
     sl_args += [analyze_files[0]]
     sl_args = [arg for arg in sl_args if arg is not None]
-    env = os.environ.copy()
-    env["JAVA_HOME"] = os.environ.get("JAVA_8_HOME")
     LOG.info(
         "About to perform ShiftLeft Inspect cloud analysis. This might take a few minutes ..."
     )
@@ -219,3 +228,4 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
             "inspect", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file("inspect", sl_args[1:], src, report_fname, crep_fname)
+    track({"id": run_uuid, "scan_mode": "inspect", "sl_args": sl_args})

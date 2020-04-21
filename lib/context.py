@@ -133,7 +133,7 @@ def find_repo_details(src_dir=None):
             "git@github.com:", "https://github.com/"
         ).replace(".git", "")
         # Is it a repo slug?
-        if not repositoryUri.startswith("http"):
+        if not repositoryUri.startswith("http") and not repositoryUri.startswith("git"):
             repositoryUri = "https://github.com/" + repositoryUri
     return {
         "repositoryName": repositoryName,

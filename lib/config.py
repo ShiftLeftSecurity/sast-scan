@@ -40,8 +40,13 @@ HASH_DIGEST_SIZE = 8
 # ShiftLeft Inspect CLI command
 SHIFTLEFT_INSPECT_CMD = "/opt/sl-cli/sl-latest"
 
+# ShiftLeft URI
+SHIFTLEFT_URI = "https://www.shiftleft.io"
+
 # ShiftLeft vulnerabilities api url
-SHIFTLEFT_VULN_API = "https://www.shiftleft.io/api/v3/public/org/%(sl_org)s/app/%(app_name)s/version/%(version)s/vulnerabilities"
+SHIFTLEFT_VULN_API = "{}/api/v3/public/org/%(sl_org)s/app/%(app_name)s/version/%(version)s/vulnerabilities".format(
+    SHIFTLEFT_URI
+)
 
 """
 Supported language scan types. Unused as a variable

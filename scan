@@ -226,6 +226,27 @@ def java_scan(src, reports_dir, convert, repo_context):
         pmd_scan(src, reports_dir, convert, repo_context)
 
 
+def csharp_scan(src, reports_dir, convert, repo_context):
+    """
+    Method to initiate scan of the csharp codebase
+
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+      repo_context Repo context
+    """
+    if inspect.is_authenticated():
+        inspect.inspect_scan("csharp", src, reports_dir, convert, repo_context)
+    else:
+        LOG.info(
+            "Scanning C# and .Net core projects is only possible with ShiftLeft Inspect. Visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables for scan."
+        )
+        LOG.info(
+            "Alternatively, know any other open-source scanner for .Net? Send us a PR 👍"
+        )
+
+
 def pmd_scan(src, reports_dir, convert, repo_context):
     """
     Method to initiate pmd scan of the java codebase
