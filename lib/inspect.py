@@ -195,7 +195,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         return
     if len(analyze_files) > 1:
         LOG.warning(
-            "Multiple jar files found in {}. Only {} will be analyzed".format(
+            "Multiple files found in {}. Only {} will be analyzed".format(
                 analyze_target_dir, analyze_files[0]
             )
         )

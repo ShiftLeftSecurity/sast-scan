@@ -51,6 +51,9 @@ def find_path_prefix(base_dir, file_name):
     base_dir_obj = Path(base_dir)
     if file_path_obj.is_absolute():
         return ""
+    tmpf = os.path.join(base_dir, file_name)
+    if os.path.exists(tmpf):
+        return ""
     for f in base_dir_obj.rglob(file_path_obj.name):
         if not is_ignored_dir(base_dir, f.parent.name):
             ppath = f.as_posix()
@@ -270,8 +273,8 @@ def is_generic_package(filePath):
     :param filePath: filePath to check
     :return: True if the filename begins with java or org. False otherwise
     """
-    oss_package_prefixes = ["java", "org"]
+    oss_package_prefixes = ["java", "org", "microsoft"]
     for p in oss_package_prefixes:
-        if filePath.startswith(p):
+        if filePath.lower().startswith(p):
             return True
     return False
