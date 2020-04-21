@@ -108,7 +108,7 @@ def fetch_findings(app_name, version, report_fname):
                     nextPageBookmark = findings_data.get("nextPageBookmark")
                     # Recurse and fetch all pages
                     while nextPageBookmark:
-                        LOG.info("Retrieving findings from next page")
+                        LOG.debug("Retrieving findings from next page")
                         r = requests.post(
                             findings_api,
                             headers=headers,
@@ -125,7 +125,7 @@ def fetch_findings(app_name, version, report_fname):
                                 nextPageBookmark = None
                     with open(report_fname, mode="w") as rp:
                         json.dump({"vulnerabilities": findings_list}, rp)
-                        LOG.info(
+                        LOG.debug(
                             "Data written to {}, {}".format(
                                 report_fname, len(findings_list)
                             )
