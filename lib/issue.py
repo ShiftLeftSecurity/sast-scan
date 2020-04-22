@@ -272,10 +272,8 @@ class Issue(object):
                     data.get("rule"), data.get("offender")
                 )
             else:
-                self.text = "Commit: {}\nLine: {}\n\nMessage: {}".format(
-                    data.get("commit", ""),
-                    data.get("line"),
-                    data.get("commitMessage", ""),
+                self.text = "Credential in plaintext?\n\nRule: {}\nLine: {}\n\nCommit: {}".format(
+                    data.get("rule", ""), data.get("line"), data.get("commit", ""),
                 )
             tmplines = data.get("line", "").split("\n")
             tmplines = [l for l in tmplines if l and l.strip() != ""]
