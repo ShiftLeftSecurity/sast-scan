@@ -25,7 +25,7 @@ runtimeValues = {}
 
 # Depth of credscan
 credscan_depth = "2"
-
+credscan_config = "/usr/local/src/credscan-config.toml"
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 
 # Flag to disable telemetry
@@ -157,6 +157,7 @@ scan_tools_args_map = {
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
+        "--config=" + get("credscan_config"),
         "--depth=" + get("credscan_depth"),
         "--repo-path=%(src)s",
         "--redact",
@@ -166,6 +167,7 @@ scan_tools_args_map = {
     ],
     "credscan-ide": [
         "gitleaks",
+        "--config=" + get("credscan_config"),
         "--uncommitted",
         "--repo-path=%(src)s",
         "--timeout=2m",
