@@ -31,8 +31,8 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --cov=. test
-    - name: Self sast-scan
-      uses: AppThreat/sast-scan-action@master
+    - name: Scan scan with scan
+      uses: ShiftLeftSecurity/scan-action@master
       with:
         output: reports
         type: python,bash,credscan,depscan
