@@ -233,9 +233,6 @@ def java_scan(src, reports_dir, convert, repo_context):
     else:
         findsecbugs_scan(src, reports_dir, convert, repo_context)
         pmd_scan(src, reports_dir, convert, repo_context)
-        LOG.info(
-            "NOTE: ShiftLeft Inspect offers a higher quality result for Java projects than scan. To enable Inspect, visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
-        )
 
 
 def csharp_scan(src, reports_dir, convert, repo_context):
@@ -280,8 +277,6 @@ def pmd_scan(src, reports_dir, convert, repo_context):
         "false",
         "-language",
         "java",
-        "-version",
-        "11",
         "-d",
         src,
         *convert_args,
