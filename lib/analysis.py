@@ -16,14 +16,12 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
-import logging
 
 from tabulate import tabulate
 
 import lib.aggregate as aggregate
 import lib.config as config
-
-LOG = logging.getLogger(__name__)
+from lib.logger import LOG
 
 
 def find_tool_shortname(desc):
@@ -114,5 +112,5 @@ def print_summary(report_summary):
         if not headers:
             headers = v.keys()
         table.append(v.values())
-    print("\n")
-    print(tabulate(table, headers, tablefmt="simple"))
+    print("\n", flush=True)
+    print(tabulate(table, headers, tablefmt="simple"), flush=True)

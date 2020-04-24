@@ -14,7 +14,6 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
-import logging
 import os
 
 import requests
@@ -23,12 +22,8 @@ import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
 from lib.executor import exec_tool
+from lib.logger import LOG
 from lib.telemetry import track
-
-logging.basicConfig(
-    level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
-)
-LOG = logging.getLogger(__name__)
 
 
 def is_authenticated():
@@ -146,7 +141,7 @@ def fetch_findings(app_name, version, report_fname):
                     )
                 return findings_list
         except Exception as e:
-            logging.error(e)
+            LOG.error(e)
     else:
         return findings_list
 
@@ -176,7 +171,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
                 "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
             )
             analyze_files = utils.find_java_artifacts(analyze_target_dir)
-            env["JAVA_HOME"] = os.environ.get("JAVA_8_HOME")
+            env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
         if language == "csharp":
             analyze_files = utils.find_csharp_artifacts(src)
             cpg_mode = True

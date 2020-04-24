@@ -16,11 +16,11 @@
 # Adapted from bandit/core
 
 import linecache
-import logging
 
 from six import moves
 
 import lib.constants as constants
+from lib.logger import LOG
 
 
 class Issue(object):
@@ -145,7 +145,7 @@ class Issue(object):
                             break
                         tmplineno = tmplineno + 1
             except Exception as e:
-                logging.debug(e)
+                LOG.debug(e)
             tmplt = "%i\t%s" if tabbed else "%i %s"
             return tmplt % (lineno, self.code)
 

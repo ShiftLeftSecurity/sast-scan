@@ -14,12 +14,9 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
-import logging
 import os
 import sys
 
-
-LOG = logging.getLogger(__name__)
 
 runtimeValues = {}
 
