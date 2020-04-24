@@ -1,0 +1,12 @@
+{
+  "extensions": [
+    "shiftleftsecurity.shiftleft-scan",
+    "visualstudioexptteam.vscodeintellicode",
+    "ms-python.python"
+  ],
+  "image": "shiftleft/sast-scan",
+  "settings": {
+
+  },
+  "postCreateCommand": "pip3 install -r ./requirements-dev.txt > /dev/null"
+}
