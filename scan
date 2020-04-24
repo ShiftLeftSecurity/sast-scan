@@ -32,6 +32,7 @@ import lib.context as context
 import lib.utils as utils
 import lib.inspect as inspect
 
+from pathlib import Path
 from lib.executor import exec_tool, execute_default_cmd
 from lib.telemetry import track
 from lib.logger import LOG
@@ -446,7 +447,7 @@ def main():
     if not reports_dir:
         reports_dir = os.path.join(src_dir, "reports")
     scan(type, src_dir, reports_dir, args.convert, scan_mode, repo_context)
-    sarif_files = utils.find_files(reports_dir, ".sarif")
+    sarif_files = [p.as_posix() for p in Path(reports_dir).rglob("*.sarif")]
     agg_fname = None
     if scan_mode != "ide":
         agg_fname = utils.get_report_file(
