@@ -14,7 +14,6 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import io
-import logging
 import os
 import subprocess
 
@@ -24,12 +23,23 @@ import reporter.licence as licence
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
+from lib.logger import LOG
 from lib.telemetry import track
 
-logging.basicConfig(
-    level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
-)
-LOG = logging.getLogger(__name__)
+
+def use_java(env):
+    """
+    Method to use the right java environment based on the environment variables SCAN_JAVA_HOME, SCAN_JAVA_11_HOME
+    :param env: Copy of all environment variables
+    :return: Env list with PATH suffixed by correct java home
+    """
+    if env.get("SCAN_JAVA_HOME"):
+        env["PATH"] = env["PATH"] + ":" + os.path.join(env["SCAN_JAVA_HOME"], "bin")
+        env["JAVA_HOME"] = env.get("SCAN_JAVA_HOME")
+    elif env.get("SCAN_JAVA_11_HOME"):
+        env["JAVA_HOME"] = env.get("SCAN_JAVA_11_HOME")
+        env["PATH"] = env["PATH"] + ":" + os.path.join(env["SCAN_JAVA_11_HOME"], "bin")
+    return env
 
 
 def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
@@ -46,10 +56,7 @@ def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
       CompletedProcess instance
     """
     try:
-        if env.get("JAVA_HOME"):
-            env["PATH"] = env["PATH"] + ":" + os.path.join(env["JAVA_HOME"], "bin")
-        else:
-            env["PATH"] = env["PATH"] + ":" + os.path.join(env["JAVA_11_HOME"], "bin")
+        env = use_java(env)
         LOG.info("=" * 80)
         LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
         cp = subprocess.run(

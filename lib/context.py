@@ -13,12 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
-import logging
 import os
 
 from git import Repo
 
-LOG = logging.getLogger(__name__)
+from lib.logger import LOG
 
 
 def find_repo_details(src_dir=None):

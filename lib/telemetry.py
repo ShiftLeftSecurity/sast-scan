@@ -13,11 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
-import logging
-
 import requests
 
 import lib.config as config
+from lib.logger import LOG
 
 
 def track(track_obj):
@@ -37,4 +36,4 @@ def track(track_obj):
             track_obj["tool"] = "@ShiftLeft/scan"
             requests.post(config.TELEMETRY_URL, json=track_obj)
         except Exception:
-            logging.debug("Unable to send telemetry")
+            LOG.debug("Unable to send telemetry")

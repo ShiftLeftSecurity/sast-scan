@@ -16,7 +16,6 @@
 import datetime
 import io
 import json
-import logging
 import os
 import pathlib
 import re
@@ -33,11 +32,10 @@ import lib.xml_parser as xml_parser
 from lib.context import find_repo_details
 from lib.cwe import get_description, get_name
 from lib.issue import issue_from_dict
+from lib.logger import LOG
 from lib.utils import find_path_prefix, is_generic_package
 
 # from hashlib import blake2b
-
-LOG = logging.getLogger(__name__)
 
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
