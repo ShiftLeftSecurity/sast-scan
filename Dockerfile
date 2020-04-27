@@ -111,6 +111,9 @@ ENV APP_SRC_DIR=/usr/local/src \
     PYTHONUNBUFFERED=1 \
     DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     SHIFTLEFT_HOME=/opt/sl-cli \
+    GO111MODULE=on \
+    GOARCH=amd64 \
+    GOOS=linux \
     PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
