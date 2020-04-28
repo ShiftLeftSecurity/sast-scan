@@ -49,10 +49,10 @@ product_logo = """
 inspect_logo = """
 ██╗███╗   ██╗███████╗██████╗ ███████╗ ██████╗████████╗
 ██║████╗  ██║██╔════╝██╔══██╗██╔════╝██╔════╝╚══██╔══╝
-██║██╔██╗ ██║███████╗██████╔╝█████╗  ██║        ██║   
-██║██║╚██╗██║╚════██║██╔═══╝ ██╔══╝  ██║        ██║   
-██║██║ ╚████║███████║██║     ███████╗╚██████╗   ██║   
-╚═╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚══════╝ ╚═════╝   ╚═╝   
+██║██╔██╗ ██║███████╗██████╔╝█████╗  ██║        ██║
+██║██║╚██╗██║╚════██║██╔═══╝ ██╔══╝  ██║        ██║
+██║██║ ╚████║███████║██║     ███████╗╚██████╗   ██║
+╚═╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚══════╝ ╚═════╝   ╚═╝
 """
 
 
@@ -63,14 +63,16 @@ def build_args():
     parser = argparse.ArgumentParser(
         description="Wrapper for various static analysis tools"
     )
-    parser.add_argument("--src", dest="src_dir", help="Source directory")
-    parser.add_argument("--out_dir", dest="reports_dir", help="Reports directory")
+    parser.add_argument("-i", "--src", dest="src_dir", help="Source directory")
+    parser.add_argument("-o", "--out_dir", dest="reports_dir", help="Reports directory")
     parser.add_argument(
+        "-t",
         "--type",
         dest="scan_type",
         help="Override project type if auto-detection is incorrect. Comma separated values for multiple types. Eg: python,bash,credscan",
     )
     parser.add_argument(
+        "-c",
         "--convert",
         action="store_true",
         default=True,
@@ -92,6 +94,7 @@ def build_args():
         help="Do not enable cloud based scanning even for inspect users",
     )
     parser.add_argument(
+        "-m",
         "--mode",
         default="ci",
         dest="scan_mode",

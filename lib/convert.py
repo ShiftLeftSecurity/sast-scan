@@ -458,7 +458,7 @@ def add_region_and_context_region(physical_location, line_number, code):
         end_line_number = first_line_number + 3
     index = line_number - first_line_number
     snippet_line = ""
-    if len(snippet_lines) > index:
+    if snippet_lines and len(snippet_lines) > index:
         if index > 0:
             snippet_line = snippet_lines[index]
         else:
@@ -521,9 +521,11 @@ def get_rule_short_description(tool_name, rule_id, test_name, issue_dict):
     """
     if rule_id and rule_id.upper().startswith("CWE"):
         return get_name(rule_id)
-    if not test_name.endswith("."):
-        test_name = test_name + "."
-    return test_name
+    if test_name:
+        if not test_name.endswith("."):
+            test_name = test_name + "."
+        return test_name
+    return "Rule {} from {}.".format(rule_id, tool_name)
 
 
 def get_rule_full_description(tool_name, rule_id, test_name, issue_dict):
