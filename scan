@@ -457,7 +457,7 @@ def main():
     reports_dir = args.reports_dir
     if not reports_dir:
         reports_dir = os.path.join(src_dir, "reports")
-    if args.auto_build:
+    if args.auto_build or config.get("scan_auto_build"):
         build_res = auto_build(type, src_dir, reports_dir)
         if not build_res:
             LOG.warning(

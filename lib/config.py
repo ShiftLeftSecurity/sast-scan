@@ -301,7 +301,6 @@ build_tools_map = {
     },
     "nodejs": {"npm": ["npm", "install"], "yarn": ["yarn", "install"]},
     "go": ["go", "build", "./..."],
-    "make": ["make"],
     "rust": ["cargo", "build"],
 }
 

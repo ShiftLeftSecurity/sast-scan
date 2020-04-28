@@ -2,6 +2,10 @@
 
 This page captures advanced customisation and tweaks supported by sast-scan.
 
+## Automatic build
+
+Scan can attempt to build certain project types such as Java, go, node.js, rust and csharp using the bundled runtimes. To enable auto build simply pass `--build` argument or set the environment variable `SCAN_AUTO_BUILD` to a non-empty value.
+
 ## Workspace path prefix
 
 sast-scan tool is typically invoked using the docker container image with volume mounts. Due to this behaviour, the source path the tools would see would be different to the source path in the developer laptop or in the CI environment.
