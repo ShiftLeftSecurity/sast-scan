@@ -9,41 +9,40 @@
 ╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-This repo builds `shiftleft/sast-scan`, a container image that powers the ShiftLeft Scan product. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This repo builds `shiftleft/sast-scan`, a container image that powers the ShiftLeft Scan product. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
 ## Bundled tools
 
-| Programming Language | Tools                                                 |
-| -------------------- | ----------------------------------------------------- |
-| ansible              | ansible-lint                                          |
-| apex                 | pmd                                                   |
-| aws                  | cfn-lint, cfn_nag                                     |
-| bash                 | shellcheck                                            |
-| bom                  | cdxgen                                                |
-| credscan             | gitleaks                                              |
-| depscan              | dep-scan                                              |
-| go                   | gosec, staticcheck                                    |
-| java                 | cdxgen, gradle, find-sec-bugs, pmd, ShiftLeft Inspect |
-| jsp                  | pmd                                                   |
-| json                 | jq, jsondiff, jsonschema                              |
-| kotlin               | detekt                                                |
-| kubernetes           | kube-score                                            |
-| .Net                 | ShiftLeft Inspect, dep-scan                           |
-| nodejs               | cdxgen, NodeJsScan, eslint, yarn                      |
-| puppet               | puppet-lint                                           |
-| plsql                | pmd                                                   |
-| python               | bandit, cdxgen, pipenv                                |
-| ruby                 | cyclonedx-ruby                                        |
-| rust                 | cdxgen, cargo-audit                                   |
-| terraform            | tfsec                                                 |
-| Visual Force (vf)    | pmd                                                   |
-| Apache Velocity (vm) | pmd                                                   |
-| yaml                 | yamllint                                              |
+| Programming Language | Tools                              |
+| -------------------- | ---------------------------------- |
+| ansible              | ansible-lint                       |
+| apex                 | pmd                                |
+| aws                  | cfn-lint, cfn_nag                  |
+| bash                 | shellcheck                         |
+| bom                  | cdxgen                             |
+| credscan             | gitleaks                           |
+| depscan              | dep-scan                           |
+| go                   | gosec, staticcheck                 |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd |
+| jsp                  | pmd                                |
+| json                 | jq, jsondiff, jsonschema           |
+| kotlin               | detekt                             |
+| kubernetes           | kube-score                         |
+| nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
+| puppet               | puppet-lint                        |
+| plsql                | pmd                                |
+| python               | bandit, cdxgen, pipenv             |
+| ruby                 | cyclonedx-ruby                     |
+| rust                 | cdxgen, cargo-audit                |
+| terraform            | tfsec                              |
+| Visual Force (vf)    | pmd                                |
+| Apache Velocity (vm) | pmd                                |
+| yaml                 | yamllint                           |
 
 ## Bundled languages/runtime
 
 - jq
-- Golang 1.12
+- Golang 1.13
 - Python 3.6
 - OpenJDK 8 and 11 (jre)
 - Ruby 2.5.5
