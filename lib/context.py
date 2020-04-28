@@ -18,6 +18,7 @@ import os
 from git import Repo
 
 from lib.logger import LOG
+from urllib.parse import urlparse
 
 
 def find_repo_details(src_dir=None):
@@ -136,8 +137,31 @@ def find_repo_details(src_dir=None):
             repositoryUri = "https://github.com/" + repositoryUri
     return {
         "repositoryName": repositoryName,
-        "repositoryUri": repositoryUri,
+        "repositoryUri": sanitize_url(repositoryUri),
         "revisionId": revisionId,
         "branch": branch,
         "invokedBy": invokedBy,
     }
+
+
+def sanitize_url(url):
+    """
+    Method to sanitize url to remove credentials and tokens
+
+    :param url: URL to sanitize
+    :return: sanitized url
+    """
+    result = urlparse(url)
+    username = result.username
+    password = result.password
+    sens_str = ""
+    if username and password:
+        sens_str = "{}:{}@".format(username, password)
+    elif username:
+        sens_str = "{}@".format(username)
+    url = url.replace(sens_str, "")
+    if username:
+        url = url.replace(username, "")
+    if password:
+        url = url.replace(password, "")
+    return url

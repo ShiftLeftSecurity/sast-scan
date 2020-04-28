@@ -18,3 +18,10 @@ def test_env_detection():
     repo_details = context.find_repo_details(None)
     assert repo_details["revisionId"] == "123"
     assert repo_details["branch"] == "develop"
+
+
+def test_sanitize():
+    u = context.sanitize_url("https://username:password@website.com/foo/bar")
+    assert u == "https://website.com/foo/bar"
+    u = context.sanitize_url("https://git-ci-token:password-123@website.com/foo/bar")
+    assert u == "https://website.com/foo/bar"
