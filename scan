@@ -33,6 +33,7 @@ import lib.utils as utils
 import lib.inspect as inspect
 
 from pathlib import Path
+from lib.builder import auto_build
 from lib.executor import exec_tool, execute_default_cmd
 from lib.telemetry import track
 from lib.logger import LOG
@@ -78,6 +79,13 @@ def build_args():
         default=True,
         dest="convert",
         help="Convert results to sarif json format",
+    )
+    parser.add_argument(
+        "--build",
+        action="store_true",
+        default=False,
+        dest="auto_build",
+        help="Attempt to automatically build the project for supported types",
     )
     parser.add_argument(
         "--no-error",
@@ -449,6 +457,12 @@ def main():
     reports_dir = args.reports_dir
     if not reports_dir:
         reports_dir = os.path.join(src_dir, "reports")
+    if args.auto_build:
+        build_res = auto_build(type, src_dir, reports_dir)
+        if not build_res:
+            LOG.warning(
+                "Automatic build was not successful. Please run scan after the build step"
+            )
     scan(type, src_dir, reports_dir, args.convert, scan_mode, repo_context)
     sarif_files = [p.as_posix() for p in Path(reports_dir).rglob("*.sarif")]
     agg_fname = None

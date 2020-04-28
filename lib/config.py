@@ -290,6 +290,20 @@ scan_tools_args_map = {
     "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
 }
 
+"""
+Map of build tools for various language types. Used for auto build feature
+"""
+build_tools_map = {
+    "csharp": ["dotnet", "build"],
+    "java": {
+        "maven": [get("MVN_CMD"), "compile"],
+        "gradle": [get("GRADLE_CMD"), "build"],
+    },
+    "nodejs": {"npm": ["npm", "install"], "yarn": ["yarn", "install"]},
+    "go": ["go", "build", "./..."],
+    "make": ["make"],
+    "rust": ["cargo", "build"],
+}
 
 """
 This map contains the SARIF purpose string for various tools
