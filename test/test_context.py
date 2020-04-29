@@ -25,3 +25,7 @@ def test_sanitize():
     assert u == "https://website.com/foo/bar"
     u = context.sanitize_url("https://git-ci-token:password-123@website.com/foo/bar")
     assert u == "https://website.com/foo/bar"
+    u = context.sanitize_url("")
+    assert u == ""
+    u = context.sanitize_url("git@gitexample.com/foo/bar")
+    assert u == "git@gitexample.com/foo/bar"
