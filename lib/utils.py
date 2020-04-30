@@ -170,7 +170,7 @@ def detect_project_type(src_dir, scan_mode):
     depscan_supported = False
     if find_files(src_dir, ".cls"):
         project_types.append("apex")
-    if find_python_reqfiles(src_dir):
+    if find_python_reqfiles(src_dir) or find_files(src_dir, ".py"):
         project_types.append("python")
         depscan_supported = True
     if find_files(src_dir, ".sql"):
@@ -187,7 +187,7 @@ def detect_project_type(src_dir, scan_mode):
     if find_files(src_dir, ".jsp"):
         project_types.append("jsp")
         depscan_supported = True
-    if find_files(src_dir, "package.json"):
+    if find_files(src_dir, "package.json") or find_files(src_dir, "yarn.lock") or find_files(src_dir, ".js"):
         project_types.append("nodejs")
         depscan_supported = True
     if (
