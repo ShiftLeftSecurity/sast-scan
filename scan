@@ -193,7 +193,7 @@ def bandit_scan(src, reports_dir, convert, repo_context):
     """
     convert_args = []
     report_fname = utils.get_report_file(
-        "source", reports_dir, convert, ext_name="json"
+        "source-python", reports_dir, convert, ext_name="json"
     )
     if reports_dir or convert:
         convert_args = [
@@ -218,10 +218,10 @@ def bandit_scan(src, reports_dir, convert, repo_context):
     exec_tool(bandit_args)
     if convert:
         crep_fname = utils.get_report_file(
-            "source", reports_dir, convert, ext_name="sarif"
+            "source-python", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "source", bandit_args[1:], src, report_fname, crep_fname,
+            "source-python", bandit_args[1:], src, report_fname, crep_fname,
         )
 
 
@@ -273,7 +273,9 @@ def pmd_scan(src, reports_dir, convert, repo_context):
       repo_context Repo context
     """
     convert_args = []
-    report_fname = utils.get_report_file("source", reports_dir, convert, ext_name="csv")
+    report_fname = utils.get_report_file(
+        "source-java", reports_dir, convert, ext_name="csv"
+    )
     if reports_dir or convert:
         convert_args = ["-r", report_fname, "-f", "csv"]
     pmd_cmd = os.environ["PMD_CMD"].split(" ")
@@ -293,10 +295,10 @@ def pmd_scan(src, reports_dir, convert, repo_context):
     exec_tool(pmd_args, src)
     if convert:
         crep_fname = utils.get_report_file(
-            "source", reports_dir, convert, ext_name="sarif"
+            "source-java", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "source", pmd_args[1:], src, report_fname, crep_fname,
+            "source-java", pmd_args[1:], src, report_fname, crep_fname,
         )
 
 
@@ -377,7 +379,7 @@ def sec_scan(src, reports_dir, convert, repo_context):
       repo_context Repo context
     """
     convert_args = []
-    report_fname = utils.get_report_file("source", reports_dir, convert)
+    report_fname = utils.get_report_file("source-js", reports_dir, convert)
     if reports_dir or convert:
         convert_args = [
             "--output",
@@ -388,10 +390,10 @@ def sec_scan(src, reports_dir, convert, repo_context):
     exec_tool(sec_args, src)
     if convert:
         crep_fname = utils.get_report_file(
-            "source", reports_dir, convert, ext_name="sarif"
+            "source-js", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "source", sec_args[1:], src, report_fname, crep_fname,
+            "source-js", sec_args[1:], src, report_fname, crep_fname,
         )
 
 

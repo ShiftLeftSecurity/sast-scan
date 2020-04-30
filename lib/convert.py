@@ -235,7 +235,7 @@ def report(
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX is not None else working_dir
     driver_name = config.tool_purpose_message.get(tool_name, tool_name)
-    if config.get("CI") or config.get("GITHUB_ACTIONS"):
+    if tool_name != "inspect" and config.get("CI") or config.get("GITHUB_ACTIONS"):
         driver_name = "ShiftLeft " + driver_name
     # Construct SARIF log
     log = om.SarifLog(

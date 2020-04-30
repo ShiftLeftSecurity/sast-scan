@@ -6,11 +6,6 @@ title = "gitleaks config"
 	tags = ["key", "AWS"]
 
 [[rules]]
-	description = "AWS cred file info"
-	regex = '''(?i)(aws_access_key_id|aws_secret_access_key)(.{0,20})?=.[0-9a-zA-Z\/+]{20,40}'''
-	tags = ["AWS"]
-
-[[rules]]
 	description = "AWS Secret Key"
 	regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z\/+]{40}['\"]'''
 	tags = ["key", "AWS"]
@@ -147,7 +142,7 @@ title = "gitleaks config"
   	fileNameRegex = '''(?i)(dump.sql|high-entropy-misc.txt)$'''
 	tags = ["entropy"]
         [[rules.Entropies]]
-            Min = "4.3"
+            Min = "4.5"
             Max = "7.0"
         [[rules.whitelist]]
             description = "ignore ssh key and pems"
