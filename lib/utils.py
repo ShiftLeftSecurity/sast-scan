@@ -187,7 +187,11 @@ def detect_project_type(src_dir, scan_mode):
     if find_files(src_dir, ".jsp"):
         project_types.append("jsp")
         depscan_supported = True
-    if find_files(src_dir, "package.json") or find_files(src_dir, "yarn.lock") or find_files(src_dir, ".js"):
+    if (
+        find_files(src_dir, "package.json")
+        or find_files(src_dir, "yarn.lock")
+        or find_files(src_dir, ".js")
+    ):
         project_types.append("nodejs")
         depscan_supported = True
     if (
