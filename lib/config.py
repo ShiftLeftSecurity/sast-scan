@@ -133,7 +133,7 @@ scan_tools_args_map = {
         "*.yml",
     ],
     "apex": {
-        "source": [
+        "source-apex": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -203,7 +203,7 @@ scan_tools_args_map = {
         "staticcheck": ["staticcheck", "-f", "json", "./..."],
     },
     "jsp": {
-        "source": [
+        "source-jsp": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -231,7 +231,7 @@ scan_tools_args_map = {
     ],
     "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
     "plsql": {
-        "source": [
+        "source-sql": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -252,7 +252,7 @@ scan_tools_args_map = {
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     "vf": {
-        "source": [
+        "source-vf": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -270,7 +270,7 @@ scan_tools_args_map = {
         ]
     },
     "vm": {
-        "source": [
+        "source-vm": [
             *os.environ["PMD_CMD"].split(" "),
             "-no-cache",
             "--failOnViolation",
@@ -319,6 +319,15 @@ tool_purpose_message = {
     "bandit": "Security audit for python",
     "staticcheck": "Go static analysis",
     "source": "Source code analyzer",
+    "source-java": "Source code analyzer for Java",
+    "source-python": "Source code analyzer for Python",
+    "source-js": "Source code analyzer for JavaScript",
+    "source-go": "Source code analyzer for go",
+    "source-vm": "Source code analyzer for Apache Velocity",
+    "source-vf": "Source code analyzer for VisualForce",
+    "source-sql": "Source code analyzer for SQL",
+    "source-jsp": "Source code analyzer for JSP",
+    "source-apex": "Source code analyzer for apex",
     "binary": "Binary byte-code analyzer",
     "class": "Class file analyzer",
     "jar": "Jar file analyzer",
