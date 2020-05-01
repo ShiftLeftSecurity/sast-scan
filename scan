@@ -481,6 +481,7 @@ def main():
                 "repo_context": repo_context,
                 "report_summary": report_summary,
                 "scan_mode": scan_mode,
+                "repo_type": type,
             }
         )
         if not args.noerror and not scan_mode == "ide":

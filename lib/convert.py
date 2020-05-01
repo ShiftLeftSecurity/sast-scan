@@ -138,13 +138,13 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                     if tmpL:
                         issues += tmpL
                     else:
-                        LOG.warning("%s produced no result" % tool_name)
+                        LOG.debug("%s produced no result" % tool_name)
                 elif "results" in report_data:
                     tmpL = report_data.get("results", [])
                     if tmpL:
                         issues += tmpL
                     else:
-                        LOG.warning("%s produced no result" % tool_name)
+                        LOG.debug("%s produced no result" % tool_name)
         if extn == ".csv":
             headers, issues = csv_parser.get_report_data(rfile)
         if extn == ".xml":

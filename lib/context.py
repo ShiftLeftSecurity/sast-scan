@@ -33,6 +33,7 @@ def find_repo_details(src_dir=None):
     revisionId = ""
     branch = ""
     invokedBy = ""
+    pullRequest = False
     """
     Since CI servers typically checkout repo in detached mode, we need to rely on environment
     variables as a starting point to find the repo details. To make matters worse, since we
@@ -125,7 +126,9 @@ def find_repo_details(src_dir=None):
                     )
         except Exception:
             LOG.debug("Unable to find repo details from the local repository")
-
+    if branch.startswith("refs/pull"):
+        pullRequest = True
+        branch = branch.replace("refs/pull/", "")
     # Cleanup the variables
     branch = branch.replace("refs/heads/", "")
     if repositoryUri:
@@ -141,6 +144,7 @@ def find_repo_details(src_dir=None):
         "revisionId": revisionId,
         "branch": branch,
         "invokedBy": invokedBy,
+        "pullRequest": pullRequest,
     }
 
 
@@ -157,11 +161,7 @@ def sanitize_url(url):
     sens_str = ""
     if username and password:
         sens_str = "{}:{}@".format(username, password)
-    elif username:
-        sens_str = "{}@".format(username)
     url = url.replace(sens_str, "")
-    if username:
-        url = url.replace(username, "")
     if password:
         url = url.replace(password, "")
     return url
