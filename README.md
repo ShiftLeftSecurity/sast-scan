@@ -137,6 +137,8 @@ Scan offers certain language specific container images with additional runtime v
 | shiftleft/scan-java   | Includes both Java 8 and 11 along with any ShiftLeft cli             |
 | shiftleft/scan-csharp | Includes both .Net core 2.1 and 3.1 SDK along with any ShiftLeft cli |
 
+For all other languages, continue to use `shiftleft/sast-scan` or `shiftleft/scan`
+
 ## Already a Scan user?
 
 Please let us [know](https://github.com/ShiftLeftSecurity/sast-scan/issues) so that we can add your logo or link here.

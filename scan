@@ -317,11 +317,16 @@ def findsecbugs_scan(src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
+    if not config.get("SPOTBUGS_HOME"):
+        LOG.warning(
+            "Java class analyzer is not available. Please check if your build uses shiftleft/scan or shiftleft/scan-java as the image"
+        )
+        return
     report_fname = utils.get_report_file("class", reports_dir, convert, ext_name="xml")
     findsec_cmd = [
         "java",
         "-jar",
-        os.environ["SPOTBUGS_HOME"] + "/lib/spotbugs.jar",
+        config.get("SPOTBUGS_HOME") + "/lib/spotbugs.jar",
     ]
     jar_files = utils.find_jar_files()
     with tempfile.NamedTemporaryFile(mode="w") as fp:

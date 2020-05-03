@@ -74,8 +74,7 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
     && chmod a+rx /usr/local/bin/shiftleft/sl \
     && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin \
-    && /usr/local/bin/shiftleft/sl update go2cpg \
-    && /usr/local/bin/shiftleft/sl update csharp2cpg
+    && /usr/local/bin/shiftleft/sl update go2cpg
 RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM appthreat/scan-base-slim as sast-scan-tools

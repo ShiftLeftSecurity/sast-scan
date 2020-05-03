@@ -67,6 +67,8 @@ LABEL maintainer="ShiftLeftSecurity" \
 
 ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
+    MVN_CMD="/opt/apache-maven/bin/mvn" \
+    PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     PYTHONUNBUFFERED=1 \
     DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     SHIFTLEFT_HOME=/opt/sl-cli \

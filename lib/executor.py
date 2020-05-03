@@ -151,6 +151,10 @@ def execute_default_cmd(
         convertLib.convert_file(
             cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
         )
+        try:
+            os.remove(report_fname)
+        except:
+            LOG.debug("Unable to remove file {}".format(report_fname))
     elif type_str == "depscan":
         # Convert depscan and license scan files to html
         depscan_files = utils.find_files(reports_dir, "depscan", True)
