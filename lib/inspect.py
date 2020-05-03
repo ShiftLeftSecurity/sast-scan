@@ -164,6 +164,12 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         "inspect", reports_dir, convert, ext_name="json"
     )
     sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
+    # Check if sl cli is available
+    if not utils.check_command(sl_cmd):
+        LOG.warning(
+            "sl cli is not available. Please check if your build uses shiftleft/scan as the image"
+        )
+        return
     analyze_files = config.get("SHIFTLEFT_ANALYZE_FILE")
     if not analyze_files:
         if language == "java":
@@ -173,6 +179,11 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
             analyze_files = utils.find_java_artifacts(analyze_target_dir)
             env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
         if language == "csharp":
+            if not utils.check_dotnet():
+                LOG.warning(
+                    "dotnet is not available. Please check if your build uses shiftleft/scan-csharp as the image"
+                )
+                return
             analyze_files = utils.find_csharp_artifacts(src)
             cpg_mode = True
     app_name = config.get("SHIFTLEFT_PROJECT_NAME")

@@ -15,6 +15,7 @@
 
 import os
 import re
+import shutil
 import tempfile
 import zipfile
 from pathlib import Path
@@ -282,3 +283,25 @@ def is_generic_package(filePath):
         if filePath.lower().startswith(p):
             return True
     return False
+
+
+def check_dotnet():
+    """
+    Method to check if dotnet is available
+
+    :return True if dotnet command is available. False otherwise
+    """
+    return check_command("dotnet")
+
+
+def check_command(cmd):
+    """
+    Method to check if command is available
+
+    :return True if command is available in PATH. False otherwise
+    """
+    try:
+        cpath = shutil.which(cmd, mode=os.F_OK | os.X_OK)
+        return cpath != None
+    except:
+        return False

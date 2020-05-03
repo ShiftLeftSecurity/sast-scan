@@ -134,7 +134,7 @@ scan_tools_args_map = {
     ],
     "apex": {
         "source-apex": [
-            *os.environ["PMD_CMD"].split(" "),
+            *get("PMD_CMD").split(" "),
             "-no-cache",
             "--failOnViolation",
             "false",
@@ -204,7 +204,7 @@ scan_tools_args_map = {
     },
     "jsp": {
         "source-jsp": [
-            *os.environ["PMD_CMD"].split(" "),
+            *get("PMD_CMD").split(" "),
             "-no-cache",
             "--failOnViolation",
             "false",
@@ -232,7 +232,7 @@ scan_tools_args_map = {
     "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
     "plsql": {
         "source-sql": [
-            *os.environ["PMD_CMD"].split(" "),
+            *get("PMD_CMD").split(" "),
             "-no-cache",
             "--failOnViolation",
             "false",
@@ -253,7 +253,7 @@ scan_tools_args_map = {
     "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     "vf": {
         "source-vf": [
-            *os.environ["PMD_CMD"].split(" "),
+            *get("PMD_CMD").split(" "),
             "-no-cache",
             "--failOnViolation",
             "false",
@@ -271,7 +271,7 @@ scan_tools_args_map = {
     },
     "vm": {
         "source-vm": [
-            *os.environ["PMD_CMD"].split(" "),
+            *get("PMD_CMD").split(" "),
             "-no-cache",
             "--failOnViolation",
             "false",

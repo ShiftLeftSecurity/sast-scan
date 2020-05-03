@@ -14,11 +14,11 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+from urllib.parse import urlparse
 
 from git import Repo
 
 from lib.logger import LOG
-from urllib.parse import urlparse
 
 
 def find_repo_details(src_dir=None):

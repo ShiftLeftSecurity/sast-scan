@@ -278,7 +278,12 @@ def pmd_scan(src, reports_dir, convert, repo_context):
     )
     if reports_dir or convert:
         convert_args = ["-r", report_fname, "-f", "csv"]
-    pmd_cmd = os.environ["PMD_CMD"].split(" ")
+    pmd_cmd = config.get("PMD_CMD").split(" ")
+    if not utils.check_command(pmd_cmd[0]):
+        LOG.warning(
+            "Java scanner is not available. Please check if your build uses shiftleft/scan or shiftleft/scan-java as the image"
+        )
+        return
     pmd_args = [
         *pmd_cmd,
         "-no-cache",
