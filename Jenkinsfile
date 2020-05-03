@@ -31,7 +31,7 @@ pipeline {
 					sshagent(credentials: ["${env.GITHUB_KEY}"]) {
 						checkout([
 								$class                           : 'GitSCM',
-								branches                         : [[name: "*/master"], [name: "*/feature**"]],
+								branches                         : [[name: "*/master"]],
 								doGenerateSubmoduleConfigurations: false,
 								extensions                       : [[
 												   $class             : 'SubmoduleOption',
@@ -64,9 +64,6 @@ pipeline {
 			}
 		}
 		stage('dockerPush') {
-			when {
-                branch "master"
-            }
 			steps {
 				script {
 					withDockerRegistry([credentialsId: '9a3c9d57-9e45-4c3f-b2af-69707fbd0597']) {
