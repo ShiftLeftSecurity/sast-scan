@@ -56,10 +56,10 @@ pipeline {
 				script {
 					env.COMMIT_HASH = sh(returnStdout: true, script: "git rev-parse HEAD | cut -c1-7").trim()
 					env.BUILD_DATE = sh(returnStdout: true, script: "date -u +'%Y-%m-%dT%H:%M:%SZ'").trim()
-					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -t shiftleft/sast-scan -t shiftleft/scan -t shiftleft/scan:${env.COMMIT_HASH} ."
-					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -f ci/Dockerfile-java -t shiftleft/scan-java -t shiftleft/scan-java:${env.COMMIT_HASH} ."
-					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -f ci/Dockerfile-csharp -t shiftleft/scan-csharp -t shiftleft/scan-csharp:${env.COMMIT_HASH} ."
-					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -f ci/Dockerfile-oss -t shiftleft/scan-oss -t shiftleft/scan-oss:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE=${env.BUILD_DATE} -t shiftleft/sast-scan -t shiftleft/scan -t shiftleft/scan:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE=${env.BUILD_DATE} -f ci/Dockerfile-java -t shiftleft/scan-java -t shiftleft/scan-java:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE=${env.BUILD_DATE} -f ci/Dockerfile-csharp -t shiftleft/scan-csharp -t shiftleft/scan-csharp:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE=${env.BUILD_DATE} -f ci/Dockerfile-oss -t shiftleft/scan-oss -t shiftleft/scan-oss:${env.COMMIT_HASH} ."
 				}
 			}
 		}
