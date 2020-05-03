@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-while sleep 1; do
-    ag -l | entr -cdrs 'docker build -t shiftleft/sast-scan -f Dockerfile .'
-done
+docker build -t shiftleft/sast-scan -t shiftleft/scan -f Dockerfile .
+docker build -t shiftleft/scan-java -f ci/Dockerfile-java .
+docker build -t shiftleft/scan-csharp -f ci/Dockerfile-csharp .
+docker build -t shiftleft/scan-oss -f ci/Dockerfile-oss .

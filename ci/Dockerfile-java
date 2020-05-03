@@ -73,11 +73,10 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && mv fb-contrib-${FB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
     && chmod a+rx /usr/local/bin/shiftleft/sl \
-    && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin \
-    && /usr/local/bin/shiftleft/sl update go2cpg
+    && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin
 RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
-FROM appthreat/scan-base-slim as sast-scan-tools
+FROM appthreat/scan-base-java as sast-scan-tools
 
 LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.schema-version="1.0" \

@@ -60,13 +60,41 @@ sast-scan is ideal for use with CI and also as a pre-commit hook for local devel
 Scan python project
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/sast-scan scan --src /app --type python
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app --type python
 ```
+
+On Windows the command changes slightly depending on the terminal.
+
+cmd
+
+```
+docker run --rm -e "WORKSPACE=%cd%" -e "GITHUB_TOKEN=%GITHUB_TOKEN%" -v "%cd%:/app:cached" shiftleft/scan scan
+```
+
+powershell and powershell core
+
+```
+docker run --rm -e "WORKSPACE=$(pwd)" -e "GITHUB_TOKEN=$env:GITHUB_TOKEN" -v "$(pwd):/app:cached" shiftleft/scan scan
+```
+
+WSL bash
+
+```
+docker run --rm -e "WORKSPACE=${PWD}" -e "GITHUB_TOKEN=${GITHUB_TOKEN}" -v "$PWD:/app:cached" shiftleft/scan scan
+```
+
+git-bash
+
+```
+docker run --rm -e "WORKSPACE=${PWD}" -e "GITHUB_TOKEN=${GITHUB_TOKEN}" -v "/$PWD:/app:cached" shiftleft/scan scan
+```
+
+Don't forget the slash (/) before \$PWD for git-bash!
 
 Scan multiple projects
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/sast-scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
 ```
 
 Scan java project
@@ -74,10 +102,10 @@ Scan java project
 For java and jvm language based projects, it is important to compile the projects before invoking sast-scan in the dev and CI workflow.
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app shiftleft/sast-scan scan --src /app --type java
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app shiftleft/scan scan --src /app --type java
 
 # For gradle project
-docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app shiftleft/sast-scan scan --src /app --type java
+docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/app shiftleft/scan scan --src /app --type java
 ```
 
 **Automatic project detection**
@@ -98,6 +126,18 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - VS Code extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.shiftleft-scan
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.sl-scan-results
+
+## Alternative container images
+
+Scan offers certain language specific container images with additional runtime versions and tools.
+
+| Image name            | Comments                                                             |
+| --------------------- | -------------------------------------------------------------------- |
+| shiftleft/scan-oss    | Just the OSS tools without any ShiftLeft cli                         |
+| shiftleft/scan-java   | Includes both Java 8 and 11 along with any ShiftLeft cli             |
+| shiftleft/scan-csharp | Includes both .Net core 2.1 and 3.1 SDK along with any ShiftLeft cli |
+
+For all other languages, continue to use `shiftleft/sast-scan` or `shiftleft/scan`
 
 ## Already a Scan user?
 

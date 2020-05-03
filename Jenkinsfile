@@ -31,7 +31,7 @@ pipeline {
 					sshagent(credentials: ["${env.GITHUB_KEY}"]) {
 						checkout([
 								$class                           : 'GitSCM',
-								branches                         : [[name: "*/master"]],
+								branches                         : [[name: "*/master"], [name: "*/feature**"]],
 								doGenerateSubmoduleConfigurations: false,
 								extensions                       : [[
 												   $class             : 'SubmoduleOption',
@@ -54,15 +54,27 @@ pipeline {
 		stage('dockerBuild') {
 			steps {
 				script {
-					sh "docker build -t shiftleft/sast-scan ."
+					env.COMMIT_HASH = sh(returnStdout: true, script: "git rev-parse HEAD | cut -c1-7").trim()
+					env.BUILD_DATE = sh(returnStdout: true, script: "date -u +'%Y-%m-%dT%H:%M:%SZ'").trim()
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -t shiftleft/sast-scan -t shiftleft/scan -t shiftleft/scan:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -f ci/Dockerfile-java -t shiftleft/scan-java -t shiftleft/scan-java:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -f ci/Dockerfile-csharp -t shiftleft/scan-csharp -t shiftleft/scan-csharp:${env.COMMIT_HASH} ."
+					sh "docker build --build-arg CLI_VERSION=${env.COMMIT_HASH} --build-arg BUILD_DATE="${env.BUILD_DATE}" -f ci/Dockerfile-oss -t shiftleft/scan-oss -t shiftleft/scan-oss:${env.COMMIT_HASH} ."
 				}
 			}
 		}
 		stage('dockerPush') {
+			when {
+                branch "master"
+            }
 			steps {
 				script {
 					withDockerRegistry([credentialsId: '9a3c9d57-9e45-4c3f-b2af-69707fbd0597']) {
+						sh "docker push shiftleft/scan"
 						sh "docker push shiftleft/sast-scan"
+						sh "docker push shiftleft/scan-java"
+						sh "docker push shiftleft/scan-csharp"
+						sh "docker push shiftleft/scan-oss"
 					}
 				}
 			}
