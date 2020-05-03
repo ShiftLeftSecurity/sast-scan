@@ -31,11 +31,12 @@ def is_authenticated():
     Method to check if we are authenticated
     """
     sl_home = config.get("SHIFTLEFT_HOME")
+    if not sl_home:
+        return False
     sl_config_json = os.path.join(sl_home, "config.json")
     if os.path.exists(sl_config_json):
         return True
-    else:
-        LOG.debug("ShiftLeft config {} not found".format(sl_config_json))
+    return False
 
 
 def authenticate():
