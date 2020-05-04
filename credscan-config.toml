@@ -156,7 +156,7 @@ title = "gitleaks config"
 
 [[rules]]
 	description = "Files with keys and credentials"
-    fileNameRegex = '''(?i)(id_rsa|passwd|id_rsa.pub|pgpass|pem|key|shadow)'''
+    fileNameRegex = '''(?i)(id_rsa|passwd|id_rsa.pub|pgpass|pem)'''
 
 [whitelist]
 	description = "image whitelists"
