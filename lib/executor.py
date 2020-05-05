@@ -164,7 +164,9 @@ def execute_default_cmd(
                 if depscan_data and len(depscan_data):
                     html_fname = df.replace(".json", ".html")
                     grafeas.render_html(depscan_data, html_fname)
-                    track({"id": config.get("run_uuid"), "depscan_summary": depscan_data})
+                    track(
+                        {"id": config.get("run_uuid"), "depscan_summary": depscan_data}
+                    )
                     LOG.debug(
                         "Depscan and HTML report written to file: %s, %s 👍",
                         df,
@@ -177,7 +179,9 @@ def execute_default_cmd(
                 if licence_data and len(licence_data):
                     html_fname = lf.replace(".json", ".html")
                     licence.render_html(licence_data, html_fname)
-                    track({"id": config.get("run_uuid"), "license_summary": licence_data})
+                    track(
+                        {"id": config.get("run_uuid"), "license_summary": licence_data}
+                    )
                     LOG.debug(
                         "License check and HTML report written to file: %s, %s 👍",
                         lf,
