@@ -114,7 +114,7 @@ Feel free to skip `--type` to enable auto-detection. Or pass comma-separated val
 
 ### Detailed documentation
 
-Please visit the official [documentation](https://docs.shiftleft.io/shiftleft/scan/scan) site for scan to learn about the configuration and CI/CD integration options.
+Please visit the official [documentation](https://slscan.io) site for scan to learn about the configuration and CI/CD integration options.
 
 ## Viewing reports
 

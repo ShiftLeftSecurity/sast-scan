@@ -152,8 +152,9 @@ def execute_default_cmd(
             cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
         )
         try:
-            os.remove(report_fname)
-        except:
+            if not os.environ.get("SCAN_DEBUG_MODE") == "debug":
+                os.remove(report_fname)
+        except Exception:
             LOG.debug("Unable to remove file {}".format(report_fname))
     elif type_str == "depscan":
         # Convert depscan and license scan files to html

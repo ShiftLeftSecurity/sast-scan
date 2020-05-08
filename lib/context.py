@@ -45,6 +45,7 @@ def find_repo_details(src_dir=None):
     only in few cases.
 
     Azure pipelines - https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+    BitBucket - https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html
     GitHub actions - https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables
     Google CloudBuild - https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
     CircleCI - https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
@@ -60,6 +61,7 @@ def find_repo_details(src_dir=None):
             if key in [
                 "BUILD_REPOSITORY_NAME",
                 "GITHUB_REPOSITORY",
+                "BITBUCKET_REPO_SLUG",
                 "REPO_NAME",
                 "CIRCLE_PROJECT_REPONAME",
                 "TRAVIS_REPO_SLUG",
@@ -73,6 +75,7 @@ def find_repo_details(src_dir=None):
                 "REPOSITORY_URL",
                 "BUILD_REPOSITORY_URI",
                 "GITHUB_REPOSITORY",
+                "BITBUCKET_GIT_HTTP_ORIGIN",
                 "REPO_NAME",
                 "CIRCLE_REPOSITORY_URL",
                 "TRAVIS_REPO_SLUG",
@@ -83,6 +86,7 @@ def find_repo_details(src_dir=None):
         if key in [
             "COMMIT_SHA",
             "BUILD_SOURCEVERSION",
+            "BITBUCKET_COMMIT",
             "GITHUB_SHA",
             "CIRCLE_SHA1",
             "TRAVIS_COMMIT",
@@ -93,6 +97,7 @@ def find_repo_details(src_dir=None):
         if key in [
             "BRANCH",
             "BUILD_SOURCEBRANCH",
+            "BITBUCKET_BRANCH",
             "GITHUB_REF",
             "BRANCH_NAME",
             "CIRCLE_BRANCH",
