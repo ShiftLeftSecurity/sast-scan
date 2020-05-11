@@ -1,9 +1,9 @@
 # vi:syntax=python
 
-load("/starlark/stable/pipeline", "git_checkout_dir", "storage_resource")
+load("github.com/mesosphere/dispatch-catalog/starlark/stable/pipeline@master", "git_checkout_dir", "storage_resource")
 
 __doc__ = """
-# Shiftleft
+# ShiftLeft Scan
 
 Provides methods for running [Shiftleft Scan](https://www.shiftleft.io/scan/) on your CI.
 
