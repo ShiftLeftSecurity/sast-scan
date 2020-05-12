@@ -7,8 +7,8 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build scan images
+- stage: Builders
+  displayName: Build and Release scan images
   jobs:
   - job: Build
     displayName: Docker Build and Push - default
@@ -27,16 +27,32 @@ stages:
         repository: shiftleft/scan
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Release base image
+      inputs:
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: shiftleft/scan
+        tags: |
           latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Build base image
       inputs:
-        command: 'buildAndPush'
+        command: 'push'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         repository: shiftleft/sast-scan
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Release base image
+      inputs:
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: shiftleft/sast-scan
+        tags: |
           latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_slim
     displayName: Docker Build and Push - slim
@@ -48,7 +64,7 @@ stages:
         command: 'login'
         containerRegistry: sl_docker
     - task: Docker@2
-      displayName: Build oss image
+      displayName: Build slim image
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang'
@@ -56,7 +72,16 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Release slim image
+      inputs:
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang'
+        repository: shiftleft/scan-slim
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
           latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_oss
     displayName: Docker Build and Push - oss
@@ -76,7 +101,16 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Release oss image
+      inputs:
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
+        repository: shiftleft/scan-oss
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
           latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_java
     displayName: Docker Build and Push - Java
@@ -96,7 +130,16 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Release java image
+      inputs:
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
+        repository: shiftleft/scan-java
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
           latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_csharp
     displayName: Docker Build and Push - Csharp
@@ -116,4 +159,13 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+    - task: Docker@2
+      displayName: Build csharp image
+      inputs:
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-csharp'
+        repository: shiftleft/scan-csharp
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
           latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
