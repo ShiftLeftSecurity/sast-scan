@@ -11,6 +11,8 @@
 
 ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This repo builds `shiftleft/sast-scan`, a container image that powers the ShiftLeft Scan product. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
+[![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
+
 ## Bundled tools
 
 | Programming Language | Tools                              |

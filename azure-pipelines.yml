@@ -39,7 +39,7 @@ stages:
     - task: Docker@2
       displayName: Build base image
       inputs:
-        command: 'push'
+        command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         repository: shiftleft/sast-scan
         tags: |
