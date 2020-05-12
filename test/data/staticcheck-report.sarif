@@ -1,0 +1,4599 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Go static analysis",
+          "rules": [
+            {
+              "id": "",
+              "help": {
+                "text": "const compileStageMetricPrefex is unused.",
+                "markdown": "const compileStageMetricPrefex is unused."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "const compileStageMetricPrefex is unused."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#",
+              "shortDescription": {
+                "text": "Rule  from staticcheck."
+              }
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "@ShiftLeft/sast-scan"
+          }
+        },
+        "invocation": {
+          "arguments": [
+            "-f",
+            "json",
+            "./..."
+          ],
+          "executionSuccessful": true,
+          "commandLine": "-f json ./...",
+          "endTimeUtc": "2020-05-09T12:18:41Z",
+          "workingDirectory": {
+            "uri": "file:///Users/prabhu/go/opa"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-05-09T12:18:41Z",
+          "workingDirectory": {
+            "uri": "file:///Users/prabhu/go/opa"
+          }
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "total": 125,
+          "critical": 0,
+          "high": 0,
+          "medium": 125,
+          "low": 0
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "markdown": "",
+            "text": "const compileStageMetricPrefex is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "const compileStageMetricPrefex = \"ast_compile_stage_\"\n"
+                  },
+                  "startLine": 202
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/compile.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nconst compileStageMetricPrefex = \"ast_compile_stage_\"\n"
+                  },
+                  "endLine": 202,
+                  "startLine": 201
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "type triePrinter is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "type triePrinter struct {\n"
+                  },
+                  "startLine": 643
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/index.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ntype triePrinter struct {\n"
+                  },
+                  "endLine": 643,
+                  "startLine": 642
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func assertParseErrorEquals is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func assertParseErrorEquals(t *testing.T, msg string, input string, expected string) {\n"
+                  },
+                  "startLine": 1690
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/parser_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc assertParseErrorEquals(t *testing.T, msg string, input string, expected string) {\n"
+                  },
+                  "endLine": 1690,
+                  "startLine": 1689
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "var hashSeed1 is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "var hashSeed1 = (uint64(hashSeed.Uint32()) << 32) | uint64(hashSeed.Uint32())\n"
+                  },
+                  "startLine": 23
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/policy.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "var hashSeed0 = (uint64(hashSeed.Uint32()) << 32) | uint64(hashSeed.Uint32())\nvar hashSeed1 = (uint64(hashSeed.Uint32()) << 32) | uint64(hashSeed.Uint32())\n"
+                  },
+                  "endLine": 23,
+                  "startLine": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "type ruleSlice is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "type ruleSlice []*Rule\n"
+                  },
+                  "startLine": 1322
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/policy.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ntype ruleSlice []*Rule\n"
+                  },
+                  "endLine": 1322,
+                  "startLine": 1321
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use copy() instead of a loop."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor i := range ref {\n"
+                  },
+                  "startLine": 912
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/term.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tdst := make(Ref, len(ref)+len(other))\n\tfor i := range ref {\n"
+                  },
+                  "endLine": 912,
+                  "startLine": 911
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use copy() instead of a loop."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor i := range ref {\n"
+                  },
+                  "startLine": 931
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/term.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tcpy := make(Ref, len(ref)+len(terms))\n\tfor i := range ref {\n"
+                  },
+                  "endLine": 931,
+                  "startLine": 930
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tnames, err := ReadBundleNamesFromStore(ctx, mockStore, txn)\n"
+                  },
+                  "startLine": 284
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/bundle/store_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ttxn = storage.NewTransactionOrDie(ctx, mockStore)\n\tnames, err := ReadBundleNamesFromStore(ctx, mockStore, txn)\n"
+                  },
+                  "endLine": 284,
+                  "startLine": 283
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tnames, err = ReadBundleNamesFromStore(ctx, mockStore, txn)\n"
+                  },
+                  "startLine": 362
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/bundle/store_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ttxn = storage.NewTransactionOrDie(ctx, mockStore)\n\tnames, err = ReadBundleNamesFromStore(ctx, mockStore, txn)\n"
+                  },
+                  "endLine": 362,
+                  "startLine": 361
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field profileTopResults is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tprofileTopResults bool\n"
+                  },
+                  "startLine": 50
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/cmd/eval.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tprofile           bool\n\tprofileTopResults bool\n"
+                  },
+                  "endLine": 50,
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary assignment to the blank identifier."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t_ = <-done\n"
+                  },
+                  "startLine": 85
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/download/download.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\td.stop <- done\n\t_ = <-done\n"
+                  },
+                  "endLine": 85,
+                  "startLine": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*Downloader).logError is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (d *Downloader) logError(fmt string, a ...interface{}) {\n"
+                  },
+                  "startLine": 175
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/download/download.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (d *Downloader) logError(fmt string, a ...interface{}) {\n"
+                  },
+                  "endLine": 175,
+                  "startLine": 174
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*Downloader).logInfo is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (d *Downloader) logInfo(fmt string, a ...interface{}) {\n"
+                  },
+                  "startLine": 179
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/download/download.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (d *Downloader) logInfo(fmt string, a ...interface{}) {\n"
+                  },
+                  "endLine": 179,
+                  "startLine": 178
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary assignment to the blank identifier."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t_ = <-called\n"
+                  },
+                  "startLine": 37
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/download/download_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\td.Start(ctx)\n\t_ = <-called\n"
+                  },
+                  "endLine": 37,
+                  "startLine": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field d is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\td      *Downloader\n"
+                  },
+                  "startLine": 115
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/download/download_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "type testFixture struct {\n\td      *Downloader\n"
+                  },
+                  "endLine": 115,
+                  "startLine": 114
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.Head."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcase *ast.Head:\n"
+                  },
+                  "startLine": 800
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/format/format.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\treturn x.Loc()\n\tcase *ast.Head:\n"
+                  },
+                  "endLine": 800,
+                  "startLine": 799
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.Expr."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcase *ast.Expr:\n"
+                  },
+                  "startLine": 802
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/format/format.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\treturn x.Location\n\tcase *ast.Expr:\n"
+                  },
+                  "endLine": 802,
+                  "startLine": 801
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.With."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcase *ast.With:\n"
+                  },
+                  "startLine": 804
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/format/format.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\treturn x.Location\n\tcase *ast.With:\n"
+                  },
+                  "endLine": 804,
+                  "startLine": 803
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.Term."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcase *ast.Term:\n"
+                  },
+                  "startLine": 806
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/format/format.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\treturn x.Location\n\tcase *ast.Term:\n"
+                  },
+                  "endLine": 806,
+                  "startLine": 805
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*writer).endMultilineSeq is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (w *writer) endMultilineSeq() {\n"
+                  },
+                  "startLine": 963
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/format/format.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (w *writer) endMultilineSeq() {\n"
+                  },
+                  "endLine": 963,
+                  "startLine": 962
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this result of append is never used, except maybe in other appends."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tparams = append(params, types.I32)\n"
+                  },
+                  "startLine": 384
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/internal/compiler/wasm/wasm.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tfor i := 0; i < len(fn.Params); i++ {\n\t\tparams = append(params, types.I32)\n"
+                  },
+                  "endLine": 384,
+                  "startLine": 383
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*Planner).planNumberFloat is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (p *Planner) planNumberFloat(f float64, iter planiter) error {\n"
+                  },
+                  "startLine": 1065
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/internal/planner/planner.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (p *Planner) planNumberFloat(f float64, iter planiter) error {\n"
+                  },
+                  "endLine": 1065,
+                  "startLine": 1064
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*Planner).planNumberInt is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (p *Planner) planNumberInt(i int64, iter planiter) error {\n"
+                  },
+                  "startLine": 1079
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/internal/planner/planner.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (p *Planner) planNumberInt(i int64, iter planiter) error {\n"
+                  },
+                  "endLine": 1079,
+                  "startLine": 1078
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*Planner).planSaveLocals is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (p *Planner) planSaveLocals(vars ...ir.Local) []ir.Local {\n"
+                  },
+                  "startLine": 1673
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/internal/planner/planner.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "// have been assigned from the supplied vars.\nfunc (p *Planner) planSaveLocals(vars ...ir.Local) []ir.Local {\n"
+                  },
+                  "endLine": 1673,
+                  "startLine": 1672
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "redundant return statement."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\treturn\n"
+                  },
+                  "startLine": 254
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/internal/storage/mock/mock.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tmockTxn.Aborted++\n\treturn\n"
+                  },
+                  "endLine": 254,
+                  "startLine": 253
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use time.Since instead of time.Now().Sub."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tdelta := time.Now().Sub(t.start).Nanoseconds()\n"
+                  },
+                  "startLine": 201
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/metrics/metrics.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tdefer t.mtx.Unlock()\n\tdelta := time.Now().Sub(t.start).Nanoseconds()\n"
+                  },
+                  "endLine": 201,
+                  "startLine": 200
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field legacyConfig is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tlegacyConfig  bool\n"
+                  },
+                  "startLine": 38
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/bundle/plugin.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tcfgMtx        sync.Mutex\n\tlegacyConfig  bool\n"
+                  },
+                  "endLine": 38,
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tManifest: bundle.Manifest{Revision: fmt.Sprintf(\"b2-1\"), Roots: &[]string{\"a/b2\", \"a/c\"}},\n"
+                  },
+                  "startLine": 1235
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/bundle/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tb = bundle.Bundle{\n\t\tManifest: bundle.Manifest{Revision: fmt.Sprintf(\"b2-1\"), Roots: &[]string{\"a/b2\", \"a/c\"}},\n"
+                  },
+                  "endLine": 1235,
+                  "startLine": 1234
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary assignment to the blank identifier."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t_ = <-done\n"
+                  },
+                  "startLine": 263
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/logs/plugin.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tp.stop <- done\n\t_ = <-done\n"
+                  },
+                  "endLine": 263,
+                  "startLine": 262
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary assignment to the blank identifier."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t_ = <-done\n"
+                  },
+                  "startLine": 350
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/logs/plugin.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\t_ = <-done\n"
+                  },
+                  "endLine": 350,
+                  "startLine": 349
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpluginConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 879
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/logs/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tpluginConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 879,
+                  "startLine": 878
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 902
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/logs/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 902,
+                  "startLine": 901
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 924
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/logs/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 924,
+                  "startLine": 923
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tloggerConfig := []byte(fmt.Sprintf(`{}`))\n"
+                  },
+                  "startLine": 940
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/logs/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func TestParseConfigDefaultServiceWithNoServiceOrConsole(t *testing.T) {\n\tloggerConfig := []byte(fmt.Sprintf(`{}`))\n"
+                  },
+                  "endLine": 940,
+                  "startLine": 939
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcreds, err = cs.credentials()\n"
+                  },
+                  "startLine": 139
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tvar creds awsCredentials\n\tcreds, err = cs.credentials()\n"
+                  },
+                  "endLine": 139,
+                  "startLine": 138
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcreds, err = cs.credentials()\n"
+                  },
+                  "startLine": 148
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tts.payload.AccessKeyID = \"ICHANGEDTHISBUTWEWONTSEEIT\"\n\tcreds, err = cs.credentials()\n"
+                  },
+                  "endLine": 148,
+                  "startLine": 147
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcreds, err = cs.credentials()\n"
+                  },
+                  "startLine": 168
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tcreds, err = cs.credentials()\n"
+                  },
+                  "endLine": 168,
+                  "startLine": 167
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcreds, err = cs.credentials()\n"
+                  },
+                  "startLine": 177
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tts.payload.AccessKeyID = \"ICHANGEDTHISANDWEWILLSEEIT\"\n\tcreds, err = cs.credentials()\n"
+                  },
+                  "endLine": 177,
+                  "startLine": 176
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "type testCredentialService is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "type testCredentialService struct{}\n"
+                  },
+                  "startLine": 185
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ntype testCredentialService struct{}\n"
+                  },
+                  "endLine": 185,
+                  "startLine": 184
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field t is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tt         *testing.T\n"
+                  },
+                  "startLine": 241
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "type credTestServer struct {\n\tt         *testing.T\n"
+                  },
+                  "endLine": 241,
+                  "startLine": 240
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field expPath is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\texpPath   string\n"
+                  },
+                  "startLine": 243
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tserver    *httptest.Server\n\texpPath   string\n"
+                  },
+                  "endLine": 243,
+                  "startLine": 242
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field expMethod is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\texpMethod string\n"
+                  },
+                  "startLine": 244
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\texpPath   string\n\texpMethod string\n"
+                  },
+                  "endLine": 244,
+                  "startLine": 243
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary assignment to the blank identifier."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t_ = <-done\n"
+                  },
+                  "startLine": 149
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tp.stop <- done\n\t_ = <-done\n"
+                  },
+                  "endLine": 149,
+                  "startLine": 148
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "parsing time \"2018-01-01T00:00:00.0000000-\": month out of range."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\ttDownload, _ := time.Parse(\"2018-01-01T00:00:00.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "startLine": 104
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tstatuses := map[string]*bundle.Status{}\n\ttDownload, _ := time.Parse(\"2018-01-01T00:00:00.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "endLine": 104,
+                  "startLine": 103
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "parsing time \"2018-01-01T00:00:01.0000000-\": month out of range."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\ttActivate, _ := time.Parse(\"2018-01-01T00:00:01.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "startLine": 105
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ttDownload, _ := time.Parse(\"2018-01-01T00:00:00.0000000Z\", time.RFC3339Nano)\n\ttActivate, _ := time.Parse(\"2018-01-01T00:00:01.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "endLine": 105,
+                  "startLine": 104
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpluginConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 219
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tpluginConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 219,
+                  "startLine": 218
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 263
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 263,
+                  "startLine": 262
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 285
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tloggerConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 285,
+                  "startLine": 284
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tloggerConfig := []byte(fmt.Sprintf(`{}`))\n"
+                  },
+                  "startLine": 301
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func TestParseConfigDefaultServiceWithNoServiceOrConsole(t *testing.T) {\n\tloggerConfig := []byte(fmt.Sprintf(`{}`))\n"
+                  },
+                  "endLine": 301,
+                  "startLine": 300
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpluginConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "startLine": 347
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tpluginConfig := []byte(fmt.Sprintf(`{\n"
+                  },
+                  "endLine": 347,
+                  "startLine": 346
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "parsing time \"2018-01-01T00:00:00.0000000-\": month out of range."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\ttDownload, _ := time.Parse(\"2018-01-01T00:00:00.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "startLine": 395
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\ttDownload, _ := time.Parse(\"2018-01-01T00:00:00.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "endLine": 395,
+                  "startLine": 394
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "parsing time \"2018-01-01T00:00:01.0000000-\": month out of range."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\ttActivate, _ := time.Parse(\"2018-01-01T00:00:01.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "startLine": 396
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/status/plugin_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ttDownload, _ := time.Parse(\"2018-01-01T00:00:00.0000000Z\", time.RFC3339Nano)\n\ttActivate, _ := time.Parse(\"2018-01-01T00:00:01.0000000Z\", time.RFC3339Nano)\n"
+                  },
+                  "endLine": 396,
+                  "startLine": 395
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "type builtinCacheKey is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\ttype builtinCacheKey string\n"
+                  },
+                  "startLine": 761
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/rego/example_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\ttype builtinCacheKey string\n"
+                  },
+                  "endLine": 761,
+                  "startLine": 760
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpartial, err := r.PartialResult(ctx)\n"
+                  },
+                  "startLine": 826
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/rego/rego_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tpartial, err := r.PartialResult(ctx)\n"
+                  },
+                  "endLine": 826,
+                  "startLine": 825
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpartialQuery, err := r.Partial(ctx)\n"
+                  },
+                  "startLine": 887
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/rego/rego_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tpartialQuery, err := r.Partial(ctx)\n"
+                  },
+                  "endLine": 887,
+                  "startLine": 886
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "only the first constant in this group has an explicit type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\texplainOff   explainMode = \"off\"\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/repl/repl.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "const (\n\texplainOff   explainMode = \"off\"\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use for {} instead of for true {}."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor true {\n"
+                  },
+                  "startLine": 132
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/repl/repl.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "loop:\n\tfor true {\n"
+                  },
+                  "endLine": 132,
+                  "startLine": 131
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use for {} instead of for true {}."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor true {\n"
+                  },
+                  "startLine": 167
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/repl/repl.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tfor true {\n"
+                  },
+                  "endLine": 167,
+                  "startLine": 166
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use 'return r.metrics != nil' instead of 'if r.metrics != nil { return true }; return false'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif r.metrics != nil {\n"
+                  },
+                  "startLine": 441
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/repl/repl.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func (r *REPL) metricsEnabled() bool {\n\tif r.metrics != nil {\n"
+                  },
+                  "endLine": 441,
+                  "startLine": 440
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\terr = repl.OneShot(ctx, `unset magic`)\n"
+                  },
+                  "startLine": 651
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/repl/repl_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\trepl.OneShot(ctx, `package data.other`)\n\terr = repl.OneShot(ctx, `unset magic`)\n"
+                  },
+                  "endLine": 651,
+                  "startLine": 650
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the channel used with signal.Notify should be buffered."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tsignal.Notify(signalc, syscall.SIGINT, syscall.SIGTERM)\n"
+                  },
+                  "startLine": 331
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/runtime/runtime.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tsignalc := make(chan os.Signal)\n\tsignal.Notify(signalc, syscall.SIGINT, syscall.SIGTERM)\n"
+                  },
+                  "endLine": 331,
+                  "startLine": 330
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use for range instead of for { select {} }."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor {\n"
+                  },
+                  "startLine": 412
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/runtime/runtime.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func (rt *Runtime) readWatcher(ctx context.Context, watcher *fsnotify.Watcher, paths []string, onReload func(time.Duration, error)) {\n\tfor {\n"
+                  },
+                  "endLine": 412,
+                  "startLine": 411
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should omit nil check; len() for nil slices is defined as zero."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif certs := tls.PeerCertificates; certs != nil && len(certs) > 0 {\n"
+                  },
+                  "startLine": 25
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/identifier/tls.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif tls := r.TLS; tls != nil {\n\t\tif certs := tls.PeerCertificates; certs != nil && len(certs) > 0 {\n"
+                  },
+                  "endLine": 25,
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "type emptyObject is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\ttype emptyObject struct{}\n"
+                  },
+                  "startLine": 889
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\ttype emptyObject struct{}\n"
+                  },
+                  "endLine": 889,
+                  "startLine": 888
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "type mockDecisionBuffer is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "type mockDecisionBuffer struct {\n"
+                  },
+                  "startLine": 2583
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\ntype mockDecisionBuffer struct {\n"
+                  },
+                  "endLine": 2583,
+                  "startLine": 2582
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field count is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcount int\n"
+                  },
+                  "startLine": 3282
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tstorage.IndexingNotSupported\n\tcount int\n"
+                  },
+                  "endLine": 3282,
+                  "startLine": 3281
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*fixture).loadResponse is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (f *fixture) loadResponse() interface{} {\n"
+                  },
+                  "startLine": 3394
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (f *fixture) loadResponse() interface{} {\n"
+                  },
+                  "endLine": 3394,
+                  "startLine": 3393
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use f.recorder.Body.Bytes() instead of []byte(f.recorder.Body.String())."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif err := util.UnmarshalJSON([]byte(f.recorder.Body.String()), &result); err != nil {\n"
+                  },
+                  "startLine": 3430
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tvar result interface{}\n\t\tif err := util.UnmarshalJSON([]byte(f.recorder.Body.String()), &result); err != nil {\n"
+                  },
+                  "endLine": 3430,
+                  "startLine": 3429
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field t is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tt   *testing.T\n"
+                  },
+                  "startLine": 3515
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "type mockResponseWriterConn struct {\n\tt   *testing.T\n"
+                  },
+                  "endLine": 3515,
+                  "startLine": 3514
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "field exp is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\texp []byte\n"
+                  },
+                  "startLine": 3516
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/server/server_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tt   *testing.T\n\texp []byte\n"
+                  },
+                  "endLine": 3516,
+                  "startLine": 3515
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func (*indices).iter is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func (ind *indices) iter(iter func(ast.Ref, *bindingIndex) error) error {\n"
+                  },
+                  "startLine": 91
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/storage/inmem/index.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc (ind *indices) iter(iter func(ast.Ref, *bindingIndex) error) error {\n"
+                  },
+                  "endLine": 91,
+                  "startLine": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "package \"github.com/open-policy-agent/opa/test/authz\" is being imported more than once."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\"github.com/open-policy-agent/opa/test/authz\"\n"
+                  },
+                  "startLine": 14
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/authz/authz_bench_integration_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\t\"github.com/open-policy-agent/opa/test/authz\"\n"
+                  },
+                  "endLine": 14,
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the goroutine calls T.Fatal, which must be called in the same goroutine as the test."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tgo func() {\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/concurrency/concurrency_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\twg.Add(1)\n\t\tgo func() {\n"
+                  },
+                  "endLine": 45,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the goroutine calls T.Fatalf, which must be called in the same goroutine as the test."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tgo func() {\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/concurrency/concurrency_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\twg.Add(1)\n\t\tgo func() {\n"
+                  },
+                  "endLine": 45,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn fmt.Errorf(\"Unexpected error creating request: %s\", err)\n"
+                  },
+                  "startLine": 214
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif err != nil {\n\t\treturn fmt.Errorf(\"Unexpected error creating request: %s\", err)\n"
+                  },
+                  "endLine": 214,
+                  "startLine": 213
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn fmt.Errorf(\"Failed to PUT the test policy: %s\", err)\n"
+                  },
+                  "startLine": 218
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif err != nil {\n\t\treturn fmt.Errorf(\"Failed to PUT the test policy: %s\", err)\n"
+                  },
+                  "endLine": 218,
+                  "startLine": 217
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn fmt.Errorf(\"Unexpected response: %d %s\", resp.StatusCode, resp.Status)\n"
+                  },
+                  "startLine": 221
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif resp.StatusCode != http.StatusOK {\n\t\treturn fmt.Errorf(\"Unexpected response: %d %s\", resp.StatusCode, resp.Status)\n"
+                  },
+                  "endLine": 221,
+                  "startLine": 220
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn fmt.Errorf(\"Unexpected error creating request: %s\", err)\n"
+                  },
+                  "startLine": 231
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif err != nil {\n\t\treturn fmt.Errorf(\"Unexpected error creating request: %s\", err)\n"
+                  },
+                  "endLine": 231,
+                  "startLine": 230
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn fmt.Errorf(\"Failed to PUT data: %s\", err)\n"
+                  },
+                  "startLine": 236
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif err != nil {\n\t\treturn fmt.Errorf(\"Failed to PUT data: %s\", err)\n"
+                  },
+                  "endLine": 236,
+                  "startLine": 235
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn fmt.Errorf(\"Unexpected response: %d %s\", resp.StatusCode, resp.Status)\n"
+                  },
+                  "startLine": 239
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif resp.StatusCode != http.StatusNoContent {\n\t\treturn fmt.Errorf(\"Unexpected response: %d %s\", resp.StatusCode, resp.Status)\n"
+                  },
+                  "endLine": 239,
+                  "startLine": 238
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn nil, fmt.Errorf(\"Unexpected error: %s\", err)\n"
+                  },
+                  "startLine": 258
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif err != nil {\n\t\treturn nil, fmt.Errorf(\"Unexpected error: %s\", err)\n"
+                  },
+                  "endLine": 258,
+                  "startLine": 257
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn nil, fmt.Errorf(\"Unexpected response status: %d %s\", resp.StatusCode, resp.Status)\n"
+                  },
+                  "startLine": 261
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif resp.StatusCode != http.StatusOK {\n\t\treturn nil, fmt.Errorf(\"Unexpected response status: %d %s\", resp.StatusCode, resp.Status)\n"
+                  },
+                  "endLine": 261,
+                  "startLine": 260
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "error strings should not be capitalized."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn nil, fmt.Errorf(\"Unexpected error reading response body: %s\", err)\n"
+                  },
+                  "startLine": 266
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/e2e/testing.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tif err != nil {\n\t\treturn nil, fmt.Errorf(\"Unexpected error reading response body: %s\", err)\n"
+                  },
+                  "endLine": 266,
+                  "startLine": 265
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "const path is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpath = \"src/github.com/open-policy-agent/opa/test/scheduler\"\n"
+                  },
+                  "startLine": 82
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/scheduler/scheduler_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "const (\n\tpath = \"src/github.com/open-policy-agent/opa/test/scheduler\"\n"
+                  },
+                  "endLine": 82,
+                  "startLine": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should replace loop with arrC = append(arrC, arrA...)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor _, elemA := range arrA {\n"
+                  },
+                  "startLine": 25
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/array.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tfor _, elemA := range arrA {\n"
+                  },
+                  "endLine": 25,
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should replace loop with arrC = append(arrC, arrB...)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfor _, elemB := range arrB {\n"
+                  },
+                  "startLine": 29
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/array.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tfor _, elemB := range arrB {\n"
+                  },
+                  "endLine": 29,
+                  "startLine": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use make(map[int]ast.Var) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tkeys := make(map[int]ast.Var, 0)\n"
+                  },
+                  "startLine": 38
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/bindings_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tb := newBindingsArrayHashmap()\n\tkeys := make(map[int]ast.Var, 0)\n"
+                  },
+                  "endLine": 38,
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "unnecessary use of fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tfmt.Sprintf(`\n"
+                  },
+                  "startLine": 52
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\tfmt.Sprintf(\"certs = %q { true }\", tc.certs),\n\t\t\tfmt.Sprintf(`\n"
+                  },
+                  "endLine": 52,
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func documentConflictErr is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func documentConflictErr(loc *ast.Location) error {\n"
+                  },
+                  "startLine": 97
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/errors.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc documentConflictErr(loc *ast.Location) error {\n"
+                  },
+                  "endLine": 97,
+                  "startLine": 96
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "func plugSlice is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "func plugSlice(xs []*ast.Term, b *bindings) []*ast.Term {\n"
+                  },
+                  "startLine": 2219
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/eval.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\nfunc plugSlice(xs []*ast.Term, b *bindings) []*ast.Term {\n"
+                  },
+                  "endLine": 2219,
+                  "startLine": 2218
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use 'return size <= 16' instead of 'if size > 16 { return false }; return true'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif size > 16 {\n"
+                  },
+                  "startLine": 2254
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/eval.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t// configurable or do something more clever.\n\tif size > 16 {\n"
+                  },
+                  "endLine": 2254,
+                  "startLine": 2253
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "redundant return statement."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\treturn\n"
+                  },
+                  "startLine": 130
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/http_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tjson.NewEncoder(w).Encode(headers)\n\treturn\n"
+                  },
+                  "endLine": 130,
+                  "startLine": 129
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should merge variable declaration with assignment on next line."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\t\tvar k *ast.Term\n"
+                  },
+                  "startLine": 87
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/input_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\tfor j := range tc.input {\n\t\t\t\tvar k *ast.Term\n"
+                  },
+                  "endLine": 87,
+                  "startLine": 86
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal([]byte{1}, b.Bytes()) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare([]byte{1}, b.Bytes()) != 0 {\n"
+                  },
+                  "startLine": 11
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tb := FromUint(1)\n\tif bytes.Compare([]byte{1}, b.Bytes()) != 0 {\n"
+                  },
+                  "endLine": 11,
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(v1, b.Bytes()) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare(v1, b.Bytes()) != 0 {\n"
+                  },
+                  "startLine": 19
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tb := Buffer(v1)\n\tif bytes.Compare(v1, b.Bytes()) != 0 {\n"
+                  },
+                  "endLine": 19,
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal([]byte(v2), b.Bytes()) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare([]byte(v2), b.Bytes()) != 0 {\n"
+                  },
+                  "startLine": 25
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tb = Buffer(v2)\n\tif bytes.Compare([]byte(v2), b.Bytes()) != 0 {\n"
+                  },
+                  "endLine": 25,
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal([]byte{'Y', 'W', 'J', 'j'}, v) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare([]byte{'Y', 'W', 'J', 'j'}, v) != 0 {\n"
+                  },
+                  "startLine": 36
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tif bytes.Compare([]byte{'Y', 'W', 'J', 'j'}, v) != 0 {\n"
+                  },
+                  "endLine": 36,
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "don't use Yoda conditions."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif `\"YWJj\"` != string(jsontxt) {\n"
+                  },
+                  "startLine": 48
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tif `\"YWJj\"` != string(jsontxt) {\n"
+                  },
+                  "endLine": 48,
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(b1, b2) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare(b1, b2) != 0 {\n"
+                  },
+                  "startLine": 58
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tif bytes.Compare(b1, b2) != 0 {\n"
+                  },
+                  "endLine": 58,
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "don't use Yoda conditions."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif 257 != b.Len() {\n"
+                  },
+                  "startLine": 70
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tif 257 != b.Len() {\n"
+                  },
+                  "endLine": 70,
+                  "startLine": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal([]byte{0, 0, 0, 5, 65, 108, 105, 99, 101}, nd) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare([]byte{0, 0, 0, 5, 65, 108, 105, 99, 101}, nd) != 0 {\n"
+                  },
+                  "startLine": 78
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tnd := Buffer(payload).NData()\n\tif bytes.Compare([]byte{0, 0, 0, 5, 65, 108, 105, 99, 101}, nd) != 0 {\n"
+                  },
+                  "endLine": 78,
+                  "startLine": 77
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(payload, b1.Bytes()) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare(payload, b1.Bytes()) != 0 {\n"
+                  },
+                  "startLine": 86
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/buffer/buffer_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tif bytes.Compare(payload, b1.Bytes()) != 0 {\n"
+                  },
+                  "endLine": 86,
+                  "startLine": 85
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "assigning the result of this type assertion to a variable (switch value := value.(type)) could eliminate type assertions in switch cases."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tswitch value.(type) {\n"
+                  },
+                  "startLine": 161
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/headers_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\tvar s string\n\t\t\tswitch value.(type) {\n"
+                  },
+                  "endLine": 161,
+                  "startLine": 160
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "only the first constant in this group has an explicit type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tKeyOpSign       KeyOperation = \"sign\"       // (compute digital signature or MAC)\n"
+                  },
+                  "startLine": 32
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/key_ops.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "const (\n\tKeyOpSign       KeyOperation = \"sign\"       // (compute digital signature or MAC)\n"
+                  },
+                  "endLine": 32,
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(jsonBuf1, jsonBuf2) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif bytes.Compare(jsonBuf1, jsonBuf2) != 0 {\n"
+                  },
+                  "startLine": 44
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/rsa_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\t\tif bytes.Compare(jsonBuf1, jsonBuf2) != 0 {\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tjwkKey, err = rawKeyJSON.GenerateKey()\n"
+                  },
+                  "startLine": 63
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/rsa_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t}\n\t\tjwkKey, err = rawKeyJSON.GenerateKey()\n"
+                  },
+                  "endLine": 63,
+                  "startLine": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tjwkKey, err = rawKeyJSON.GenerateKey()\n"
+                  },
+                  "startLine": 147
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/rsa_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\t}\n\t\t\tjwkKey, err = rawKeyJSON.GenerateKey()\n"
+                  },
+                  "endLine": 147,
+                  "startLine": 146
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(realizedKey0.([]byte), buf1) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif bytes.Compare(realizedKey0.([]byte), buf1) != 0 {\n"
+                  },
+                  "startLine": 67
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/symmetric_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t}\n\t\tif bytes.Compare(realizedKey0.([]byte), buf1) != 0 {\n"
+                  },
+                  "endLine": 67,
+                  "startLine": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(realizedKey1.([]byte), buf2) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif bytes.Compare(realizedKey1.([]byte), buf2) != 0 {\n"
+                  },
+                  "startLine": 83
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jwk/symmetric_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t}\n\t\tif bytes.Compare(realizedKey1.([]byte), buf2) != 0 {\n"
+                  },
+                  "endLine": 83,
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(payload, verified) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tif bytes.Compare(payload, verified) != 0 {\n"
+                  },
+                  "startLine": 104
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jws/jws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\t}\n\t\t\tif bytes.Compare(payload, verified) != 0 {\n"
+                  },
+                  "endLine": 104,
+                  "startLine": 103
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(payload, verified) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif bytes.Compare(payload, verified) != 0 {\n"
+                  },
+                  "startLine": 141
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jws/jws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tif bytes.Compare(payload, verified) != 0 {\n"
+                  },
+                  "endLine": 141,
+                  "startLine": 140
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use !bytes.Equal(payload, verified) instead."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif bytes.Compare(payload, verified) != 0 {\n"
+                  },
+                  "startLine": 164
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jws/jws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\t\tif bytes.Compare(payload, verified) != 0 {\n"
+                  },
+                  "endLine": 164,
+                  "startLine": 163
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpublicKey, err := jwkKeySet.Keys[0].Materialize()\n"
+                  },
+                  "startLine": 565
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/internal/jwx/jws/jws_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tpublicKey, err := jwkKeySet.Keys[0].Materialize()\n"
+                  },
+                  "endLine": 565,
+                  "startLine": 564
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "var jwtAlgKey is unused."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tjwtAlgKey = ast.StringTerm(\"alg\")\n"
+                  },
+                  "startLine": 34
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tjwtCtyKey = ast.StringTerm(\"cty\")\n\tjwtAlgKey = ast.StringTerm(\"alg\")\n"
+                  },
+                  "endLine": 34,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the argument is already a string, there's no need to use fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "startLine": 251
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tvar exp interface{}\n\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "endLine": 251,
+                  "startLine": 250
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the argument is already a string, there's no need to use fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "startLine": 354
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tvar exp interface{}\n\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "endLine": 354,
+                  "startLine": 353
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the argument is already a string, there's no need to use fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "startLine": 457
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tvar exp interface{}\n\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "endLine": 457,
+                  "startLine": 456
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpublicKey, err := jwk.GetPublicKey(key)\n"
+                  },
+                  "startLine": 586
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tpublicKey, err := jwk.GetPublicKey(key)\n"
+                  },
+                  "endLine": 586,
+                  "startLine": 585
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of err is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tpublicKey, err := jwk.GetPublicKey(key)\n"
+                  },
+                  "startLine": 710
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tpublicKey, err := jwk.GetPublicKey(key)\n"
+                  },
+                  "endLine": 710,
+                  "startLine": 709
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the argument is already a string, there's no need to use fmt.Sprintf."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "startLine": 1479
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/tokens_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tvar exp interface{}\n\t\texp = fmt.Sprintf(`%s`, p.result)\n"
+                  },
+                  "endLine": 1479,
+                  "startLine": 1478
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "the goroutine calls T.Fatalf, which must be called in the same goroutine as the test."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\tgo func() {\n"
+                  },
+                  "startLine": 124
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/topdown_bench_test.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t\twg.Add(1)\n\t\t\tgo func() {\n"
+                  },
+                  "endLine": 124,
+                  "startLine": 123
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "should use 'return b != nil' instead of 'if b == nil { return false }; return true'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif b == nil {\n"
+                  },
+                  "startLine": 142
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/trace.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func (b *BufferTracer) Enabled() bool {\n\tif b == nil {\n"
+                  },
+                  "endLine": 142,
+                  "startLine": 141
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of node is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tnode = node.Copy()\n"
+                  },
+                  "startLine": 255
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/trace.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tcase *ast.Expr:\n\t\tnode = node.Copy()\n"
+                  },
+                  "endLine": 255,
+                  "startLine": 254
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of node is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tnode = node.Copy()\n"
+                  },
+                  "startLine": 257
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/trace.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tcase ast.Body:\n\t\tnode = node.Copy()\n"
+                  },
+                  "endLine": 257,
+                  "startLine": 256
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "this value of node is never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tnode = node.Copy()\n"
+                  },
+                  "startLine": 259
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/trace.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\tcase *ast.Rule:\n\t\tnode = node.Copy()\n"
+                  },
+                  "endLine": 259,
+                  "startLine": 258
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "",
+          "ruleIndex": 0
+        }
+      ],
+      "automationDetails": {
+        "description": {
+          "text": "Static Analysis Security Test results using @ShiftLeft/sast-scan"
+        },
+        "guid": "bbd54c5f-d936-4d26-b435-e87b140b054d"
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "master",
+          "repositoryUri": "https://github.com/prabhu/opa",
+          "revisionId": "8630c3688f65a7620d894854918f1b19a39280dc"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "inlineExternalProperties": [
+    {
+      "guid": "bbd54c5f-d936-4d26-b435-e87b140b054d",
+      "runGuid": "cb172c12-4c62-442d-877e-26d5b44c26ab"
+    }
+  ]
+}

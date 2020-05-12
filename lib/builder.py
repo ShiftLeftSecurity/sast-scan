@@ -49,7 +49,7 @@ def auto_build(type_list, src, reports_dir):
             ret = ret & getattr(sys.modules[__name__], "%s_build" % ptype)(
                 src, reports_dir, lang_tools
             )
-        except Exception as e:
+        except Exception:
             LOG.debug("Unable to auto build project of type {}".format(ptype))
     return ret
 
@@ -114,6 +114,6 @@ def nodejs_build(src, reports_dir, lang_tools):
             cmd_args = ["yarn"]
         cmd_args += ["run", "build"]
         exec_tool(cmd_args, src)
-    except:
-        pass
+    except Exception:
+        LOG.debug("Automatic build has failed for the node.js project")
     return ret

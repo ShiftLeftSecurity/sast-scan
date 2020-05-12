@@ -12,7 +12,6 @@
 
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
-
 import json
 import os
 
@@ -31,11 +30,15 @@ def is_authenticated():
     Method to check if we are authenticated
     """
     sl_home = config.get("SHIFTLEFT_HOME")
-    if not sl_home:
-        return False
-    sl_config_json = os.path.join(sl_home, "config.json")
-    if os.path.exists(sl_config_json):
-        return True
+    sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
+    if utils.check_command(sl_cmd):
+        sl_config_json = os.path.join(sl_home, "config.json")
+        if os.path.exists(sl_config_json):
+            return True
+    else:
+        sl_org = config.get("SHIFTLEFT_ORG_ID", config.get("SHIFTLEFT_ORGANIZATION_ID"))
+        sl_token = config.get("SHIFTLEFT_ACCESS_TOKEN")
+        return sl_org is not None and sl_token is not None
     return False
 
 
@@ -50,7 +53,7 @@ def authenticate():
     sl_token = config.get("SHIFTLEFT_ACCESS_TOKEN")
     sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
     run_uuid = config.get("run_uuid")
-    if sl_org and sl_token and sl_cmd:
+    if sl_org and sl_token and sl_cmd and utils.check_command(sl_cmd):
         inspect_login_args = [
             sl_cmd,
             "auth",
@@ -147,6 +150,22 @@ def fetch_findings(app_name, version, report_fname):
         return findings_list
 
 
+def find_app_name(src, repo_context):
+    """
+    Method to retrieve the app name for inspect
+
+    :param src: Source directory
+    :param repo_context: Repo context
+    :return: App name string
+    """
+    app_name = config.get("SHIFTLEFT_PROJECT_NAME")
+    if not app_name:
+        app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
+    if not app_name:
+        app_name = os.path.dirname(src)
+    return app_name
+
+
 def inspect_scan(language, src, reports_dir, convert, repo_context):
     """
     Method to perform inspect cloud scan
@@ -187,11 +206,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
                 return
             analyze_files = utils.find_csharp_artifacts(src)
             cpg_mode = True
-    app_name = config.get("SHIFTLEFT_PROJECT_NAME")
-    if not app_name:
-        app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
-    if not app_name:
-        app_name = os.path.dirname(src)
+    app_name = find_app_name(src, repo_context)
     branch = repo_context.get("revisionId")
     if not branch:
         branch = "master"
@@ -226,7 +241,6 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     cp = exec_tool(sl_args, src, env=env)
     if cp.returncode != 0:
         LOG.warning("Inspect cloud analyze has failed with the below logs")
-        LOG.info(cp.stdout)
         LOG.info(cp.stderr)
         return
     findings_data = fetch_findings(app_name, branch, report_fname)
@@ -236,3 +250,99 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         )
         convertLib.convert_file("inspect", sl_args[1:], src, report_fname, crep_fname)
     track({"id": run_uuid, "scan_mode": "inspect", "sl_args": sl_args})
+
+
+def convert_to_findings(src_dir, repo_context, reports_dir, sarif_files):
+    """
+    Convert the sarif files to Inspect findings format
+
+    :param src_dir: Source directory
+    :param repo_context: Repository context
+    :param reports_dir: Reports directory
+    :param sarif_files: SARIF files
+    :return: None
+    """
+    app_name = find_app_name(src_dir, repo_context)
+    findings_fname = utils.get_report_file(
+        "inspect", reports_dir, True, ext_name="findings.json"
+    )
+    # Exclude any inspect sarif files
+    sarif_files = [f for f in sarif_files if "inspect" not in f]
+    if sarif_files:
+        convert_sarif(app_name, repo_context, sarif_files, findings_fname)
+
+
+def convert_severity(severity):
+    """
+    Method to convert SARIF severity to inspect
+
+    :return: Severity string for inspect
+    """
+    severity = severity.lower()
+    if severity == "error":
+        return "critical"
+    elif severity == "warning":
+        return "moderate"
+    return "info"
+
+
+def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
+    """
+    Method to convert sarif to findings json
+
+    :param app_name: Application name
+    :param sarif_file:
+    :param findings_fname:
+    :return:
+    """
+    finding_id = 1
+    with open(findings_fname, mode="w") as out_file:
+        for sf in sarif_files:
+            with open(sf, mode="r") as report_file:
+                report_data = json.loads(report_file.read())
+                # skip this file if the data is empty
+                if not report_data or not report_data.get("runs"):
+                    continue
+                # Iterate through all the runs
+                for run in report_data["runs"]:
+                    try:
+                        rules = {r["id"]: r for r in run["tool"]["driver"]["rules"]}
+                        results = run["results"]
+                        for result in results:
+                            rule = rules.get(result["ruleId"])
+                            for location in result["locations"]:
+                                finding = {
+                                    "app": app_name,
+                                    "type": "vuln",
+                                    "title": result["message"]["text"],
+                                    "description": rule["fullDescription"]["text"],
+                                    "internal_id": "{}/{}".format(
+                                        result["ruleId"],
+                                        utils.calculate_line_hash(
+                                            location["physicalLocation"]["region"][
+                                                "snippet"
+                                            ]["text"]
+                                        ),
+                                    ),
+                                    "severity": convert_severity(
+                                        result["properties"]["issue_severity"]
+                                    ),
+                                    "owasp_category": "",
+                                    "category": result["ruleId"],
+                                    "details": {
+                                        "repoContext": repo_context,
+                                        "name": result["message"]["text"],
+                                        "tags": ",".join(rule["properties"]["tags"]),
+                                        "fileName": location["physicalLocation"][
+                                            "artifactLocation"
+                                        ]["uri"],
+                                        "DATA_TYPE": "OSS_SCAN",
+                                        "lineNumber": location["physicalLocation"][
+                                            "region"
+                                        ]["startLine"],
+                                    },
+                                }
+                                out_file.write(json.dumps(finding))
+                                finding_id = finding_id + 1
+                    except Exception as e:
+                        LOG.warning("Unable to convert the run to findings format")

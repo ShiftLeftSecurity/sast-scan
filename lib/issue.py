@@ -230,6 +230,34 @@ class Issue(object):
             lineno = int(tmp_no)
         return lineno
 
+    def get_test_id(self, data):
+        """
+        Method to retrieve test_id
+        :param data:
+        :return:
+        """
+        test_id = ""
+        if "rule_set" in data:
+            test_id = data["rule_set"]
+        if "test_id" in data:
+            test_id = data["test_id"]
+        if "rule_id" in data:
+            test_id = data["rule_id"]
+        if "cwe" in data:
+            cwe_obj = data["cwe"]
+            if isinstance(cwe_obj, str):
+                test_id = cwe_obj
+            if isinstance(cwe_obj, dict):
+                test_id = cwe_obj.get("ID", cwe_obj.get("id", ""))
+            if not test_id.startswith("CWE") and test_id.isdigit():
+                test_id = "CWE-" + test_id
+        if "code" in data and data.get("code"):
+            if str(data.get("code")).isdigit():
+                test_id = str(data["code"])
+            elif len(data.get("code").split()) == 1:
+                test_id = data.get("code")
+        return test_id
+
     def from_dict(self, data, with_code=True):
         """Construct an issue from dictionary of values from the tools
 
@@ -293,12 +321,7 @@ class Issue(object):
             self.test = data["title"]
         if "rule" in data:
             self.test = data["rule"]
-        if "rule_set" in data:
-            self.test_id = data["rule_set"]
-        if "test_id" in data:
-            self.test_id = data["test_id"]
-        if "rule_id" in data:
-            self.test_id = data["rule_id"]
+        self.test_id = self.get_test_id(data)
         if "link" in data:
             self.test_ref_url = data["link"]
         if "more_info" in data:

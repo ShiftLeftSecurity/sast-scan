@@ -18,9 +18,12 @@ import re
 import shutil
 import tempfile
 import zipfile
+from hashlib import blake2b
 from pathlib import Path
 
 import lib.config as config
+
+HASH_DIGEST_SIZE = 16
 
 
 def is_ignored_dir(base_dir, dir_name):
@@ -302,6 +305,18 @@ def check_command(cmd):
     """
     try:
         cpath = shutil.which(cmd, mode=os.F_OK | os.X_OK)
-        return cpath != None
-    except:
+        return cpath is not None
+    except Exception:
         return False
+
+
+def calculate_line_hash(line):
+    """
+    Method to calculate line hash
+    :param line: Line to hash
+    :return: Hash based on blake2b algorithm
+    """
+    snippet = line.strip().replace("\t", "").replace("\n", "")
+    h = blake2b(digest_size=HASH_DIGEST_SIZE)
+    h.update(snippet.encode())
+    return h.hexdigest()

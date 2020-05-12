@@ -1,0 +1,947 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Security audit for Go",
+          "rules": [
+            {
+              "id": "CWE-22",
+              "help": {
+                "text": "The software uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the software does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.\nMany file operations are intended to take place within a restricted directory. By using special elements such as .. and / separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the ../ sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as /usr/local/bin, which may also be useful in accessing unexpected files. This is referred to as absolute path traversal. In many programming languages, the injection of a null byte (the 0 or NUL) may allow an attacker to truncate a generated filename to widen the scope of attack. For example, the software may add .txt to any pathname, thus limiting the attacker to text files, but a null injection may effectively remove this restriction.",
+                "markdown": "The software uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the software does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory.\nMany file operations are intended to take place within a restricted directory. By using special elements such as .. and / separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the ../ sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as /usr/local/bin, which may also be useful in accessing unexpected files. This is referred to as absolute path traversal. In many programming languages, the injection of a null byte (the 0 or NUL) may allow an attacker to truncate a generated filename to widen the scope of attack. For example, the software may add .txt to any pathname, thus limiting the attacker to text files, but a null injection may effectively remove this restriction."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "very-high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "The software uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the software does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/22.html",
+              "shortDescription": {
+                "text": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')."
+              }
+            },
+            {
+              "id": "CWE-88",
+              "help": {
+                "text": "The software constructs a string for a command to executed by a separate component in another control sphere, but it does not properly delimit the intended arguments, options, or switches within that command string.\nWhen creating commands using interpolation into a string, developers may assume that only the arguments/options that they specify will be processed. This assumption may be even stronger when the programmer has encoded the command in a way that prevents separate commands from being provided maliciously, e.g. in the case of shell metacharacters. When constructing the command, the developer may use whitespace or other delimiters that are required to separate arguments when the command. However, if an attacker can provide an untrusted input that contains argument-separating delimiters, then the resulting command will have more arguments than intended by the developer. The attacker may then be able to change the behavior of the command. Depending on the functionality supported by the extraneous arguments, this may have security-relevant consequences.",
+                "markdown": "The software constructs a string for a command to executed by a separate component in another control sphere, but it does not properly delimit the intended arguments, options, or switches within that command string.\nWhen creating commands using interpolation into a string, developers may assume that only the arguments/options that they specify will be processed. This assumption may be even stronger when the programmer has encoded the command in a way that prevents separate commands from being provided maliciously, e.g. in the case of shell metacharacters. When constructing the command, the developer may use whitespace or other delimiters that are required to separate arguments when the command. However, if an attacker can provide an untrusted input that contains argument-separating delimiters, then the resulting command will have more arguments than intended by the developer. The attacker may then be able to change the behavior of the command. Depending on the functionality supported by the extraneous arguments, this may have security-relevant consequences."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "very-high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "The software constructs a string for a command to executed by a separate component in another control sphere, but it does not properly delimit the intended arguments, options, or switches within that command string."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/88.html",
+              "shortDescription": {
+                "text": "Improper Neutralization of Argument Delimiters in a Command ('Argument Injection')."
+              }
+            },
+            {
+              "id": "CWE-327",
+              "help": {
+                "text": "The use of a broken or risky cryptographic algorithm is an unnecessary risk that may result in the exposure of sensitive information.\nThe use of a non-standard algorithm is dangerous because a determined attacker may be able to break the algorithm and compromise whatever data has been protected. Well-known techniques may exist to break the algorithm.",
+                "markdown": "The use of a broken or risky cryptographic algorithm is an unnecessary risk that may result in the exposure of sensitive information.\nThe use of a non-standard algorithm is dangerous because a determined attacker may be able to break the algorithm and compromise whatever data has been protected. Well-known techniques may exist to break the algorithm."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "very-high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "The use of a broken or risky cryptographic algorithm is an unnecessary risk that may result in the exposure of sensitive information."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/327.html",
+              "shortDescription": {
+                "text": "Use of a Broken or Risky Cryptographic Algorithm."
+              }
+            },
+            {
+              "id": "CWE-326",
+              "help": {
+                "text": "The software stores or transmits sensitive data using an encryption scheme that is theoretically sound, but is not strong enough for the level of protection required.\nA weak encryption scheme can be subjected to brute force attacks that have a reasonable chance of succeeding using current attack methods and resources.",
+                "markdown": "The software stores or transmits sensitive data using an encryption scheme that is theoretically sound, but is not strong enough for the level of protection required.\nA weak encryption scheme can be subjected to brute force attacks that have a reasonable chance of succeeding using current attack methods and resources."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "very-high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "The software stores or transmits sensitive data using an encryption scheme that is theoretically sound, but is not strong enough for the level of protection required."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/326.html",
+              "shortDescription": {
+                "text": "Inadequate Encryption Strength."
+              }
+            },
+            {
+              "id": "CWE-276",
+              "help": {
+                "text": "The product, upon installation, sets incorrect permissions for an object that exposes it to an unintended actor.",
+                "markdown": "The product, upon installation, sets incorrect permissions for an object that exposes it to an unintended actor."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "very-high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "The product, upon installation, sets incorrect permissions for an object that exposes it to an unintended actor."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/276.html",
+              "shortDescription": {
+                "text": "Incorrect Default Permissions."
+              }
+            },
+            {
+              "id": "CWE-78",
+              "help": {
+                "text": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\nThis could allow attackers to execute unexpected, dangerous commands directly on the operating system. This weakness can lead to a vulnerability in environments in which the attacker does not have direct access to the operating system, such as in web applications. Alternately, if the weakness occurs in a privileged program, it could allow the attacker to specify commands that normally would not be accessible, or to call alternate commands with privileges that the attacker does not have. The problem is exacerbated if the compromised process does not follow the principle of least privilege, because the attacker-controlled commands may run with special system privileges that increases the amount of damage. There are at least two subtypes of OS command injection: The application intends to execute a single, fixed program that is under its own control. It intends to use externally-supplied inputs as arguments to that program. For example, the program might use system(nslookup [HOSTNAME]) to run nslookup and allow the user to supply a HOSTNAME, which is used as an argument. Attackers cannot prevent nslookup from executing. However, if the program does not remove command separators from the HOSTNAME argument, attackers could place the separators into the arguments, which allows them to execute their own program after nslookup has finished executing. The application accepts an input that it uses to fully select which program to run, as well as which commands to use. The application simply redirects this entire command to the operating system. For example, the program might use exec([COMMAND]) to execute the [COMMAND] that was supplied by the user. If the COMMAND is under attacker control, then the attacker can execute arbitrary commands or programs. If the command is being executed using functions like exec() and CreateProcess(), the attacker might not be able to combine multiple commands together in the same line. From a weakness standpoint, these variants represent distinct programmer errors. In the first variant, the programmer clearly intends that input from untrusted parties will be part of the arguments in the command to be executed. In the second variant, the programmer does not intend for the command to be accessible to any untrusted party, but the programmer probably has not accounted for alternate ways in which malicious attackers can provide input.",
+                "markdown": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component.\nThis could allow attackers to execute unexpected, dangerous commands directly on the operating system. This weakness can lead to a vulnerability in environments in which the attacker does not have direct access to the operating system, such as in web applications. Alternately, if the weakness occurs in a privileged program, it could allow the attacker to specify commands that normally would not be accessible, or to call alternate commands with privileges that the attacker does not have. The problem is exacerbated if the compromised process does not follow the principle of least privilege, because the attacker-controlled commands may run with special system privileges that increases the amount of damage. There are at least two subtypes of OS command injection: The application intends to execute a single, fixed program that is under its own control. It intends to use externally-supplied inputs as arguments to that program. For example, the program might use system(nslookup [HOSTNAME]) to run nslookup and allow the user to supply a HOSTNAME, which is used as an argument. Attackers cannot prevent nslookup from executing. However, if the program does not remove command separators from the HOSTNAME argument, attackers could place the separators into the arguments, which allows them to execute their own program after nslookup has finished executing. The application accepts an input that it uses to fully select which program to run, as well as which commands to use. The application simply redirects this entire command to the operating system. For example, the program might use exec([COMMAND]) to execute the [COMMAND] that was supplied by the user. If the COMMAND is under attacker control, then the attacker can execute arbitrary commands or programs. If the command is being executed using functions like exec() and CreateProcess(), the attacker might not be able to combine multiple commands together in the same line. From a weakness standpoint, these variants represent distinct programmer errors. In the first variant, the programmer clearly intends that input from untrusted parties will be part of the arguments in the command to be executed. In the second variant, the programmer does not intend for the command to be accessible to any untrusted party, but the programmer probably has not accounted for alternate ways in which malicious attackers can provide input."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "very-high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "The software constructs all or part of an OS command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended OS command when it is sent to a downstream component."
+              },
+              "helpUri": "https://cwe.mitre.org/data/definitions/78.html",
+              "shortDescription": {
+                "text": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')."
+              }
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "@ShiftLeft/sast-scan"
+          }
+        },
+        "invocation": {
+          "arguments": [
+            "-fmt=json",
+            "-confidence=medium",
+            "-severity=medium",
+            "-no-fail",
+            "-out=/app/reports/gosec-report.json",
+            "./..."
+          ],
+          "executionSuccessful": true,
+          "commandLine": "-fmt=json -confidence=medium -severity=medium -no-fail -out=/app/reports/gosec-report.json ./...",
+          "endTimeUtc": "2020-05-09T12:18:23Z",
+          "workingDirectory": {
+            "uri": "file:///Users/prabhu/go/opa"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2020-05-09T12:18:23Z",
+          "workingDirectory": {
+            "uri": "file:///Users/prabhu/go/opa"
+          }
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "total": 20,
+          "critical": 0,
+          "high": 0,
+          "medium": 20,
+          "low": 0
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tbs, err := ioutil.ReadFile(path)\n"
+                  },
+                  "startLine": 120
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/loader/loader.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\t\tbs, err := ioutil.ReadFile(path)\n"
+                  },
+                  "endLine": 120,
+                  "startLine": 119
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential HTTP request made with variable url."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tresp, err := http.Get(metaDataURL)\n"
+                  },
+                  "startLine": 125
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/plugins/rest/aws.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tresp, err := http.Get(metaDataURL)\n"
+                  },
+                  "endLine": 125,
+                  "startLine": 124
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "MEDIUM",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-88",
+          "ruleIndex": 1
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Blacklisted import crypto/md5: weak cryptographic primitive."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\"crypto/md5\"\n"
+                  },
+                  "startLine": 8
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "import (\n\t\"crypto/md5\"\n"
+                  },
+                  "endLine": 8,
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-327",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tkey, err := ioutil.ReadFile(localKeyFile)\n"
+                  },
+                  "startLine": 123
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t// Read in the cert file\n\tkey, err := ioutil.ReadFile(localKeyFile)\n"
+                  },
+                  "endLine": 123,
+                  "startLine": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tf, err := os.Open(filename)\n"
+                  },
+                  "startLine": 4036
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/ast/parser.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func ParseFile(filename string, opts ...Option) (i interface{}, err error) {\n\tf, err := os.Open(filename)\n"
+                  },
+                  "endLine": 4036,
+                  "startLine": 4035
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcertPEM, err := ioutil.ReadFile(localCertFile)\n"
+                  },
+                  "startLine": 113
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t// Read in the cert file\n\tcertPEM, err := ioutil.ReadFile(localCertFile)\n"
+                  },
+                  "endLine": 113,
+                  "startLine": 112
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Use of weak cryptographic primitive."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\treturn hashHelper(a, func(s ast.String) string { return fmt.Sprintf(\"%x\", sha1.Sum([]byte(s))) })\n"
+                  },
+                  "startLine": 60
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func builtinCryptoSha1(a ast.Value) (ast.Value, error) {\n\treturn hashHelper(a, func(s ast.String) string { return fmt.Sprintf(\"%x\", sha1.Sum([]byte(s))) })\n"
+                  },
+                  "endLine": 60,
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-326",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Use of weak cryptographic primitive."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\treturn hashHelper(a, func(s ast.String) string { return fmt.Sprintf(\"%x\", md5.Sum([]byte(s))) })\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func builtinCryptoMd5(a ast.Value) (ast.Value, error) {\n\treturn hashHelper(a, func(s ast.String) string { return fmt.Sprintf(\"%x\", md5.Sum([]byte(s))) })\n"
+                  },
+                  "endLine": 56,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-326",
+          "ruleIndex": 3
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Blacklisted import crypto/sha1: weak cryptographic primitive."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\"crypto/sha1\"\n"
+                  },
+                  "startLine": 9
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/topdown/crypto.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\"crypto/md5\"\n\t\"crypto/sha1\"\n"
+                  },
+                  "endLine": 9,
+                  "startLine": 8
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-327",
+          "ruleIndex": 2
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tfh, err := os.Open(fileName)\n"
+                  },
+                  "startLine": 110
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/bundle/file.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\td.idx++\n\tfh, err := os.Open(fileName)\n"
+                  },
+                  "endLine": 110,
+                  "startLine": 109
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tin, err := os.Open(src)\n"
+                  },
+                  "startLine": 238
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/wasm/cmd/wasm-rego-testgen/main.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func copyFile(tw *tar.Writer, dst, src string) error {\n\tin, err := os.Open(src)\n"
+                  },
+                  "endLine": 238,
+                  "startLine": 237
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\t\t\tbs, err := ioutil.ReadFile(abspath)\n"
+                  },
+                  "startLine": 182
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/wasm/cmd/wasm-rego-testgen/main.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\t\t\t\tbs, err := ioutil.ReadFile(abspath)\n"
+                  },
+                  "endLine": 182,
+                  "startLine": 181
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Expect directory permissions to be 0750 or less."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tif err := os.MkdirAll(path.Dir(params.Output), 0755); err != nil {\n"
+                  },
+                  "startLine": 156
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/test/wasm/cmd/wasm-rego-testgen/main.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tif err := os.MkdirAll(path.Dir(params.Output), 0755); err != nil {\n"
+                  },
+                  "endLine": 156,
+                  "startLine": 155
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-276",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcaCertPEM, err := ioutil.ReadFile(tlsCACertFile)\n"
+                  },
+                  "startLine": 202
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/cmd/run.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "func loadCertPool(tlsCACertFile string) (*x509.CertPool, error) {\n\tcaCertPEM, err := ioutil.ReadFile(tlsCACertFile)\n"
+                  },
+                  "endLine": 202,
+                  "startLine": 201
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Subprocess launched with function call as argument or cmd arguments."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcmd := exec.Command(\"diff\", \"-u\", o.Name(), n.Name())\n"
+                  },
+                  "startLine": 187
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/cmd/fmt.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tcmd := exec.Command(\"diff\", \"-u\", o.Name(), n.Name())\n"
+                  },
+                  "endLine": 187,
+                  "startLine": 186
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-78",
+          "ruleIndex": 5
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tcontents, err := ioutil.ReadFile(filename)\n"
+                  },
+                  "startLine": 99
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/cmd/fmt.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n\tcontents, err := ioutil.ReadFile(filename)\n"
+                  },
+                  "endLine": 99,
+                  "startLine": 98
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\treturn ioutil.ReadFile(path)\n"
+                  },
+                  "startLine": 450
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/cmd/eval.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\t}\n\t\treturn ioutil.ReadFile(path)\n"
+                  },
+                  "endLine": 450,
+                  "startLine": 449
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Expect directory permissions to be 0750 or less."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tif err := os.MkdirAll(dirPath, 0777); err != nil {\n"
+                  },
+                  "startLine": 52
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/util/test/tempfs.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t\tdirPath := filepath.Join(rootDir, dirname)\n\t\tif err := os.MkdirAll(dirPath, 0777); err != nil {\n"
+                  },
+                  "endLine": 52,
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-276",
+          "ruleIndex": 4
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\tbs, err := ioutil.ReadFile(path)\n"
+                  },
+                  "startLine": 221
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/loader/loader.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t}\n\tbs, err := ioutil.ReadFile(path)\n"
+                  },
+                  "endLine": 221,
+                  "startLine": 220
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "markdown": "",
+            "text": "Potential file inclusion via variable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "\t\tfh, err := os.Open(path)\n"
+                  },
+                  "startLine": 162
+                },
+                "artifactLocation": {
+                  "uri": "file:///Users/prabhu/go/opa/loader/loader.go"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\t} else {\n\t\tfh, err := os.Open(path)\n"
+                  },
+                  "endLine": 162,
+                  "startLine": 161
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "MEDIUM"
+          },
+          "baselineState": "new",
+          "partialFingerprints": {},
+          "ruleId": "CWE-22",
+          "ruleIndex": 0
+        }
+      ],
+      "automationDetails": {
+        "description": {
+          "text": "Static Analysis Security Test results using @ShiftLeft/sast-scan"
+        },
+        "guid": "0eb02acb-acac-417f-a30b-05f553e1cdfc"
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "master",
+          "repositoryUri": "https://github.com/prabhu/opa",
+          "revisionId": "8630c3688f65a7620d894854918f1b19a39280dc"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "inlineExternalProperties": [
+    {
+      "guid": "0eb02acb-acac-417f-a30b-05f553e1cdfc",
+      "runGuid": "cb172c12-4c62-442d-877e-26d5b44c26ab"
+    }
+  ]
+}

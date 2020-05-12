@@ -1,4 +1,4 @@
-FROM appthreat/scan-base as builder
+FROM shiftleft/scan-base as builder
 
 ARG CLI_VERSION
 ARG BUILD_DATE
@@ -77,7 +77,7 @@ RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VER
     && /usr/local/bin/shiftleft/sl update go2cpg
 RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
 
-FROM appthreat/scan-base-slim as sast-scan-tools
+FROM shiftleft/scan-base-slim as sast-scan-tools
 
 LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.schema-version="1.0" \

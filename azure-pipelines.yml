@@ -18,18 +18,47 @@ stages:
     - task: Docker@2
       inputs:
         command: 'login'
-        containerRegistry: quay_sl
+        containerRegistry: sl_docker
     - task: Docker@2
       displayName: Build base image
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: quay.io/shiftleft/scan
+        repository: shiftleft/scan
+        tags: |
+          $(tag)
+          latest
+    - task: Docker@2
+      displayName: Build base image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: shiftleft/sast-scan
         tags: |
           $(tag)
           latest
 
   - job: Build_slim
+    displayName: Docker Build and Push - slim
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        command: 'login'
+        containerRegistry: sl_docker
+    - task: Docker@2
+      displayName: Build oss image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang'
+        repository: shiftleft/scan-slim
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
+          $(tag)
+          latest
+
+  - job: Build_oss
     displayName: Docker Build and Push - oss
     pool:
       vmImage: 'ubuntu-latest'
@@ -37,13 +66,14 @@ stages:
     - task: Docker@2
       inputs:
         command: 'login'
-        containerRegistry: quay_sl
+        containerRegistry: sl_docker
     - task: Docker@2
       displayName: Build oss image
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
-        repository: quay.io/shiftleft/scan-oss
+        repository: shiftleft/scan-oss
+        buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
           latest
@@ -56,13 +86,14 @@ stages:
     - task: Docker@2
       inputs:
         command: 'login'
-        containerRegistry: quay_sl
+        containerRegistry: sl_docker
     - task: Docker@2
       displayName: Build java image
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
-        repository: quay.io/shiftleft/scan-java
+        repository: shiftleft/scan-java
+        buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
           latest
@@ -75,13 +106,14 @@ stages:
     - task: Docker@2
       inputs:
         command: 'login'
-        containerRegistry: quay_sl
+        containerRegistry: sl_docker
     - task: Docker@2
       displayName: Build csharp image
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-csharp'
-        repository: quay.io/shiftleft/scan-csharp
+        repository: shiftleft/scan-csharp
+        buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
           latest
