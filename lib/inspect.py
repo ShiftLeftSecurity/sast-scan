@@ -312,7 +312,6 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             rule = rules.get(result["ruleId"])
                             for location in result["locations"]:
                                 finding = {
-                                    "id": finding_id,
                                     "app": app_name,
                                     "type": "vuln",
                                     "title": result["message"]["text"],
@@ -330,7 +329,6 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     ),
                                     "owasp_category": "",
                                     "category": result["ruleId"],
-                                    "version_first_seen": "",
                                     "details": {
                                         "repoContext": repo_context,
                                         "name": result["message"]["text"],
