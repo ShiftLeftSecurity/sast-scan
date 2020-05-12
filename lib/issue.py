@@ -251,11 +251,11 @@ class Issue(object):
                 test_id = cwe_obj.get("ID", cwe_obj.get("id", ""))
             if not test_id.startswith("CWE") and test_id.isdigit():
                 test_id = "CWE-" + test_id
-        if "code" in data:
-            if str(data.get("code", "")).isdigit():
+        if "code" in data and data.get("code"):
+            if str(data.get("code")).isdigit():
                 test_id = str(data["code"])
-            elif len(data.get("code", "").split()) == 1:
-                test_id = data["code"]
+            elif len(data.get("code").split()) == 1:
+                test_id = data.get("code")
         return test_id
 
     def from_dict(self, data, with_code=True):
