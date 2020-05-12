@@ -4,7 +4,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 variables:
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.SourceBranchName)'
 
 stages:
 - stage: Builders
@@ -37,7 +37,7 @@ stages:
           latest
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
-      displayName: Build base image
+      displayName: Build alias image
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
@@ -45,7 +45,7 @@ stages:
         tags: |
           $(tag)
     - task: Docker@2
-      displayName: Release base image
+      displayName: Release alias image
       inputs:
         command: 'push'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
