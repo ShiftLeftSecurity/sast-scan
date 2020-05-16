@@ -59,13 +59,13 @@ sast-scan is ideal for use with CI and also as a pre-commit hook for local devel
 
 ### Scanning projects locally
 
-Scan python project
+Scan Python project
 
 ```bash
 docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app --type python
 ```
 
-On Windows the command changes slightly depending on the terminal.
+On Windows, the command changes slightly depending on the terminal.
 
 cmd
 
@@ -73,13 +73,13 @@ cmd
 docker run --rm -e "WORKSPACE=%cd%" -e "GITHUB_TOKEN=%GITHUB_TOKEN%" -v "%cd%:/app:cached" shiftleft/scan scan
 ```
 
-powershell and powershell core
+Powershell and Powershell Core
 
 ```
 docker run --rm -e "WORKSPACE=$(pwd)" -e "GITHUB_TOKEN=$env:GITHUB_TOKEN" -v "$(pwd):/app:cached" shiftleft/scan scan
 ```
 
-WSL bash
+WSL Bash
 
 ```
 docker run --rm -e "WORKSPACE=${PWD}" -e "GITHUB_TOKEN=${GITHUB_TOKEN}" -v "$PWD:/app:cached" shiftleft/scan scan
@@ -99,9 +99,9 @@ Scan multiple projects
 docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app --type credscan,nodejs,python,yaml --out_dir /app/reports
 ```
 
-Scan java project
+Scan Java project
 
-For java and jvm language based projects, it is important to compile the projects before invoking sast-scan in the dev and CI workflow.
+For Java and JVM language-based projects, it is important to compile the projects before invoking sast-scan in the dev and CI workflow.
 
 ```bash
 docker run --rm -e "WORKSPACE=${PWD}" -v ~/.m2:/.m2 -v <source path>:/app shiftleft/scan scan --src /app --type java
@@ -122,7 +122,7 @@ Please visit the official [documentation](https://slscan.io) site for scan to le
 
 Reports would be produced in the directory specified for `--out_dir`. In the above examples, it is set to `reports` which will be a directory under the source code root directory.
 
-Some of the reports would be converted to a standard called [SARIF](https://sarifweb.azurewebsites.net/). Such reports would end with the extension `.sarif`. To open and view the sarif files require a viewer such as:
+Some of the reports would be converted to a standard called [SARIF](https://sarifweb.azurewebsites.net/). Such reports would end with the extension `.sarif`. Opening and viewing sarif files require a viewer such as:
 
 - Online viewer - http://sarifviewer.azurewebsites.net/
 - VS Code extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.shiftleft-scan
