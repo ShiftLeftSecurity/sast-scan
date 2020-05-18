@@ -29,7 +29,7 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 | jsp                  | pmd                                |
 | json                 | jq, jsondiff, jsonschema           |
 | kotlin               | detekt                             |
-| kubernetes           | kube-score                         |
+| kubernetes           | kubesec, kube-score                |
 | nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
 | puppet               | puppet-lint                        |
 | plsql                | pmd                                |
@@ -46,10 +46,8 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 - jq
 - Golang 1.13
 - Python 3.6
-- OpenJDK 8 and 11 (jre)
+- OpenJDK 11
 - Ruby 2.5.5
-- Rust
-- .Net core 2.1 and 3.1
 - Node.js 10
 - Yarnpkg
 

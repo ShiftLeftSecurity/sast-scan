@@ -229,7 +229,18 @@ scan_tools_args_map = {
         "-r",
         "xml:%(report_fname_prefix)s.xml",
     ],
-    "kubernetes": ["kube-score", "score", "-o", "json", "(filelist=yaml)"],
+    "kubernetes": {
+        "kubesec": ["kubesec", "scan", "(filelist=yaml)"],
+        "kube-score": [
+            "kube-score",
+            "score",
+            "--output-version",
+            "v2",
+            "-o",
+            "json",
+            "(filelist=yaml)",
+        ],
+    },
     "plsql": {
         "source-sql": [
             *get("PMD_CMD").split(" "),
