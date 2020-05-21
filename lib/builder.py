@@ -103,7 +103,7 @@ def nodejs_build(src, reports_dir, lang_tools):
         cmd_args = lang_tools.get("yarn")
         yarn_mode = True
     elif not pjson_files:
-        LOG.info("Nodejs auto build is supported only for npm or yarn based projects")
+        LOG.debug("Nodejs auto build is supported only for npm or yarn based projects")
         return False
     cp = exec_tool(cmd_args, src)
     LOG.debug(cp.stdout)
