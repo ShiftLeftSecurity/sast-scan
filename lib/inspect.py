@@ -353,4 +353,4 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                 out_file.write(json.dumps(finding))
                                 finding_id = finding_id + 1
                     except Exception as e:
-                        LOG.warning("Unable to convert the run to findings format")
+                        LOG.debug("Unable to convert the run to findings format")

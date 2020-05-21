@@ -23,6 +23,8 @@ runtimeValues = {}
 # Depth of credscan
 credscan_depth = "2"
 credscan_config = "/usr/local/src/credscan-config.toml"
+credscan_timeout = "2m"
+
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 
 # Flag to disable telemetry
@@ -158,7 +160,7 @@ scan_tools_args_map = {
         "--depth=" + get("credscan_depth"),
         "--repo-path=%(src)s",
         "--redact",
-        "--timeout=2m",
+        "--timeout=" + get("credscan_timeout"),
         "--report=%(report_fname_prefix)s.json",
         "--report-format=json",
     ],
@@ -167,7 +169,7 @@ scan_tools_args_map = {
         "--config=" + get("credscan_config"),
         "--uncommitted",
         "--repo-path=%(src)s",
-        "--timeout=2m",
+        "--timeout=" + get("credscan_timeout"),
         "--report=%(report_fname_prefix)s.json",
         "--report-format=json",
     ],
