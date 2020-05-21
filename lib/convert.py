@@ -225,9 +225,15 @@ def report(
         "medium": 0,
         "low": 0,
     }
-    metrics["total"] = len(issues)
+
+    total = 0
     for issue in issues:
         issue_dict = issue_from_dict(issue).as_dict()
+        rule_id = issue_dict.get("test_id")
+        # Is this rule ignored globally?
+        if rule_id in config.ignored_rules:
+            continue
+        total += 1
         issue_severity = issue_dict["issue_severity"]
         # Fix up severity for certain tools
         issue_severity = tweak_severity(tool_name, issue_dict)
@@ -235,6 +241,7 @@ def report(
         if not metrics.get(key):
             metrics[key] = 0
         metrics[key] += 1
+    metrics["total"] = total
     # working directory to use in the log
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX is not None else working_dir
