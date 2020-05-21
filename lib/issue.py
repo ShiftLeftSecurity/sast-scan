@@ -131,7 +131,19 @@ class Issue(object):
                 if not len(text):
                     break
                 lines.append(tmplt % (line, text))
-            return "".join(lines)
+            if lines:
+                return "".join(lines)
+            elif self.code:
+                # Validate if the code snippet is in the right format
+                orig_lines = self.code.split("\n")
+                if orig_lines:
+                    orig_first_line = orig_lines[0]
+                    firstword = orig_first_line.split(" ", 1)[0]
+                    if firstword and str(firstword).isdigit():
+                        return self.code
+                return ""
+            else:
+                return ""
         else:
             lineno = self.lineno
             try:
@@ -226,6 +238,8 @@ class Issue(object):
             tmp_no = data["location"]["start_line"]
         elif "location" in data and "line" in data["location"]:
             tmp_no = data["location"]["line"]
+        elif self.linerange:
+            tmp_no = self.linerange[0]
         if str(tmp_no).isdigit():
             lineno = int(tmp_no)
         return lineno
@@ -243,6 +257,8 @@ class Issue(object):
             test_id = data["test_id"]
         if "rule_id" in data:
             test_id = data["rule_id"]
+        if "check_id" in data:
+            test_id = data["check_id"]
         if "cwe" in data:
             cwe_obj = data["cwe"]
             if isinstance(cwe_obj, str):
@@ -251,7 +267,7 @@ class Issue(object):
                 test_id = cwe_obj.get("ID", cwe_obj.get("id", ""))
             if not test_id.startswith("CWE") and test_id.isdigit():
                 test_id = "CWE-" + test_id
-        if "code" in data and data.get("code"):
+        if not test_id and "code" in data and data.get("code"):
             if str(data.get("code")).isdigit():
                 test_id = str(data["code"])
             elif len(data.get("code").split()) == 1:
@@ -285,6 +301,8 @@ class Issue(object):
             self.fname = data["file"]
         if "path" in data:
             self.fname = data["path"]
+        if "file_path" in data:
+            self.fname = data["file_path"]
         self.severity = self.find_severity(data)
         if "issue_confidence" in data:
             self.confidence = data["issue_confidence"]
@@ -321,14 +339,40 @@ class Issue(object):
             self.test = data["title"]
         if "rule" in data:
             self.test = data["rule"]
+        if "check_name" in data:
+            self.test = data["check_name"]
+            self.text = data["check_name"]
+            self.severity = "HIGH"
+            self.confidence = "HIGH"
+            # Checkov bug workaround for file path
+            if self.fname and self.fname.startswith("/"):
+                self.fname = self.fname[1:]
+            if (
+                "code_block" in data
+                and data["code_block"]
+                and isinstance(data["code_block"], list)
+            ):
+                tmp_code = []
+                for l in data["code_block"]:
+                    if isinstance(l, list):
+                        if len(l) == 2:
+                            line_str = "{} {}".format(l[0], l[1])
+                        else:
+                            line_str = l[0]
+                    else:
+                        line_str = l
+                    tmp_code.append(line_str)
+                self.code = "\n".join(tmp_code)
         self.test_id = self.get_test_id(data)
         if "link" in data:
             self.test_ref_url = data["link"]
         if "more_info" in data:
             self.test_ref_url = data["more_info"]
-        self.lineno = self.get_lineno(data)
         if "line_range" in data:
             self.linerange = data["line_range"]
+        if "file_line_range" in data:
+            self.linerange = data["file_line_range"]
+        self.lineno = self.get_lineno(data)
         if "first_found" in data:
             self.first_found = data["first_found"]
 

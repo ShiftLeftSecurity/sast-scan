@@ -150,7 +150,7 @@ scan_tools_args_map = {
             os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
         ]
     },
-    "aws": ["cfn-lint", "-f", "json", "-e", "%(src)s/**/*.yaml"],
+    "aws": {"checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
@@ -230,6 +230,7 @@ scan_tools_args_map = {
         "xml:%(report_fname_prefix)s.xml",
     ],
     "kubernetes": {
+        "checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
         "kubesec": ["kubesec", "scan", "(filelist=yaml)"],
         "kube-score": [
             "kube-score",
@@ -261,7 +262,10 @@ scan_tools_args_map = {
     },
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
-    "terraform": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
+    "terraform": {
+        "checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "tfsec": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
+    },
     "vf": {
         "source-vf": [
             *get("PMD_CMD").split(" "),
@@ -328,6 +332,7 @@ tool_purpose_message = {
     "tfsec": "Terraform static analysis",
     "shellcheck": "Shell script analysis",
     "bandit": "Security audit for python",
+    "checkov": "Security audit for Infrastructure",
     "staticcheck": "Go static analysis",
     "source": "Source code analyzer",
     "source-java": "Source code analyzer for Java",
@@ -351,6 +356,16 @@ tool_ref_url = {
     "shellcheck": "https://github.com/koalaman/shellcheck/wiki/SC%(rule_id)s",
     "staticcheck": "https://staticcheck.io/docs/checks#%(rule_id)s",
 }
+
+# Rules to ignore
+ignored_rules = [
+    "GEN001",
+    "GEN002",
+    "GEN003",
+    "AWS018",
+    "Password Hardcoded",
+    "Secret Hardcoded",
+]
 
 # Build break rules
 build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium": 5}}

@@ -306,40 +306,48 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                 # Iterate through all the runs
                 for run in report_data["runs"]:
                     try:
-                        rules = {r["id"]: r for r in run["tool"]["driver"]["rules"]}
-                        results = run["results"]
+                        results = run.get("results")
+                        if not results:
+                            continue
+                        rules = {
+                            r["id"]: r
+                            for r in run.get("tool", {}).get("driver", {}).get("rules")
+                            if r and r.get("id")
+                        }
                         for result in results:
-                            rule = rules.get(result["ruleId"])
-                            for location in result["locations"]:
+                            rule = rules.get(result.get("ruleId"))
+                            for location in result.get("locations"):
                                 finding = {
                                     "app": app_name,
                                     "type": "vuln",
-                                    "title": result["message"]["text"],
-                                    "description": rule["fullDescription"]["text"],
+                                    "title": result.get("message", {}).get("text"),
+                                    "description": rule.get("fullDescription", {}).get(
+                                        "text"
+                                    ),
                                     "internal_id": "{}/{}".format(
                                         result["ruleId"],
                                         utils.calculate_line_hash(
-                                            location["physicalLocation"]["region"][
-                                                "snippet"
-                                            ]["text"]
+                                            location.get("physicalLocation", {})[
+                                                "region"
+                                            ]["snippet"]["text"]
                                         ),
                                     ),
                                     "severity": convert_severity(
-                                        result["properties"]["issue_severity"]
+                                        result.get("properties", {})["issue_severity"]
                                     ),
                                     "owasp_category": "",
                                     "category": result["ruleId"],
                                     "details": {
                                         "repoContext": repo_context,
-                                        "name": result["message"]["text"],
+                                        "name": result.get("message", {})["text"],
                                         "tags": ",".join(rule["properties"]["tags"]),
                                         "fileName": location["physicalLocation"][
                                             "artifactLocation"
                                         ]["uri"],
                                         "DATA_TYPE": "OSS_SCAN",
-                                        "lineNumber": location["physicalLocation"][
-                                            "region"
-                                        ]["startLine"],
+                                        "lineNumber": location.get(
+                                            "physicalLocation", {}
+                                        )["region"]["startLine"],
                                     },
                                 }
                                 out_file.write(json.dumps(finding))

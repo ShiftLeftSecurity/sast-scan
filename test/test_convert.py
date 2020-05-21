@@ -255,7 +255,7 @@ def test_tfsec_convert_issue():
             {},
             [
                 {
-                    "rule_id": "AWS018",
+                    "rule_id": "AWSTEST",
                     "link": "https://github.com/liamg/tfsec/wiki/AWS018",
                     "location": {
                         "filename": "/app/main.tf",
@@ -277,6 +277,63 @@ def test_tfsec_convert_issue():
             "critical": 1,
             "total": 1,
             "high": 0,
+            "medium": 0,
+            "low": 0,
+        }
+
+
+def test_checkov_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "checkov",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "check_id": "CKV_AWS_20",
+                    "check_name": "S3 Bucket has an ACL defined which allows public READ access.",
+                    "check_result": {"result": "FAILED"},
+                    "code_block": [
+                        [1, 'resource "aws_s3_bucket" "data" {\n'],
+                        [2, "  # bucket is public\n"],
+                        [3, "  # bucket is not encrypted\n"],
+                        [4, "  # bucket does not have access logs\n"],
+                        [5, "  # bucket does not have versioning\n"],
+                        [
+                            6,
+                            '  bucket        = "${local.resource_prefix.value}-data"\n',
+                        ],
+                        [7, '  acl           = "public-read"\n'],
+                        [8, "  force_destroy = true\n"],
+                        [9, "  tags = {\n"],
+                        [
+                            10,
+                            '    Name        = "${local.resource_prefix.value}-data"\n',
+                        ],
+                        [11, "    Environment = local.resource_prefix.value\n"],
+                        [12, "  }\n"],
+                        [13, "}\n"],
+                    ],
+                    "file_path": "/terraform/s3.tf",
+                    "file_line_range": [1, 13],
+                    "resource": "aws_s3_bucket.data",
+                    "evaluations": "",
+                    "check_class": "checkov.terraform.checks.resource.aws.S3PublicACLRead",
+                }
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "S3 Bucket has an ACL defined which allows public READ access."
+        )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 0,
+            "total": 1,
+            "high": 1,
             "medium": 0,
             "low": 0,
         }

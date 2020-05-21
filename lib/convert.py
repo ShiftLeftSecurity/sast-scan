@@ -125,8 +125,10 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
             elif isinstance(report_data, list):
                 issues = report_data
             else:
-                # NodeJsScan uses sec_issues
-                if "sec_issues" in report_data:
+                if tool_name == "checkov":
+                    issues = report_data.get("results", {}).get("failed_checks")
+                elif "sec_issues" in report_data:
+                    # NodeJsScan uses sec_issues
                     sec_data = report_data["sec_issues"]
                     for key, value in sec_data.items():
                         if isinstance(value, list):
@@ -354,7 +356,8 @@ def add_results(tool_name, issues, run, file_path_list=None, working_dir=None):
         result = create_result(
             tool_name, issue, rules, rule_indices, file_path_list, working_dir
         )
-        run.results.append(result)
+        if result:
+            run.results.append(result)
 
     if len(rules) > 0:
         run.tool.driver.rules = list(rules.values())
@@ -375,7 +378,10 @@ def create_result(tool_name, issue, rules, rule_indices, file_path_list, working
         issue = issue_from_dict(issue)
 
     issue_dict = issue.as_dict()
-
+    rule_id = issue_dict.get("test_id")
+    # Is this rule ignored globally?
+    if rule_id in config.ignored_rules:
+        return None
     rule, rule_index = create_or_find_rule(tool_name, issue_dict, rules, rule_indices)
 
     # Substitute workspace prefix
@@ -498,9 +504,9 @@ def parse_code(code):
         if first:
             first_line_number = int(number_and_snippet_line[0])
             first = False
-
-        snippet_line = number_and_snippet_line[1] + "\n"
-        snippet_lines.append(snippet_line)
+        if len(number_and_snippet_line) > 1:
+            snippet_line = number_and_snippet_line[1] + "\n"
+            snippet_lines.append(snippet_line)
 
     if not last_real_line_ends_in_newline:
         last_line = snippet_lines[len(snippet_lines) - 1]

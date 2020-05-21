@@ -19,7 +19,7 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 | -------------------- | ---------------------------------- |
 | ansible              | ansible-lint                       |
 | apex                 | pmd                                |
-| aws                  | cfn-lint, cfn_nag                  |
+| aws                  | checkov                            |
 | bash                 | shellcheck                         |
 | bom                  | cdxgen                             |
 | credscan             | gitleaks                           |
@@ -29,14 +29,14 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 | jsp                  | pmd                                |
 | json                 | jq, jsondiff, jsonschema           |
 | kotlin               | detekt                             |
-| kubernetes           | kubesec, kube-score                |
+| kubernetes           | checkov, kubesec, kube-score       |
 | nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
 | puppet               | puppet-lint                        |
 | plsql                | pmd                                |
 | python               | bandit, cdxgen, pipenv             |
 | ruby                 | cyclonedx-ruby                     |
 | rust                 | cdxgen, cargo-audit                |
-| terraform            | tfsec                              |
+| terraform            | checkov, tfsec                     |
 | Visual Force (vf)    | pmd                                |
 | Apache Velocity (vm) | pmd                                |
 | yaml                 | yamllint                           |
