@@ -364,10 +364,37 @@ ignored_rules = [
     "GEN001",
     "GEN002",
     "GEN003",
+    "AWS002",
     "AWS018",
+    "AWS019",
     "Password Hardcoded",
     "Secret Hardcoded",
 ]
+
+# Override severity of certain rules
+rules_severity = {
+    "CKV_AWS_2": "HIGH",
+    "CKV_AWS_23": "LOW",
+    "CKV_AWS_33": "LOW",
+    "CKV_AWS_40": "MEDIUM",
+    "CKV_AWS_50": "MEDIUM",
+    "CKV_AWS_51": "LOW",
+    "AWS008": "LOW",
+    "AWS011": "HIGH",
+    "CKV_AWS_28": "MEDIUM",
+    "CKV_AWS_32": "CRITICAL",
+    "CKV_AWS_34": "MEDIUM",
+    "CKV_AWS_38": "HIGH",
+    "CKV_K8S_14": "MEDIUM",
+    "CKV_K8S_21": "CRITICAL",
+    "CKV_K8S_27": "CRITICAL",
+    "CKV_K8S_29": "MEDIUM",
+    "CKV_K8S_34": "CRITICAL",
+    "CKV_K8S_4": "CRITICAL",
+    "CKV_K8S_5": "CRITICAL",
+    "CKV_K8S_6": "CRITICAL",
+    "CKV_AWS_46": "CRITICAL",
+}
 
 # Build break rules
 build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium": 5}}
