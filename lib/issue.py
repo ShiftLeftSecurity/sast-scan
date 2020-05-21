@@ -19,6 +19,7 @@ import linecache
 
 from six import moves
 
+import lib.config as config
 import lib.constants as constants
 from lib.logger import LOG
 
@@ -167,6 +168,11 @@ class Issue(object):
         # As per the spec text sentence should end with a period
         if not issue_text.endswith("."):
             issue_text = issue_text + "."
+        if self.test_id:
+            override_sev = config.rules_severity.get(str(self.test_id).upper())
+            if override_sev:
+                self.severity = override_sev
+
         out = {
             "filename": self.fname,
             "test_name": self.test,

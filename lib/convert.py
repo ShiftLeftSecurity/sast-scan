@@ -43,15 +43,17 @@ TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 HASH_DIGEST_SIZE = config.get("HASH_DIGEST_SIZE", 8)
 
 
-def tweak_severity(tool_name, issue_severity):
+def tweak_severity(tool_name, issue_dict):
     """
-    Tweak severity for certain tools
+    Tweak severity for certain tools.
+    TODO: Remove this method somehow since this has to be done by issue.py
     :param tool_name:
-    :param issue_severity:
+    :param issue_dict:
     :return:
     """
+    issue_severity = issue_dict["issue_severity"]
     if tool_name == "staticcheck":
-        issue_severity = "MEDIUM"
+        return "MEDIUM"
     return issue_severity
 
 
@@ -228,7 +230,7 @@ def report(
         issue_dict = issue_from_dict(issue).as_dict()
         issue_severity = issue_dict["issue_severity"]
         # Fix up severity for certain tools
-        issue_severity = tweak_severity(tool_name, issue_severity)
+        issue_severity = tweak_severity(tool_name, issue_dict)
         key = issue_severity.lower()
         if not metrics.get(key):
             metrics[key] = 0
@@ -407,7 +409,7 @@ def create_result(tool_name, issue, rules, rule_indices, file_path_list, working
     add_region_and_context_region(
         physical_location, issue_dict["line_number"], issue_dict["code"]
     )
-    issue_severity = tweak_severity(tool_name, issue_dict["issue_severity"])
+    issue_severity = tweak_severity(tool_name, issue_dict)
     fingerprint = {}
     """
     if physical_location.region and physical_location.region.snippet.text:
@@ -607,7 +609,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     precision = "high"
     if rule_id and rule_id.upper().startswith("CWE") or tool_name == "inspect":
         precision = "very-high"
-    issue_severity = tweak_severity(tool_name, issue_dict["issue_severity"])
+    issue_severity = tweak_severity(tool_name, issue_dict)
     rule = om.ReportingDescriptor(
         id=rule_id,
         name=issue_dict["test_name"],
