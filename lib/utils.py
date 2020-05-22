@@ -38,7 +38,7 @@ def is_ignored_dir(base_dir, dir_name):
     elif dir_name.startswith(base_dir):
         dir_name = re.sub(r"^" + base_dir + "/", "", dir_name)
     for d in config.ignore_directories:
-        if dir_name == d or dir_name.startswith(d):
+        if dir_name == d or dir_name.startswith(d) or (d + "/") in dir_name:
             return True
     return False
 
@@ -107,6 +107,10 @@ def find_jar_files():
 def find_files(src, src_ext_name, use_start=False):
     """
     Method to find files with given extension
+    :param src: Source directory
+    :param src_ext_name: Extension
+    :param use_start: Boolean to check for file prefix
+    :return: List of files with full path
     """
     result = []
     for root, dirs, files in os.walk(src):
@@ -310,13 +314,18 @@ def check_command(cmd):
         return False
 
 
-def calculate_line_hash(line):
+def calculate_line_hash(filename, lineno, line):
     """
     Method to calculate line hash
+
+    :param lineno: Line number
+    :param filename: File name
     :param line: Line to hash
     :return: Hash based on blake2b algorithm
     """
-    snippet = line.strip().replace("\t", "").replace("\n", "")
+    snippet = "{}:{}:{}".format(
+        lineno, filename, line.strip().replace("\t", "").replace("\n", "")
+    )
     h = blake2b(digest_size=HASH_DIGEST_SIZE)
     h.update(snippet.encode())
     return h.hexdigest()

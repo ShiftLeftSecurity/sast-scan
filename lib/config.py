@@ -25,7 +25,9 @@ credscan_depth = "2"
 credscan_config = "/usr/local/src/credscan-config.toml"
 credscan_timeout = "2m"
 
+APP_SRC_DIR = os.path.join(os.path.dirname(__file__), "..")
 DEPSCAN_CMD = "/usr/local/bin/depscan"
+PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
 
 # Flag to disable telemetry
 DISABLE_TELEMETRY = False
@@ -149,7 +151,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+            get("APP_SRC_DIR") + "/rules-pmd.xml",
         ]
     },
     "aws": {"checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
@@ -219,7 +221,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+            get("APP_SRC_DIR") + "/rules-pmd.xml",
         ]
     },
     "kotlin": [
@@ -259,7 +261,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+            get("APP_SRC_DIR") + "/rules-pmd.xml",
         ]
     },
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
@@ -283,7 +285,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+            get("APP_SRC_DIR") + "/rules-pmd.xml",
         ]
     },
     "vm": {
@@ -301,10 +303,13 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+            get("APP_SRC_DIR") + "/rules-pmd.xml",
         ]
     },
-    "yaml": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
+    "yaml": {
+        "yamllint": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
+        "checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+    },
 }
 
 """
@@ -333,14 +338,14 @@ tool_purpose_message = {
     "gosec": "Security audit for Go",
     "tfsec": "Terraform static analysis",
     "shellcheck": "Shell script analysis",
-    "bandit": "Security audit for python",
+    "bandit": "Security audit for Python",
     "checkov": "Security audit for Infrastructure",
     "staticcheck": "Go static analysis",
     "source": "Source code analyzer",
     "source-java": "Source code analyzer for Java",
     "source-python": "Source code analyzer for Python",
     "source-js": "Source code analyzer for JavaScript",
-    "source-go": "Source code analyzer for go",
+    "source-go": "Source code analyzer for Go",
     "source-vm": "Source code analyzer for Apache Velocity",
     "source-vf": "Source code analyzer for VisualForce",
     "source-sql": "Source code analyzer for SQL",
@@ -373,6 +378,16 @@ ignored_rules = [
 
 # Override severity of certain rules
 rules_severity = {
+    "RCE": "CRITICAL",
+    "RCI": "HIGH",
+    "SSRF": "CRITICAL",
+    "MODULE": "MEDIUM",
+    "DIR": "HIGH",
+    "SQLI": "CRITICAL",
+    "XSS": "MEDIUM",
+    "NOSQLI": "HIGH",
+    "HHI": "MEDIUM",
+    "NODE": "MEDIUM",
     "CKV_AWS_2": "HIGH",
     "CKV_AWS_23": "LOW",
     "CKV_AWS_33": "LOW",

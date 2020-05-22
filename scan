@@ -398,9 +398,8 @@ def sec_scan(src, reports_dir, convert, repo_context):
     sec_cmd = "nodejsscan"
     sec_args = [sec_cmd, *convert_args]
     js_files = utils.find_files(src, ".js")
-    for jsf in js_files:
-        sec_args.append("-f")
-        sec_args.append(jsf)
+    sec_args.append("-f")
+    sec_args += js_files
     exec_tool(sec_args, src)
     if convert:
         crep_fname = utils.get_report_file(

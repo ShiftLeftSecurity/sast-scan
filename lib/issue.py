@@ -265,6 +265,8 @@ class Issue(object):
             test_id = data["rule_id"]
         if "check_id" in data:
             test_id = data["check_id"]
+        if "tag" in data:
+            test_id = data["tag"]
         if "cwe" in data:
             cwe_obj = data["cwe"]
             if isinstance(cwe_obj, str):

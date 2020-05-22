@@ -2,14 +2,18 @@
 import json
 import os
 import tempfile
+from pathlib import Path
 
 import lib.aggregate as aggregate
-import lib.utils as utils
+
+
+def find_test_data():
+    data_dir = Path(__file__).parent / "data"
+    return [p.as_posix() for p in data_dir.glob("*.sarif")]
 
 
 def test_aggregate():
-    test_reports_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
-    test_sarif_files = utils.find_files(test_reports_dir, ".sarif")
+    test_sarif_files = find_test_data()
     run_data_list = []
     for sf in test_sarif_files:
         with open(sf, mode="r") as report_file:
