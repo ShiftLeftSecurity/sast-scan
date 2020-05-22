@@ -323,6 +323,9 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                 filename = location["physicalLocation"][
                                     "artifactLocation"
                                 ]["uri"]
+                                lineno = location.get("physicalLocation", {})["region"][
+                                    "startLine"
+                                ]
                                 finding = {
                                     "app": app_name,
                                     "type": "vuln",
@@ -334,6 +337,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         result["ruleId"],
                                         utils.calculate_line_hash(
                                             filename,
+                                            lineno,
                                             location.get("physicalLocation", {})[
                                                 "region"
                                             ]["snippet"]["text"],
@@ -350,9 +354,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         "tags": ",".join(rule["properties"]["tags"]),
                                         "fileName": filename,
                                         "DATA_TYPE": "OSS_SCAN",
-                                        "lineNumber": location.get(
-                                            "physicalLocation", {}
-                                        )["region"]["startLine"],
+                                        "lineNumber": lineno,
                                     },
                                 }
                                 out_file.write(json.dumps(finding))
