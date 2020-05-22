@@ -129,7 +129,7 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel bandit ansible-lint pipenv cfn-lint yamllint nodejsscan \
+RUN pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir appthreat-depscan \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \

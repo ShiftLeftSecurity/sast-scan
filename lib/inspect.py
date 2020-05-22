@@ -163,6 +163,8 @@ def find_app_name(src, repo_context):
         app_name = config.get("SHIFTLEFT_APP", repo_context.get("repositoryName"))
     if not app_name:
         app_name = os.path.dirname(src)
+    if app_name == "/":
+        return None
     return app_name
 
 
@@ -241,6 +243,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     cp = exec_tool(sl_args, src, env=env)
     if cp.returncode != 0:
         LOG.warning("Inspect cloud analyze has failed with the below logs")
+        LOG.debug(sl_args)
         LOG.info(cp.stderr)
         return
     findings_data = fetch_findings(app_name, branch, report_fname)
@@ -317,6 +320,9 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         for result in results:
                             rule = rules.get(result.get("ruleId"))
                             for location in result.get("locations"):
+                                filename = location["physicalLocation"][
+                                    "artifactLocation"
+                                ]["uri"]
                                 finding = {
                                     "app": app_name,
                                     "type": "vuln",
@@ -327,9 +333,10 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "internal_id": "{}/{}".format(
                                         result["ruleId"],
                                         utils.calculate_line_hash(
+                                            filename,
                                             location.get("physicalLocation", {})[
                                                 "region"
-                                            ]["snippet"]["text"]
+                                            ]["snippet"]["text"],
                                         ),
                                     ),
                                     "severity": convert_severity(
@@ -341,9 +348,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         "repoContext": repo_context,
                                         "name": result.get("message", {})["text"],
                                         "tags": ",".join(rule["properties"]["tags"]),
-                                        "fileName": location["physicalLocation"][
-                                            "artifactLocation"
-                                        ]["uri"],
+                                        "fileName": filename,
                                         "DATA_TYPE": "OSS_SCAN",
                                         "lineNumber": location.get(
                                             "physicalLocation", {}

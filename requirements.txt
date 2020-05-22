@@ -5,3 +5,10 @@ tabulate
 gitpython
 shiftleft-scan-reports
 requests
+bandit
+ansible-lint
+pipenv
+checkov
+cfn-lint
+yamllint
+nodejsscan
