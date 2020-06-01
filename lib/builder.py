@@ -42,8 +42,9 @@ def auto_build(type_list, src, reports_dir):
             cp = exec_tool(
                 lang_tools, src, env=os.environ.copy(), stdout=subprocess.PIPE
             )
-            LOG.debug(cp.stdout)
-            ret = ret & (cp.returncode == 0)
+            if cp:
+                LOG.debug(cp.stdout)
+                ret = ret & (cp.returncode == 0)
         # Look for any _scan function in this module for execution
         try:
             ret = ret & getattr(sys.modules[__name__], "%s_build" % ptype)(
@@ -81,9 +82,10 @@ def java_build(src, reports_dir, lang_tools):
         LOG.info("Java auto build is supported only for maven or gradle based projects")
         return False
     cp = exec_tool(cmd_args, src, env=env, stdout=subprocess.PIPE)
-    LOG.debug(cp.stdout)
-    return cp.returncode == 0
-
+    if cp:
+        LOG.debug(cp.stdout)
+        return cp.returncode == 0
+    return False
 
 def nodejs_build(src, reports_dir, lang_tools):
     """
@@ -106,8 +108,11 @@ def nodejs_build(src, reports_dir, lang_tools):
         LOG.debug("Nodejs auto build is supported only for npm or yarn based projects")
         return False
     cp = exec_tool(cmd_args, src)
-    LOG.debug(cp.stdout)
-    ret = cp.returncode == 0
+    if cp:
+        LOG.debug(cp.stdout)
+        ret = cp.returncode == 0
+    else:
+        ret = False
     try:
         cmd_args = ["npm"]
         if yarn_mode:
