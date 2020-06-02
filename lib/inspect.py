@@ -331,7 +331,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     out_file.write(",")
                                 finding = {
                                     "app": app_name,
-                                    "type": "vuln",
+                                    "type": "extscan",
                                     "title": result.get("message", {}).get("text"),
                                     "description": rule.get("fullDescription", {}).get(
                                         "text"
