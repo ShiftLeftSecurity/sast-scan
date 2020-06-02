@@ -1,8 +1,0 @@
-steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "--tag=shiftleft/sast-scan", "--tag=gcr.io/$PROJECT_ID/sast-scan", "."]
-    timeout: 1200s
-images:
-  - "gcr.io/$PROJECT_ID/sast-scan"
-
-timeout: 3000s
