@@ -321,7 +321,31 @@ def test_checkov_convert_issue():
                     "resource": "aws_s3_bucket.data",
                     "evaluations": "",
                     "check_class": "checkov.terraform.checks.resource.aws.S3PublicACLRead",
-                }
+                },
+                {
+                    "check_id": "CKV_AWS_52",
+                    "check_name": "Ensure S3 bucket has MFA delete enabled",
+                    "check_result": {"result": "FAILED"},
+                    "code_block": [
+                        [171, 'resource "aws_s3_bucket" "flowbucket" {\n'],
+                        [172, '  bucket = "${local.resource_prefix.value}-flowlogs"\n'],
+                        [173, "  force_destroy = true\n"],
+                        [174, "\n"],
+                        [175, "  tags = {\n"],
+                        [
+                            176,
+                            '    Name        = "${local.resource_prefix.value}-flowlogs"\n',
+                        ],
+                        [177, "    Environment = local.resource_prefix.value\n"],
+                        [178, "  }\n"],
+                        [179, "}\n"],
+                    ],
+                    "file_path": "/terraform/ec2.tf",
+                    "file_line_range": [171, 179],
+                    "resource": "aws_s3_bucket.flowbucket",
+                    "evaluations": {},
+                    "check_class": "checkov.terraform.checks.resource.aws.S3MFADelete",
+                },
             ],
             cfile.name,
         )
@@ -332,8 +356,8 @@ def test_checkov_convert_issue():
         )
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "critical": 0,
-            "total": 1,
-            "high": 1,
+            "total": 2,
+            "high": 2,
             "medium": 0,
             "low": 0,
         }

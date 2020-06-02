@@ -87,6 +87,7 @@ def java_build(src, reports_dir, lang_tools):
         return cp.returncode == 0
     return False
 
+
 def nodejs_build(src, reports_dir, lang_tools):
     """
     Automatically build nodejs project

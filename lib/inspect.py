@@ -317,7 +317,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             for r in run.get("tool", {}).get("driver", {}).get("rules")
                             if r and r.get("id")
                         }
-                        out_file.write("{ \"findings\": [")
+                        out_file.write('{ "findings": [')
                         for result in results:
                             rule = rules.get(result.get("ruleId"))
                             for location in result.get("locations"):
@@ -331,7 +331,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     out_file.write(",")
                                 finding = {
                                     "app": app_name,
-                                    "type": "vuln",
+                                    "type": "extscan",
                                     "title": result.get("message", {}).get("text"),
                                     "description": rule.get("fullDescription", {}).get(
                                         "text"
