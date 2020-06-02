@@ -124,12 +124,16 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                             "issue_confidence": "HIGH",
                         }
                     )
+            elif tool_name == "checkov":
+                if isinstance(report_data, list):
+                    for rd in report_data:
+                        issues += rd.get("results", {}).get("failed_checks")
+                else:
+                    issues = report_data.get("results", {}).get("failed_checks")
             elif isinstance(report_data, list):
                 issues = report_data
             else:
-                if tool_name == "checkov":
-                    issues = report_data.get("results", {}).get("failed_checks")
-                elif "sec_issues" in report_data:
+                if "sec_issues" in report_data:
                     # NodeJsScan uses sec_issues
                     sec_data = report_data["sec_issues"]
                     for key, value in sec_data.items():
