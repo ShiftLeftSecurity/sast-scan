@@ -282,9 +282,9 @@ def convert_severity(severity):
     :return: Severity string for inspect
     """
     severity = severity.lower()
-    if severity == "error":
+    if severity == "critical":
         return "critical"
-    elif severity == "warning":
+    elif severity == "high" or severity == "medium":
         return "moderate"
     return "info"
 
