@@ -17,12 +17,14 @@ import json
 import os
 import sys
 
+from pathlib import Path
 
 runtimeValues = {}
 
 # Depth of credscan
-credscan_depth = "2"
-credscan_config = "/usr/local/src/credscan-config.toml"
+credscan_depth = "5"
+work_dir = (Path(__file__).parent.parent).as_posix()
+credscan_config = os.path.join(work_dir, "credscan-config.toml")
 credscan_timeout = "2m"
 
 APP_SRC_DIR = os.path.join(os.path.dirname(__file__), "..")
@@ -163,6 +165,14 @@ scan_tools_args_map = {
         "--repo-path=%(src)s",
         "--redact",
         "--timeout=" + get("credscan_timeout"),
+        "--report=%(report_fname_prefix)s.json",
+        "--report-format=json",
+    ],
+    "credscan-raw": [
+        "gitleaks",
+        "--config=" + get("credscan_config"),
+        "--depth=" + get("credscan_depth"),
+        "--repo-path=%(src)s",
         "--report=%(report_fname_prefix)s.json",
         "--report-format=json",
     ],
