@@ -6,7 +6,7 @@
           "name": "Go static analysis",
           "rules": [
             {
-              "id": "",
+              "id": "U1000",
               "help": {
                 "text": "const compileStageMetricPrefex is unused.",
                 "markdown": "const compileStageMetricPrefex is unused."
@@ -25,9 +25,659 @@
               "fullDescription": {
                 "text": "const compileStageMetricPrefex is unused."
               },
-              "helpUri": "https://staticcheck.io/docs/checks#",
+              "helpUri": "https://staticcheck.io/docs/checks#U1000",
               "shortDescription": {
-                "text": "Rule  from staticcheck."
+                "text": "Rule U1000 from staticcheck."
+              }
+            },
+            {
+              "id": "S1001",
+              "help": {
+                "text": "should use copy() instead of a loop.",
+                "markdown": "should use copy() instead of a loop."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use copy() instead of a loop."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1001",
+              "shortDescription": {
+                "text": "Rule S1001 from staticcheck."
+              }
+            },
+            {
+              "id": "SA4006",
+              "help": {
+                "text": "this value of err is never used.",
+                "markdown": "this value of err is never used."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "this value of err is never used."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA4006",
+              "shortDescription": {
+                "text": "Rule SA4006 from staticcheck."
+              }
+            },
+            {
+              "id": "S1005",
+              "help": {
+                "text": "unnecessary assignment to the blank identifier.",
+                "markdown": "unnecessary assignment to the blank identifier."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "unnecessary assignment to the blank identifier."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1005",
+              "shortDescription": {
+                "text": "Rule S1005 from staticcheck."
+              }
+            },
+            {
+              "id": "SA4020",
+              "help": {
+                "text": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.Head.",
+                "markdown": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.Head."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "unreachable case clause: github.com/open-policy-agent/opa/ast.Statement will always match before *github.com/open-policy-agent/opa/ast.Head."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA4020",
+              "shortDescription": {
+                "text": "Rule SA4020 from staticcheck."
+              }
+            },
+            {
+              "id": "SA4010",
+              "help": {
+                "text": "this result of append is never used, except maybe in other appends.",
+                "markdown": "this result of append is never used, except maybe in other appends."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "this result of append is never used, except maybe in other appends."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA4010",
+              "shortDescription": {
+                "text": "Rule SA4010 from staticcheck."
+              }
+            },
+            {
+              "id": "S1023",
+              "help": {
+                "text": "redundant return statement.",
+                "markdown": "redundant return statement."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "redundant return statement."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1023",
+              "shortDescription": {
+                "text": "Rule S1023 from staticcheck."
+              }
+            },
+            {
+              "id": "S1012",
+              "help": {
+                "text": "should use time.Since instead of time.Now().Sub.",
+                "markdown": "should use time.Since instead of time.Now().Sub."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use time.Since instead of time.Now().Sub."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1012",
+              "shortDescription": {
+                "text": "Rule S1012 from staticcheck."
+              }
+            },
+            {
+              "id": "S1039",
+              "help": {
+                "text": "unnecessary use of fmt.Sprintf.",
+                "markdown": "unnecessary use of fmt.Sprintf."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "unnecessary use of fmt.Sprintf."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1039",
+              "shortDescription": {
+                "text": "Rule S1039 from staticcheck."
+              }
+            },
+            {
+              "id": "SA1002",
+              "help": {
+                "text": "parsing time \"2018-01-01T00:00:00.0000000-\": month out of range.",
+                "markdown": "parsing time \"2018-01-01T00:00:00.0000000-\": month out of range."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "parsing time \"2018-01-01T00:00:00.0000000-\": month out of range."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA1002",
+              "shortDescription": {
+                "text": "Rule SA1002 from staticcheck."
+              }
+            },
+            {
+              "id": "SA9004",
+              "help": {
+                "text": "only the first constant in this group has an explicit type.",
+                "markdown": "only the first constant in this group has an explicit type."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "only the first constant in this group has an explicit type."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA9004",
+              "shortDescription": {
+                "text": "Rule SA9004 from staticcheck."
+              }
+            },
+            {
+              "id": "S1006",
+              "help": {
+                "text": "should use for {} instead of for true {}.",
+                "markdown": "should use for {} instead of for true {}."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use for {} instead of for true {}."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1006",
+              "shortDescription": {
+                "text": "Rule S1006 from staticcheck."
+              }
+            },
+            {
+              "id": "S1008",
+              "help": {
+                "text": "should use 'return r.metrics != nil' instead of 'if r.metrics != nil { return true }; return false'.",
+                "markdown": "should use 'return r.metrics != nil' instead of 'if r.metrics != nil { return true }; return false'."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use 'return r.metrics != nil' instead of 'if r.metrics != nil { return true }; return false'."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1008",
+              "shortDescription": {
+                "text": "Rule S1008 from staticcheck."
+              }
+            },
+            {
+              "id": "SA1017",
+              "help": {
+                "text": "the channel used with signal.Notify should be buffered.",
+                "markdown": "the channel used with signal.Notify should be buffered."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "the channel used with signal.Notify should be buffered."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA1017",
+              "shortDescription": {
+                "text": "Rule SA1017 from staticcheck."
+              }
+            },
+            {
+              "id": "S1000",
+              "help": {
+                "text": "should use for range instead of for { select {} }.",
+                "markdown": "should use for range instead of for { select {} }."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use for range instead of for { select {} }."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1000",
+              "shortDescription": {
+                "text": "Rule S1000 from staticcheck."
+              }
+            },
+            {
+              "id": "S1009",
+              "help": {
+                "text": "should omit nil check; len() for nil slices is defined as zero.",
+                "markdown": "should omit nil check; len() for nil slices is defined as zero."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should omit nil check; len() for nil slices is defined as zero."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1009",
+              "shortDescription": {
+                "text": "Rule S1009 from staticcheck."
+              }
+            },
+            {
+              "id": "S1030",
+              "help": {
+                "text": "should use f.recorder.Body.Bytes() instead of []byte(f.recorder.Body.String()).",
+                "markdown": "should use f.recorder.Body.Bytes() instead of []byte(f.recorder.Body.String())."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use f.recorder.Body.Bytes() instead of []byte(f.recorder.Body.String())."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1030",
+              "shortDescription": {
+                "text": "Rule S1030 from staticcheck."
+              }
+            },
+            {
+              "id": "ST1019",
+              "help": {
+                "text": "package \"github.com/open-policy-agent/opa/test/authz\" is being imported more than once.",
+                "markdown": "package \"github.com/open-policy-agent/opa/test/authz\" is being imported more than once."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "package \"github.com/open-policy-agent/opa/test/authz\" is being imported more than once."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#ST1019",
+              "shortDescription": {
+                "text": "Rule ST1019 from staticcheck."
+              }
+            },
+            {
+              "id": "SA2002",
+              "help": {
+                "text": "the goroutine calls T.Fatal, which must be called in the same goroutine as the test.",
+                "markdown": "the goroutine calls T.Fatal, which must be called in the same goroutine as the test."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "the goroutine calls T.Fatal, which must be called in the same goroutine as the test."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#SA2002",
+              "shortDescription": {
+                "text": "Rule SA2002 from staticcheck."
+              }
+            },
+            {
+              "id": "ST1005",
+              "help": {
+                "text": "error strings should not be capitalized.",
+                "markdown": "error strings should not be capitalized."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "error strings should not be capitalized."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#ST1005",
+              "shortDescription": {
+                "text": "Rule ST1005 from staticcheck."
+              }
+            },
+            {
+              "id": "S1011",
+              "help": {
+                "text": "should replace loop with arrC = append(arrC, arrA...).",
+                "markdown": "should replace loop with arrC = append(arrC, arrA...)."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should replace loop with arrC = append(arrC, arrA...)."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1011",
+              "shortDescription": {
+                "text": "Rule S1011 from staticcheck."
+              }
+            },
+            {
+              "id": "S1019",
+              "help": {
+                "text": "should use make(map[int]ast.Var) instead.",
+                "markdown": "should use make(map[int]ast.Var) instead."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use make(map[int]ast.Var) instead."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1019",
+              "shortDescription": {
+                "text": "Rule S1019 from staticcheck."
+              }
+            },
+            {
+              "id": "S1021",
+              "help": {
+                "text": "should merge variable declaration with assignment on next line.",
+                "markdown": "should merge variable declaration with assignment on next line."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should merge variable declaration with assignment on next line."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1021",
+              "shortDescription": {
+                "text": "Rule S1021 from staticcheck."
+              }
+            },
+            {
+              "id": "S1004",
+              "help": {
+                "text": "should use !bytes.Equal([]byte{1}, b.Bytes()) instead.",
+                "markdown": "should use !bytes.Equal([]byte{1}, b.Bytes()) instead."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "should use !bytes.Equal([]byte{1}, b.Bytes()) instead."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1004",
+              "shortDescription": {
+                "text": "Rule S1004 from staticcheck."
+              }
+            },
+            {
+              "id": "ST1017",
+              "help": {
+                "text": "don't use Yoda conditions.",
+                "markdown": "don't use Yoda conditions."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "don't use Yoda conditions."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#ST1017",
+              "shortDescription": {
+                "text": "Rule ST1017 from staticcheck."
+              }
+            },
+            {
+              "id": "S1034",
+              "help": {
+                "text": "assigning the result of this type assertion to a variable (switch value := value.(type)) could eliminate type assertions in switch cases.",
+                "markdown": "assigning the result of this type assertion to a variable (switch value := value.(type)) could eliminate type assertions in switch cases."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "assigning the result of this type assertion to a variable (switch value := value.(type)) could eliminate type assertions in switch cases."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1034",
+              "shortDescription": {
+                "text": "Rule S1034 from staticcheck."
+              }
+            },
+            {
+              "id": "S1025",
+              "help": {
+                "text": "the argument is already a string, there's no need to use fmt.Sprintf.",
+                "markdown": "the argument is already a string, there's no need to use fmt.Sprintf."
+              },
+              "name": "",
+              "properties": {
+                "tags": [
+                  "ShiftLeft",
+                  "Scan"
+                ],
+                "precision": "high"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "fullDescription": {
+                "text": "the argument is already a string, there's no need to use fmt.Sprintf."
+              },
+              "helpUri": "https://staticcheck.io/docs/checks#S1025",
+              "shortDescription": {
+                "text": "Rule S1025 from staticcheck."
               }
             }
           ]
@@ -47,7 +697,7 @@
           ],
           "executionSuccessful": true,
           "commandLine": "-f json ./...",
-          "endTimeUtc": "2020-05-09T12:18:41Z",
+          "endTimeUtc": "2020-05-29T13:43:53Z",
           "workingDirectory": {
             "uri": "file:///Users/prabhu/go/opa"
           }
@@ -56,7 +706,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2020-05-09T12:18:41Z",
+          "endTimeUtc": "2020-05-29T13:43:53Z",
           "workingDirectory": {
             "uri": "file:///Users/prabhu/go/opa"
           }
@@ -105,7 +755,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -141,7 +791,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -177,7 +827,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -213,7 +863,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -249,7 +899,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -285,8 +935,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1001",
+          "ruleIndex": 1
         },
         {
           "message": {
@@ -321,8 +971,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1001",
+          "ruleIndex": 1
         },
         {
           "message": {
@@ -357,8 +1007,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -393,8 +1043,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -429,7 +1079,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -465,8 +1115,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1005",
+          "ruleIndex": 3
         },
         {
           "message": {
@@ -501,7 +1151,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -537,7 +1187,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -573,8 +1223,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1005",
+          "ruleIndex": 3
         },
         {
           "message": {
@@ -609,7 +1259,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -645,8 +1295,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4020",
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -681,8 +1331,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4020",
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -717,8 +1367,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4020",
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -753,8 +1403,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4020",
+          "ruleIndex": 4
         },
         {
           "message": {
@@ -789,7 +1439,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -825,8 +1475,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4010",
+          "ruleIndex": 5
         },
         {
           "message": {
@@ -861,7 +1511,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -897,7 +1547,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -933,7 +1583,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -969,8 +1619,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1023",
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -1005,8 +1655,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1012",
+          "ruleIndex": 7
         },
         {
           "message": {
@@ -1041,7 +1691,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -1077,8 +1727,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1113,8 +1763,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1005",
+          "ruleIndex": 3
         },
         {
           "message": {
@@ -1149,8 +1799,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1005",
+          "ruleIndex": 3
         },
         {
           "message": {
@@ -1185,8 +1835,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1221,8 +1871,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1257,8 +1907,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1293,8 +1943,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1329,8 +1979,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1365,8 +2015,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1401,8 +2051,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1437,8 +2087,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -1473,7 +2123,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -1509,7 +2159,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -1545,7 +2195,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -1581,7 +2231,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -1617,8 +2267,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1005",
+          "ruleIndex": 3
         },
         {
           "message": {
@@ -1653,8 +2303,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA1002",
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -1689,8 +2339,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA1002",
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -1725,8 +2375,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1761,8 +2411,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1797,8 +2447,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1833,8 +2483,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1869,8 +2519,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -1905,8 +2555,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA1002",
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -1941,8 +2591,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA1002",
+          "ruleIndex": 9
         },
         {
           "message": {
@@ -1977,7 +2627,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2013,8 +2663,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -2049,8 +2699,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -2085,8 +2735,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA9004",
+          "ruleIndex": 10
         },
         {
           "message": {
@@ -2121,8 +2771,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1006",
+          "ruleIndex": 11
         },
         {
           "message": {
@@ -2157,8 +2807,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1006",
+          "ruleIndex": 11
         },
         {
           "message": {
@@ -2193,8 +2843,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1008",
+          "ruleIndex": 12
         },
         {
           "message": {
@@ -2229,8 +2879,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -2265,8 +2915,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA1017",
+          "ruleIndex": 13
         },
         {
           "message": {
@@ -2301,8 +2951,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1000",
+          "ruleIndex": 14
         },
         {
           "message": {
@@ -2337,8 +2987,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1009",
+          "ruleIndex": 15
         },
         {
           "message": {
@@ -2373,7 +3023,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2409,7 +3059,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2445,7 +3095,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2481,7 +3131,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2517,8 +3167,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1030",
+          "ruleIndex": 16
         },
         {
           "message": {
@@ -2553,7 +3203,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2589,7 +3239,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2625,7 +3275,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -2661,8 +3311,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1019",
+          "ruleIndex": 17
         },
         {
           "message": {
@@ -2697,8 +3347,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA2002",
+          "ruleIndex": 18
         },
         {
           "message": {
@@ -2733,8 +3383,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA2002",
+          "ruleIndex": 18
         },
         {
           "message": {
@@ -2769,8 +3419,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -2805,8 +3455,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -2841,8 +3491,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -2877,8 +3527,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -2913,8 +3563,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -2949,8 +3599,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -2985,8 +3635,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -3021,8 +3671,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -3057,8 +3707,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1005",
+          "ruleIndex": 19
         },
         {
           "message": {
@@ -3093,7 +3743,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -3129,8 +3779,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1011",
+          "ruleIndex": 20
         },
         {
           "message": {
@@ -3165,8 +3815,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1011",
+          "ruleIndex": 20
         },
         {
           "message": {
@@ -3201,8 +3851,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1019",
+          "ruleIndex": 21
         },
         {
           "message": {
@@ -3237,8 +3887,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1039",
+          "ruleIndex": 8
         },
         {
           "message": {
@@ -3273,7 +3923,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -3309,7 +3959,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -3345,8 +3995,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1008",
+          "ruleIndex": 12
         },
         {
           "message": {
@@ -3381,8 +4031,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1023",
+          "ruleIndex": 6
         },
         {
           "message": {
@@ -3417,8 +4067,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1021",
+          "ruleIndex": 22
         },
         {
           "message": {
@@ -3453,8 +4103,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3489,8 +4139,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3525,8 +4175,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3561,8 +4211,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3597,8 +4247,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1017",
+          "ruleIndex": 24
         },
         {
           "message": {
@@ -3633,8 +4283,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3669,8 +4319,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "ST1017",
+          "ruleIndex": 24
         },
         {
           "message": {
@@ -3705,8 +4355,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3741,8 +4391,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3777,8 +4427,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1034",
+          "ruleIndex": 25
         },
         {
           "message": {
@@ -3813,8 +4463,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA9004",
+          "ruleIndex": 10
         },
         {
           "message": {
@@ -3849,8 +4499,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3885,8 +4535,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -3921,8 +4571,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -3957,8 +4607,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -3993,8 +4643,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -4029,8 +4679,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -4065,8 +4715,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -4101,8 +4751,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1004",
+          "ruleIndex": 23
         },
         {
           "message": {
@@ -4137,8 +4787,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -4173,7 +4823,7 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
+          "ruleId": "U1000",
           "ruleIndex": 0
         },
         {
@@ -4209,8 +4859,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1025",
+          "ruleIndex": 26
         },
         {
           "message": {
@@ -4245,8 +4895,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1025",
+          "ruleIndex": 26
         },
         {
           "message": {
@@ -4281,8 +4931,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1025",
+          "ruleIndex": 26
         },
         {
           "message": {
@@ -4317,8 +4967,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -4353,8 +5003,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -4389,8 +5039,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1025",
+          "ruleIndex": 26
         },
         {
           "message": {
@@ -4425,8 +5075,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA2002",
+          "ruleIndex": 18
         },
         {
           "message": {
@@ -4461,8 +5111,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "S1008",
+          "ruleIndex": 12
         },
         {
           "message": {
@@ -4497,8 +5147,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -4533,8 +5183,8 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         },
         {
           "message": {
@@ -4569,15 +5219,15 @@
           },
           "baselineState": "new",
           "partialFingerprints": {},
-          "ruleId": "",
-          "ruleIndex": 0
+          "ruleId": "SA4006",
+          "ruleIndex": 2
         }
       ],
       "automationDetails": {
         "description": {
           "text": "Static Analysis Security Test results using @ShiftLeft/sast-scan"
         },
-        "guid": "bbd54c5f-d936-4d26-b435-e87b140b054d"
+        "guid": "d38dea97-2fb4-4f88-86b4-355dfb1c791f"
       },
       "versionControlProvenance": [
         {
@@ -4592,8 +5242,8 @@
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
   "inlineExternalProperties": [
     {
-      "guid": "bbd54c5f-d936-4d26-b435-e87b140b054d",
-      "runGuid": "cb172c12-4c62-442d-877e-26d5b44c26ab"
+      "guid": "d38dea97-2fb4-4f88-86b4-355dfb1c791f",
+      "runGuid": "24c85a56-e9c9-4a1a-88bc-aa81b0a64af7"
     }
   ]
 }
