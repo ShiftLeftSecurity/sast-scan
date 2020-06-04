@@ -171,5 +171,5 @@ title = "gitleaks config"
 
 [whitelist]
 	description = "image and path whitelists"
-	file = '''(.*?)(jpg|gif|doc|pdf|bin)$'''
+	files = ['''(.*?)(jpg|gif|doc|pdf|bin)$''', '''(?i)(credscan-config.toml)''']
 	paths = ['''(?i)(test|reports|node_modules)''']

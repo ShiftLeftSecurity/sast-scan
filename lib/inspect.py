@@ -299,6 +299,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
     :return:
     """
     finding_id = 1
+    findings_list = []
     with open(findings_fname, mode="w") as out_file:
         for sf in sarif_files:
             with open(sf, mode="r") as report_file:
@@ -308,60 +309,59 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                     continue
                 # Iterate through all the runs
                 for run in report_data["runs"]:
-                    try:
-                        results = run.get("results")
-                        if not results:
+                    results = run.get("results")
+                    if not results:
+                        continue
+                    rules = {
+                        r["id"]: r
+                        for r in run.get("tool", {}).get("driver", {}).get("rules")
+                        if r and r.get("id")
+                    }
+                    for result in results:
+                        rule = rules.get(result.get("ruleId"))
+                        if not rule:
                             continue
-                        rules = {
-                            r["id"]: r
-                            for r in run.get("tool", {}).get("driver", {}).get("rules")
-                            if r and r.get("id")
-                        }
-                        out_file.write('{ "findings": [')
-                        for result in results:
-                            rule = rules.get(result.get("ruleId"))
-                            for location in result.get("locations"):
-                                filename = location["physicalLocation"][
-                                    "artifactLocation"
-                                ]["uri"]
-                                lineno = location.get("physicalLocation", {})["region"][
-                                    "startLine"
-                                ]
-                                if finding_id > 1:
-                                    out_file.write(",")
-                                finding = {
-                                    "app": app_name,
-                                    "type": "extscan",
-                                    "title": result.get("message", {}).get("text"),
-                                    "description": rule.get("fullDescription", {}).get(
-                                        "text"
+                        for location in result.get("locations"):
+                            filename = location["physicalLocation"]["artifactLocation"][
+                                "uri"
+                            ]
+                            lineno = location.get("physicalLocation", {})["region"][
+                                "startLine"
+                            ]
+                            finding = {
+                                "app": app_name,
+                                "type": "extscan",
+                                "title": result.get("message", {}).get("text"),
+                                "description": rule.get("fullDescription", {}).get(
+                                    "text"
+                                ),
+                                "internal_id": "{}/{}".format(
+                                    result["ruleId"],
+                                    utils.calculate_line_hash(
+                                        filename,
+                                        lineno,
+                                        location.get("physicalLocation", {})["region"][
+                                            "snippet"
+                                        ]["text"],
                                     ),
-                                    "internal_id": "{}/{}".format(
-                                        result["ruleId"],
-                                        utils.calculate_line_hash(
-                                            filename,
-                                            lineno,
-                                            location.get("physicalLocation", {})[
-                                                "region"
-                                            ]["snippet"]["text"],
-                                        ),
-                                    ),
-                                    "severity": convert_severity(
-                                        result.get("properties", {})["issue_severity"]
-                                    ),
-                                    "owasp_category": "",
-                                    "category": result["ruleId"],
-                                    "details": {
-                                        "repoContext": repo_context,
-                                        "name": result.get("message", {})["text"],
-                                        "tags": ",".join(rule["properties"]["tags"]),
-                                        "fileName": filename,
-                                        "DATA_TYPE": "OSS_SCAN",
-                                        "lineNumber": lineno,
-                                    },
-                                }
-                                out_file.write(json.dumps(finding))
-                                finding_id = finding_id + 1
-                        out_file.write("]}")
-                    except Exception as e:
-                        LOG.debug("Unable to convert the run to findings format")
+                                ),
+                                "severity": convert_severity(
+                                    result.get("properties", {})["issue_severity"]
+                                ),
+                                "owasp_category": "",
+                                "category": result["ruleId"],
+                                "details": {
+                                    "repoContext": repo_context,
+                                    "name": result.get("message", {})["text"],
+                                    "tags": ",".join(rule["properties"]["tags"]),
+                                    "fileName": filename,
+                                    "DATA_TYPE": "OSS_SCAN",
+                                    "lineNumber": lineno,
+                                },
+                            }
+                            findings_list.append(finding)
+                            finding_id = finding_id + 1
+        try:
+            json.dump({"findings": findings_list}, out_file)
+        except:
+            LOG.debug("Unable to convert the run to findings format")
