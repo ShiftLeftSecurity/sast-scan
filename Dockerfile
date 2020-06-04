@@ -3,18 +3,18 @@ FROM shiftleft/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.2.0 \
-    TFSEC_VERSION=0.19.0 \
-    KUBESEC_VERSION=2.3.1 \
-    KUBE_SCORE_VERSION=1.5.1 \
-    DETEKT_VERSION=1.6.0 \
+ENV GOSEC_VERSION=2.3.0 \
+    TFSEC_VERSION=0.21.0 \
+    KUBESEC_VERSION=2.4.0 \
+    KUBE_SCORE_VERSION=1.7.0 \
+    DETEKT_VERSION=1.9.0 \
     GITLEAKS_VERSION=4.3.1 \
     GRADLE_VERSION=6.0.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     MAVEN_VERSION=3.6.3 \
     MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
-    SC_VERSION=2020.1.3 \
-    PMD_VERSION=6.22.0 \
+    SC_VERSION=2020.1.4 \
+    PMD_VERSION=6.24.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
     FSB_VERSION=1.10.1 \
@@ -96,7 +96,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     MVN_CMD="/opt/apache-maven/bin/mvn" \
     PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     SB_VERSION=4.0.1 \
-    PMD_VERSION=6.22.0 \
+    PMD_VERSION=6.24.0 \
     PMD_JAVA_OPTS="" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
