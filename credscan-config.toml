@@ -4,6 +4,9 @@ title = "gitleaks config"
 	description = "AWS Manager ID"
 	regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
 	tags = ["key", "AWS"]
+	[[rules.whitelist]]
+		regex = '''(?i)(AKIAIOSFODNN7EXAMPLE)'''
+		description = "ignore example"
 
 [[rules]]
 	description = "AWS Secret Key"
@@ -60,6 +63,25 @@ title = "gitleaks config"
 	regex = '''-----BEGIN EC PRIVATE KEY-----'''
 	tags = ["key", "EC"]
 
+[[rules]]
+	description = "DSA"
+	regex = '''-----BEGIN DSA PRIVATE KEY-----'''
+	tags = ["key", "DSA"]
+
+[[rules]]
+	description = "OPENSSH"
+	regex = '''-----BEGIN OPENSSH PRIVATE KEY-----'''
+	tags = ["key", "OPENSSH"]
+
+[[rules]]
+	description = "RSA"
+	regex = '''-----BEGIN RSA PRIVATE KEY-----'''
+	tags = ["key", "RSA"]
+
+[[rules]]
+	description = "PGP"
+	regex = '''-----BEGIN PGP PRIVATE KEY BLOCK-----'''
+	tags = ["key", "PGP"]
 
 [[rules]]
 	description = "Google API key"
@@ -119,22 +141,11 @@ title = "gitleaks config"
 
 [[rules]]
 	description = "Env Var"
-	regex = '''(?i)(apikey|secret|key|api|password|pass|pw|host)=[0-9a-zA-Z-_.{}]{4,120}'''
-
-[[rules]]
-	description = "Generic Credential"
-	regex = '''(?i)(dbpasswd|dbuser|dbname|dbhost|api_key|apikey|secret|key|api|password|user|guid|hostname|pw|auth)(.{0,20})?['|"]([0-9a-zA-Z-_\/+!{}/=]{4,120})['|"]'''
-	tags = ["key", "API", "generic"]
-	# ignore leaks with specific identifiers like slack and aws
-	[[rules.whitelist]]
-		regex = '''xox[baprs]-([0-9a-zA-Z]{10,48})'''
-		description = "ignore slack"
-	[[rules.whitelist]]
-		description = "MailChimp API key"
-		regex = '''(?i)(.{0,20})?['"][0-9a-f]{32}-us[0-9]{1,2}['"]'''
-	[[rules.whitelist]]
-		description = "AWS Manager ID"
-		regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
+	regex = '''(?i)(apikey|secret|key|api|password|pass|pw|host|certificate_osx_p12|certificate_password|codacy_project_token|coveralls_api_token|coveralls_repo_token|coveralls_token|coverity_scan_token|cypress_record_key|database_password|db_password|deploy_password|deploy_token|digitalocean_access_token|docker_hub_password|docker_password|dockerhub_password|sonatype_password|firebase_api_token|firebase_token|firefox_secret|flask_secret_key|fossa_api_key|gcloud_service_key|gcr_password|gh_api_key|gh_next_oauth_client_secret|gh_next_unstable_oauth_client_secret|gh_oauth_client_secret|gpg_private_key|gpg_passphrase|gpg_secret_keys|heroku_api_key|okta_client_token|pypi_password|sonatype_nexus_password|travis_token|refresh_token)=[0-9a-zA-Z-_.{}]{8,120}'''
+    tags = ["key", "env"]
+    [[rules.whitelist]]
+		regex = '''(?i)(password|passwd|secret|yourpassword|foo|bar)'''
+		description = "ignore default"
 
 [[rules]]
 	description = "High Entropy"
@@ -142,7 +153,7 @@ title = "gitleaks config"
   	fileNameRegex = '''(?i)(dump.sql|high-entropy-misc.txt)$'''
 	tags = ["entropy"]
         [[rules.Entropies]]
-            Min = "4.5"
+            Min = "4.8"
             Max = "7.0"
         [[rules.whitelist]]
             description = "ignore ssh key and pems"
@@ -159,5 +170,6 @@ title = "gitleaks config"
     fileNameRegex = '''(?i)(id_rsa|passwd|id_rsa.pub|pgpass|pem)'''
 
 [whitelist]
-	description = "image whitelists"
+	description = "image and path whitelists"
 	file = '''(.*?)(jpg|gif|doc|pdf|bin)$'''
+	paths = ['''(?i)(test|reports|node_modules)''']

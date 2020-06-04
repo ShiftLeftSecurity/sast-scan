@@ -53,7 +53,7 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 
 ## Getting started
 
-sast-scan is ideal for use with CI and also as a pre-commit hook for local development.
+scan is ideal for use with CI and also as a pre-commit hook for local development.
 
 ### Scanning projects locally
 
@@ -131,11 +131,11 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 
 Scan offers certain language specific container images with additional runtime versions and tools.
 
-| Image name            | Comments                                                             |
-| --------------------- | -------------------------------------------------------------------- |
-| shiftleft/scan-oss    | Just the OSS tools without any ShiftLeft cli                         |
-| shiftleft/scan-java   | Includes both Java 8 and 11 along with any ShiftLeft cli             |
-| shiftleft/scan-csharp | Includes both .Net core 2.1 and 3.1 SDK along with any ShiftLeft cli |
+| Image name            | Comments                                                         |
+| --------------------- | ---------------------------------------------------------------- |
+| shiftleft/scan-oss    | Just the OSS tools without any ShiftLeft cli                     |
+| shiftleft/scan-java   | Includes both Java 8 and 11 along with ShiftLeft cli             |
+| shiftleft/scan-csharp | Includes both .Net core 2.1 and 3.1 SDK along with ShiftLeft cli |
 
 For all other languages, continue to use `shiftleft/sast-scan` or `shiftleft/scan`
 

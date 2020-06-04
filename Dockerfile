@@ -130,7 +130,6 @@ COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
 COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
 COPY --from=builder /opt/sl-cli /opt/sl-cli
 COPY rules-pmd.xml /usr/local/src/
-COPY credscan-config.toml /usr/local/src/
 COPY requirements.txt /usr/local/src/
 
 USER root
@@ -143,7 +142,7 @@ RUN pip3 install --no-cache-dir wheel \
     && microdnf remove -y ruby-devel
 
 WORKDIR /app
-
+COPY credscan-config.toml /usr/local/src/
 COPY scan /usr/local/src/
 COPY lib /usr/local/src/lib
 

@@ -267,6 +267,8 @@ class Issue(object):
             test_id = data["check_id"]
         if "tag" in data:
             test_id = data["tag"]
+        if "commitMessage" in data and "commit" in data:
+            test_id = "CWE-312"
         if "cwe" in data:
             cwe_obj = data["cwe"]
             if isinstance(cwe_obj, str):
