@@ -20,6 +20,8 @@ from git import Repo
 
 from lib.logger import LOG
 
+repo_url_prefixes = ["http", "git", "ssh"]
+
 
 def find_repo_details(src_dir=None):
     """Method to find repo details such as url, sha etc
@@ -68,8 +70,9 @@ def find_repo_details(src_dir=None):
                 "CI_PROJECT_NAME",
             ]:
                 if "/" in value:
-                    value = value.split("/")[-1]
-                repositoryName = value
+                    repositoryName = value.split("/")[-1]
+                else:
+                    repositoryName = value
         if not repositoryUri:
             if key in [
                 "REPOSITORY_URL",
@@ -141,7 +144,13 @@ def find_repo_details(src_dir=None):
             "git@github.com:", "https://github.com/"
         ).replace(".git", "")
         # Is it a repo slug?
-        if not repositoryUri.startswith("http") and not repositoryUri.startswith("git"):
+        repo_slug = True
+        for pref in repo_url_prefixes:
+            if repositoryUri.startswith(pref):
+                repo_slug = False
+                break
+        # For repo slug just assume github for now
+        if repo_slug:
             repositoryUri = "https://github.com/" + repositoryUri
     return {
         "repositoryName": repositoryName,
