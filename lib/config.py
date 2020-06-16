@@ -329,7 +329,7 @@ build_tools_map = {
     "csharp": ["dotnet", "build"],
     "java": {
         "maven": [get("MVN_CMD"), "compile"],
-        "gradle": [get("GRADLE_CMD"), "build"],
+        "gradle": [get("GRADLE_CMD"), "compileJava"],
     },
     "nodejs": {"npm": ["npm", "install"], "yarn": ["yarn", "install"]},
     "go": ["go", "build", "./..."],
@@ -341,6 +341,7 @@ This map contains the SARIF purpose string for various tools
 """
 tool_purpose_message = {
     "nodejsscan": "Static security code scan",
+    "njsscan": "Static security code scan",
     "findsecbugs": "Class file analyzer",
     "pmd": "Source code analyzer",
     "/opt/pmd-bin/bin/run.sh": "Source code analyzer",

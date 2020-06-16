@@ -124,6 +124,31 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                             "issue_confidence": "HIGH",
                         }
                     )
+            elif tool_name == "source-js":
+                njs_findings = report_data.get("nodejs", {})
+                for k, v in njs_findings.items():
+                    files = v.get("files", [])
+                    metadata = v.get("metadata", {})
+                    if not files or not metadata:
+                        continue
+                    for afile in files:
+                        line_number = 0
+                        if afile.get("match_lines"):
+                            line_number = afile.get("match_lines")[0]
+                        issues.append(
+                            {
+                                "rule_id": metadata.get("owasp")
+                                .replace(":", "-")
+                                .replace(" ", "")
+                                .lower(),
+                                "title": metadata.get("cwe"),
+                                "description": metadata.get("description"),
+                                "severity": metadata.get("severity"),
+                                "line_number": line_number,
+                                "filename": afile.get("file_path"),
+                                "issue_confidence": "HIGH",
+                            }
+                        )
             elif tool_name == "checkov":
                 if isinstance(report_data, list):
                     for rd in report_data:
