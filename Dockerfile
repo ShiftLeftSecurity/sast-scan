@@ -138,7 +138,7 @@ RUN pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir appthreat-depscan \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install --only=production -g @appthreat/cdxgen \
+    && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
     && microdnf remove -y ruby-devel
 
 WORKDIR /app

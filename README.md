@@ -15,31 +15,31 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 
 ## Bundled tools
 
-| Programming Language | Tools                              |
-| -------------------- | ---------------------------------- |
-| ansible              | ansible-lint                       |
-| apex                 | pmd                                |
-| aws                  | checkov                            |
-| bash                 | shellcheck                         |
-| bom                  | cdxgen                             |
-| credscan             | gitleaks                           |
-| depscan              | dep-scan                           |
-| go                   | gosec, staticcheck                 |
-| java                 | cdxgen, gradle, find-sec-bugs, pmd |
-| jsp                  | pmd                                |
-| json                 | jq, jsondiff, jsonschema           |
-| kotlin               | detekt                             |
-| kubernetes           | checkov, kubesec, kube-score       |
-| nodejs               | cdxgen, NodeJsScan, eslint, yarn   |
-| puppet               | puppet-lint                        |
-| plsql                | pmd                                |
-| python               | bandit, cdxgen, pipenv             |
-| ruby                 | cyclonedx-ruby                     |
-| rust                 | cdxgen, cargo-audit                |
-| terraform            | checkov, tfsec                     |
-| Visual Force (vf)    | pmd                                |
-| Apache Velocity (vm) | pmd                                |
-| yaml                 | yamllint                           |
+| Programming Language | Tools                               |
+| -------------------- | ----------------------------------- |
+| ansible              | ansible-lint                        |
+| apex                 | pmd                                 |
+| aws                  | checkov                             |
+| bash                 | shellcheck                          |
+| bom                  | cdxgen                              |
+| credscan             | gitleaks                            |
+| depscan              | dep-scan                            |
+| go                   | gosec, staticcheck                  |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd  |
+| jsp                  | pmd                                 |
+| json                 | jq, jsondiff, jsonschema            |
+| kotlin               | detekt                              |
+| kubernetes           | checkov, kubesec, kube-score        |
+| nodejs               | cdxgen, njsscan, eslint, yarn, rush |
+| puppet               | puppet-lint                         |
+| plsql                | pmd                                 |
+| python               | bandit, cdxgen, pipenv              |
+| ruby                 | cyclonedx-ruby                      |
+| rust                 | cdxgen, cargo-audit                 |
+| terraform            | checkov, tfsec                      |
+| Visual Force (vf)    | pmd                                 |
+| Apache Velocity (vm) | pmd                                 |
+| yaml                 | yamllint                            |
 
 ## Bundled languages/runtime
 
