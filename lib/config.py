@@ -331,7 +331,11 @@ build_tools_map = {
         "maven": [get("MVN_CMD"), "compile"],
         "gradle": [get("GRADLE_CMD"), "compileJava"],
     },
-    "nodejs": {"npm": ["npm", "install"], "yarn": ["yarn", "install"]},
+    "nodejs": {
+        "npm": ["npm", "install"],
+        "yarn": ["yarn", "install"],
+        "rush": ["rush", "update"],
+    },
     "go": ["go", "build", "./..."],
     "rust": ["cargo", "build"],
 }

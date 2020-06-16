@@ -100,17 +100,23 @@ def nodejs_build(src, reports_dir, lang_tools):
     """
     cmd_args = lang_tools.get("npm")
     yarn_mode = False
+    rush_mode = False
+    rushjson_files = [p.as_posix() for p in Path(src).glob("rush.json")]
     pjson_files = [p.as_posix() for p in Path(src).glob("package.json")]
     ylock_files = [p.as_posix() for p in Path(src).glob("yarn.lock")]
     if ylock_files:
         cmd_args = lang_tools.get("yarn")
         yarn_mode = True
+    elif rushjson_files:
+        cmd_args = lang_tools.get("rush")
+        rush_mode = True
     elif not pjson_files:
-        LOG.debug("Nodejs auto build is supported only for npm or yarn based projects")
+        LOG.debug(
+            "Nodejs auto build is supported only for npm or yarn or rush based projects"
+        )
         return False
     cp = exec_tool(cmd_args, src)
     if cp:
-        LOG.debug(cp.stdout)
         ret = cp.returncode == 0
     else:
         ret = False
@@ -118,7 +124,10 @@ def nodejs_build(src, reports_dir, lang_tools):
         cmd_args = ["npm"]
         if yarn_mode:
             cmd_args = ["yarn"]
-        cmd_args += ["run", "build"]
+        if rush_mode:
+            cmd_args = ["rush", "rebuild"]
+        else:
+            cmd_args += ["run", "build"]
         exec_tool(cmd_args, src)
     except Exception:
         LOG.debug("Automatic build has failed for the node.js project")

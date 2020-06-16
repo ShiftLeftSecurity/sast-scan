@@ -193,11 +193,11 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         )
         return
     analyze_files = config.get("SHIFTLEFT_ANALYZE_FILE")
+    analyze_target_dir = config.get(
+        "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
+    )
     if not analyze_files:
         if language == "java":
-            analyze_target_dir = config.get(
-                "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
-            )
             analyze_files = utils.find_java_artifacts(analyze_target_dir)
             env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
         if language == "csharp":
@@ -214,7 +214,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         branch = "master"
     if not analyze_files:
         LOG.warning(
-            "Unable to find any build artifacts. Compile your project first before invoking scan."
+            "Unable to find any build artifacts. Compile your project first before invoking scan or use the auto build feature."
         )
         return
     if len(analyze_files) > 1:
