@@ -1,0 +1,120 @@
+{
+  "errors": [],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/routes/index.js",
+          "match_lines": [
+            72,
+            72
+          ],
+          "match_position": [
+            16,
+            42
+          ],
+          "match_string": "        return res.redirect(req.query.url);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/routes/session.js",
+          "match_lines": [
+            13,
+            13
+          ],
+          "match_position": [
+            34,
+            45
+          ],
+          "match_string": "        var stocks = Math.floor((Math.random() * 40) + 1);"
+        },
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/routes/session.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "        var funds = Math.floor((Math.random() * 40) + 1);"
+        },
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/data/user-dao.js",
+          "match_lines": [
+            59,
+            59
+          ],
+          "match_position": [
+            31,
+            42
+          ],
+          "match_string": "        var day = (Math.floor(Math.random() * 10) + today.getDay()) % 29;"
+        },
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/data/user-dao.js",
+          "match_lines": [
+            60,
+            60
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "        var month = (Math.floor(Math.random() * 10) + today.getMonth()) % 12;"
+        },
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/data/user-dao.js",
+          "match_lines": [
+            61,
+            61
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "        var year = Math.ceil(Math.random() * 30) + today.getFullYear();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/Users/prabhu/work/NodeGoat/app/routes/session.js",
+          "match_lines": [
+            176,
+            178
+          ],
+          "match_position": [
+            9,
+            25
+          ],
+          "match_string": "        if (password !== verify) {\n\n            errors.verifyError = \"Password must match\";\n\n            return false;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

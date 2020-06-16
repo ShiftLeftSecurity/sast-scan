@@ -392,13 +392,13 @@ def sec_scan(src, reports_dir, convert, repo_context):
     report_fname = utils.get_report_file("source-js", reports_dir, convert)
     if reports_dir or convert:
         convert_args = [
+            "--json",
             "--output",
             report_fname,
         ]
-    sec_cmd = "nodejsscan"
+    sec_cmd = "njsscan"
     sec_args = [sec_cmd, *convert_args]
     js_files = utils.find_files(src, ".js")
-    sec_args.append("-f")
     sec_args += js_files
     exec_tool(sec_args, src)
     if convert:

@@ -156,7 +156,7 @@ def test_credscan_convert_issue():
                     "repo": "app",
                     "rule": "Generic Credential",
                     "commitMessage": "password\n",
-                    "author": "Prabhu Subramanian",
+                    "author": "guest Subramanian",
                     "email": "guest@ngcloud.io",
                     "file": "README.md",
                     "date": "2020-01-02T21:02:40Z",
@@ -194,7 +194,7 @@ def test_credscan_convert_unc():
                     "commitMessage": "***STAGED CHANGES***",
                     "author": "",
                     "email": "",
-                    "file": "/Users/prabhu/work/ShiftLeft/HelloShiftLeft/README.md",
+                    "file": "/Users/guest/work/ShiftLeft/HelloShiftLeft/README.md",
                     "date": "1970-01-01T00:00:00Z",
                     "tags": "key, AWS",
                 }
@@ -410,12 +410,12 @@ def test_to_uri():
     assert p == "https://github.com/shiftleft/sast-scan"
     p = convertLib.to_uri("README.md")
     assert p == "README.md"
-    p = convertLib.to_uri("/home/prabhu/work/README.md")
-    assert p == "file:///home/prabhu/work/README.md"
-    p = convertLib.to_uri("c:\\users\\prabhu\\work\\README.md")
-    assert p == "file:///c:/users/prabhu/work/README.md"
-    p = convertLib.to_uri("c:\\users\\prabhu\\work/com/src/main/README.md")
-    assert p == "file:///c:/users/prabhu/work/com/src/main/README.md"
+    p = convertLib.to_uri("/home/guest/work/README.md")
+    assert p == "file:///home/guest/work/README.md"
+    p = convertLib.to_uri("c:\\users\\guest\\work\\README.md")
+    assert p == "file:///c:/users/guest/work/README.md"
+    p = convertLib.to_uri("c:\\users\\guest\\work/com/src/main/README.md")
+    assert p == "file:///c:/users/guest/work/com/src/main/README.md"
 
 
 def test_inspect_convert_issue():
@@ -565,5 +565,24 @@ def test_inspect_extract_issue():
         "line_number": 21,
         "filename": "io/shiftleft/controller/SearchController.java",
         "first_found": "86ad7190555ddb774563ac58d242919db87a0265",
+        "issue_confidence": "HIGH",
+    }
+
+
+def test_njsscan_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "source-js",
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "njsscan-report.json",
+    )
+    assert issues
+    assert len(issues) == 7
+    assert issues[0] == {
+        "rule_id": "a1-injection",
+        "title": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "severity": "ERROR",
+        "line_number": 72,
+        "filename": "/Users/prabhu/work/NodeGoat/app/routes/index.js",
         "issue_confidence": "HIGH",
     }
