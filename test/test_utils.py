@@ -36,3 +36,12 @@ def test_get_workspace():
     assert (
         d == "https://dev.azure.com/appthreat/aio?_a=contents&version=GBdevelop&path="
     )
+
+
+def test_filter_ignored_dirs():
+    d = utils.filter_ignored_dirs([])
+    assert d == []
+    d = utils.filter_ignored_dirs([".git", "foo", "node_modules", "tmp"])
+    assert d == ["foo"]
+    d = utils.filter_ignored_dirs([".git", ".idea", "node_modules", "tmp"])
+    assert d == []

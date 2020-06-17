@@ -96,6 +96,8 @@ ignore_directories = [
     "tmp",
     "reports",
     "node_modules",
+    ".terraform",
+    ".serverless",
 ]
 
 

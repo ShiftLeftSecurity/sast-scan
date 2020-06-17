@@ -26,6 +26,16 @@ import lib.config as config
 HASH_DIGEST_SIZE = 16
 
 
+def filter_ignored_dirs(dirs):
+    """
+    Method to filter directory list to remove ignored directories
+    :param dirs: Directories to ignore
+    :return: Filtered directory list
+    """
+    [dirs.remove(d) for d in list(dirs) if d in config.ignore_directories]
+    return dirs
+
+
 def is_ignored_dir(base_dir, dir_name):
     """
     Method to find if the given directory is an ignored directory
@@ -79,6 +89,7 @@ def find_python_reqfiles(path):
     result = []
     req_files = ["requirements.txt", "Pipfile", "Pipfile.lock", "conda.yml"]
     for root, dirs, files in os.walk(path):
+        filter_ignored_dirs(dirs)
         if not is_ignored_dir(path, root):
             for name in req_files:
                 if name in files:
@@ -97,6 +108,7 @@ def find_jar_files():
     ]
     for path in jar_lib_path:
         for root, dirs, files in os.walk(path):
+            filter_ignored_dirs(dirs)
             if not is_ignored_dir(path, root):
                 for file in files:
                     if file.endswith(".jar"):
@@ -114,6 +126,7 @@ def find_files(src, src_ext_name, use_start=False):
     """
     result = []
     for root, dirs, files in os.walk(src):
+        filter_ignored_dirs(dirs)
         if not is_ignored_dir(src, root):
             for file in files:
                 if file == src_ext_name or file.endswith(src_ext_name):
