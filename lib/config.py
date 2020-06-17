@@ -158,7 +158,7 @@ scan_tools_args_map = {
             get("APP_SRC_DIR") + "/rules-pmd.xml",
         ]
     },
-    "aws": {"checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
+    "aws": {"source-aws": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
     "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
@@ -246,7 +246,7 @@ scan_tools_args_map = {
         "xml:%(report_fname_prefix)s.xml",
     ],
     "kubernetes": {
-        "checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "source-k8s": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
         "kubesec": ["kubesec", "scan", "(filelist=yaml)"],
         "kube-score": [
             "kube-score",
@@ -279,7 +279,7 @@ scan_tools_args_map = {
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": {
-        "checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "source-tf": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
         "tfsec": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     },
     "vf": {
@@ -320,7 +320,7 @@ scan_tools_args_map = {
     },
     "yaml": {
         "yamllint": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
-        "checkov": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "source-yaml": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
     },
 }
 
@@ -357,6 +357,10 @@ tool_purpose_message = {
     "shellcheck": "Shell script analysis",
     "bandit": "Security audit for Python",
     "checkov": "Security audit for Infrastructure",
+    "source-aws": "Security audit for AWS",
+    "source-k8s": "Security audit for Kubernetes",
+    "source-tf": "Security audit for Terraform",
+    "source-yaml": "Security audit for IaC",
     "staticcheck": "Go static analysis",
     "source": "Source code analyzer",
     "source-java": "Source code analyzer for Java",
