@@ -62,7 +62,7 @@ def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
         cp = subprocess.run(
             args,
             stdout=stdout,
-            stderr=subprocess.STDOUT,
+            stderr=subprocess.DEVNULL,
             cwd=cwd,
             env=env,
             check=False,
@@ -71,7 +71,7 @@ def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
         )
         return cp
     except Exception as e:
-        LOG.error(e)
+        LOG.debug(e)
         return None
 
 
