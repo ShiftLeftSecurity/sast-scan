@@ -45,6 +45,8 @@ def auto_build(type_list, src, reports_dir):
             if cp:
                 LOG.debug(cp.stdout)
                 ret = ret & (cp.returncode == 0)
+            if len(type_list) == 1:
+                return ret
         # Look for any _scan function in this module for execution
         try:
             ret = ret & getattr(sys.modules[__name__], "%s_build" % ptype)(
