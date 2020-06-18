@@ -130,5 +130,10 @@ def nodejs_build(src, reports_dir, lang_tools):
             cmd_args += ["run", "build"]
         exec_tool(cmd_args, src)
     except Exception:
-        LOG.debug("Automatic build has failed for the node.js project")
+        if rush_mode:
+            LOG.warning(
+                "Automatic build for rush.js has failed. Try installing the packages manually before invoking scan.\nIf this works then let us know the build steps by filing an issue."
+            )
+        else:
+            LOG.debug("Automatic build has failed for the node.js project")
     return ret

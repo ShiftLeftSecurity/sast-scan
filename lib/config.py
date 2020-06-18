@@ -336,7 +336,7 @@ build_tools_map = {
     "nodejs": {
         "npm": ["npm", "install"],
         "yarn": ["yarn", "install"],
-        "rush": ["rush", "update"],
+        "rush": ["rush", "install", "--bypass-policy", "--no-link"],
     },
     "go": ["go", "build", "./..."],
     "rust": ["cargo", "build"],
