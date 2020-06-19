@@ -357,6 +357,14 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "fileName": filename,
                                     "DATA_TYPE": "OSS_SCAN",
                                     "lineNumber": lineno,
+                                    "ruleId": result["ruleId"],
+                                    "ruleName": rule.get("name"),
+                                    "snippetText": location.get("physicalLocation", {})[
+                                        "region"
+                                    ]["snippet"]["text"],
+                                    "contextText": location.get("physicalLocation", {})[
+                                        "contextRegion"
+                                    ]["snippet"]["text"],
                                 },
                             }
                             findings_list.append(finding)
