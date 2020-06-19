@@ -139,6 +139,14 @@ Scan offers certain language specific container images with additional runtime v
 
 For all other languages, continue to use `shiftleft/sast-scan` or `shiftleft/scan`
 
-## Already a Scan user?
+## Scan users
 
-Please let us [know](https://github.com/ShiftLeftSecurity/sast-scan/issues) so that we can add your logo or link here.
+Organizations that use scan.
+
+- ShiftLeft
+- Microsoft
+- D2iQ
+- McKinsey & Company
+- NIO
+
+Send us a PR for including your organization name here. You can also show your support for scan by using the hashtags #shiftleft #scan on social media.
