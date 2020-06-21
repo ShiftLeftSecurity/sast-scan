@@ -16,7 +16,6 @@
 import json
 import os
 import sys
-
 from pathlib import Path
 
 runtimeValues = {}
@@ -207,7 +206,7 @@ scan_tools_args_map = {
         "%(report_fname_prefix)s.json",
     ],
     "go": {
-        "gosec": [
+        "source-go": [
             "gosec",
             "-fmt=json",
             "-confidence=medium",

@@ -125,7 +125,7 @@ def execute_default_cmd(
     report_fname = report_fname_prefix + outext
 
     # If the command doesn't support file output then redirect stdout automatically
-    stdout = None
+    stdout = subprocess.DEVNULL
     if reports_dir and default_cmd.find(report_fname_prefix) == -1:
         report_fname = report_fname_prefix + outext
         stdout = io.open(report_fname, "w")
