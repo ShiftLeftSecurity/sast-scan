@@ -152,6 +152,8 @@ def find_repo_details(src_dir=None):
         # For repo slug just assume github for now
         if repo_slug:
             repositoryUri = "https://github.com/" + repositoryUri
+    if not repositoryName and repositoryUri:
+        repositoryName = os.path.basename(repositoryUri)
     return {
         "repositoryName": repositoryName,
         "repositoryUri": sanitize_url(repositoryUri),

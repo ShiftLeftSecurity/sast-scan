@@ -82,6 +82,8 @@ def fetch_findings(app_name, version, report_fname):
     sl_org_token = config.get(
         "SHIFTLEFT_ORG_TOKEN", config.get("SHIFTLEFT_ORGANIZATION_TOKEN")
     )
+    if not sl_org_token:
+        sl_org_token = config.get("SHIFTLEFT_API_TOKEN")
     findings_api = config.get("SHIFTLEFT_VULN_API")
     findings_list = []
     if sl_org and sl_org_token:
@@ -182,6 +184,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     run_uuid = config.get("run_uuid")
     cpg_mode = config.get("SHIFTLEFT_CPG")
     env = os.environ.copy()
+    env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
     report_fname = utils.get_report_file(
         "inspect", reports_dir, convert, ext_name="json"
     )
@@ -196,17 +199,23 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     analyze_target_dir = config.get(
         "SHIFTLEFT_ANALYZE_DIR", os.path.join(src, "target")
     )
+    extra_args = None
     if not analyze_files:
         if language == "java":
             analyze_files = utils.find_java_artifacts(analyze_target_dir)
-            env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
-        if language == "csharp":
+        elif language == "csharp":
             if not utils.check_dotnet():
                 LOG.warning(
                     "dotnet is not available. Please check if your build uses shiftleft/scan-csharp as the image"
                 )
                 return
             analyze_files = utils.find_csharp_artifacts(src)
+            cpg_mode = True
+        else:
+            if language == "ts":
+                language = "js"
+                extra_args = ["--", "--ts"]
+            analyze_files = [src]
             cpg_mode = True
     app_name = find_app_name(src, repo_context)
     branch = repo_context.get("revisionId")
@@ -236,10 +245,14 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         app_name,
     ]
     sl_args += [analyze_files[0]]
+    if extra_args:
+        sl_args += extra_args
     sl_args = [arg for arg in sl_args if arg is not None]
     LOG.info(
         "About to perform ShiftLeft Inspect cloud analysis. This might take a few minutes ..."
     )
+    LOG.debug(" ".join(sl_args))
+    LOG.debug(repo_context)
     cp = exec_tool(sl_args, src, env=env)
     if cp.returncode != 0:
         LOG.warning("Inspect cloud analyze has failed with the below logs")

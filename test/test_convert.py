@@ -551,11 +551,12 @@ def test_inspect_convert_issue():
 def test_inspect_extract_issue():
     issues, metrics, skips = convertLib.extract_from_file(
         "inspect",
+        [],
         Path(__file__).parent,
         Path(__file__).parent / "data" / "inspect-report.json",
     )
     assert issues
-    assert len(issues) == 99
+    assert len(issues) == 198
     assert issues[0] == {
         "rule_id": "a1-injection",
         "title": "Remote Code Execution: Command Injection through attacker-controlled data via `foo` in `SearchController.doGetSearch`",
@@ -569,9 +570,32 @@ def test_inspect_extract_issue():
     }
 
 
+def test_inspect_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "inspect",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "inspect-nodejs.json",
+    )
+    assert issues
+    assert len(issues) == 9
+    assert issues[0] == {
+        "rule_id": "a1-injection",
+        "title": "Remote Code Execution: Command Injection through HTTP via `req` in `:=>`",
+        "description": "HTTP data is used in a shell command without undergoing escaping or validation. This could allow an attacker to execute code on the server. Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query. By injecting hostile data, an attacker may trick the interpreter into executing unintended commands or accessing data without authorization which can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, denial of access or even a complete host takeover.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by using parameterized queries or by validating HTTP data (preferably on server-side by means of common input sanitation libraries or whitelisting) before using it.\n\n## Additional information\n\n**[CWE-77](https://cwe.mitre.org/data/definitions/77.html)**\n\n**[CWE-78](https://cwe.mitre.org/data/definitions/78.html)**\n\n**[CWE-917](https://cwe.mitre.org/data/definitions/917.html)**\n\n**[OWASP-A1](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection)**",
+        "score": 9,
+        "severity": "SEVERITY_HIGH_IMPACT",
+        "line_number": 11,
+        "filename": "src/views.js",
+        "first_found": "e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3",
+        "issue_confidence": "HIGH",
+    }
+
+
 def test_njsscan_extract_issue():
     issues, metrics, skips = convertLib.extract_from_file(
         "source-js",
+        [],
         Path(__file__).parent,
         Path(__file__).parent / "data" / "njsscan-report.json",
     )
@@ -586,3 +610,183 @@ def test_njsscan_extract_issue():
         "filename": "/Users/prabhu/work/NodeGoat/app/routes/index.js",
         "issue_confidence": "HIGH",
     }
+
+
+def test_convert_dataflow():
+    dataflows = convertLib.convert_dataflow(
+        "/app",
+        [],
+        [
+            {
+                "location": {
+                    "lineNumber": 11,
+                    "methodName": "src/views.js::program::=>::=>2",
+                    "shortMethodName": ":=>",
+                    "fileName": "src/views.js",
+                },
+                "variableInfo": {
+                    "parameter": {"symbol": "req", "paramIndex": 1, "type": "ANY"}
+                },
+                "methodId": "2162",
+                "parameterId": "2165",
+                "methodTags": [
+                    {"key": "EXPOSED_METHOD"},
+                    {"key": "EXPOSED_METHOD_ROUTE", "value": '"/user-input"'},
+                ],
+                "parameterTags": [
+                    {"key": "FROM_OUTSIDE", "value": "http"},
+                    {"key": "FROM_OUTSIDE", "value": "attacker-controlled"},
+                ],
+                "id": "2165",
+            }
+        ],
+    )
+    assert len(dataflows) == 1
+    assert dataflows == [{"filename": "src/views.js", "line_number": 11}]
+
+    dataflows = convertLib.convert_dataflow(
+        "/app",
+        [],
+        [
+            {
+                "location": {
+                    "lineNumber": 11,
+                    "methodName": "src/views.js::program::=>::=>2",
+                    "shortMethodName": ":=>",
+                    "fileName": "src/views.js",
+                },
+                "variableInfo": {
+                    "parameter": {"symbol": "req", "paramIndex": 1, "type": "ANY"}
+                },
+                "methodId": "2162",
+                "parameterId": "2165",
+                "methodTags": [
+                    {"key": "EXPOSED_METHOD"},
+                    {"key": "EXPOSED_METHOD_ROUTE", "value": '"/user-input"'},
+                ],
+                "parameterTags": [
+                    {"key": "FROM_OUTSIDE", "value": "http"},
+                    {"key": "FROM_OUTSIDE", "value": "attacker-controlled"},
+                ],
+                "id": "2165",
+            },
+            {
+                "location": {
+                    "lineNumber": 19,
+                    "methodName": "src/views.js::program::=>::=>2",
+                    "shortMethodName": ":=>",
+                    "fileName": "src/views.js",
+                },
+                "variableInfo": {"stack": {"type": "ANY"}},
+                "methodId": "2162",
+                "methodTags": [
+                    {"key": "EXPOSED_METHOD"},
+                    {"key": "EXPOSED_METHOD_ROUTE", "value": '"/user-input"'},
+                ],
+                "id": "2190",
+            },
+            {
+                "location": {
+                    "methodName": "eval",
+                    "shortMethodName": "eval",
+                    "fileName": "N/A",
+                },
+                "variableInfo": {
+                    "parameter": {"symbol": "p1", "paramIndex": 1, "type": "ANY"}
+                },
+                "methodId": "6522",
+                "parameterId": "6523",
+                "methodTags": [{"key": "INTERFACE_WRITE"}],
+                "parameterTags": [{"key": "TO_OUTSIDE", "value": "execute"}],
+                "id": "6523",
+            },
+        ],
+    )
+    assert len(dataflows) == 2
+    assert dataflows == [
+        {"filename": "src/views.js", "line_number": 11},
+        {"filename": "src/views.js", "line_number": 19},
+    ]
+
+    dataflows = convertLib.convert_dataflow(
+        "/app",
+        [],
+        [
+            {
+                "location": {
+                    "lineNumber": 21,
+                    "packageName": "io.shiftleft.controller",
+                    "className": "io.shiftleft.controller.SearchController",
+                    "methodName": "io.shiftleft.controller.SearchController.doGetSearch:java.lang.String(java.lang.String,javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest)",
+                    "shortMethodName": "doGetSearch",
+                    "fileName": "io/shiftleft/controller/SearchController.java",
+                },
+                "variableInfo": {
+                    "parameter": {
+                        "symbol": "foo",
+                        "paramIndex": 1,
+                        "type": "java.lang.String",
+                    }
+                },
+                "methodId": "6974698689270346897",
+                "parameterId": "6974698689270346900",
+                "methodTags": [
+                    {"key": "INTERFACE_WRITE"},
+                    {"key": "EXPOSED_METHOD"},
+                    {"key": "INTERFACE_READ"},
+                    {"key": "EXPOSED_METHOD_ROUTE", "value": "/search/user"},
+                ],
+                "parameterTags": [
+                    {"key": "FROM_OUTSIDE", "value": "http"},
+                    {"key": "DATA_TYPE", "value": "attacker-controlled"},
+                ],
+                "id": "6974698689270346900",
+            },
+            {
+                "location": {
+                    "lineNumber": 25,
+                    "packageName": "io.shiftleft.controller",
+                    "className": "io.shiftleft.controller.SearchController",
+                    "methodName": "io.shiftleft.controller.SearchController.doGetSearch:java.lang.String(java.lang.String,javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest)",
+                    "shortMethodName": "doGetSearch",
+                    "fileName": "io/shiftleft/controller/SearchController.java",
+                },
+                "variableInfo": {
+                    "local": {"symbol": "foo", "type": "java.lang.String"}
+                },
+                "methodId": "6974698689270346897",
+                "methodTags": [
+                    {"key": "INTERFACE_WRITE"},
+                    {"key": "EXPOSED_METHOD"},
+                    {"key": "INTERFACE_READ"},
+                    {"key": "EXPOSED_METHOD_ROUTE", "value": "/search/user"},
+                ],
+                "id": "6974698689270346957",
+            },
+            {
+                "location": {
+                    "packageName": "org.springframework.expression.spel.standard",
+                    "className": "org.springframework.expression.spel.standard.SpelExpressionParser",
+                    "methodName": "org.springframework.expression.spel.standard.SpelExpressionParser.parseExpression:org.springframework.expression.Expression(java.lang.String)",
+                    "shortMethodName": "parseExpression",
+                    "fileName": "org/springframework/expression/spel/standard/SpelExpressionParser.java",
+                },
+                "variableInfo": {
+                    "parameter": {
+                        "symbol": "param0",
+                        "paramIndex": 1,
+                        "type": "java.lang.String",
+                    }
+                },
+                "methodId": "2545",
+                "parameterId": "2548",
+                "methodTags": [{"key": "INTERFACE_READ"}, {"key": "INTERFACE_WRITE"}],
+                "parameterTags": [
+                    {"key": "TO_OUTSIDE", "value": "execute"},
+                    {"key": "DESCRIPTOR_USE", "value": "execute"},
+                ],
+                "id": "2548",
+            },
+        ],
+    )
+    assert len(dataflows) == 2

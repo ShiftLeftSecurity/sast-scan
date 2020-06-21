@@ -213,8 +213,11 @@ def detect_project_type(src_dir, scan_mode):
         or find_files(src_dir, "yarn.lock")
         or find_files(src_dir, ".js")
     ):
-        project_types.append("nodejs")
-        depscan_supported = True
+        if find_files(src_dir, ".ts"):
+            project_types.append("ts")
+        else:
+            project_types.append("nodejs")
+            depscan_supported = True
     if (
         find_files(src_dir, ".csproj")
         or find_files(src_dir, ".sln")
@@ -298,6 +301,8 @@ def is_generic_package(filePath):
     :param filePath: filePath to check
     :return: True if the filename begins with java or org. False otherwise
     """
+    if not filePath:
+        return True
     oss_package_prefixes = ["java", "org", "microsoft"]
     for p in oss_package_prefixes:
         if filePath.lower().startswith(p):

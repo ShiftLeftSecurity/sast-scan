@@ -57,10 +57,63 @@ def tweak_severity(tool_name, issue_dict):
     return issue_severity
 
 
-def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
+def convert_dataflow(working_dir, tool_args, dataflows):
+    """
+    Convert dataflow into a simpler source and sink format for better representation in SARIF based viewers
+
+    :param working_dir: Work directory
+    :param tool_args: Tool args
+    :param dataflows: List of dataflows from Inspect
+    :return List of filename and location
+    """
+    if not dataflows:
+        return None
+    file_name_prefix = ""
+    location_list = []
+    is_ts = "--ts" in tool_args
+    for flow in dataflows:
+        fn = flow["location"].get("fileName")
+        if not fn or fn == "N/A":
+            continue
+        if not is_generic_package(fn):
+            location = flow["location"]
+            fileName = location.get("fileName")
+            if not file_name_prefix:
+                file_name_prefix = find_path_prefix(working_dir, fileName)
+            location_list.append(
+                {
+                    "filename": os.path.join(file_name_prefix, fileName),
+                    "line_number": location.get("lineNumber"),
+                }
+            )
+    first_location = location_list[0]
+    last_location = location_list[-1]
+    first_fileName = first_location.get("fileName")
+    last_fileName = last_location.get("fileName")
+    # Fix extension for typescript!
+    if is_ts:
+        first_fileName = first_fileName.replace(".js", ".ts")
+        last_fileName = last_fileName.replace(".js", ".ts")
+    if len(location_list) >= 2:
+        first = location_list[0]
+        last = location_list[-1]
+        if (
+            first["filename"] == last["filename"]
+            and first["line_number"] == last["line_number"]
+        ):
+            location_list = [first]
+        else:
+            location_list = [first, last]
+    return location_list
+
+
+def extract_from_file(
+    tool_name, tool_args, working_dir, report_file, file_path_list=None
+):
     """Extract properties from reports
 
     :param tool_name: tool name
+    :param tool_args: tool args
     :param working_dir: Working directory
     :param report_file: Report file
     :param file_path_list: Full file path for any manipulation
@@ -95,35 +148,31 @@ def extract_from_file(tool_name, working_dir, report_file, file_path_list=None):
                 return issues, metrics, skips
             # Inspect uses vulnerabilities
             if tool_name == "inspect":
-                file_name_prefix = ""
                 for v in report_data.get("vulnerabilities"):
                     if not v:
                         continue
                     vuln = v["vulnerability"]
-                    location = {}
-                    if vuln.get("dataFlow") and vuln.get("dataFlow").get("dataFlow"):
-                        for l in vuln["dataFlow"]["dataFlow"]["list"]:
-                            if not is_generic_package(l["location"].get("fileName")):
-                                location = l["location"]
-                                break
-                    fileName = location.get("fileName")
-                    if fileName == "N/A":
-                        continue
-                    if not file_name_prefix:
-                        file_name_prefix = find_path_prefix(working_dir, fileName)
-                    issues.append(
-                        {
-                            "rule_id": vuln["category"],
-                            "title": vuln["title"],
-                            "description": vuln["description"],
-                            "score": vuln["score"],
-                            "severity": vuln["severity"],
-                            "line_number": location.get("lineNumber"),
-                            "filename": os.path.join(file_name_prefix, fileName),
-                            "first_found": vuln["firstVersionDetected"],
-                            "issue_confidence": "HIGH",
-                        }
-                    )
+                    location_list = []
+                    if vuln.get("dataFlow") and vuln.get("dataFlow", {}).get(
+                        "dataFlow"
+                    ):
+                        location_list = convert_dataflow(
+                            working_dir, tool_args, vuln["dataFlow"]["dataFlow"]["list"]
+                        )
+                    for location in location_list:
+                        issues.append(
+                            {
+                                "rule_id": vuln["category"],
+                                "title": vuln["title"],
+                                "description": vuln["description"],
+                                "score": vuln["score"],
+                                "severity": vuln["severity"],
+                                "line_number": location.get("line_number"),
+                                "filename": location.get("filename"),
+                                "first_found": vuln["firstVersionDetected"],
+                                "issue_confidence": "HIGH",
+                            }
+                        )
             elif tool_name == "source-js":
                 njs_findings = report_data.get("nodejs", {})
                 for k, v in njs_findings.items():
@@ -200,7 +249,7 @@ def convert_file(
     :return serialized_log: SARIF output data
     """
     issues, metrics, skips = extract_from_file(
-        tool_name, working_dir, report_file, file_path_list
+        tool_name, tool_args, working_dir, report_file, file_path_list
     )
     return report(
         tool_name,

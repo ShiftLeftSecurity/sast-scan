@@ -1,0 +1,1218 @@
+{
+    "vulnerabilities": [
+      {
+        "applicationId": "HelloShiftLeft",
+        "vulnerability": {
+          "firstDetected": "1592732878",
+          "vulnerabilityId": "command-injection-http/10a9a9759288bdc88a36958501be9431",
+          "category": "a1-injection",
+          "title": "Remote Code Execution: Command Injection through HTTP via `req` in `:=>`",
+          "description": "HTTP data is used in a shell command without undergoing escaping or validation. This could allow an attacker to execute code on the server. Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query. By injecting hostile data, an attacker may trick the interpreter into executing unintended commands or accessing data without authorization which can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, denial of access or even a complete host takeover.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by using parameterized queries or by validating HTTP data (preferably on server-side by means of common input sanitation libraries or whitelisting) before using it.\n\n## Additional information\n\n**[CWE-77](https://cwe.mitre.org/data/definitions/77.html)**\n\n**[CWE-78](https://cwe.mitre.org/data/definitions/78.html)**\n\n**[CWE-917](https://cwe.mitre.org/data/definitions/917.html)**\n\n**[OWASP-A1](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A1-Injection)**",
+          "score": 9,
+          "severity": "SEVERITY_HIGH_IMPACT",
+          "dataFlow": {
+            "spId": "sl/49089d37-68ff-47e3-9035-269e6e91a44d/HelloShiftLeft/e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3/09d949d942c2e5644c1a2019bf7ebe06e697cd26caa6c6486f5c2cd335c42045/1",
+            "occurrenceHash": "10a9a9759288bdc88a36958501be9431",
+            "dataFlow": {
+              "list": [
+                {
+                  "location": {
+                    "lineNumber": 11,
+                    "methodName": "src/views.js::program::=>::=>2",
+                    "shortMethodName": ":=>",
+                    "fileName": "src/views.js"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "req",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "2162",
+                  "parameterId": "2165",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE",
+                      "value": "\"/user-input\""
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "http"
+                    },
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "attacker-controlled"
+                    }
+                  ],
+                  "id": "2165"
+                },
+                {
+                  "location": {
+                    "lineNumber": 19,
+                    "methodName": "src/views.js::program::=>::=>2",
+                    "shortMethodName": ":=>",
+                    "fileName": "src/views.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "2162",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE",
+                      "value": "\"/user-input\""
+                    }
+                  ],
+                  "id": "2190"
+                },
+                {
+                  "location": {
+                    "methodName": "eval",
+                    "shortMethodName": "eval",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "6522",
+                  "parameterId": "6523",
+                  "methodTags": [
+                    {
+                      "key": "INTERFACE_WRITE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "TO_OUTSIDE",
+                      "value": "execute"
+                    }
+                  ],
+                  "id": "6523"
+                }
+              ]
+            }
+          },
+          "firstVersionDetected": "e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3"
+        }
+      },
+      {
+        "applicationId": "HelloShiftLeft",
+        "vulnerability": {
+          "firstDetected": "1592732878",
+          "vulnerabilityId": "sensitive-to-log/f9f63493c7a9ef3aff3db3cc81878be1",
+          "category": "a3-sensitive-data-exposure",
+          "title": "Sensitive Data Leak: Sensitive data is leaked to log in `Order.:anonymous`",
+          "description": "Sensitive data leak detected in this flow. This data may be visible to a third party that has access to the logs, such as system administrators. Many web applications and APIs do not protect sensitive data, such as financial and healthcare. Attackers may steal or modify such weakly protected data to conduct credit card fraud, identity theft, or other crimes.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by not writing sensitive data to the log or by encrypting it in advance.\n\n## Additional information\n\n**[CWE-200](https://cwe.mitre.org/data/definitions/200.html)**\n\n**[CWE-117](https://cwe.mitre.org/data/definitions/117.html)**\n\n**[OWASP-A3](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure)**",
+          "score": 8,
+          "severity": "SEVERITY_HIGH_IMPACT",
+          "dataFlow": {
+            "spId": "sl/49089d37-68ff-47e3-9035-269e6e91a44d/HelloShiftLeft/e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3/09d949d942c2e5644c1a2019bf7ebe06e697cd26caa6c6486f5c2cd335c42045/1",
+            "occurrenceHash": "f9f63493c7a9ef3aff3db3cc81878be1",
+            "dataFlow": {
+              "list": [
+                {
+                  "location": {
+                    "lineNumber": 70,
+                    "packageName": "<global>",
+                    "className": "Order",
+                    "methodName": "src/Controllers/Order.js::program:processCC::anonymous",
+                    "shortMethodName": ":anonymous",
+                    "fileName": "src/Controllers/Order.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "username",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "3220",
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE"
+                    },
+                    {
+                      "key": "DATA_TYPE",
+                      "value": "credentials"
+                    },
+                    {
+                      "key": "DATA_TYPE",
+                      "value": "pii"
+                    }
+                  ],
+                  "id": "3227"
+                },
+                {
+                  "location": {
+                    "lineNumber": 88,
+                    "packageName": "<global>",
+                    "className": "Order",
+                    "methodName": "src/Controllers/Order.js::program:processCC::anonymous",
+                    "shortMethodName": ":anonymous",
+                    "fileName": "src/Controllers/Order.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "username",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "3220",
+                  "id": "3384"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.assignment",
+                    "shortMethodName": "<operator>.assignment",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p2",
+                      "paramIndex": 2,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4434",
+                  "parameterId": "4436",
+                  "id": "4436"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.assignment",
+                    "shortMethodName": "<operator>.assignment",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY",
+                      "isOutputParam": true
+                    }
+                  },
+                  "methodId": "4434",
+                  "id": "7991"
+                },
+                {
+                  "location": {
+                    "lineNumber": 88,
+                    "packageName": "<global>",
+                    "className": "Order",
+                    "methodName": "src/Controllers/Order.js::program:processCC::anonymous",
+                    "shortMethodName": ":anonymous",
+                    "fileName": "src/Controllers/Order.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "3220",
+                  "id": "3387"
+                },
+                {
+                  "location": {
+
+                  },
+                  "variableInfo": {
+                    "local": {
+
+                    }
+                  },
+                  "methodId": "3220",
+                  "id": "3358"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.assignment",
+                    "shortMethodName": "<operator>.assignment",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p2",
+                      "paramIndex": 2,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4434",
+                  "parameterId": "4436",
+                  "id": "4436"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.assignment",
+                    "shortMethodName": "<operator>.assignment",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY",
+                      "isOutputParam": true
+                    }
+                  },
+                  "methodId": "4434",
+                  "id": "7991"
+                },
+                {
+                  "location": {
+                    "lineNumber": 85,
+                    "packageName": "<global>",
+                    "className": "Order",
+                    "methodName": "src/Controllers/Order.js::program:processCC::anonymous",
+                    "shortMethodName": ":anonymous",
+                    "fileName": "src/Controllers/Order.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "transaction",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "3220",
+                  "id": "3357"
+                },
+                {
+                  "location": {
+                    "lineNumber": 93,
+                    "packageName": "<global>",
+                    "className": "Order",
+                    "methodName": "src/Controllers/Order.js::program:processCC::anonymous",
+                    "shortMethodName": ":anonymous",
+                    "fileName": "src/Controllers/Order.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "transaction",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "3220",
+                  "id": "3414"
+                },
+                {
+                  "location": {
+                    "methodName": "console.log",
+                    "shortMethodName": "console.log",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "6503",
+                  "parameterId": "6504",
+                  "methodTags": [
+                    {
+                      "key": "INTERFACE_WRITE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "TO_OUTSIDE",
+                      "value": "log"
+                    }
+                  ],
+                  "id": "6504"
+                }
+              ]
+            }
+          },
+          "firstVersionDetected": "e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3"
+        }
+      },
+      {
+        "applicationId": "HelloShiftLeft",
+        "vulnerability": {
+          "firstDetected": "1592732878",
+          "vulnerabilityId": "DirectoryTraversal/0ee6d4287ac737bdef3dc2398cd83b6a",
+          "category": "a5-broken-access-control",
+          "title": "Directory Traversal: HTTP data as file path via `req` in `ImageLookup.get`",
+          "description": "\nData from HTTP methods is not escaped, hashed or encoded and used as a file name in this flow. This indicates a directory traversal or an arbitrary file write. Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query. By injecting hostile data, an attacker may trick the interpreter into executing unintended commands or accessing data without authorization which can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, denial of access or even a complete host takeover.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by validating HTTP data (preferably on server-side by means of common input sanitation libraries or whitelisting) before using it (e.g., ensure that attackers cannot arbitrarily access files by defining file paths through HTTP requests).\n\n## Additional information\n\n**[CWE-22](https://cwe.mitre.org/data/definitions/22.html)**\n\n**[OWASP-A5](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A5-Broken_Access_Control)**\n    ",
+          "score": 8,
+          "severity": "SEVERITY_HIGH_IMPACT",
+          "dataFlow": {
+            "spId": "sl/49089d37-68ff-47e3-9035-269e6e91a44d/HelloShiftLeft/e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3/09d949d942c2e5644c1a2019bf7ebe06e697cd26caa6c6486f5c2cd335c42045/1",
+            "occurrenceHash": "0ee6d4287ac737bdef3dc2398cd83b6a",
+            "dataFlow": {
+              "list": [
+                {
+                  "location": {
+                    "lineNumber": 5,
+                    "packageName": "<global>",
+                    "className": "ImageLookup",
+                    "methodName": "src/Controllers/ImageLookup.js::program:get",
+                    "shortMethodName": "get",
+                    "fileName": "src/Controllers/ImageLookup.js"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "req",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4350",
+                  "parameterId": "4353",
+                  "id": "4353"
+                },
+                {
+                  "location": {
+                    "lineNumber": 9,
+                    "packageName": "<global>",
+                    "className": "ImageLookup",
+                    "methodName": "src/Controllers/ImageLookup.js::program:get",
+                    "shortMethodName": "get",
+                    "fileName": "src/Controllers/ImageLookup.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4350",
+                  "id": "4367"
+                }
+              ]
+            }
+          },
+          "firstVersionDetected": "e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3"
+        }
+      },
+      {
+        "applicationId": "HelloShiftLeft",
+        "vulnerability": {
+          "firstDetected": "1592732878",
+          "vulnerabilityId": "sensitive-to-log/2ee6ae51fc41926f9d642c4d703af4b7",
+          "category": "a3-sensitive-data-exposure",
+          "title": "Sensitive Data Leak: Sensitive data is leaked via `username` to log in `Mail.Mail`",
+          "description": "Sensitive data leak detected in this flow. This data may be visible to a third party that has access to the logs, such as system administrators. Many web applications and APIs do not protect sensitive data, such as financial and healthcare. Attackers may steal or modify such weakly protected data to conduct credit card fraud, identity theft, or other crimes.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by not writing sensitive data to the log or by encrypting it in advance.\n\n## Additional information\n\n**[CWE-200](https://cwe.mitre.org/data/definitions/200.html)**\n\n**[CWE-117](https://cwe.mitre.org/data/definitions/117.html)**\n\n**[OWASP-A3](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure)**",
+          "score": 8,
+          "severity": "SEVERITY_HIGH_IMPACT",
+          "dataFlow": {
+            "spId": "sl/49089d37-68ff-47e3-9035-269e6e91a44d/HelloShiftLeft/e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3/09d949d942c2e5644c1a2019bf7ebe06e697cd26caa6c6486f5c2cd335c42045/1",
+            "occurrenceHash": "2ee6ae51fc41926f9d642c4d703af4b7",
+            "dataFlow": {
+              "list": [
+                {
+                  "location": {
+                    "lineNumber": 8,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "username",
+                      "paramIndex": 3,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "parameterId": "1919",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE"
+                    },
+                    {
+                      "key": "DATA_TYPE",
+                      "value": "credentials"
+                    },
+                    {
+                      "key": "DATA_TYPE",
+                      "value": "pii"
+                    }
+                  ],
+                  "id": "1919"
+                },
+                {
+                  "location": {
+                    "lineNumber": 8,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "username",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "1926"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.conditional",
+                    "shortMethodName": "<operator>.conditional",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p3",
+                      "paramIndex": 3,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4446",
+                  "parameterId": "4449",
+                  "id": "4449"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.conditional",
+                    "shortMethodName": "<operator>.conditional",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4446",
+                  "id": "4450"
+                },
+                {
+                  "location": {
+                    "lineNumber": 8,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "1927"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.assignment",
+                    "shortMethodName": "<operator>.assignment",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p2",
+                      "paramIndex": 2,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4434",
+                  "parameterId": "4436",
+                  "id": "4436"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.assignment",
+                    "shortMethodName": "<operator>.assignment",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY",
+                      "isOutputParam": true
+                    }
+                  },
+                  "methodId": "4434",
+                  "id": "7991"
+                },
+                {
+                  "location": {
+                    "lineNumber": 8,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "username",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "1920"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "local": {
+                      "symbol": "username",
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2003"
+                },
+                {
+                  "location": {
+                    "methodName": "__Runtime.TO_STRING",
+                    "shortMethodName": "__Runtime.TO_STRING",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "6470",
+                  "parameterId": "6471",
+                  "id": "6471"
+                },
+                {
+                  "location": {
+                    "methodName": "__Runtime.TO_STRING",
+                    "shortMethodName": "__Runtime.TO_STRING",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "6470",
+                  "id": "6472"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2002"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p2",
+                      "paramIndex": 2,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "parameterId": "4430",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "DESCRIPTOR",
+                      "value": "http"
+                    }
+                  ],
+                  "id": "4430"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "id": "4431"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2004"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "parameterId": "4429",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "http"
+                    },
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "attacker-controlled"
+                    }
+                  ],
+                  "id": "4429"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "id": "4431"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2006"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "parameterId": "4429",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "http"
+                    },
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "attacker-controlled"
+                    }
+                  ],
+                  "id": "4429"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "id": "4431"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2009"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "parameterId": "4429",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "http"
+                    },
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "attacker-controlled"
+                    }
+                  ],
+                  "id": "4429"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "id": "4431"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2011"
+                },
+                {
+                  "location": {
+                    "methodName": "console.log",
+                    "shortMethodName": "console.log",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "6503",
+                  "parameterId": "6504",
+                  "methodTags": [
+                    {
+                      "key": "INTERFACE_WRITE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "TO_OUTSIDE",
+                      "value": "log"
+                    }
+                  ],
+                  "id": "6504"
+                }
+              ]
+            }
+          },
+          "firstVersionDetected": "e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3"
+        }
+      },
+      {
+        "applicationId": "HelloShiftLeft",
+        "vulnerability": {
+          "firstDetected": "1592732878",
+          "vulnerabilityId": "http-to-log/1815947fbe508d918cb3783fdd055c7e",
+          "category": "a3-sensitive-data-exposure",
+          "title": "Sensitive Data Leak: Security-sensitive data is leaked via `p1` to log in `<operator>.addition`",
+          "description": "HTTP data is written to a log file in this flow. This data may be visible to a third party that has access to the logs, such as system administrators. Many web applications and APIs do not protect sensitive data, such as financial and healthcare. Attackers may steal or modify such weakly protected data to conduct credit card fraud, identity theft, or other crimes.\n\n\n## Countermeasures\n\nThis vulnerability can be prevented by not writing HTTP data directly to the log or by encrypting it in advance.\n\n## Additional information\n\n**[CWE-200](https://cwe.mitre.org/data/definitions/200.html)**\n\n**[CWE-117](https://cwe.mitre.org/data/definitions/117.html)**\n\n**[OWASP-A3](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure)**",
+          "score": 2.5,
+          "severity": "SEVERITY_LOW_IMPACT",
+          "dataFlow": {
+            "spId": "sl/49089d37-68ff-47e3-9035-269e6e91a44d/HelloShiftLeft/e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3/09d949d942c2e5644c1a2019bf7ebe06e697cd26caa6c6486f5c2cd335c42045/1",
+            "occurrenceHash": "1815947fbe508d918cb3783fdd055c7e",
+            "dataFlow": {
+              "list": [
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "parameterId": "4429",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "http"
+                    },
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "attacker-controlled"
+                    }
+                  ],
+                  "id": "4429"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "id": "4431"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2009"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "parameterId": "4429",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "http"
+                    },
+                    {
+                      "key": "FROM_OUTSIDE",
+                      "value": "attacker-controlled"
+                    }
+                  ],
+                  "id": "4429"
+                },
+                {
+                  "location": {
+                    "methodName": "<operator>.addition",
+                    "shortMethodName": "<operator>.addition",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "return": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "4428",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    },
+                    {
+                      "key": "EXPOSED_METHOD_ROUTE"
+                    }
+                  ],
+                  "id": "4431"
+                },
+                {
+                  "location": {
+                    "lineNumber": 20,
+                    "packageName": "<global>",
+                    "className": "Mail",
+                    "methodName": "src/Integrations/Mail.js::program:Mail",
+                    "shortMethodName": "Mail",
+                    "fileName": "src/Integrations/Mail.js"
+                  },
+                  "variableInfo": {
+                    "stack": {
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "1899",
+                  "methodTags": [
+                    {
+                      "key": "EXPOSED_METHOD"
+                    }
+                  ],
+                  "id": "2011"
+                },
+                {
+                  "location": {
+                    "methodName": "console.log",
+                    "shortMethodName": "console.log",
+                    "fileName": "N/A"
+                  },
+                  "variableInfo": {
+                    "parameter": {
+                      "symbol": "p1",
+                      "paramIndex": 1,
+                      "type": "ANY"
+                    }
+                  },
+                  "methodId": "6503",
+                  "parameterId": "6504",
+                  "methodTags": [
+                    {
+                      "key": "INTERFACE_WRITE"
+                    }
+                  ],
+                  "parameterTags": [
+                    {
+                      "key": "TO_OUTSIDE",
+                      "value": "log"
+                    }
+                  ],
+                  "id": "6504"
+                }
+              ]
+            }
+          },
+          "firstVersionDetected": "e1ca1d72ed01311eee71a6f0110b789263815a5c5ac442dd7db65f985f57e7e3"
+        }
+      }
+    ]
+  }
