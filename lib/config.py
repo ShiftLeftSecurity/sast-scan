@@ -99,6 +99,25 @@ ignore_directories = [
     ".serverless",
 ]
 
+# Ignore files list
+ignore_files = [
+    ".pyc",
+    ".gz",
+    ".tar",
+    ".md",
+    ".log",
+    ".tmp",
+    ".bin",
+    ".exe",
+    ".dll",
+    ".gif",
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+]
+
 
 def get(configName, default_value=None):
     """Method to retrieve a config given a name. This method lazy loads configuration

@@ -556,7 +556,7 @@ def test_inspect_extract_issue():
         Path(__file__).parent / "data" / "inspect-report.json",
     )
     assert issues
-    assert len(issues) == 198
+    assert len(issues) == 174
     assert issues[0] == {
         "rule_id": "a1-injection",
         "title": "Remote Code Execution: Command Injection through attacker-controlled data via `foo` in `SearchController.doGetSearch`",
@@ -570,7 +570,7 @@ def test_inspect_extract_issue():
     }
 
 
-def test_inspect_extract_issue():
+def test_inspect_extract_issue_nodejs():
     issues, metrics, skips = convertLib.extract_from_file(
         "inspect",
         [],

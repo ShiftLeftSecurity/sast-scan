@@ -45,3 +45,16 @@ def test_filter_ignored_dirs():
     assert d == ["foo"]
     d = utils.filter_ignored_dirs([".git", ".idea", "node_modules", "tmp"])
     assert d == []
+
+
+def test_filter_ignored_files():
+    d = utils.is_ignored_file("", "")
+    assert not d
+    d = utils.is_ignored_file("", "foo.log")
+    assert d
+    d = utils.is_ignored_file("", "bar.d.ts")
+    assert d
+    d = utils.is_ignored_file("", "bar.tar.gz")
+    assert d
+    d = utils.is_ignored_file("", "bar.java")
+    assert not d
