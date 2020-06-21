@@ -332,7 +332,7 @@ class Issue(object):
                     data.get("rule", ""), data.get("line"), data.get("commit", ""),
                 )
             tmplines = data.get("line", "").split("\n")
-            tmplines = [l for l in tmplines if l and l.strip() != ""]
+            tmplines = [li for li in tmplines if li and li.strip() != ""]
             self.code = tmplines[0]
             if len(tmplines) > 1:
                 self.linerange = tmplines
@@ -363,14 +363,14 @@ class Issue(object):
                 and isinstance(data["code_block"], list)
             ):
                 tmp_code = []
-                for l in data["code_block"]:
-                    if isinstance(l, list):
-                        if len(l) == 2:
-                            line_str = "{} {}".format(l[0], l[1])
+                for lc in data["code_block"]:
+                    if isinstance(lc, list):
+                        if len(lc) == 2:
+                            line_str = "{} {}".format(lc[0], lc[1])
                         else:
-                            line_str = l[0]
+                            line_str = lc[0]
                     else:
-                        line_str = l
+                        line_str = lc
                     tmp_code.append(line_str)
                 self.code = "\n".join(tmp_code)
         self.test_id = self.get_test_id(data)

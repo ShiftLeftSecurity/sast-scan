@@ -41,7 +41,7 @@ def is_ignored_dir(base_dir, dir_name):
     Method to find if the given directory is an ignored directory
     :param base_dir: Base directory
     :param dir_name: Directory to compare
-    :return:
+    :return: Boolean True if directory can be ignored. False otherwise
     """
     if dir_name.startswith("/" + base_dir):
         dir_name = re.sub(r"^/" + base_dir + "/", "", dir_name)
@@ -50,6 +50,24 @@ def is_ignored_dir(base_dir, dir_name):
     for d in config.ignore_directories:
         if dir_name == d or dir_name.startswith(d) or (d + "/") in dir_name:
             return True
+    return False
+
+
+def is_ignored_file(base_dir, file_name):
+    """
+    Method to find if the given file can be ignored
+    :param base_dir: Base directory
+    :param file_name: File to compare
+    :return: Boolean True if file can be ignored. False otherwise
+    """
+    if not file_name:
+        return False
+    file_name = file_name.lower()
+    name, extn = os.path.splitext(file_name)
+    if file_name.endswith("d.ts"):
+        return True
+    if extn in config.ignore_files:
+        return True
     return False
 
 
@@ -116,7 +134,7 @@ def find_jar_files():
     return result
 
 
-def find_files(src, src_ext_name, use_start=False):
+def find_files(src, src_ext_name, use_start=False, quick=False):
     """
     Method to find files with given extension
     :param src: Source directory
@@ -129,10 +147,14 @@ def find_files(src, src_ext_name, use_start=False):
         filter_ignored_dirs(dirs)
         if not is_ignored_dir(src, root):
             for file in files:
+                if is_ignored_file(src, file):
+                    continue
                 if file == src_ext_name or file.endswith(src_ext_name):
                     result.append(os.path.join(root, file))
                 elif use_start and file.startswith(src_ext_name):
                     result.append(os.path.join(root, file))
+                if quick and result:
+                    return result
     return result
 
 
@@ -189,62 +211,63 @@ def detect_project_type(src_dir, scan_mode):
     else:
         project_types.append("credscan")
     depscan_supported = False
-    if find_files(src_dir, ".cls"):
+    if find_files(src_dir, ".cls", False, True):
         project_types.append("apex")
-    if find_python_reqfiles(src_dir) or find_files(src_dir, ".py"):
+    if find_python_reqfiles(src_dir) or find_files(src_dir, ".py", False, True):
         project_types.append("python")
         depscan_supported = True
-    if find_files(src_dir, ".sql"):
+    if find_files(src_dir, ".sql", False, True):
         project_types.append("plsql")
-    if find_files(src_dir, ".scala"):
+    if find_files(src_dir, ".scala", False, True):
         project_types.append("scala")
     if (
-        find_files(src_dir, "pom.xml")
-        or find_files(src_dir, ".gradle")
+        find_files(src_dir, "pom.xml", False, True)
+        or find_files(src_dir, ".gradle", False, True)
         or os.environ.get("SHIFTLEFT_LANG_JAVA")
     ):
         project_types.append("java")
         depscan_supported = True
-    if find_files(src_dir, ".jsp"):
+    if find_files(src_dir, ".jsp", False, True):
         project_types.append("jsp")
         depscan_supported = True
     if (
-        find_files(src_dir, "package.json")
-        or find_files(src_dir, "yarn.lock")
-        or find_files(src_dir, ".js")
+        find_files(src_dir, "package.json", False, True)
+        or find_files(src_dir, "yarn.lock", False, True)
+        or find_files(src_dir, ".js", False, True)
     ):
-        if find_files(src_dir, ".ts"):
+        if find_files(src_dir, ".ts", False, True):
             project_types.append("ts")
-        else:
-            project_types.append("nodejs")
-            depscan_supported = True
+        project_types.append("nodejs")
+        depscan_supported = True
     if (
-        find_files(src_dir, ".csproj")
-        or find_files(src_dir, ".sln")
+        find_files(src_dir, ".csproj", False, True)
+        or find_files(src_dir, ".sln", False, True)
         or os.environ.get("SHIFTLEFT_LANG_CSHARP")
     ):
         project_types.append("csharp")
         depscan_supported = True
-    if find_files(src_dir, "go.sum") or find_files(src_dir, "Gopkg.lock"):
+    if find_files(src_dir, "go.sum", False, True) or find_files(
+        src_dir, "Gopkg.lock", False, True
+    ):
         project_types.append("go")
         depscan_supported = True
-    if find_files(src_dir, "Cargo.lock"):
+    if find_files(src_dir, "Cargo.lock", False, True):
         project_types.append("rust")
         depscan_supported = True
-    if find_files(src_dir, ".tf"):
+    if find_files(src_dir, ".tf", False, True):
         project_types.append("terraform")
-    if find_files(src_dir, ".yaml"):
+    if find_files(src_dir, ".yaml", False, True):
         project_types.append("yaml")
     if (
-        find_files(src_dir, ".component")
-        or find_files(src_dir, ".cmp")
-        or find_files(src_dir, ".page")
+        find_files(src_dir, ".component", False, True)
+        or find_files(src_dir, ".cmp", False, True)
+        or find_files(src_dir, ".page", False, True)
     ):
         project_types.append("vf")
-    if find_files(src_dir, ".vm"):
+    if find_files(src_dir, ".vm", False, True):
         project_types.append("vm")
         depscan_supported = True
-    if find_files(src_dir, ".sh"):
+    if find_files(src_dir, ".sh", False, True):
         project_types.append("bash")
     if depscan_supported and scan_mode != "ide":
         project_types.append("depscan")
