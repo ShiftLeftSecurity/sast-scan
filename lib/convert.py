@@ -78,6 +78,9 @@ def convert_dataflow(working_dir, tool_args, dataflows):
         if not is_generic_package(fn):
             location = flow["location"]
             fileName = location.get("fileName")
+            # Fix extension for typescript!
+            if is_ts and fileName:
+                fileName = fileName.replace(".js", ".ts")
             if not file_name_prefix:
                 file_name_prefix = find_path_prefix(working_dir, fileName)
             location_list.append(
@@ -86,14 +89,6 @@ def convert_dataflow(working_dir, tool_args, dataflows):
                     "line_number": location.get("lineNumber"),
                 }
             )
-    first_location = location_list[0]
-    last_location = location_list[-1]
-    first_fileName = first_location.get("fileName")
-    last_fileName = last_location.get("fileName")
-    # Fix extension for typescript!
-    if is_ts:
-        first_fileName = first_fileName.replace(".js", ".ts")
-        last_fileName = last_fileName.replace(".js", ".ts")
     if len(location_list) >= 2:
         first = location_list[0]
         last = location_list[-1]
