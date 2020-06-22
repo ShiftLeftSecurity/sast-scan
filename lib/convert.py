@@ -667,8 +667,8 @@ def get_url(tool_name, rule_id, test_name, issue_dict):
         return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
             "CWE-", ""
         )
-    return "https://stackoverflow.com/search?q=shiftleft/sast-scan+{}+{}+{}".format(
-        tool_name, rule_id, test_name
+    return "https://stackoverflow.com/search?q=shiftleft/sast-scan+{}+{}".format(
+        tool_name, rule_id
     )
 
 
