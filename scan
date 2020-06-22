@@ -208,7 +208,7 @@ def bandit_scan(src, reports_dir, convert, repo_context):
         "-r",
         "-a",
         "vuln",
-        "-ii",
+        "-i",
         "-ll",
         *convert_args,
         "-x",
