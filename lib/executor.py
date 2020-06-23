@@ -23,7 +23,7 @@ import reporter.licence as licence
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
-from lib.logger import LOG
+from lib.logger import DEBUG, LOG
 from lib.telemetry import track
 
 
@@ -126,6 +126,8 @@ def execute_default_cmd(
 
     # If the command doesn't support file output then redirect stdout automatically
     stdout = subprocess.DEVNULL if "credscan" in type_str else None
+    if LOG.isEnabledFor(DEBUG):
+        stdout = None
     if reports_dir and default_cmd.find(report_fname_prefix) == -1:
         report_fname = report_fname_prefix + outext
         stdout = io.open(report_fname, "w")

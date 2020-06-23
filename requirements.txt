@@ -11,5 +11,4 @@ pipenv
 checkov
 cfn-lint
 yamllint
-nodejsscan
 njsscan

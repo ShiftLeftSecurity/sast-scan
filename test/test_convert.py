@@ -790,3 +790,15 @@ def test_convert_dataflow():
         ],
     )
     assert len(dataflows) == 2
+
+
+def test_phpstan_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "source-php",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "source-php.json",
+    )
+    assert issues
+    assert len(issues) == 7
+    assert issues[0] == {}

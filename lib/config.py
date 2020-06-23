@@ -20,13 +20,20 @@ from pathlib import Path
 
 runtimeValues = {}
 
+APP_SRC_DIR = os.path.join(os.path.dirname(__file__), "..")
+TOOLS_CONFIG_DIR = os.path.join(os.path.dirname(__file__), "..")
+
 # Depth of credscan
 credscan_depth = "5"
 work_dir = (Path(__file__).parent.parent).as_posix()
 credscan_config = os.path.join(work_dir, "credscan-config.toml")
 credscan_timeout = "2m"
 
-APP_SRC_DIR = os.path.join(os.path.dirname(__file__), "..")
+# Php memory limit
+php_memory_limit = "2G"
+phpstan_level = "5"
+phpstan_config = os.path.join(TOOLS_CONFIG_DIR, "phpstan.neon.dist")
+
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
 
@@ -173,7 +180,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            get("APP_SRC_DIR") + "/rules-pmd.xml",
+            get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
     "aws": {"source-aws": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
@@ -251,7 +258,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            get("APP_SRC_DIR") + "/rules-pmd.xml",
+            get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
     "kotlin": [
@@ -291,8 +298,51 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            get("APP_SRC_DIR") + "/rules-pmd.xml",
+            get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
+    },
+    "php": {
+        "source-php": [
+            "phpstan",
+            "analyse",
+            "-c",
+            get("phpstan_config"),
+            "-l",
+            get("phpstan_level"),
+            "--no-progress",
+            "--memory-limit",
+            get("php_memory_limit"),
+            "--error-format=json",
+            "%(src)s",
+        ],
+        "audit-init": ["psalm", "--init"],
+        "audit-php": [
+            "psalm",
+            "--report-show-info=false",
+            "--show-snippet=true",
+            "--find-dead-code=always",
+            "--find-unused-code=always",
+            "-m",
+            "--no-progress",
+            "--no-file-cache",
+            "--no-suggestions",
+            "--no-cache",
+            "--root=%(src)s",
+            "--report=" + "%(report_fname_prefix)s.json",
+        ],
+        "taint-php": [
+            "psalm",
+            "--report-show-info=false",
+            "--show-snippet=true",
+            "--taint-analysis",
+            "-m",
+            "--no-progress",
+            "--no-file-cache",
+            "--no-suggestions",
+            "--no-cache",
+            "--root=%(src)s",
+            "--report=" + "%(report_fname_prefix)s.json",
+        ],
     },
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
     "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
@@ -315,7 +365,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            get("APP_SRC_DIR") + "/rules-pmd.xml",
+            get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
     "vm": {
@@ -333,7 +383,7 @@ scan_tools_args_map = {
             "-f",
             "csv",
             "-R",
-            get("APP_SRC_DIR") + "/rules-pmd.xml",
+            get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
     "yaml": {
@@ -358,6 +408,7 @@ build_tools_map = {
     },
     "go": ["go", "build", "./..."],
     "rust": ["cargo", "build"],
+    "php": ["composer", "install"],
 }
 
 """
@@ -383,6 +434,8 @@ tool_purpose_message = {
     "source": "Source code analyzer",
     "source-java": "Source code analyzer for Java",
     "source-python": "Source code analyzer for Python",
+    "source-php": "Source code analyzer for PHP",
+    "audit-php": "Security audit for PHP",
     "source-js": "Source code analyzer for JavaScript",
     "source-go": "Source code analyzer for Go",
     "source-vm": "Source code analyzer for Apache Velocity",

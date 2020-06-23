@@ -218,6 +218,9 @@ def detect_project_type(src_dir, scan_mode):
         depscan_supported = True
     if find_files(src_dir, ".sql", False, True):
         project_types.append("plsql")
+    if find_files(src_dir, "composer.json", False, True):
+        project_types.append("php")
+        # depscan_supported = True
     if find_files(src_dir, ".scala", False, True):
         project_types.append("scala")
     if (

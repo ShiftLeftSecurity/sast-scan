@@ -53,7 +53,7 @@ def auto_build(type_list, src, reports_dir):
                 src, reports_dir, lang_tools
             )
         except Exception:
-            LOG.debug("Unable to auto build project of type {}".format(ptype))
+            continue
     return ret
 
 

@@ -295,7 +295,7 @@ def pmd_scan(src, reports_dir, convert, repo_context):
         src,
         *convert_args,
         "-R",
-        os.environ["APP_SRC_DIR"] + "/rules-pmd.xml",
+        config.get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
     ]
     exec_tool(pmd_args, src)
     if convert:
@@ -336,9 +336,9 @@ def findsecbugs_scan(src, reports_dir, convert, repo_context):
             *findsec_cmd,
             "-textui",
             "-include",
-            os.environ["APP_SRC_DIR"] + "/spotbugs/include.xml",
+            config.get("TOOLS_CONFIG_DIR") + "/spotbugs/include.xml",
             "-exclude",
-            os.environ["APP_SRC_DIR"] + "/spotbugs/exclude.xml",
+            config.get("TOOLS_CONFIG_DIR") + "/spotbugs/exclude.xml",
             "-noClassOk",
             "-auxclasspathFromFile",
             jars_list,
