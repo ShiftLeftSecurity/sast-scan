@@ -790,3 +790,23 @@ def test_convert_dataflow():
         ],
     )
     assert len(dataflows) == 2
+
+
+def test_get_help():
+    url = convertLib.get_url(
+        "source-java",
+        "Error Prone",
+        "Check if there is an error prone vulnerability",
+        {},
+    )
+    assert url == "https://slscan.io?q=Error+Prone"
+    url = convertLib.get_url(
+        "source-js",
+        "CWE-118 Incorrect Access of Indexable Resource ('Range Error') (4.0)",
+        "Check if there is an incorrect access vulnerability",
+        {},
+    )
+    assert (
+        url
+        == "https://cwe.mitre.org/data/definitions/118+Incorrect+Access+of+Indexable+Resource+%28%27Range+Error%27%29+%284.0%29.html"
+    )

@@ -22,6 +22,8 @@ import re
 import sys
 import uuid
 
+from urllib.parse import quote_plus
+
 import sarif_om as om
 from jschema_to_python.to_json import to_json
 from reporter.sarif import render_html
@@ -655,21 +657,18 @@ def get_help(format, tool_name, rule_id, test_name, issue_dict):
 
 
 def get_url(tool_name, rule_id, test_name, issue_dict):
-    # Return stackoverflow url for now
     if issue_dict.get("test_ref_url"):
         return issue_dict.get("test_ref_url")
     if config.tool_ref_url.get(tool_name):
         return config.tool_ref_url.get(tool_name) % dict(
             rule_id=rule_id, tool_name=tool_name, test_name=test_name
         )
-
+    rule_id = quote_plus(rule_id)
     if rule_id and rule_id.startswith("CWE"):
         return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
             "CWE-", ""
         )
-    return "https://stackoverflow.com/search?q=shiftleft/sast-scan+{}+{}".format(
-        tool_name, rule_id
-    )
+    return "https://slscan.io?q={}".format(rule_id)
 
 
 def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
