@@ -21,7 +21,6 @@ import pathlib
 import re
 import sys
 import uuid
-
 from urllib.parse import quote_plus
 
 import sarif_om as om
