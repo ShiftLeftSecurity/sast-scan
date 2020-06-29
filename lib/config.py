@@ -100,6 +100,7 @@ ignore_directories = [
     "tests",
     "test",
     "tmp",
+    "report",
     "reports",
     "node_modules",
     ".terraform",
@@ -301,7 +302,7 @@ scan_tools_args_map = {
             get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
-    "php": {
+    "php-ide": {
         "source-php": [
             "phpstan",
             "analyse",
@@ -331,7 +332,37 @@ scan_tools_args_map = {
             "--report=" + "%(report_fname_prefix)s.json",
         ],
         "taint-php": [
+            "/opt/phpsast/vendor/bin/psalm",
+            "--report-show-info=false",
+            "--show-snippet=true",
+            "--taint-analysis",
+            "-m",
+            "--no-progress",
+            "--no-file-cache",
+            "--no-suggestions",
+            "--no-cache",
+            "--root=%(src)s",
+            "--report=" + "%(report_fname_prefix)s.json",
+        ],
+    },
+    "php": {
+        "audit-init": ["psalm", "--init"],
+        "audit-php": [
             "psalm",
+            "--report-show-info=false",
+            "--show-snippet=true",
+            "--find-dead-code=always",
+            "--find-unused-code=always",
+            "-m",
+            "--no-progress",
+            "--no-file-cache",
+            "--no-suggestions",
+            "--no-cache",
+            "--root=%(src)s",
+            "--report=" + "%(report_fname_prefix)s.json",
+        ],
+        "taint-php": [
+            "/opt/phpsast/vendor/bin/psalm",
             "--report-show-info=false",
             "--show-snippet=true",
             "--taint-analysis",
@@ -436,6 +467,9 @@ tool_purpose_message = {
     "source-python": "Source code analyzer for Python",
     "source-php": "Source code analyzer for PHP",
     "audit-php": "Security audit for PHP",
+    "taint-php": "Security taint analysis for PHP",
+    "psalm": "Security audit for PHP",
+    "/opt/phpsast/vendor/bin/psalm": "Security taint analysis for PHP",
     "source-js": "Source code analyzer for JavaScript",
     "source-go": "Source code analyzer for Go",
     "source-vm": "Source code analyzer for Apache Velocity",
@@ -466,6 +500,15 @@ ignored_rules = [
     "AWS019",
     "Password Hardcoded",
     "Secret Hardcoded",
+    "DeprecatedFunction",
+    "DeprecatedInterface",
+    "DeprecatedConstant",
+    "DeprecatedMethod",
+    "PossiblyNullOperand",
+    "PossiblyUnusedMethod",
+    "PossiblyUnusedParam",
+    "PossiblyUnusedProperty",
+    "DocblockTypeContradiction",
 ]
 
 # Override severity of certain rules

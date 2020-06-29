@@ -52,8 +52,10 @@ def tweak_severity(tool_name, issue_dict):
     :return:
     """
     issue_severity = issue_dict["issue_severity"]
-    if tool_name == "staticcheck":
-        return "MEDIUM"
+    if tool_name in ["staticcheck", "psalm", "phpstan"]:
+        if issue_severity in ["HIGH", "CRITICAL"]:
+            return "MEDIUM"
+        return "LOW"
     return issue_severity
 
 
@@ -246,6 +248,8 @@ def convert_file(
     issues, metrics, skips = extract_from_file(
         tool_name, tool_args, working_dir, report_file, file_path_list
     )
+    if not issues:
+        return
     return report(
         tool_name,
         tool_args,

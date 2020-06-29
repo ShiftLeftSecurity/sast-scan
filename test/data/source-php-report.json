@@ -1,0 +1,4049 @@
+{
+    "totals": {
+        "errors": 0,
+        "file_errors": 670
+    },
+    "files": {
+        "/app/src/Psalm/Codebase.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 857,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_symbol contains unresolvable type.",
+                    "line": 1306,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Config.php": {
+            "errors": 10,
+            "messages": [
+                {
+                    "message": "Constant PSALM_VERSION not found.",
+                    "line": 662,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 769,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #1 $extensions of method Psalm\\Config::loadFileExtensions() expects array<SimpleXMLElement>, SimpleXMLElement given.",
+                    "line": 936,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config::getInstance() should return $this(Psalm\\Config) but returns static(Psalm\\Config).",
+                    "line": 1081,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $must_extend contains unresolvable type.",
+                    "line": 1266,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config::getReportingLevelForClass() should return string|null but return statement is missing.",
+                    "line": 1582,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config::getReportingLevelForMethod() should return string|null but return statement is missing.",
+                    "line": 1595,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config::getReportingLevelForFunction() should return string|null but return statement is missing.",
+                    "line": 1605,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config::getReportingLevelForArgument() should return string|null but return statement is missing.",
+                    "line": 1615,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config::getReportingLevelForProperty() should return string|null but return statement is missing.",
+                    "line": 1628,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Config/Creator.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 151,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Config/FileFilter.php": {
+            "errors": 7,
+            "messages": [
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 99,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 101,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 218,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 270,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 284,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 299,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 306,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Config/IssueHandler.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Config\\IssueHandler::getReportingLevelForClass() should return string|null but return statement is missing.",
+                    "line": 89,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config\\IssueHandler::getReportingLevelForMethod() should return string|null but return statement is missing.",
+                    "line": 103,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config\\IssueHandler::getReportingLevelForFunction() should return string|null but return statement is missing.",
+                    "line": 115,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config\\IssueHandler::getReportingLevelForArgument() should return string|null but return statement is missing.",
+                    "line": 127,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config\\IssueHandler::getReportingLevelForProperty() should return string|null but return statement is missing.",
+                    "line": 141,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Config\\IssueHandler::getAllIssueTypes() should return array<string> but returns array<mixed>.",
+                    "line": 154,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Context.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Context::$calling_method_id contains unresolvable type.",
+                    "line": 324,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/DocComment.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $preserve_format",
+                    "line": 183,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/ErrorBaseline.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Constant PSALM_VERSION not found.",
+                    "line": 252,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/ClassAnalyzer.php": {
+            "errors": 7,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 116,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 536,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassAnalyzer::analyze() should return false|null but return statement is missing.",
+                    "line": 965,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 980,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassAnalyzer::analyzeTraitUse() never returns null so it can be removed from the return typehint.",
+                    "line": 1466,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassAnalyzer::analyzeTraitUse() should return false|null but return statement is missing.",
+                    "line": 1586,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassAnalyzer::analyzeClassMethod() should return Psalm\\Internal\\Analyzer\\MethodAnalyzer|null but empty return statement found.",
+                    "line": 1728,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/ClassLikeAnalyzer.php": {
+            "errors": 5,
+            "messages": [
+                {
+                    "message": "Property Psalm\\Internal\\Analyzer\\ClassLikeAnalyzer::$source (Psalm\\StatementsSource) does not accept null.",
+                    "line": 116,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property Psalm\\Internal\\Analyzer\\ClassLikeAnalyzer::$file_analyzer (Psalm\\Internal\\Analyzer\\FileAnalyzer) does not accept null.",
+                    "line": 117,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClassLikeAnalyzer::checkFullyQualifiedClassLikeName() should return bool|null but empty return statement found.",
+                    "line": 242,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 396,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $calling_context",
+                    "line": 549,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/ClosureAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 56,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\ClosureAnalyzer::analyzeClosureUses() should return false|null but empty return statement found.",
+                    "line": 245,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/CommentAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $line_number",
+                    "line": 370,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value ('property'|'psalm-property'|'property-read'|): Unexpected token \"\\n     *\", expected type at offset 165",
+                    "line": 1152,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/FileAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Binary operation \"+\" between array|false and array<string> results in an error.",
+                    "line": 596,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property Psalm\\Internal\\Analyzer\\SourceAnalyzer::$source (Psalm\\Internal\\Analyzer\\SourceAnalyzer) does not accept null.",
+                    "line": 690,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/FunctionAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 264,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/FunctionLike/ReturnTypeAnalyzer.php": {
+            "errors": 8,
+            "messages": [
+                {
+                    "message": "Parameter #5 $ignore_nullable_issues of static method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeCollector::getReturnTypes() is passed by reference, so it expects variables only.",
+                    "line": 127,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined method Psalm\\Type\\Atomic::isVoid().",
+                    "line": 151,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined static method Psalm\\Type::combineUnionTypeArray().",
+                    "line": 211,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined static method Psalm\\Type::combineUnionTypeArray().",
+                    "line": 214,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeAnalyzer::checkReturnType() should return false|null but empty return statement found.",
+                    "line": 687,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeAnalyzer::checkReturnType() should return false|null but empty return statement found.",
+                    "line": 734,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeAnalyzer::checkReturnType() should return false|null but empty return statement found.",
+                    "line": 756,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeAnalyzer::checkReturnType() should return false|null but return statement is missing.",
+                    "line": 809,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/FunctionLike/ReturnTypeCollector.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "Call to an undefined static method Psalm\\Type::combineUnionTypeArray().",
+                    "line": 220,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined static method Psalm\\Type::combineUnionTypeArray().",
+                    "line": 266,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeCollector::getYieldTypeFromExpression() should return array<int, Psalm\\Type\\Union> but returns array<int, Psalm\\Type\\Atomic>.",
+                    "line": 317,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeCollector::getYieldTypeFromExpression() should return array<int, Psalm\\Type\\Union> but returns array<int, Psalm\\Type\\Atomic>.",
+                    "line": 322,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/FunctionLikeAnalyzer.php": {
+            "errors": 12,
+            "messages": [
+                {
+                    "message": "Parameter #5 $ignore_nullable_issues of static method Psalm\\Internal\\Analyzer\\FunctionLike\\ReturnTypeCollector::getReturnTypes() is passed by reference, so it expects variables only.",
+                    "line": 605,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined static method Psalm\\Type::combineUnionTypeArray().",
+                    "line": 614,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined static method Psalm\\Type::combineUnionTypeArray().",
+                    "line": 621,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 826,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionLikeStorage::$param_lookup.",
+                    "line": 848,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unreachable statement - code above always terminates.",
+                    "line": 862,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLikeAnalyzer::verifyReturnType() should return false|null but return statement is missing.",
+                    "line": 1390,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $return_type",
+                    "line": 1474,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionLikeParameter::$out_type.",
+                    "line": 1509,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\FunctionLikeAnalyzer::getMethodName() should return string|null but return statement is missing.",
+                    "line": 1546,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 1614,
+                    "ignorable": true
+                },
+                {
+                    "message": "Binary operation \"+\" between array|false and array<string> results in an error.",
+                    "line": 1745,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/MethodAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $calling_method_id contains unresolvable type.",
+                    "line": 148,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/MethodComparator.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\MethodComparator::compare() should return false|null but return statement is missing.",
+                    "line": 154,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/ProjectAnalyzer.php": {
+            "errors": 5,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $reports",
+                    "line": 242,
+                    "ignorable": true
+                },
+                {
+                    "message": "Constant PSALM_VERSION not found.",
+                    "line": 422,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $dir_name",
+                    "line": 1064,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $php_major_version",
+                    "line": 1277,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $php_minor_version",
+                    "line": 1277,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/SourceAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Property Psalm\\Internal\\Analyzer\\SourceAnalyzer::$source (Psalm\\Internal\\Analyzer\\SourceAnalyzer) does not accept null.",
+                    "line": 21,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Block/ForeachAnalyzer.php": {
+            "errors": 9,
+            "messages": [
+                {
+                    "message": "Call to private static method taintArrayFetch() of class Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer.",
+                    "line": 470,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 470,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to private static method taintArrayFetch() of class Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer.",
+                    "line": 486,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 486,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to private static method taintArrayFetch() of class Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer.",
+                    "line": 513,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 513,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\ForeachAnalyzer::checkIteratorType() should return false|null but return statement is missing.",
+                    "line": 643,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of && is always false.",
+                    "line": 1103,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using !== between false and false will always evaluate to false.",
+                    "line": 1103,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Block/IfAnalyzer.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\IfAnalyzer::analyzeIfBlock() should return false|null but return statement is missing.",
+                    "line": 1038,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $elseif_context",
+                    "line": 1052,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\IfAnalyzer::analyzeElseIfBlock() should return false|null but return statement is missing.",
+                    "line": 1516,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\IfAnalyzer::analyzeElseBlock() should return false|null but empty return statement found.",
+                    "line": 1553,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\IfAnalyzer::analyzeElseBlock() should return false|null but empty return statement found.",
+                    "line": 1572,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\IfAnalyzer::analyzeElseBlock() should return false|null but return statement is missing.",
+                    "line": 1810,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Block/LoopAnalyzer.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $loop_scope with type Psalm\\Context is incompatible with native type Psalm\\Internal\\Scope\\LoopScope.",
+                    "line": 40,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (Context                      loop_scope->loop_context): Unexpected token \"loop_scope-\", expected variable at offset 275",
+                    "line": 40,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\LoopAnalyzer::analyze() should return false|null but return statement is missing.",
+                    "line": 491,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Block/SwitchAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Stmt\\Switch_::$allMatched.",
+                    "line": 187,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Block/SwitchCaseAnalyzer.php": {
+            "errors": 8,
+            "messages": [
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\CaseScope::$parent_context (Psalm\\Context) does not accept null.",
+                    "line": 74,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\CaseScope::$parent_context (Psalm\\Context) does not accept null.",
+                    "line": 200,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\SwitchCaseAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 206,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\CaseScope::$parent_context (Psalm\\Context) does not accept null.",
+                    "line": 407,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\CaseScope::$parent_context (Psalm\\Context) does not accept null.",
+                    "line": 469,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\SwitchCaseAnalyzer::analyze() should return false|null but return statement is missing.",
+                    "line": 471,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\SwitchCaseAnalyzer::handleNonReturningCase() never returns null so it can be removed from the return typehint.",
+                    "line": 480,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Block\\SwitchCaseAnalyzer::handleNonReturningCase() should return false|null but return statement is missing.",
+                    "line": 597,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/ContinueAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\ContinueAnalyzer::analyze() should return false|null but return statement is missing.",
+                    "line": 115,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/ArrayAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false.",
+                    "line": 54,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/AssertionFinder.php": {
+            "errors": 17,
+            "messages": [
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$args.",
+                    "line": 245,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$args.",
+                    "line": 305,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$right.",
+                    "line": 330,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$left.",
+                    "line": 339,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$args.",
+                    "line": 829,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$value.",
+                    "line": 835,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$args.",
+                    "line": 866,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$left.",
+                    "line": 967,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$right.",
+                    "line": 968,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$left.",
+                    "line": 977,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$right.",
+                    "line": 978,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$args.",
+                    "line": 1448,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$left.",
+                    "line": 1571,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$right.",
+                    "line": 1572,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$left.",
+                    "line": 1581,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$right.",
+                    "line": 1582,
+                    "ignorable": true
+                },
+                {
+                    "message": "Left side of && is always true.",
+                    "line": 1720,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Assignment/StaticPropertyAssignmentAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Assignment\\StaticPropertyAssignmentAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 95,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Assignment\\StaticPropertyAssignmentAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 112,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/BinaryOp/AndAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "If condition is always false.",
+                    "line": 87,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/BinaryOp/ConcatAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param has invalid value (Type\\Union|null       &$result_type): Unexpected token \"&\", expected variable at offset 187",
+                    "line": 38,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/BinaryOp/NonDivArithmeticOpAnalyzer.php": {
+            "errors": 16,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() never returns null so it can be removed from the return typehint.",
+                    "line": 267,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (string[]        &$invalid_left_messages): Unexpected token \"&\", expected variable at offset 35",
+                    "line": 267,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (string[]        &$invalid_right_messages): Unexpected token \"&\", expected variable at offset 90",
+                    "line": 267,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 286,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 291,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 309,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 380,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 440,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 504,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 541,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 544,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 559,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 574,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 589,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 618,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\BinaryOp\\NonDivArithmeticOpAnalyzer::analyzeNonDivOperands() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 645,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/ArgumentAnalyzer.php": {
+            "errors": 19,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkArgumentMatches() should return false|null but empty return statement found.",
+                    "line": 117,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkArgumentMatches() should return false|null but empty return statement found.",
+                    "line": 121,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkArgumentMatches() should return false|null but return statement is missing.",
+                    "line": 124,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkFunctionLikeTypeMatches() never returns null so it can be removed from the return typehint.",
+                    "line": 153,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $generic_params",
+                    "line": 153,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $template_types",
+                    "line": 153,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkFunctionLikeTypeMatches() should return false|null but empty return statement found.",
+                    "line": 172,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkFunctionLikeTypeMatches() should return false|null but empty return statement found.",
+                    "line": 281,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkFunctionLikeTypeMatches() should return false|null but empty return statement found.",
+                    "line": 361,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkFunctionLikeTypeMatches() should return false|null but empty return statement found.",
+                    "line": 403,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::checkFunctionLikeTypeMatches() should return false|null but return statement is missing.",
+                    "line": 407,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 791,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 812,
+                    "ignorable": true
+                },
+                {
+                    "message": "Left side of && is always true.",
+                    "line": 820,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 830,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 882,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 896,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 916,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentAnalyzer::verifyType() should return false|null but empty return statement found.",
+                    "line": 929,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/ArgumentsAnalyzer.php": {
+            "errors": 25,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $generic_params",
+                    "line": 54,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 83,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::analyze() should return false|null but empty return statement found.",
+                    "line": 91,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::analyze() should return false|null but return statement is missing.",
+                    "line": 98,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to private static method taintArrayFetch() of class Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer.",
+                    "line": 245,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 245,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to private static method taintArrayFetch() of class Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer.",
+                    "line": 272,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 272,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #10 $context of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() expects Psalm\\Context, Psalm\\Internal\\Type\\TemplateResult|null given.",
+                    "line": 530,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #7 $function_storage of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() expects Psalm\\Storage\\FunctionLikeStorage|null, int given.",
+                    "line": 530,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #8 $argument_offset of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() expects int, PhpParser\\Node\\Arg given.",
+                    "line": 530,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #9 $arg of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() expects PhpParser\\Node\\Arg, Psalm\\Context given.",
+                    "line": 530,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() invoked with 10 parameters, 11 required.",
+                    "line": 530,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::checkArgumentsMatch() should return false|null but empty return statement found.",
+                    "line": 542,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::checkArgumentsMatch() should return false|null but return statement is missing.",
+                    "line": 647,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() never returns null so it can be removed from the return typehint.",
+                    "line": 717,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handlePossiblyMatchingByRefParam() should return false|null but return statement is missing.",
+                    "line": 760,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionLikeParameter::$out_type.",
+                    "line": 782,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::evaluateAribitraryParam() never returns null so it can be removed from the return typehint.",
+                    "line": 861,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::evaluateAribitraryParam() should return false|null but return statement is missing.",
+                    "line": 912,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handleByRefFunctionArg() never returns null so it can be removed from the return typehint.",
+                    "line": 973,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handleByRefFunctionArg() should return false|null but empty return statement found.",
+                    "line": 1027,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handleByRefFunctionArg() should return false|null but empty return statement found.",
+                    "line": 1032,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handleByRefFunctionArg() should return false|null but empty return statement found.",
+                    "line": 1063,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArgumentsAnalyzer::handleByRefFunctionArg() should return false|null but return statement is missing.",
+                    "line": 1077,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/ArrayFunctionArgumentsAnalyzer.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArrayFunctionArgumentsAnalyzer::checkArgumentsMatch() should return false|null but return statement is missing.",
+                    "line": 99,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArrayFunctionArgumentsAnalyzer::handleAddition() should return false|null but empty return statement found.",
+                    "line": 251,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArrayFunctionArgumentsAnalyzer::handleSplice() should return false|null but empty return statement found.",
+                    "line": 288,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArrayFunctionArgumentsAnalyzer::handleSplice() should return false|null but empty return statement found.",
+                    "line": 302,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArrayFunctionArgumentsAnalyzer::handleSplice() should return false|null but empty return statement found.",
+                    "line": 378,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\ArrayFunctionArgumentsAnalyzer::handleSplice() should return false|null but return statement is missing.",
+                    "line": 383,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/ClassTemplateParamCollector.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $method_name contains unresolvable type.",
+                    "line": 22,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 234,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/FunctionCallAnalyzer.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @return has invalid value (array{): Unexpected token \"|\", expected '}' at offset 76",
+                    "line": 512,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 887,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 981,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between Psalm\\Type\\Union and null will always evaluate to false.",
+                    "line": 989,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using !== between '-' and '-' will always evaluate to false.",
+                    "line": 1190,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr\\FuncCall::$pure.",
+                    "line": 1283,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/Method/AtomicMethodCallAnalyzer.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "If condition is always false.",
+                    "line": 206,
+                    "ignorable": true
+                },
+                {
+                    "message": "Negated boolean expression is always true.",
+                    "line": 207,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of || is always true.",
+                    "line": 207,
+                    "ignorable": true
+                },
+                {
+                    "message": "Left side of && is always false.",
+                    "line": 500,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr\\MethodCall::$pure.",
+                    "line": 827,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 878,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/Method/MethodCallPurityAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr\\MethodCall::$pure.",
+                    "line": 84,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr\\MethodCall::$pure.",
+                    "line": 104,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/NewAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr\\New_::$external_mutation_free.",
+                    "line": 565,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Call/StaticCallAnalyzer.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "Right side of && is always true.",
+                    "line": 892,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 1237,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\StaticCallAnalyzer::checkPseudoMethod() never returns null so it can be removed from the return typehint.",
+                    "line": 1407,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Call\\StaticCallAnalyzer::checkPseudoMethod() should return false|null but return statement is missing.",
+                    "line": 1473,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/CallAnalyzer.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param has invalid value (PhpParser\\Node\\Scalar\\String_|PhpParser\\Node\\Expr\\Array_|PhpParser\\Node\\Expr\\BinaryOp\\Concat): Unexpected token \"\\n     *\", expected variable at offset 111",
+                    "line": 409,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 518,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var contains unresolvable type.",
+                    "line": 530,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/ExpressionIdentifier.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param has invalid value (int|null                 &$nesting): Unexpected token \"&\", expected variable at offset 189",
+                    "line": 24,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Fetch/ArrayFetchAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 128,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $stmt of static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\ArrayFetchAnalyzer::taintArrayFetch() expects PhpParser\\Node\\Expr\\ArrayDimFetch, PhpParser\\Node\\Expr given.",
+                    "line": 297,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/Fetch/InstancePropertyFetchAnalyzer.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "Static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\InstancePropertyFetchAnalyzer::processTaints() invoked with 6 parameters, 5 required.",
+                    "line": 181,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\InstancePropertyFetchAnalyzer::processTaints() invoked with 6 parameters, 5 required.",
+                    "line": 569,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\InstancePropertyFetchAnalyzer::processTaints() invoked with 6 parameters, 5 required.",
+                    "line": 681,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\InstancePropertyFetchAnalyzer::processTaints() invoked with 6 parameters, 5 required.",
+                    "line": 920,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of && is always false.",
+                    "line": 1048,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using !== between false and false will always evaluate to false.",
+                    "line": 1048,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/SimpleTypeInferer.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false.",
+                    "line": 300,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property PhpParser\\Node\\Expr::$value.",
+                    "line": 354,
+                    "ignorable": true
+                },
+                {
+                    "message": "Left side of && is always true.",
+                    "line": 409,
+                    "ignorable": true
+                },
+                {
+                    "message": "Negated boolean expression is always false.",
+                    "line": 421,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/Expression/TernaryAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Access to an undefined property object::$assigned_var_ids.",
+                    "line": 205,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/ExpressionAnalyzer.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "If condition is always false.",
+                    "line": 94,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Psalm\\Internal\\Analyzer\\Statements\\Expression\\Fetch\\InstancePropertyFetchAnalyzer::analyze() invoked with 4 parameters, 3 required.",
+                    "line": 205,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/ReturnAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Left side of && is always true.",
+                    "line": 394,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/Statements/ThrowAnalyzer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\Statements\\ThrowAnalyzer::analyze() should return false|null but return statement is missing.",
+                    "line": 33,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/StatementsAnalyzer.php": {
+            "errors": 5,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\StatementsAnalyzer::analyzeStatement() never returns null so it can be removed from the return typehint.",
+                    "line": 276,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\StatementsAnalyzer::analyzeStatement() should return false|null but empty return statement found.",
+                    "line": 305,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 512,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\StatementsAnalyzer::analyzeStatement() should return false|null but return statement is missing.",
+                    "line": 529,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionLikeStorage::$param_lookup.",
+                    "line": 626,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Analyzer/TypeAnalyzer.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\TypeAnalyzer::compareCallable() never returns null so it can be removed from the return typehint.",
+                    "line": 2576,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (bool   &$all_types_contain): Unexpected token \"&\", expected variable at offset 150",
+                    "line": 2576,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\TypeAnalyzer::compareCallable() should return false|null but return statement is missing.",
+                    "line": 2628,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Analyzer\\TypeAnalyzer::compareCallable() should return false|null but empty return statement found.",
+                    "line": 2638,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Analyzer.php": {
+            "errors": 28,
+            "messages": [
+                {
+                    "message": "Parameter #1 $file_maps of method Psalm\\Internal\\Provider\\FileReferenceProvider::setFileMaps() expects array<string, Psalm\\Internal\\Provider\\FileMapType>, array<string, Psalm\\Internal\\Codebase\\FileMapType> given.",
+                    "line": 295,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var contains unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 471,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'issues' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 476,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'fixable_issue_counts' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 477,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'unused_suppressions' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 480,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'used_suppressions' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 481,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'taint_data' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 484,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'taint_data' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 485,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'nonmethod\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 493,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'method_references\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 496,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'file_references_to\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 499,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'method_references\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 502,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'file_references_to\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 505,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'method_references\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 508,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'method_param_uses' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 511,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'mixed_member_names' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 514,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'class_locations' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 517,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'class_method\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 520,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'class_property\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 523,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'analyzed_methods' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 526,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'mixed_counts' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 528,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'possible_method\u2026' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 537,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'file_manipulations' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 557,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'file_maps' on an unknown class Psalm\\Internal\\Codebase\\WorkerData.",
+                    "line": 561,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\Codebase\\Analyzer::getFileMaps() has invalid type Psalm\\Internal\\Codebase\\FileMapType.",
+                    "line": 1467,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Analyzer::getFileMaps() should return array<string, Psalm\\Internal\\Codebase\\FileMapType> but returns array<string, array<int, array<int, array<int, mixed>>>>.",
+                    "line": 1491,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\Codebase\\Analyzer::getMapsForFile() has invalid type Psalm\\Internal\\Codebase\\FileMapType.",
+                    "line": 1497,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Analyzer::getMapsForFile() should return Psalm\\Internal\\Codebase\\FileMapType but returns array<int, array<int, array<int, mixed>>>.",
+                    "line": 1499,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/ClassLikes.php": {
+            "errors": 13,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_class_name contains unresolvable type.",
+                    "line": 714,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $alias_name contains unresolvable type.",
+                    "line": 764,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $calling_method_id contains unresolvable type.",
+                    "line": 1088,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $calling_method_id contains unresolvable type.",
+                    "line": 1271,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of && is always false.",
+                    "line": 1892,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of || is always false.",
+                    "line": 1893,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between int and 'serialize' will always evaluate to false.",
+                    "line": 1893,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between int and 'unserialize' will always evaluate to false.",
+                    "line": 1893,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #1 $member_id of method Psalm\\Internal\\Codebase\\Analyzer::hasMixedMemberName() expects string, int given.",
+                    "line": 1898,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #1 $member_id of method Psalm\\Internal\\Codebase\\Analyzer::hasMixedMemberName() expects string, int given.",
+                    "line": 1991,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_classlike_name_lc contains unresolvable type.",
+                    "line": 2303,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_classlike_name_lc contains unresolvable type.",
+                    "line": 2313,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_classlike_name_lc contains unresolvable type.",
+                    "line": 2324,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Functions.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 65,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 176,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_name contains unresolvable type.",
+                    "line": 226,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 226,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/InternalCallMapHandler.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionLikeParameter::$out_type.",
+                    "line": 310,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Methods.php": {
+            "errors": 11,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $calling_method_id contains unresolvable type.",
+                    "line": 89,
+                    "ignorable": true
+                },
+                {
+                    "message": "Cannot access offset mixed on Psalm\\Type\\Union.",
+                    "line": 431,
+                    "ignorable": true
+                },
+                {
+                    "message": "Cannot access offset mixed on Psalm\\Type\\Union.",
+                    "line": 433,
+                    "ignorable": true
+                },
+                {
+                    "message": "Cannot access offset mixed on Psalm\\Type\\Union.",
+                    "line": 439,
+                    "ignorable": true
+                },
+                {
+                    "message": "Cannot access offset mixed on Psalm\\Type\\Union.",
+                    "line": 440,
+                    "ignorable": true
+                },
+                {
+                    "message": "Cannot access offset mixed on Psalm\\Type\\Union.",
+                    "line": 442,
+                    "ignorable": true
+                },
+                {
+                    "message": "Cannot access offset mixed on Psalm\\Type\\Union.",
+                    "line": 445,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $declaring_method_name_lc contains unresolvable type.",
+                    "line": 867,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $method_name_lc contains unresolvable type.",
+                    "line": 867,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $appearing_method_name_lc contains unresolvable type.",
+                    "line": 889,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $method_name_lc contains unresolvable type.",
+                    "line": 889,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Properties.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Properties::getDeclaringClassForProperty() should return string|null but return statement is missing.",
+                    "line": 182,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Properties::getAppearingClassForProperty() should return string|null but return statement is missing.",
+                    "line": 212,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Reflection.php": {
+            "errors": 7,
+            "messages": [
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\MethodStorage::$param_lookup.",
+                    "line": 308,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 354,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Reflection::registerFunction() should return false|null but return statement is missing.",
+                    "line": 356,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Reflection::registerFunction() should return false|null but empty return statement found.",
+                    "line": 362,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined method ReflectionType::getName().",
+                    "line": 423,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_class_name contains unresolvable type.",
+                    "line": 460,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $parent_class contains unresolvable type.",
+                    "line": 460,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Scanner.php": {
+            "errors": 18,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $referencing_file_path",
+                    "line": 271,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var contains unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 443,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'issues' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 446,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'changed_members' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 449,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'unchanged_signature\u2026' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 452,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'diff_map' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 455,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'taint_data' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 457,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'taint_data' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 458,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'file_storage' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 461,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'classlike_storage' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 462,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'classlikes_data' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 464,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'scanner_data' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 466,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 'new_file_content\u2026' on an unknown class Psalm\\Internal\\Codebase\\PoolData.",
+                    "line": 470,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Internal\\Codebase\\Scanner::$existing_classlikes_lc.",
+                    "line": 726,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\Codebase\\Scanner::getThreadData() has invalid type Psalm\\Internal\\Codebase\\ThreadData.",
+                    "line": 794,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Codebase\\Scanner::getThreadData() should return Psalm\\Internal\\Codebase\\ThreadData but returns array<int, array<string, bool|string>>.",
+                    "line": 796,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $thread_data with type Psalm\\Internal\\Codebase\\ThreadData is incompatible with native type array.",
+                    "line": 814,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter $thread_data of method Psalm\\Internal\\Codebase\\Scanner::addThreadData() has invalid typehint type Psalm\\Internal\\Codebase\\ThreadData.",
+                    "line": 814,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Codebase/Taint.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Call to an undefined static method Psalm\\Internal\\Codebase\\Taint::shouldIgnoreFetch().",
+                    "line": 234,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to an undefined static method Psalm\\Internal\\Codebase\\Taint::shouldIgnoreFetch().",
+                    "line": 238,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Diff/FileDiffer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Cannot access property $new on string.",
+                    "line": 204,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/FileManipulation/FileManipulationBuffer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $file_path",
+                    "line": 193,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/FileManipulation/FunctionDocblockManipulator.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $is_php_compatible",
+                    "line": 295,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Fork/Pool.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param has invalid value (?\\Closure(mixed $data):void $task_done_closure\nA closure to execute when a task is done): Unexpected token \"(\", expected variable at offset 583",
+                    "line": 96,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/LanguageServer/ClientHandler.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Access to an undefined property AdvancedJsonRpc\\Message::$id.",
+                    "line": 75,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property AdvancedJsonRpc\\Message::$result.",
+                    "line": 80,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property AdvancedJsonRpc\\Message::$error.",
+                    "line": 82,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/LanguageServer/LanguageClient.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Comparison operation \"<\" between 1|2|3|4 and 1 is always false.",
+                    "line": 52,
+                    "ignorable": true
+                },
+                {
+                    "message": "Comparison operation \">\" between 1|2|3|4 and 4 is always false.",
+                    "line": 52,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of || is always false.",
+                    "line": 52,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/LanguageServer/LanguageServer.php": {
+            "errors": 10,
+            "messages": [
+                {
+                    "message": "Access to an undefined property AdvancedJsonRpc\\Message::$method.",
+                    "line": 128,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property AdvancedJsonRpc\\Message::$id.",
+                    "line": 163,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property AdvancedJsonRpc\\Message::$id.",
+                    "line": 165,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $capabilities.",
+                    "line": 204,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $processId.",
+                    "line": 204,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $rootPath.",
+                    "line": 204,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always false.",
+                    "line": 210,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $file_path.",
+                    "line": 355,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property LanguageServerProtocol\\Diagnostic::$code (int|string|null) does not accept array<string, string>.",
+                    "line": 396,
+                    "ignorable": true
+                },
+                {
+                    "message": "Constant PSALM_VERSION not found.",
+                    "line": 464,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/LanguageServer/ProtocolStreamReader.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Negated boolean expression is always false.",
+                    "line": 125,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/LanguageServer/Server/TextDocument.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param has invalid value (TextDocumentIdentifier The text document): Unexpected token \"The\", expected variable at offset 930",
+                    "line": 244,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\LanguageServer\\Server\\TextDocument::completion() has invalid type Psalm\\Internal\\LanguageServer\\Server\\empty.",
+                    "line": 244,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\LanguageServer\\Server\\TextDocument::completion() has invalid type Psalm\\Internal\\LanguageServer\\Server\\empty.",
+                    "line": 244,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/MethodIdentifier.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $method_name contains unresolvable type.",
+                    "line": 14,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 43,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 47,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PhpTraverser/CustomTraverser.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Method PhpParser\\NodeVisitor::enterNode() invoked with 2 parameters, 1 required.",
+                    "line": 41,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method PhpParser\\NodeVisitor::enterNode() invoked with 2 parameters, 1 required.",
+                    "line": 106,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between false and int will always evaluate to false.",
+                    "line": 144,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PhpVisitor/OffsetShifterVisitor.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\OffsetShifterVisitor::enterNode() should return int|null but return statement is missing.",
+                    "line": 62,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PhpVisitor/ReflectorVisitor.php": {
+            "errors": 14,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::enterNode() should return int|null but return statement is missing.",
+                    "line": 211,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::enterNode() should return int|null but empty return statement found.",
+                    "line": 292,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::enterNode() should return int|null but empty return statement found.",
+                    "line": 333,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::enterNode() should return int|null but empty return statement found.",
+                    "line": 367,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::leaveNode() should return null but empty return statement found.",
+                    "line": 572,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::leaveNode() should return null but empty return statement found.",
+                    "line": 661,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::leaveNode() should return null but empty return statement found.",
+                    "line": 666,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::registerClassLike() never returns null so it can be removed from the return typehint.",
+                    "line": 973,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::registerClassLike() should return false|null but return statement is missing.",
+                    "line": 1369,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionStorage|Psalm\\Storage\\MethodStorage::$param_lookup.",
+                    "line": 1916,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\FunctionLikeParameter::$out_type.",
+                    "line": 2501,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Storage\\MethodStorage::$param_lookup.",
+                    "line": 2825,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false.",
+                    "line": 3744,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ReflectorVisitor::afterTraverse() should return array<PhpParser\\Node>|null but return statement is missing.",
+                    "line": 3885,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PhpVisitor/ShortClosureVisitor.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\ShortClosureVisitor::enterNode() should return int|null but return statement is missing.",
+                    "line": 24,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PhpVisitor/SimpleNameResolver.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\SimpleNameResolver::resolveType() should return PhpParser\\Node\\Identifier|PhpParser\\Node\\Name|PhpParser\\Node\\NullableType|null but returns PhpParser\\Node|string|null.",
+                    "line": 195,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PhpVisitor/TypeMappingVisitor.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\PhpVisitor\\TypeMappingVisitor::enterNode() should return int|PhpParser\\Node|null but return statement is missing.",
+                    "line": 27,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PluginManager/ConfigFile.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "If condition is always true.",
+                    "line": 89,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 98,
+                    "ignorable": true
+                },
+                {
+                    "message": "If condition is always true.",
+                    "line": 101,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/PluginManager/PluginListFactory.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 33,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ClassLikeStorageCacheProvider.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Strict comparison using === between class-string<Psalm\\Storage\\ClassLikeStorage> and '__PHP_Incomplete\u2026' will always evaluate to false.",
+                    "line": 107,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/FileReferenceCacheProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\Provider\\FileReferenceCacheProvider::getFileMapCache() has invalid type Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 584,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var contains unknown class Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 596,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter $file_maps of method Psalm\\Internal\\Provider\\FileReferenceCacheProvider::setFileMapCache() has invalid typehint type Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 609,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/FileReferenceProvider.php": {
+            "errors": 6,
+            "messages": [
+                {
+                    "message": "Property Psalm\\Internal\\Provider\\FileReferenceProvider::$file_maps has unknown class Psalm\\Internal\\Provider\\FileMapType as its type.",
+                    "line": 123,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_class_name_lc contains unresolvable type.",
+                    "line": 171,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_class_name_lc contains unresolvable type.",
+                    "line": 615,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $issue",
+                    "line": 998,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter $file_maps of method Psalm\\Internal\\Provider\\FileReferenceProvider::setFileMaps() has invalid typehint type Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 1036,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return typehint of method Psalm\\Internal\\Provider\\FileReferenceProvider::getFileMaps() has invalid type Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 1070,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/FileStorageCacheProvider.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Strict comparison using === between class-string<Psalm\\Storage\\FileStorage> and '__PHP_Incomplete\u2026' will always evaluate to false.",
+                    "line": 106,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/FunctionExistenceProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nStatementsSource,\nstring): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 22,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nStatementsSource,\nstring): Unexpected token \"(\", expected variable at offset 37",
+                    "line": 53,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 68,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/FunctionParamsProvider.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nStatementsSource,\nstring,\narray<PhpParser\\Node\\Arg>,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 27,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nStatementsSource,\nstring,\narray<PhpParser\\Node\\Arg>,): Unexpected token \"(\", expected variable at offset 27",
+                    "line": 60,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/FunctionReturnTypeProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nStatementsSource,\nnon-empty-string,\narray<PhpParser\\Node\\Arg>,\nContext,\nCodeLocation): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 28,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nStatementsSource,\nnon-empty-string,\narray<PhpParser\\Node\\Arg>,\nContext,\nCodeLocation): Unexpected token \"(\", expected variable at offset 37",
+                    "line": 89,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 105,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/MethodExistenceProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nstring,\nstring,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 25,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nstring,\nstring,): Unexpected token \"(\", expected variable at offset 37",
+                    "line": 58,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 73,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/MethodParamsProvider.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nstring,\nstring,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 28,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nstring,\nstring,): Unexpected token \"(\", expected variable at offset 27",
+                    "line": 64,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/MethodReturnTypeProvider.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nStatementsSource,\nstring,\nstring,\narray<PhpParser\\Node\\Arg>,\nContext,\nCodeLocation,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 32,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nStatementsSource,\nstring,\nstring,\narray<PhpParser\\Node\\Arg>,\nContext,\nCodeLocation,): Unexpected token \"(\", expected variable at offset 27",
+                    "line": 73,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/MethodVisibilityProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nStatementsSource,\nstring,\nstring,\nContext,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 27,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nStatementsSource,\nstring,\nstring,\nContext,): Unexpected token \"(\", expected variable at offset 37",
+                    "line": 61,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 76,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/NodeDataProvider.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Internal\\Provider\\NodeDataProvider::$node_types contains unresolvable type.",
+                    "line": 12,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Internal\\Provider\\NodeDataProvider::$node_assertions contains unresolvable type.",
+                    "line": 15,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Internal\\Provider\\NodeDataProvider::$node_if_true_assertions contains unresolvable type.",
+                    "line": 18,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Internal\\Provider\\NodeDataProvider::$node_if_false_assertions contains unresolvable type.",
+                    "line": 21,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ParserCacheProvider.php": {
+            "errors": 7,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ParserCacheProvider::loadStatementsFromCache() should return array<int, PhpParser\\Node\\Stmt>|null but empty return statement found.",
+                    "line": 81,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ParserCacheProvider::loadStatementsFromCache() should return array<int, PhpParser\\Node\\Stmt>|null but return statement is missing.",
+                    "line": 94,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ParserCacheProvider::loadExistingStatementsFromCache() should return array<int, PhpParser\\Node\\Stmt>|null but empty return statement found.",
+                    "line": 123,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ParserCacheProvider::loadExistingStatementsFromCache() should return array<int, PhpParser\\Node\\Stmt>|null but return statement is missing.",
+                    "line": 134,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ParserCacheProvider::loadExistingFileContentsFromCache() should return string|null but empty return statement found.",
+                    "line": 159,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ParserCacheProvider::loadExistingFileContentsFromCache() should return string|null but return statement is missing.",
+                    "line": 170,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $start_time",
+                    "line": 373,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/PropertyExistenceProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nstring,\nstring,\nbool,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 28,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nstring,\nstring,\nbool,): Unexpected token \"(\", expected variable at offset 26",
+                    "line": 62,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 77,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/PropertyTypeProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nstring,\nstring,\nbool,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 27,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nstring,\nstring,\nbool,): Unexpected token \"(\", expected variable at offset 37",
+                    "line": 61,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 76,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/PropertyVisibilityProvider.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var has invalid value (array<\nstring,\narray<\\Closure(\nStatementsSource,\nstring,\nstring,\nbool,): Unexpected token \"(\", expected '>' at offset 63",
+                    "line": 28,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param has invalid value (\\Closure(\nStatementsSource,\nstring,\nstring,\nbool,): Unexpected token \"(\", expected variable at offset 37",
+                    "line": 63,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 78,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/ArrayMapReturnTypeProvider.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "Parameter #5 $array_arg_type of static method Psalm\\Internal\\Provider\\ReturnTypeProvider\\ArrayMapReturnTypeProvider::getReturnTypeFromMappingIds() expects Psalm\\Internal\\Type\\ArrayType|null, PhpParser\\Node\\Arg given.",
+                    "line": 119,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $mapping_function_ids contains unresolvable type.",
+                    "line": 299,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $fake_method_call of static method Psalm\\Internal\\Provider\\ReturnTypeProvider\\ArrayMapReturnTypeProvider::executeFakeCall() expects PhpParser\\Node\\Expr\\StaticCall, PhpParser\\Node\\Expr\\MethodCall given.",
+                    "line": 360,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #2 $fake_method_call of static method Psalm\\Internal\\Provider\\ReturnTypeProvider\\ArrayMapReturnTypeProvider::executeFakeCall() expects PhpParser\\Node\\Expr\\StaticCall, PhpParser\\Node\\Expr\\FuncCall given.",
+                    "line": 436,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/DomNodeAppendChild.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\DomNodeAppendChild::getMethodReturnType() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 37,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/GetClassMethodsReturnTypeProvider.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\GetClassMethodsReturnTypeProvider::getFunctionReturnType() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 33,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/GetObjectVarsReturnTypeProvider.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\GetObjectVarsReturnTypeProvider::getFunctionReturnType() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 33,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/PdoStatementReturnTypeProvider.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\PdoStatementReturnTypeProvider::getMethodReturnType() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 33,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/PdoStatementSetFetchMode.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\PdoStatementSetFetchMode::getMethodParams() should return array<int, Psalm\\Storage\\FunctionLikeParameter>|null but return statement is missing.",
+                    "line": 34,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\PdoStatementSetFetchMode::getMethodParams() should return array<int, Psalm\\Storage\\FunctionLikeParameter>|null but empty return statement found.",
+                    "line": 43,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/ReturnTypeProvider/SimpleXmlElementAsXml.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Provider\\ReturnTypeProvider\\SimpleXmlElementAsXml::getMethodReturnType() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 34,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Provider/StatementsProvider.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Constant PHP_PARSER_VERSION not found.",
+                    "line": 97,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of && is always false.",
+                    "line": 128,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Scanner/PhpStormMetaScanner.php": {
+            "errors": 5,
+            "messages": [
+                {
+                    "message": "Left side of && is always true.",
+                    "line": 42,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $map.",
+                    "line": 155,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $map.",
+                    "line": 195,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $map.",
+                    "line": 317,
+                    "ignorable": true
+                },
+                {
+                    "message": "Anonymous function has an unused use $map.",
+                    "line": 353,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Scope/CaseScope.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\CaseScope::$parent_context (Psalm\\Context) does not accept null.",
+                    "line": 36,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Scope/LoopScope.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\LoopScope::$loop_context (Psalm\\Context) does not accept null.",
+                    "line": 86,
+                    "ignorable": true
+                },
+                {
+                    "message": "Property Psalm\\Internal\\Scope\\LoopScope::$loop_parent_context (Psalm\\Context) does not accept null.",
+                    "line": 87,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Stubs/Generator/StubsGenerator.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Method Psalm\\Internal\\Stubs\\Generator\\StubsGenerator::getParserTypeFromPsalmType() should return PhpParser\\Node\\Identifier|PhpParser\\Node\\Name|PhpParser\\Node\\NullableType|null but return statement is missing.",
+                    "line": 275,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Stubs/Xdebug.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Function xdebug_code_coverage_started() should return bool but return statement is missing.",
+                    "line": 19,
+                    "ignorable": true
+                },
+                {
+                    "message": "Function xdebug_get_code_coverage() should return array<string, array<int, int>> but return statement is missing.",
+                    "line": 26,
+                    "ignorable": true
+                },
+                {
+                    "message": "Function xdebug_set_filter() should return array but return statement is missing.",
+                    "line": 33,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Stubs/ext-ds.php": {
+            "errors": 142,
+            "messages": [
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method apply() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method contains() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method count() from interface Countable.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method find() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method insert() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method join() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method push() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method set() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method sort() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Deque contains abstract method unshift() from interface Ds\\Sequence<TValue>.",
+                    "line": 34,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Deque has an unused parameter $values.",
+                    "line": 39,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::copy() should return Ds\\Deque<TValue> but return statement is missing.",
+                    "line": 46,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 46,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Deque::toArray() should return array<int, TValue> but return statement is missing.",
+                    "line": 53,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::first() should return TValue but return statement is missing.",
+                    "line": 61,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::get() should return TValue but return statement is missing.",
+                    "line": 69,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::last() should return TValue but return statement is missing.",
+                    "line": 77,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::pop() should return TValue but return statement is missing.",
+                    "line": 85,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::reduce() should return TCarry but return statement is missing.",
+                    "line": 95,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::remove() should return TValue but return statement is missing.",
+                    "line": 103,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::shift() should return TValue but return statement is missing.",
+                    "line": 111,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Deque::merge() should return Ds\\Deque<TValue|TValue2> but return statement is missing.",
+                    "line": 120,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::merge() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::merge().",
+                    "line": 120,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Deque::filter() should return Ds\\Deque<TValue> but return statement is missing.",
+                    "line": 128,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::filter() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::filter().",
+                    "line": 128,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Deque::map() should return Ds\\Deque<TNewValue> but return statement is missing.",
+                    "line": 137,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::map() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::map().",
+                    "line": 137,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Deque::reversed() should return Ds\\Deque<TValue> but return statement is missing.",
+                    "line": 144,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::reversed() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::reversed().",
+                    "line": 144,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Deque::slice() should return Ds\\Deque<TValue> but return statement is missing.",
+                    "line": 151,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::slice() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::slice().",
+                    "line": 151,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Deque::sorted() should return Ds\\Deque but return statement is missing.",
+                    "line": 159,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return with type Ds\\Sequence<mixed> is not subtype of native type Ds\\Deque.",
+                    "line": 159,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Deque of method Ds\\Deque::sorted() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::sorted().",
+                    "line": 159,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Map contains abstract method count() from interface Countable.",
+                    "line": 169,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Map contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 169,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Map has an unused parameter $values.",
+                    "line": 174,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::copy() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 181,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Map of method Ds\\Map::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 181,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Map::first() should return Ds\\Pair<TKey, TValue> but return statement is missing.",
+                    "line": 196,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::last() should return Ds\\Pair<TKey, TValue> but return statement is missing.",
+                    "line": 204,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::skip() should return Ds\\Pair<TKey, TValue> but return statement is missing.",
+                    "line": 212,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::merge() should return Ds\\Map<TKey|TKey2, TValue|TValue2> but return statement is missing.",
+                    "line": 222,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::intersect() should return Ds\\Map<TKey&TKey2, TValue> but return statement is missing.",
+                    "line": 232,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::diff() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 241,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::hasKey() should return bool but return statement is missing.",
+                    "line": 248,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::hasValue() should return bool but return statement is missing.",
+                    "line": 255,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::filter() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 263,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return has invalid value ((\nfunc_num_args() is 1): Unexpected token \"\\n     *\", expected type at offset 102",
+                    "line": 278,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::keys() should return Ds\\Set<TKey> but return statement is missing.",
+                    "line": 285,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::map() should return Ds\\Map<TKey, TNewValue> but return statement is missing.",
+                    "line": 294,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::pairs() should return Ds\\Sequence<Ds\\Pair<TKey, TValue>> but return statement is missing.",
+                    "line": 301,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::reduce() should return TCarry but return statement is missing.",
+                    "line": 326,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return has invalid value ((\nfunc_num_args() is 1): Unexpected token \"\\n     *\", expected type at offset 102",
+                    "line": 341,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::reversed() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 348,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::slice() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 355,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::sorted() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 370,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::ksorted() should return Ds\\Map<TKey, TValue> but return statement is missing.",
+                    "line": 385,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::toArray() should return array<TKey, TValue> but return statement is missing.",
+                    "line": 392,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::values() should return Ds\\Sequence<TValue> but return statement is missing.",
+                    "line": 399,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::union() should return Ds\\Map<TKey|TKey2, TValue|TValue2> but return statement is missing.",
+                    "line": 409,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Map::xor() should return Ds\\Map<TKey|TKey2, TValue|TValue2> but return statement is missing.",
+                    "line": 419,
+                    "ignorable": true
+                },
+                {
+                    "message": "Non-abstract class Ds\\Pair contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 428,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Pair has an unused parameter $key.",
+                    "line": 444,
+                    "ignorable": true
+                },
+                {
+                    "message": "Constructor of class Ds\\Pair has an unused parameter $value.",
+                    "line": 444,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Pair::copy() should return Ds\\Pair<TKey, TValue> but return statement is missing.",
+                    "line": 451,
+                    "ignorable": true
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method apply() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method contains() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method count() from interface Countable.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method find() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method insert() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method join() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method push() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method set() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method sort() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Vector contains abstract method unshift() from interface Ds\\Sequence<TValue>.",
+                    "line": 597,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Vector has an unused parameter $values.",
+                    "line": 602,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::copy() should return Ds\\Vector<TValue> but return statement is missing.",
+                    "line": 609,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Vector of method Ds\\Vector::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 609,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Vector::toArray() should return array<int, TValue> but return statement is missing.",
+                    "line": 616,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::first() should return TValue but return statement is missing.",
+                    "line": 624,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::get() should return TValue but return statement is missing.",
+                    "line": 632,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::last() should return TValue but return statement is missing.",
+                    "line": 640,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::pop() should return TValue but return statement is missing.",
+                    "line": 648,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::reduce() should return TCarry but return statement is missing.",
+                    "line": 658,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::remove() should return TValue but return statement is missing.",
+                    "line": 666,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::shift() should return TValue but return statement is missing.",
+                    "line": 674,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Vector::reversed() should return Ds\\Vector<TValue> but return statement is missing.",
+                    "line": 681,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Vector of method Ds\\Vector::reversed() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::reversed().",
+                    "line": 681,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Vector::slice() should return Ds\\Vector<TValue> but return statement is missing.",
+                    "line": 688,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Vector of method Ds\\Vector::slice() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::slice().",
+                    "line": 688,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Vector::sorted() should return Ds\\Vector<TValue> but return statement is missing.",
+                    "line": 696,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Vector of method Ds\\Vector::sorted() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::sorted().",
+                    "line": 696,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Vector::filter() should return Ds\\Vector<TValue> but return statement is missing.",
+                    "line": 704,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Vector of method Ds\\Vector::filter() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::filter().",
+                    "line": 704,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Vector::map() should return Ds\\Vector<TNewValue> but return statement is missing.",
+                    "line": 713,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Vector of method Ds\\Vector::map() is not compatible with return type Ds\\Sequence of method Ds\\Sequence::map().",
+                    "line": 713,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Vector::merge() should return Ds\\Vector<TValue|TValue2> but return statement is missing.",
+                    "line": 722,
+                    "ignorable": true
+                },
+                {
+                    "message": "Non-abstract class Ds\\Set contains abstract method count() from interface Countable.",
+                    "line": 731,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Set contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 731,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Set has an unused parameter $values.",
+                    "line": 736,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::contains() should return bool but return statement is missing.",
+                    "line": 750,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::copy() should return Ds\\Set<TValue> but return statement is missing.",
+                    "line": 757,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Set of method Ds\\Set::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 757,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Set::diff() should return Ds\\Set<TValue> but return statement is missing.",
+                    "line": 766,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::filter() should return Ds\\Set<TValue> but return statement is missing.",
+                    "line": 774,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::first() should return TValue but return statement is missing.",
+                    "line": 782,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::get() should return TValue but return statement is missing.",
+                    "line": 790,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::intersect() should return Ds\\Set<TValue&TValue2> but return statement is missing.",
+                    "line": 799,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::last() should return TValue but return statement is missing.",
+                    "line": 807,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::merge() should return Ds\\Set<TValue|TValue2> but return statement is missing.",
+                    "line": 816,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::reversed() should return Ds\\Set<TValue> but return statement is missing.",
+                    "line": 830,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::slice() should return Ds\\Set<TValue> but return statement is missing.",
+                    "line": 837,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::sorted() should return Ds\\Set<TValue> but return statement is missing.",
+                    "line": 852,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::toArray() should return array<int, TValue> but return statement is missing.",
+                    "line": 859,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::union() should return Ds\\Set<TValue|TValue2> but return statement is missing.",
+                    "line": 868,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Set::xor() should return Ds\\Set<TValue|TValue2> but return statement is missing.",
+                    "line": 877,
+                    "ignorable": true
+                },
+                {
+                    "message": "Non-abstract class Ds\\Stack contains abstract method count() from interface Countable.",
+                    "line": 886,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Stack contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 886,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Stack has an unused parameter $values.",
+                    "line": 891,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Stack::copy() should return Ds\\Stack<TValue> but return statement is missing.",
+                    "line": 898,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Stack of method Ds\\Stack::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 898,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Stack::peek() should return TValue but return statement is missing.",
+                    "line": 906,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Stack::pop() should return TValue but return statement is missing.",
+                    "line": 914,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Stack::toArray() should return array<int, TValue> but return statement is missing.",
+                    "line": 928,
+                    "ignorable": true
+                },
+                {
+                    "message": "Non-abstract class Ds\\Queue contains abstract method count() from interface Countable.",
+                    "line": 937,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\Queue contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 937,
+                    "ignorable": false
+                },
+                {
+                    "message": "Constructor of class Ds\\Queue has an unused parameter $values.",
+                    "line": 942,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Queue::copy() should return Ds\\Queue<TValue> but return statement is missing.",
+                    "line": 949,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\Queue of method Ds\\Queue::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 949,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\Queue::peek() should return TValue but return statement is missing.",
+                    "line": 957,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Queue::pop() should return TValue but return statement is missing.",
+                    "line": 965,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\Queue::toArray() should return array<int, TValue> but return statement is missing.",
+                    "line": 979,
+                    "ignorable": true
+                },
+                {
+                    "message": "Non-abstract class Ds\\PriorityQueue contains abstract method count() from interface Countable.",
+                    "line": 988,
+                    "ignorable": false
+                },
+                {
+                    "message": "Non-abstract class Ds\\PriorityQueue contains abstract method jsonSerialize() from interface JsonSerializable.",
+                    "line": 988,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\PriorityQueue::copy() should return Ds\\PriorityQueue<TValue> but return statement is missing.",
+                    "line": 993,
+                    "ignorable": true
+                },
+                {
+                    "message": "Return type Ds\\PriorityQueue of method Ds\\PriorityQueue::copy() is not compatible with return type Ds\\Collection of method Ds\\Collection::copy().",
+                    "line": 993,
+                    "ignorable": false
+                },
+                {
+                    "message": "Method Ds\\PriorityQueue::peek() should return TValue but return statement is missing.",
+                    "line": 1001,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\PriorityQueue::pop() should return TValue but return statement is missing.",
+                    "line": 1009,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Ds\\PriorityQueue::toArray() should return array<int, TValue> but return statement is missing.",
+                    "line": 1023,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Taint/Taintable.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 82,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 102,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 120,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/ArrayType.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 34,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 42,
+                    "ignorable": true
+                },
+                {
+                    "message": "Unsafe usage of new static().",
+                    "line": 50,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/ParseTreeCreator.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Negated boolean expression is always false.",
+                    "line": 381,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/SimpleAssertionReconciler.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $failed_reconciliation",
+                    "line": 1234,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $suppressed_issues",
+                    "line": 1234,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $failed_reconciliation",
+                    "line": 1278,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $suppressed_issues",
+                    "line": 1278,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/SimpleNegatedAssertionReconciler.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $template_type_map",
+                    "line": 39,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $failed_reconciliation",
+                    "line": 198,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $suppressed_issues",
+                    "line": 198,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/TypeCombination.php": {
+            "errors": 10,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $types contains unresolvable type.",
+                    "line": 159,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Type\\TypeCombination::scrapeTypeProperties() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 750,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Type\\TypeCombination::scrapeTypeProperties() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 898,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Type\\TypeCombination::scrapeTypeProperties() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 984,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Type\\TypeCombination::scrapeTypeProperties() should return Psalm\\Type\\Union|null but empty return statement found.",
+                    "line": 1093,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of || is always true.",
+                    "line": 1177,
+                    "ignorable": true
+                },
+                {
+                    "message": "Instanceof between Psalm\\Type\\Atomic\\TString and Psalm\\Type\\Atomic\\TClassString will always evaluate to false.",
+                    "line": 1178,
+                    "ignorable": true
+                },
+                {
+                    "message": "Result of && is always false.",
+                    "line": 1195,
+                    "ignorable": true
+                },
+                {
+                    "message": "Instanceof between Psalm\\Type\\Atomic\\TString and Psalm\\Type\\Atomic\\TClassString will always evaluate to false.",
+                    "line": 1196,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Psalm\\Internal\\Type\\TypeCombination::scrapeTypeProperties() should return Psalm\\Type\\Union|null but return statement is missing.",
+                    "line": 1277,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/TypeExpander.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param has invalid value (Type\\Atomic  &$return_type): Unexpected token \"&\", expected variable at offset 32",
+                    "line": 82,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 82,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/TypeParser.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var contains unresolvable type.",
+                    "line": 421,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/Type/TypeTokenizer.php": {
+            "errors": 7,
+            "messages": [
+                {
+                    "message": "Strict comparison using === between *NEVER* and '(' will always evaluate to false.",
+                    "line": 182,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between *NEVER* and ')' will always evaluate to false.",
+                    "line": 183,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between *NEVER* and ' ' will always evaluate to false.",
+                    "line": 184,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between *NEVER* and '&' will always evaluate to false.",
+                    "line": 185,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between *NEVER* and '=' will always evaluate to false.",
+                    "line": 186,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between *NEVER* and ':' will always evaluate to false.",
+                    "line": 211,
+                    "ignorable": true
+                },
+                {
+                    "message": "Strict comparison using === between *NEVER* and '.' will always evaluate to false.",
+                    "line": 239,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Internal/TypeVisitor/ContainsClassLikeVisitor.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Internal\\TypeVisitor\\ContainsClassLikeVisitor::$fq_classlike_name contains unresolvable type.",
+                    "line": 16,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_classlike_name contains unresolvable type.",
+                    "line": 26,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/IssueBuffer.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Variable $output might not be defined.",
+                    "line": 720,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Plugin/Hook/AfterFunctionCallAnalysisInterface.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $function_id contains unresolvable type.",
+                    "line": 19,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Plugin/Hook/MethodReturnTypeProviderInterface.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $called_method_name_lowercase contains unresolvable type.",
+                    "line": 24,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $method_name_lowercase contains unresolvable type.",
+                    "line": 24,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Plugin/Hook/PropertyTypeProviderInterface.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $call_args",
+                    "line": 21,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Report.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $show_info",
+                    "line": 70,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $show_snippet",
+                    "line": 70,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $use_color",
+                    "line": 70,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Report/ReportOptions.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Report\\ReportOptions::$format contains unresolvable type.",
+                    "line": 26,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $union_types contains unresolvable type.",
+                    "line": 443,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Algebra.php": {
+            "errors": 2,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $clauses contains unresolvable type.",
+                    "line": 588,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 795,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Atomic/ObjectLike.php": {
+            "errors": 5,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Type\\Atomic\\ObjectLike::$properties contains unresolvable type.",
+                    "line": 30,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $properties contains unresolvable type.",
+                    "line": 69,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$properties.",
+                    "line": 383,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$sealed.",
+                    "line": 387,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$properties.",
+                    "line": 392,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Atomic/TArray.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $type_params contains unresolvable type.",
+                    "line": 27,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$type_params.",
+                    "line": 80,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$type_params.",
+                    "line": 85,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Atomic/TClassStringMap.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$value_param.",
+                    "line": 223,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Atomic/TGenericObject.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param for parameter $type_params contains unresolvable type.",
+                    "line": 21,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Atomic/TList.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Access to an undefined property Psalm\\Type\\Atomic::$type_param.",
+                    "line": 188,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Reconciler.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @param references unknown parameter: $new_type_parts",
+                    "line": 482,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/Psalm/Type/Union.php": {
+            "errors": 4,
+            "messages": [
+                {
+                    "message": "PHPDoc tag @var for property Psalm\\Type\\Union::$types contains unresolvable type.",
+                    "line": 42,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $types contains unresolvable type.",
+                    "line": 181,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @return contains unresolvable type.",
+                    "line": 224,
+                    "ignorable": true
+                },
+                {
+                    "message": "PHPDoc tag @param for parameter $fq_class_like_name contains unresolvable type.",
+                    "line": 1728,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/psalm-language-server.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Constant PSALM_VERSION not found.",
+                    "line": 163,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/psalm.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Constant PSALM_VERSION not found.",
+                    "line": 220,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 0 on an unknown class Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 708,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to offset 2 on an unknown class Psalm\\Internal\\Provider\\FileMapType.",
+                    "line": 711,
+                    "ignorable": true
+                }
+            ]
+        },
+        "/app/src/spl_object_id.php": {
+            "errors": 1,
+            "messages": [
+                {
+                    "message": "Function runkit_object_id not found.",
+                    "line": 19,
+                    "ignorable": true
+                }
+            ]
+        }
+    },
+    "errors": []
+}

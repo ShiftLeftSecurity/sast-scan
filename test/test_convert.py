@@ -792,6 +792,31 @@ def test_convert_dataflow():
     assert len(dataflows) == 2
 
 
+def test_psalm_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "audit-php",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "audit-php.json",
+    )
+    assert issues
+    assert len(issues) == 317
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report("psalm", [], ".", {}, {}, issues, cfile.name,)
+        jsondata = json.loads(data)
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "Unable to determine the type that $name is being assigned to."
+        )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 0,
+            "total": 56,
+            "high": 0,
+            "medium": 56,
+            "low": 0,
+        }
+
+
 def test_phpstan_extract_issue():
     issues, metrics, skips = convertLib.extract_from_file(
         "source-php",
@@ -799,6 +824,4 @@ def test_phpstan_extract_issue():
         Path(__file__).parent,
         Path(__file__).parent / "data" / "source-php.json",
     )
-    assert issues
-    assert len(issues) == 7
-    assert issues[0] == {}
+    assert not issues
