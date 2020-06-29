@@ -114,7 +114,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     GO111MODULE=auto \
     GOARCH=amd64 \
     GOOS=linux \
-    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:
+    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:/opt/phpsast/vendor/bin:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
@@ -123,13 +123,12 @@ COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
-COPY spotbugs /usr/local/src/spotbugs
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
 COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
 COPY --from=builder /opt/sl-cli /opt/sl-cli
-COPY rules-pmd.xml /usr/local/src/
+COPY tools_config/ /usr/local/src/
 COPY requirements.txt /usr/local/src/
 
 USER root
@@ -139,10 +138,12 @@ RUN pip3 install --no-cache-dir wheel \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
-    && microdnf remove -y ruby-devel
+    && mkdir -p /opt/phpsast && cd /opt/phpsast && composer require --dev vimeo/psalm \
+    && composer require --dev phpstan/phpstan \
+    && composer require --dev phpstan/extension-installer \
+    && microdnf remove -y ruby-devel php-devel php-pear make gcc gcc-c++ libtool
 
 WORKDIR /app
-COPY credscan-config.toml /usr/local/src/
 COPY scan /usr/local/src/
 COPY lib /usr/local/src/lib
 

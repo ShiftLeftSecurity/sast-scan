@@ -269,6 +269,8 @@ class Issue(object):
             test_id = data["tag"]
         if "commitMessage" in data and "commit" in data:
             test_id = "CWE-312"
+        if "type" in data:
+            test_id = data["type"]
         if "cwe" in data:
             cwe_obj = data["cwe"]
             if isinstance(cwe_obj, str):
@@ -342,13 +344,18 @@ class Issue(object):
         if "description" in data:
             self.text = data["description"]
         if "message" in data:
-            self.text = data["message"]
+            self.text = data["message"].replace("\\", " \\ ")
         if "test_name" in data:
             self.test = data["test_name"]
         if "title" in data:
             self.test = data["title"]
         if "rule" in data:
             self.test = data["rule"]
+        if "type" in data:
+            if "message" in data:
+                self.test = data["message"].replace("\\", " \\ ")
+            else:
+                self.test = data["type"]
         if "check_name" in data:
             self.test = data["check_name"]
             self.text = data["check_name"]
@@ -380,6 +387,8 @@ class Issue(object):
             self.test_ref_url = data["more_info"]
         if "line_range" in data:
             self.linerange = data["line_range"]
+        if "line_from" in data and "line_to" in data:
+            self.linerange = [data["line_from"], data["line_to"]]
         if "file_line_range" in data:
             self.linerange = data["file_line_range"]
         self.lineno = self.get_lineno(data)

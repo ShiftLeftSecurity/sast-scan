@@ -1,0 +1,8 @@
+parameters:
+	level: 8
+	reportUnmatchedIgnoredErrors: false
+	excludes_analyse:
+		- %currentWorkingDirectory%/docs/*
+		- %currentWorkingDirectory%/examples/*
+		- %currentWorkingDirectory%/tests/*
+		- %currentWorkingDirectory%/vendor/*

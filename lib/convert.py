@@ -53,8 +53,10 @@ def tweak_severity(tool_name, issue_dict):
     :return:
     """
     issue_severity = issue_dict["issue_severity"]
-    if tool_name == "staticcheck":
-        return "MEDIUM"
+    if tool_name in ["staticcheck", "psalm", "phpstan"]:
+        if issue_severity in ["HIGH", "CRITICAL"]:
+            return "MEDIUM"
+        return "LOW"
     return issue_severity
 
 
@@ -169,6 +171,21 @@ def extract_from_file(
                                 "issue_confidence": "HIGH",
                             }
                         )
+            elif tool_name == "phpstan":
+                file_errors = report_data.get("files")
+                for filename, messageobj in file_errors.items():
+                    messages = messageobj.get("messages")
+                    for msg in messages:
+                        issues.append(
+                            {
+                                "rule_id": msg.get("message").split(" ")[0],
+                                "title": msg.get("message"),
+                                "line_number": msg.get("line"),
+                                "filename": filename,
+                                "severity": "LOW",
+                                "issue_confidence": "MEDIUM",
+                            }
+                        )
             elif tool_name == "source-js":
                 njs_findings = report_data.get("nodejs", {})
                 for k, v in njs_findings.items():
@@ -247,6 +264,8 @@ def convert_file(
     issues, metrics, skips = extract_from_file(
         tool_name, tool_args, working_dir, report_file, file_path_list
     )
+    if not issues:
+        return
     return report(
         tool_name,
         tool_args,

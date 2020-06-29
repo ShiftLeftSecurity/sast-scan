@@ -32,7 +32,7 @@ def filter_ignored_dirs(dirs):
     :param dirs: Directories to ignore
     :return: Filtered directory list
     """
-    [dirs.remove(d) for d in list(dirs) if d in config.ignore_directories]
+    [dirs.remove(d) for d in list(dirs) if d.lower() in config.ignore_directories]
     return dirs
 
 
@@ -43,6 +43,8 @@ def is_ignored_dir(base_dir, dir_name):
     :param dir_name: Directory to compare
     :return: Boolean True if directory can be ignored. False otherwise
     """
+    base_dir = base_dir.lower()
+    dir_name = dir_name.lower()
     if dir_name.startswith("/" + base_dir):
         dir_name = re.sub(r"^/" + base_dir + "/", "", dir_name)
     elif dir_name.startswith(base_dir):
@@ -218,6 +220,9 @@ def detect_project_type(src_dir, scan_mode):
         depscan_supported = True
     if find_files(src_dir, ".sql", False, True):
         project_types.append("plsql")
+    if find_files(src_dir, "composer.json", False, True):
+        project_types.append("php")
+        depscan_supported = True
     if find_files(src_dir, ".scala", False, True):
         project_types.append("scala")
     if (
