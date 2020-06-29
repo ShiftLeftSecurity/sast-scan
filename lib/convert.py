@@ -170,6 +170,21 @@ def extract_from_file(
                                 "issue_confidence": "HIGH",
                             }
                         )
+            elif tool_name == "phpstan":
+                file_errors = report_data.get("files")
+                for filename, messageobj in file_errors.items():
+                    messages = messageobj.get("messages")
+                    for msg in messages:
+                        issues.append(
+                            {
+                                "rule_id": msg.get("message").split(" ")[0],
+                                "title": msg.get("message"),
+                                "line_number": msg.get("line"),
+                                "filename": filename,
+                                "severity": "LOW",
+                                "issue_confidence": "MEDIUM",
+                            }
+                        )
             elif tool_name == "source-js":
                 njs_findings = report_data.get("nodejs", {})
                 for k, v in njs_findings.items():

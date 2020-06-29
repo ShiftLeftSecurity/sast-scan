@@ -819,9 +819,24 @@ def test_psalm_extract_issue():
 
 def test_phpstan_extract_issue():
     issues, metrics, skips = convertLib.extract_from_file(
-        "source-php",
+        "phpstan",
         [],
         Path(__file__).parent,
-        Path(__file__).parent / "data" / "source-php.json",
+        Path(__file__).parent / "data" / "source-php-report.json",
     )
-    assert not issues
+    assert issues
+    assert len(issues) == 670
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report("phpstan", [], ".", {}, {}, issues, cfile.name,)
+        jsondata = json.loads(data)
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "Unsafe usage of new static()."
+        )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 0,
+            "total": 470,
+            "high": 0,
+            "medium": 0,
+            "low": 470,
+        }

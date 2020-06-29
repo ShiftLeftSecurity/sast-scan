@@ -466,6 +466,7 @@ tool_purpose_message = {
     "source-java": "Source code analyzer for Java",
     "source-python": "Source code analyzer for Python",
     "source-php": "Source code analyzer for PHP",
+    "phpstan": "Source code analyzer for PHP",
     "audit-php": "Security audit for PHP",
     "taint-php": "Security taint analysis for PHP",
     "psalm": "Security audit for PHP",
@@ -509,6 +510,14 @@ ignored_rules = [
     "PossiblyUnusedParam",
     "PossiblyUnusedProperty",
     "DocblockTypeContradiction",
+    "PHPDoc",
+    "Constant",
+    "If",
+    "Property",
+    "Variable",
+    "Negated",
+    "Cannot",
+    "Result",
 ]
 
 # Override severity of certain rules
