@@ -267,8 +267,6 @@ def convert_file(
     issues, metrics, skips = extract_from_file(
         tool_name, tool_args, working_dir, report_file, file_path_list
     )
-    if not issues:
-        return
     return report(
         tool_name,
         tool_args,

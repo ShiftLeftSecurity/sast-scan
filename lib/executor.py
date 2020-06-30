@@ -42,6 +42,17 @@ def use_java(env):
     return env
 
 
+def should_suppress_output(type_str, command):
+    """
+    Method to indicate if the tool's output should be suppressed
+    """
+    if "credscan" in type_str or "php" in type_str:
+        return True
+    if command in ["psalm", "gitleaks"]:
+        return True
+    return False
+
+
 def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
     """
     Convenience method to invoke cli tools
@@ -125,7 +136,7 @@ def execute_default_cmd(
     report_fname = report_fname_prefix + outext
 
     # If the command doesn't support file output then redirect stdout automatically
-    stdout = subprocess.DEVNULL if "credscan" in type_str else None
+    stdout = None
     if LOG.isEnabledFor(DEBUG):
         stdout = None
     if reports_dir and default_cmd.find(report_fname_prefix) == -1:
@@ -145,10 +156,14 @@ def execute_default_cmd(
             filelist_prefix + ext + ")", delim.join(filelist)
         )
     cmd_with_args = default_cmd.split(" ")
+    # Suppress psalm output
+    if should_suppress_output(type_str, cmd_with_args[0]):
+        stdout = subprocess.DEVNULL
     exec_tool(cmd_with_args, cwd=src, stdout=stdout)
     # Should we attempt to convert the report to sarif format
     if (
         convert
+        and not "init" in tool_name
         and config.tool_purpose_message.get(cmd_with_args[0])
         and os.path.isfile(report_fname)
     ):
