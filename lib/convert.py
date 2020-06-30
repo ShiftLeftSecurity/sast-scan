@@ -176,9 +176,12 @@ def extract_from_file(
                 for filename, messageobj in file_errors.items():
                     messages = messageobj.get("messages")
                     for msg in messages:
+                        # Create a rule id for phpstan
+                        rule_word = msg.get("message", "").split(" ")[0]
+                        rule_word = "phpstan-" + rule_word.lower()
                         issues.append(
                             {
-                                "rule_id": msg.get("message").split(" ")[0],
+                                "rule_id": rule_word,
                                 "title": msg.get("message"),
                                 "line_number": msg.get("line"),
                                 "filename": filename,

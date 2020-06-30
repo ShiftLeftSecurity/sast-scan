@@ -806,13 +806,13 @@ def test_psalm_extract_issue():
         jsondata = json.loads(data)
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
-            == "Unable to determine the type that $name is being assigned to."
+            == "Too many arguments for method PhpParser \\ NodeVisitor::enternode - saw 2."
         )
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "critical": 0,
-            "total": 56,
+            "total": 8,
             "high": 0,
-            "medium": 56,
+            "medium": 8,
             "low": 0,
         }
 
@@ -861,3 +861,27 @@ def test_get_help():
         == "https://cwe.mitre.org/data/definitions/118+Incorrect+Access+of+Indexable+Resource+%28%27Range+Error%27%29+%284.0%29.html"
     )
 
+
+def test_phptaint_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "taint-php",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "taint-php-report.json",
+    )
+    assert issues
+    assert len(issues) == 7
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report("taint-php", [], ".", {}, {}, issues, cfile.name,)
+        jsondata = json.loads(data)
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "Detected tainted shell in path: $_GET -> $_GET['username'] (CommandExecution/CommandExec-1.php:25:23) -> call to shell_exec (CommandExecution/CommandExec-1.php:25:23) -> shell_exec#1."
+        )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 7,
+            "total": 7,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
+        }
