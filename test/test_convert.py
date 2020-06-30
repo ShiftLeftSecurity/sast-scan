@@ -421,7 +421,7 @@ def test_to_uri():
 def test_inspect_convert_issue():
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report(
-            "inspect",
+            "ng-sast",
             [],
             ".",
             {},
@@ -550,7 +550,7 @@ def test_inspect_convert_issue():
 
 def test_inspect_extract_issue():
     issues, metrics, skips = convertLib.extract_from_file(
-        "inspect",
+        "ng-sast",
         [],
         Path(__file__).parent,
         Path(__file__).parent / "data" / "inspect-report.json",
@@ -572,7 +572,7 @@ def test_inspect_extract_issue():
 
 def test_inspect_extract_issue_nodejs():
     issues, metrics, skips = convertLib.extract_from_file(
-        "inspect",
+        "ng-sast",
         [],
         Path(__file__).parent,
         Path(__file__).parent / "data" / "inspect-nodejs.json",

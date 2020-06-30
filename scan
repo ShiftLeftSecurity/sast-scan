@@ -47,13 +47,13 @@ product_logo = """
 ╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 """
 
-inspect_logo = """
-██╗███╗   ██╗███████╗██████╗ ███████╗ ██████╗████████╗
-██║████╗  ██║██╔════╝██╔══██╗██╔════╝██╔════╝╚══██╔══╝
-██║██╔██╗ ██║███████╗██████╔╝█████╗  ██║        ██║
-██║██║╚██╗██║╚════██║██╔═══╝ ██╔══╝  ██║        ██║
-██║██║ ╚████║███████║██║     ███████╗╚██████╗   ██║
-╚═╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚══════╝ ╚═════╝   ╚═╝
+ngsast_logo = """
+███╗   ██╗ ██████╗     ███████╗ █████╗ ███████╗████████╗
+████╗  ██║██╔════╝     ██╔════╝██╔══██╗██╔════╝╚══██╔══╝
+██╔██╗ ██║██║  ███╗    ███████╗███████║███████╗   ██║   
+██║╚██╗██║██║   ██║    ╚════██║██╔══██║╚════██║   ██║   
+██║ ╚████║╚██████╔╝    ███████║██║  ██║███████║   ██║   
+╚═╝  ╚═══╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝ 
 """
 
 
@@ -99,7 +99,7 @@ def build_args():
         action="store_true",
         default=False,
         dest="nocloud",
-        help="Do not enable cloud based scanning even for inspect users",
+        help="Do not enable cloud based scanning even for NG SAST users",
     )
     parser.add_argument(
         "-m",
@@ -256,7 +256,7 @@ def csharp_scan(src, reports_dir, convert, repo_context):
         inspect.inspect_scan("csharp", src, reports_dir, convert, repo_context)
     else:
         LOG.info(
-            "Scanning C# and .Net core projects is only possible with ShiftLeft Inspect. To enable Inspect, visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
+            "Scanning C# and .Net core projects is only possible with ShiftLeft NG SAST. To enable visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
         )
         LOG.info(
             "Alternatively, know any alternative open-source scanner for .Net? Kindly send us a PR 👍"
@@ -395,7 +395,7 @@ def ts_scan(src, reports_dir, convert, repo_context):
         inspect.inspect_scan("ts", src, reports_dir, convert, repo_context)
     else:
         LOG.info(
-            "Scanning TypeScript projects is only possible with ShiftLeft Inspect. To enable Inspect, visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
+            "Scanning TypeScript projects is only possible with ShiftLeft NG SAST. To enable visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
         )
         LOG.info(
             "Alternatively, know any alternative open-source scanner for TypeScript? Kindly send us a PR 👍"
@@ -489,7 +489,7 @@ def main():
     else:
         type = type.split(",")
     if inspect.is_authenticated():
-        print(inspect_logo)
+        print(ngsast_logo)
     else:
         print(product_logo)
     LOG.info("Scanning {} using plugins {}".format(src_dir, type))

@@ -30,7 +30,7 @@ def is_authenticated():
     Method to check if we are authenticated
     """
     sl_home = config.get("SHIFTLEFT_HOME")
-    sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
+    sl_cmd = config.get("SHIFTLEFT_NGSAST_CMD")
     if utils.check_command(sl_cmd):
         sl_config_json = os.path.join(sl_home, "config.json")
         if os.path.exists(sl_config_json):
@@ -44,14 +44,14 @@ def is_authenticated():
 
 def authenticate():
     """
-    Method to authenticate with ShiftLeft Inspect cloud when the required tokens gets passed via
+    Method to authenticate with ShiftLeft NG SAST cloud when the required tokens gets passed via
     environment variables
     """
     if is_authenticated():
         return
     sl_org = config.get("SHIFTLEFT_ORG_ID", config.get("SHIFTLEFT_ORGANIZATION_ID"))
     sl_token = config.get("SHIFTLEFT_ACCESS_TOKEN")
-    sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
+    sl_cmd = config.get("SHIFTLEFT_NGSAST_CMD")
     run_uuid = config.get("run_uuid")
     if sl_org and sl_token and sl_cmd and utils.check_command(sl_cmd):
         inspect_login_args = [
@@ -67,16 +67,16 @@ def authenticate():
         cp = exec_tool(inspect_login_args)
         if cp.returncode != 0:
             LOG.warning(
-                "ShiftLeft Inspect authentication has failed. Please check the credentials"
+                "ShiftLeft NG SAST authentication has failed. Please check the credentials"
             )
         else:
-            LOG.info("Successfully authenticated with Inspect cloud")
-        track({"id": run_uuid, "scan_mode": "inspect", "sl_org": sl_org})
+            LOG.info("Successfully authenticated with NG SAST cloud")
+        track({"id": run_uuid, "scan_mode": "ng-sast", "sl_org": sl_org})
 
 
 def fetch_findings(app_name, version, report_fname):
     """
-    Fetch findings from the Inspect Cloud
+    Fetch findings from the NG SAST Cloud
     """
     sl_org = config.get("SHIFTLEFT_ORG_ID", config.get("SHIFTLEFT_ORGANIZATION_ID"))
     sl_org_token = config.get(
@@ -135,13 +135,13 @@ def fetch_findings(app_name, version, report_fname):
             else:
                 if not findings_list:
                     LOG.warning(
-                        "Unable to retrieve any findings from Inspect Cloud. Status {}".format(
+                        "Unable to retrieve any findings from NG SAST Cloud. Status {}".format(
                             r.status_code
                         )
                     )
                 else:
                     LOG.debug(
-                        "Unable to retrieve some findings from Inspect Cloud. Proceeding with partial list. Status {}".format(
+                        "Unable to retrieve some findings from NG SAST Cloud. Proceeding with partial list. Status {}".format(
                             r.status_code
                         )
                     )
@@ -186,13 +186,13 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     env = os.environ.copy()
     env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
     report_fname = utils.get_report_file(
-        "inspect", reports_dir, convert, ext_name="json"
+        "ng-sast", reports_dir, convert, ext_name="json"
     )
-    sl_cmd = config.get("SHIFTLEFT_INSPECT_CMD")
+    sl_cmd = config.get("SHIFTLEFT_NGSAST_CMD")
     # Check if sl cli is available
     if not utils.check_command(sl_cmd):
         LOG.warning(
-            "sl cli is not available. Please check if your build uses shiftleft/scan as the image"
+            "sl cli is not available. Please check if your build uses shiftleft/scan-java as the image"
         )
         return
     analyze_files = config.get("SHIFTLEFT_ANALYZE_FILE")
@@ -249,23 +249,23 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         sl_args += extra_args
     sl_args = [arg for arg in sl_args if arg is not None]
     LOG.info(
-        "About to perform ShiftLeft Inspect cloud analysis. This might take a few minutes ..."
+        "About to perform ShiftLeft NG SAST cloud analysis. This might take a few minutes ..."
     )
     LOG.debug(" ".join(sl_args))
     LOG.debug(repo_context)
     cp = exec_tool(sl_args, src, env=env)
     if cp.returncode != 0:
-        LOG.warning("Inspect cloud analyze has failed with the below logs")
+        LOG.warning("NG SAST cloud analyze has failed with the below logs")
         LOG.debug(sl_args)
         LOG.info(cp.stderr)
         return
     findings_data = fetch_findings(app_name, branch, report_fname)
     if findings_data and convert:
         crep_fname = utils.get_report_file(
-            "inspect", reports_dir, convert, ext_name="sarif"
+            "ng-sast", reports_dir, convert, ext_name="sarif"
         )
-        convertLib.convert_file("inspect", sl_args[1:], src, report_fname, crep_fname)
-    track({"id": run_uuid, "scan_mode": "inspect", "sl_args": sl_args})
+        convertLib.convert_file("ng-sast", sl_args[1:], src, report_fname, crep_fname)
+    track({"id": run_uuid, "scan_mode": "ng-sast", "sl_args": sl_args})
 
 
 def convert_to_findings(src_dir, repo_context, reports_dir, sarif_files):
@@ -280,19 +280,19 @@ def convert_to_findings(src_dir, repo_context, reports_dir, sarif_files):
     """
     app_name = find_app_name(src_dir, repo_context)
     findings_fname = utils.get_report_file(
-        "inspect", reports_dir, True, ext_name="findings.json"
+        "ng-sast", reports_dir, True, ext_name="findings.json"
     )
-    # Exclude any inspect sarif files
-    sarif_files = [f for f in sarif_files if "inspect" not in f]
+    # Exclude any ng sast sarif files
+    sarif_files = [f for f in sarif_files if "ng-sast" not in f]
     if sarif_files:
         convert_sarif(app_name, repo_context, sarif_files, findings_fname)
 
 
 def convert_severity(severity):
     """
-    Method to convert SARIF severity to inspect
+    Method to convert SARIF severity to ng sast
 
-    :return: Severity string for inspect
+    :return: Severity string for ng sast
     """
     severity = severity.lower()
     if severity == "critical":

@@ -46,8 +46,8 @@ TELEMETRY_URL = "https://telemetry.appthreat.io/track"
 # Line number hash size
 HASH_DIGEST_SIZE = 8
 
-# ShiftLeft Inspect CLI command
-SHIFTLEFT_INSPECT_CMD = "/opt/sl-cli/sl-latest"
+# ShiftLeft NG SAST CLI command
+SHIFTLEFT_NGSAST_CMD = "/opt/sl-cli/sl-latest"
 
 # ShiftLeft URI
 SHIFTLEFT_URI = "https://www.shiftleft.io"
@@ -488,7 +488,8 @@ tool_purpose_message = {
     "class": "Class file analyzer",
     "jar": "Jar file analyzer",
     "cpg": "ShiftLeft graph analyzer",
-    "inspect": "ShiftLeft Inspect deep analyzer",
+    "inspect": "ShiftLeft NG SAST analyzer",
+    "ng-sast": "ShiftLeft NG SAST analyzer",
 }
 
 # Map to link to the reference for the given rule

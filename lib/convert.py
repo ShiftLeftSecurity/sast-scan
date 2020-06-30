@@ -81,9 +81,6 @@ def convert_dataflow(working_dir, tool_args, dataflows):
         if not is_generic_package(fn):
             location = flow["location"]
             fileName = location.get("fileName")
-            # Fix extension for typescript!
-            if is_ts and fileName:
-                fileName = fileName.replace(".js", ".ts")
             if not file_name_prefix:
                 file_name_prefix = find_path_prefix(working_dir, fileName)
             location_list.append(
@@ -144,8 +141,8 @@ def extract_from_file(
                 report_data = json.loads(rfile.read())
             except json.decoder.JSONDecodeError:
                 return issues, metrics, skips
-            # Inspect uses vulnerabilities
-            if tool_name == "inspect":
+            # NG SAST (Formerly Inspect) uses vulnerabilities
+            if tool_name == "ng-sast":
                 for v in report_data.get("vulnerabilities"):
                     if not v:
                         continue
@@ -340,7 +337,7 @@ def report(
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX is not None else working_dir
     driver_name = config.tool_purpose_message.get(tool_name, tool_name)
-    if tool_name != "inspect" and config.get("CI") or config.get("GITHUB_ACTIONS"):
+    if tool_name != "ng-sast" and config.get("CI") or config.get("GITHUB_ACTIONS"):
         driver_name = "ShiftLeft " + driver_name
     # Construct SARIF log
     log = om.SarifLog(
@@ -525,7 +522,7 @@ def create_result(tool_name, issue, rules, rule_indices, file_path_list, working
         rule_index=rule_index,
         message=om.Message(
             text=issue_dict["issue_text"],
-            markdown=issue_dict["issue_text"] if tool_name == "inspect" else "",
+            markdown=issue_dict["issue_text"] if tool_name == "ng-sast" else "",
         ),
         level=level_from_severity(issue_severity),
         locations=[om.Location(physical_location=physical_location)],
@@ -705,7 +702,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     if rule_id in rules:
         return rules[rule_id], rule_indices[rule_id]
     precision = "high"
-    if rule_id and rule_id.upper().startswith("CWE") or tool_name == "inspect":
+    if rule_id and rule_id.upper().startswith("CWE") or tool_name == "ng-sast":
         precision = "very-high"
     issue_severity = tweak_severity(tool_name, issue_dict)
     rule = om.ReportingDescriptor(
@@ -731,7 +728,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
         },
         help_uri=get_url(tool_name, rule_id, issue_dict["test_name"], issue_dict),
         properties={
-            "tags": ["ShiftLeft", "Inspect" if tool_name == "inspect" else "Scan"],
+            "tags": ["ShiftLeft", "NG SAST" if tool_name == "ng-sast" else "Scan"],
             "precision": precision,
         },
         default_configuration={"level": level_from_severity(issue_severity)},
