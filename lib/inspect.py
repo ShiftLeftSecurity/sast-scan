@@ -192,7 +192,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     # Check if sl cli is available
     if not utils.check_command(sl_cmd):
         LOG.warning(
-            "sl cli is not available. Please check if your build uses shiftleft/scan as the image"
+            "sl cli is not available. Please check if your build uses shiftleft/scan-java as the image"
         )
         return
     analyze_files = config.get("SHIFTLEFT_ANALYZE_FILE")
