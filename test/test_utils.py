@@ -58,3 +58,7 @@ def test_filter_ignored_files():
     assert d
     d = utils.is_ignored_file("", "bar.java")
     assert not d
+    d = utils.is_ignored_file("", "bar.min.js")
+    assert d
+    d = utils.is_ignored_file("", "bar.min.css")
+    assert d

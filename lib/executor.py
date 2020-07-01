@@ -53,7 +53,25 @@ def should_suppress_output(type_str, command):
     return False
 
 
-def exec_tool(args, cwd=None, env=os.environ.copy(), stdout=subprocess.DEVNULL):
+def should_convert(convert, tool_name, command, report_fname):
+    """
+    Method to indicate if sarif conversion should be performed
+    """
+    if (
+        convert
+        and not "init" in tool_name
+        and (
+            config.tool_purpose_message.get(command)
+            or "audit" in tool_name
+            or "source" in tool_name
+        )
+        and os.path.isfile(report_fname)
+    ):
+        return True
+    return False
+
+
+def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
     """
     Convenience method to invoke cli tools
 
@@ -127,19 +145,21 @@ def execute_default_cmd(
     )
     # Try to detect if the output could be json
     outext = ".out"
-    if default_cmd.find("json") > -1:
+    if "json" in default_cmd:
         outext = ".json"
-    if default_cmd.find("csv") > -1:
+    elif "csv" in default_cmd:
         outext = ".csv"
-    if default_cmd.find("sarif") > -1:
+    elif "sarif" in default_cmd:
         outext = ".sarif"
+    elif "xml" in default_cmd:
+        outext = ".xml"
     report_fname = report_fname_prefix + outext
 
     # If the command doesn't support file output then redirect stdout automatically
     stdout = None
     if LOG.isEnabledFor(DEBUG):
         stdout = None
-    if reports_dir and default_cmd.find(report_fname_prefix) == -1:
+    if reports_dir and not report_fname_prefix in default_cmd:
         report_fname = report_fname_prefix + outext
         stdout = io.open(report_fname, "w")
         LOG.debug("Output will be written to {}".format(report_fname))
@@ -161,18 +181,18 @@ def execute_default_cmd(
         stdout = subprocess.DEVNULL
     exec_tool(cmd_with_args, cwd=src, stdout=stdout)
     # Should we attempt to convert the report to sarif format
-    if (
-        convert
-        and not "init" in tool_name
-        and config.tool_purpose_message.get(cmd_with_args[0])
-        and os.path.isfile(report_fname)
-    ):
+    if should_convert(convert, tool_name, cmd_with_args[0], report_fname):
         crep_fname = utils.get_report_file(
             tool_name, reports_dir, convert, ext_name="sarif"
         )
-        convertLib.convert_file(
-            cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
-        )
+        if cmd_with_args[0] == "java":
+            convertLib.convert_file(
+                tool_name, cmd_with_args, src, report_fname, crep_fname,
+            )
+        else:
+            convertLib.convert_file(
+                cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
+            )
         try:
             if not os.environ.get("SCAN_DEBUG_MODE") == "debug":
                 os.remove(report_fname)

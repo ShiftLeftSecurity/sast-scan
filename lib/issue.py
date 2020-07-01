@@ -199,6 +199,7 @@ class Issue(object):
 
         :param severity: String severity for the issue
         """
+        severity = severity.upper()
         if severity == "ERROR" or severity == "SEVERITY_HIGH_IMPACT":
             return "CRITICAL"
         if (
@@ -209,7 +210,7 @@ class Issue(object):
             return "MEDIUM"
         if severity == "INFO" or severity == "SEVERITY_LOW_IMPACT":
             return "LOW"
-        return severity.upper()
+        return severity
 
     def find_severity(self, data):
         severity = constants.SEVERITY_DEFAULT

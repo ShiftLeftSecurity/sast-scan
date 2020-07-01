@@ -243,7 +243,9 @@ def extract_from_file(
         if extn == ".csv":
             headers, issues = csv_parser.get_report_data(rfile)
         if extn == ".xml":
-            issues, metrics = xml_parser.get_report_data(rfile, file_path_list)
+            issues, metrics = xml_parser.get_report_data(
+                rfile, file_path_list=file_path_list, working_dir=working_dir
+            )
     return issues, metrics, skips
 
 
@@ -699,6 +701,9 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     :return rule and index
     """
     rule_id = issue_dict["test_id"]
+    rule_name = issue_dict["test_name"]
+    if rule_id == rule_name:
+        rule_name = rule_name.lower().replace("_", " ").capitalize()
     if rule_id in rules:
         return rules[rule_id], rule_indices[rule_id]
     precision = "high"
@@ -707,7 +712,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
     issue_severity = tweak_severity(tool_name, issue_dict)
     rule = om.ReportingDescriptor(
         id=rule_id,
-        name=issue_dict["test_name"],
+        name=rule_name,
         short_description={
             "text": get_rule_short_description(
                 tool_name, rule_id, issue_dict["test_name"], issue_dict

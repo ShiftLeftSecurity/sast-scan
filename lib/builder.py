@@ -14,6 +14,7 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -21,6 +22,27 @@ from pathlib import Path
 from lib.config import build_tools_map
 from lib.executor import exec_tool
 from lib.logger import LOG
+from lib.utils import find_files, get_env
+
+
+def get_gradle_cmd(src, cmd_args):
+    # Check for the presence of local gradle wrapper
+    fullPath = os.path.join(src, "gradlew")
+    if os.path.exists(fullPath):
+        try:
+            os.chmod(
+                fullPath,
+                stat.S_IRUSR
+                | stat.S_IWUSR
+                | stat.S_IXUSR
+                | stat.S_IRGRP
+                | stat.S_IWGRP
+                | stat.S_IROTH,
+            )
+        except Exception:
+            LOG.debug("Ensure {} has execute permissions".format(fullPath))
+        cmd_args[0] = fullPath
+    return cmd_args
 
 
 def auto_build(type_list, src, reports_dir):
@@ -68,18 +90,14 @@ def java_build(src, reports_dir, lang_tools):
     :return: boolean status from the build. True if the command executed successfully. False otherwise
     """
     cmd_args = []
-    pom_files = [p.as_posix() for p in Path(src).glob("pom.xml")]
-    env = os.environ.copy()
-    if os.environ.get("USE_JAVA_8") or os.environ.get("WITH_JAVA_8"):
-        env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_8_HOME")
-    else:
-        env["SCAN_JAVA_HOME"] = os.environ.get("SCAN_JAVA_11_HOME")
+    pom_files = [p.as_posix() for p in Path(src).rglob("pom.xml")]
+    env = get_env()
     if pom_files:
         cmd_args = lang_tools.get("maven")
     else:
-        gradle_files = [p.as_posix() for p in Path(src).glob("build.gradle")]
+        gradle_files = [p.as_posix() for p in Path(src).rglob("build.gradle")]
         if gradle_files:
-            cmd_args = lang_tools.get("gradle")
+            cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
     if not cmd_args:
         LOG.info("Java auto build is supported only for maven or gradle based projects")
         return False
@@ -88,6 +106,55 @@ def java_build(src, reports_dir, lang_tools):
         LOG.debug(cp.stdout)
         return cp.returncode == 0
     return False
+
+
+def android_build(src, reports_dir, lang_tools):
+    """
+    Automatically build android project
+
+    :param src: Source directory
+    :param reports_dir: Reports directory to store any logs
+    :param lang_tools: Language specific build tools
+
+    :return: boolean status from the build. True if the command executed successfully. False otherwise
+    """
+    if not os.getenv("ANDROID_HOME"):
+        LOG.info(
+            "ANDROID_HOME should be set for automatically building android projects"
+        )
+        return False
+    lang_tools = build_tools_map.get("android")
+    env = get_env()
+    gradle_files = [p.as_posix() for p in Path(src).rglob("build.gradle")]
+    gradle_kts_files = [p.as_posix() for p in Path(src).rglob("build.gradle.kts")]
+    if gradle_files or gradle_kts_files:
+        cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
+    cp = exec_tool(cmd_args, src, env=env, stdout=subprocess.PIPE)
+    if cp:
+        LOG.debug(cp.stdout)
+        return cp.returncode == 0
+    return False
+
+
+def kotlin_build(src, reports_dir, lang_tools):
+    """
+    Automatically build kotlin project
+
+    :param src: Source directory
+    :param reports_dir: Reports directory to store any logs
+    :param lang_tools: Language specific build tools
+
+    :return: boolean status from the build. True if the command executed successfully. False otherwise
+    """
+    # Check if this is a android kotlin project
+    gradle_kts_files = [p.as_posix() for p in Path(src).rglob("build.gradle.kts")]
+    if (
+        gradle_kts_files
+        or find_files(src, "proguard-rules.pro", False, True)
+        or find_files(src, "AndroidManifest.xml", False, True)
+    ):
+        return android_build(src, reports_dir, lang_tools)
+    return java_build(src, reports_dir, lang_tools)
 
 
 def nodejs_build(src, reports_dir, lang_tools):

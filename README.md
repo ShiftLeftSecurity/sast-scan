@@ -28,7 +28,7 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 | java                 | cdxgen, gradle, find-sec-bugs, pmd  |
 | jsp                  | pmd                                 |
 | json                 | jq, jsondiff, jsonschema            |
-| kotlin               | detekt                              |
+| kotlin               | detekt, find-sec-bugs               |
 | kubernetes           | checkov, kubesec, kube-score        |
 | nodejs               | cdxgen, njsscan, eslint, yarn, rush |
 | puppet               | puppet-lint                         |
