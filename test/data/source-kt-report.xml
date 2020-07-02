@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+<file name="/app/app/src/main/java/owasp/sat/agoat/DownloadInvoiceService.kt">
+	<error line="37" column="9" severity="warning" message="This expression is followed by unreachable code which should either be used or removed." source="detekt.UnreachableCode" />
+</file>
+</checkstyle>

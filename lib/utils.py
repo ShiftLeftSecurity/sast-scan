@@ -65,9 +65,7 @@ def is_ignored_file(base_dir, file_name):
     if not file_name:
         return False
     file_name = file_name.lower()
-    name, extn = os.path.splitext(file_name)
-    if file_name.endswith("d.ts"):
-        return True
+    extn = "".join(Path(file_name).suffixes)
     if extn in config.ignore_files:
         return True
     return False
@@ -227,13 +225,17 @@ def detect_project_type(src_dir, scan_mode):
         depscan_supported = True
     if find_files(src_dir, ".scala", False, True):
         project_types.append("scala")
+    if find_files(src_dir, ".kt", False, True):
+        project_types.append("kotlin")
+        depscan_supported = True
     if (
         find_files(src_dir, "pom.xml", False, True)
         or find_files(src_dir, ".gradle", False, True)
         or os.environ.get("SHIFTLEFT_LANG_JAVA")
     ):
-        project_types.append("java")
-        depscan_supported = True
+        if "kotlin" not in project_types:
+            project_types.append("java")
+            depscan_supported = True
     if find_files(src_dir, ".jsp", False, True):
         project_types.append("jsp")
         depscan_supported = True
@@ -377,3 +379,12 @@ def calculate_line_hash(filename, lineno, line):
     h = blake2b(digest_size=HASH_DIGEST_SIZE)
     h.update(snippet.encode())
     return h.hexdigest()
+
+
+def get_env():
+    env = os.environ.copy()
+    if os.getenv("USE_JAVA_8") or os.getenv("WITH_JAVA_8"):
+        env["SCAN_JAVA_HOME"] = os.getenv("SCAN_JAVA_8_HOME")
+    else:
+        env["SCAN_JAVA_HOME"] = os.getenv("SCAN_JAVA_11_HOME")
+    return env

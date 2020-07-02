@@ -7,7 +7,7 @@ ENV GOSEC_VERSION=2.3.0 \
     TFSEC_VERSION=0.21.0 \
     KUBESEC_VERSION=2.4.0 \
     KUBE_SCORE_VERSION=1.7.0 \
-    DETEKT_VERSION=1.9.0 \
+    DETEKT_VERSION=1.10.0 \
     GITLEAKS_VERSION=4.3.1 \
     GRADLE_VERSION=6.0.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
@@ -60,7 +60,7 @@ RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_
     && rm pmd-bin-${PMD_VERSION}.zip \
     && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/shiftleft/jq" \
     && chmod +x /usr/local/bin/shiftleft/jq
-RUN curl -L "https://github.com/arturbosch/detekt/releases/download/${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/shiftleft/detekt-cli.jar" \
+RUN curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "/usr/local/bin/shiftleft/detekt-cli.jar" \
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/shiftleft/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz \

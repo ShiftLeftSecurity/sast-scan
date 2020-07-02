@@ -34,6 +34,9 @@ php_memory_limit = "2G"
 phpstan_level = "5"
 phpstan_config = os.path.join(TOOLS_CONFIG_DIR, "phpstan.neon.dist")
 
+# Kotlint detekt config
+detekt_config = os.path.join(TOOLS_CONFIG_DIR, "detekt-config.yml")
+
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
 
@@ -115,6 +118,8 @@ ignore_files = [
     ".pyc",
     ".gz",
     ".tar",
+    ".tar.gz",
+    ".tar",
     ".md",
     ".log",
     ".tmp",
@@ -127,6 +132,9 @@ ignore_files = [
     ".docx",
     ".xls",
     ".xlsx",
+    ".d.ts",
+    ".min.js",
+    ".min.css",
 ]
 
 
@@ -188,7 +196,7 @@ scan_tools_args_map = {
         ]
     },
     "aws": {"source-aws": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
-    "bom": ["cdxgen", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
+    "bom": ["cdxgen", "-r", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
         "--config=" + get("credscan_config"),
@@ -265,15 +273,40 @@ scan_tools_args_map = {
             get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
-    "kotlin": [
-        "java",
-        "-jar",
-        "/usr/local/bin/detekt-cli.jar",
-        "-i",
-        "%(src)s",
-        "-r",
-        "xml:%(report_fname_prefix)s.xml",
-    ],
+    "kotlin": {
+        "source-kt": [
+            "java",
+            "-jar",
+            "/usr/local/bin/detekt-cli.jar",
+            "-c",
+            get("detekt_config"),
+            "-i",
+            "%(src)s",
+            "-r",
+            "xml:%(report_fname_prefix)s.xml",
+        ],
+        "audit-kt": [
+            "java",
+            "-jar",
+            get("SPOTBUGS_HOME") + "/lib/spotbugs.jar",
+            "-textui",
+            "-include",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/include.xml",
+            "-exclude",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/exclude.xml",
+            "-noClassOk",
+            "-sourcepath",
+            "%(src)s",
+            "-quiet",
+            "-medium",
+            "-xml:withMessages",
+            "-effort:max",
+            "-nested:false",
+            "-output",
+            "%(report_fname_prefix)s.xml",
+            "%(src)s",
+        ],
+    },
     "kubernetes": {
         "source-k8s": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
         "kubesec": ["kubesec", "scan", "(filelist=yaml)"],
@@ -435,6 +468,19 @@ build_tools_map = {
         "maven": [get("MVN_CMD"), "compile"],
         "gradle": [get("GRADLE_CMD"), "compileJava"],
     },
+    "android": {"gradle": [get("GRADLE_CMD"), "compileDebugSources"],},
+    "kotlin": {
+        "maven": [get("MVN_CMD"), "compile"],
+        "gradle": [get("GRADLE_CMD"), "build"],
+    },
+    "groovy": {
+        "maven": [get("MVN_CMD"), "compile"],
+        "gradle": [get("GRADLE_CMD"), "compileGroovy"],
+    },
+    "scala": {
+        "maven": [get("MVN_CMD"), "compile"],
+        "gradle": [get("GRADLE_CMD"), "compileScala"],
+    },
     "nodejs": {
         "npm": ["npm", "install"],
         "yarn": ["yarn", "install"],
@@ -465,6 +511,11 @@ tool_purpose_message = {
     "checkov": "Security audit for Infrastructure",
     "source-aws": "Security audit for AWS",
     "source-k8s": "Security audit for Kubernetes",
+    "source-kt": "Static code analysis for Kotlin",
+    "audit-kt": "Security audit for Kotlin",
+    "audit-groovy": "Security audit for Groovy",
+    "audit-scala": "Security audit for Scala",
+    "detekt": "Static code analysis for Kotlin",
     "source-tf": "Security audit for Terraform",
     "source-yaml": "Security audit for IaC",
     "staticcheck": "Go static analysis",
