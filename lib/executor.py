@@ -34,11 +34,13 @@ def use_java(env):
     :return: Env list with PATH suffixed by correct java home
     """
     if env.get("SCAN_JAVA_HOME"):
-        env["PATH"] = env["PATH"] + ":" + os.path.join(env["SCAN_JAVA_HOME"], "bin")
+        env["PATH"] = env["PATH"] + ":" + os.path.join(env.get("SCAN_JAVA_HOME"), "bin")
         env["JAVA_HOME"] = env.get("SCAN_JAVA_HOME")
     elif env.get("SCAN_JAVA_11_HOME"):
         env["JAVA_HOME"] = env.get("SCAN_JAVA_11_HOME")
-        env["PATH"] = env["PATH"] + ":" + os.path.join(env["SCAN_JAVA_11_HOME"], "bin")
+        env["PATH"] = (
+            env["PATH"] + ":" + os.path.join(env.get("SCAN_JAVA_11_HOME"), "bin")
+        )
     return env
 
 
@@ -89,10 +91,6 @@ def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
         LOG.info("=" * 80)
         LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
         stderr = subprocess.DEVNULL
-        # Redirect errors to stdout in debug mode
-        if DEBUG:
-            stdout = subprocess.PIPE
-            stderr = subprocess.STDOUT
         cp = subprocess.run(
             args,
             stdout=stdout,
@@ -103,7 +101,7 @@ def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
             shell=False,
             encoding="utf-8",
         )
-        if cp and DEBUG and cp.returncode:
+        if cp and LOG.isEnabledFor(DEBUG) and cp.returncode:
             LOG.debug(cp.stdout)
         return cp
     except Exception as e:
@@ -201,7 +199,7 @@ def execute_default_cmd(
                 cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
             )
         try:
-            if not os.environ.get("SCAN_DEBUG_MODE") == "debug":
+            if not LOG.isEnabledFor(DEBUG):
                 os.remove(report_fname)
         except Exception:
             LOG.debug("Unable to remove file {}".format(report_fname))

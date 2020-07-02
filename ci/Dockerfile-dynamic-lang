@@ -1,49 +1,24 @@
-FROM shiftleft/scan-base as builder
+FROM registry.access.redhat.com/ubi8/python-38 as builder
 
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.3.0 \
-    TFSEC_VERSION=0.21.0 \
+ENV TFSEC_VERSION=0.21.0 \
     KUBESEC_VERSION=2.4.0 \
-    KUBE_SCORE_VERSION=1.7.0 \
-    SC_VERSION=2020.1.4 \
-    GITLEAKS_VERSION=4.3.1 \
-    JQ_VERSION=1.6 \
-    GOPATH=/opt/app-root/go \
-    PATH=${PATH}:${GOPATH}/bin:
+    KUBE_SCORE_VERSION=1.7.0
 
 USER root
 
-RUN mkdir -p /usr/local/bin/shiftleft \
-    && curl -LO "https://github.com/securego/gosec/releases/download/v${GOSEC_VERSION}/gosec_${GOSEC_VERSION}_linux_amd64.tar.gz" \
-    && tar -C /usr/local/bin/shiftleft/ -xvf gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
-    && chmod +x /usr/local/bin/shiftleft/gosec \
-    && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz
-RUN curl -LO "https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz" \
-    && tar -C /tmp/ -xvf shellcheck-stable.linux.x86_64.tar.xz \
-    && cp /tmp/shellcheck-stable/shellcheck /usr/local/bin/shiftleft/shellcheck \
-    && chmod +x /usr/local/bin/shiftleft/shellcheck \
-    && curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
-    && tar -C /tmp -xvf staticcheck_linux_amd64.tar.gz \
-    && chmod +x /tmp/staticcheck/staticcheck \
-    && cp /tmp/staticcheck/staticcheck /usr/local/bin/shiftleft/staticcheck \
-    && rm staticcheck_linux_amd64.tar.gz
-RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
-    && chmod +x /usr/local/bin/shiftleft/gitleaks \
+RUN mkdir -p /usr/local/bin/shiftleft \    
     && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
     && chmod +x /usr/local/bin/shiftleft/tfsec \
-    && rm shellcheck-stable.linux.x86_64.tar.xz
-RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
+    && curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
     && chmod +x /usr/local/bin/shiftleft/kube-score \
-    && curl -L "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" -o "/usr/local/bin/shiftleft/jq" \
-    && chmod +x /usr/local/bin/shiftleft/jq
-RUN curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
+    && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/shiftleft/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz
-RUN gem install -q cfn-nag puppet-lint && gem cleanup -q
 
-FROM shiftleft/scan-base-slim as sast-scan-tools
+FROM registry.access.redhat.com/ubi8/ubi-minimal as sast-scan-tools
 
 LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.schema-version="1.0" \
@@ -62,26 +37,19 @@ ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
     PMD_CMD="" \
     PYTHONUNBUFFERED=1 \
-    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/phpsast/vendor/bin:
+    PATH=/usr/local/src/:${PATH}:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
-COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
-COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
-COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY tools_config/ /usr/local/src/
 COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel \
-    && pip3 install --no-cache-dir appthreat-depscan \
-    && mv /usr/local/bin/scan /usr/local/bin/depscan \
+RUN microdnf install -y python38 nodejs git-core which \
+    && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
+    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
-    && microdnf remove -y php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-devel make \
-         gcc gcc-c++ libtool shadow-utils sudo java-11-openjdk-headless \
-         ruby-devel \
     && microdnf clean all
 
 WORKDIR /app
