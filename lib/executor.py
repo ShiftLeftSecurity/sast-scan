@@ -88,16 +88,23 @@ def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
         env = use_java(env)
         LOG.info("=" * 80)
         LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
+        stderr = subprocess.DEVNULL
+        # Redirect errors to stdout in debug mode
+        if DEBUG:
+            stdout = subprocess.PIPE
+            stderr = subprocess.STDOUT
         cp = subprocess.run(
             args,
             stdout=stdout,
-            stderr=subprocess.DEVNULL,
+            stderr=stderr,
             cwd=cwd,
             env=env,
             check=False,
             shell=False,
             encoding="utf-8",
         )
+        if cp and DEBUG and cp.returncode:
+            LOG.debug(cp.stdout)
         return cp
     except Exception as e:
         LOG.debug(e)

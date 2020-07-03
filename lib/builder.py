@@ -219,7 +219,7 @@ def php_build(src, reports_dir, lang_tools):
     :return: boolean status from the build. True if the command executed successfully. False otherwise
     """
     ret = False
-    cmd_args = lang_tools.get("composer")
+    cmd_args = lang_tools.get("install")
     cjson_files = [p.as_posix() for p in Path(src).glob("composer.json")]
     # If there is no composer.json try to create one
     if not cjson_files:
@@ -232,4 +232,11 @@ def php_build(src, reports_dir, lang_tools):
     if cp:
         LOG.debug(cp.stdout)
         ret = cp.returncode == 0
+    # If composer install fails, try composer update
+    if not ret:
+        cmd_args = lang_tools.get("update")
+        cp = exec_tool(cmd_args, src, env=os.environ.copy(), stdout=subprocess.PIPE)
+        if cp:
+            LOG.debug(cp.stdout)
+            ret = cp.returncode == 0
     return ret
