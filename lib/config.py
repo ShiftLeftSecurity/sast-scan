@@ -353,7 +353,7 @@ scan_tools_args_map = {
             "--error-format=json",
             "%(src)s",
         ],
-        "audit-init": ["psalm", "--init", "%(src)s", "1"],
+        "audit-init": ["psalm", "--init", "--root=%(src)s", ".", "1"],
         "audit-php": [
             "psalm",
             "--report-show-info=false",
@@ -383,7 +383,7 @@ scan_tools_args_map = {
         ],
     },
     "php": {
-        "audit-init": ["psalm", "--init", "%(src)s", "1"],
+        "audit-init": ["psalm", "--init", "--root=%(src)s", ".", "1"],
         "audit-php": [
             "psalm",
             "--report-show-info=false",
