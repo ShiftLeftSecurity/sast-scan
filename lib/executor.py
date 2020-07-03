@@ -48,9 +48,13 @@ def should_suppress_output(type_str, command):
     """
     Method to indicate if the tool's output should be suppressed
     """
-    if "credscan" in type_str or "php" in type_str:
+    if "credscan" in type_str:
         return True
-    if command in ["psalm", "gitleaks"]:
+    if "php" in type_str and not LOG.isEnabledFor(DEBUG):
+        return True
+    if command in ["gitleaks"]:
+        return True
+    if command in ["psalm"] and not LOG.isEnabledFor(DEBUG):
         return True
     return False
 

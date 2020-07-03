@@ -71,7 +71,7 @@ def auto_build(type_list, src, reports_dir):
                 return ret
         # Look for any _scan function in this module for execution
         try:
-            ret = ret & getattr(sys.modules[__name__], "%s_build" % ptype)(
+            getattr(sys.modules[__name__], "%s_build" % ptype)(
                 src, reports_dir, lang_tools
             )
         except Exception:
