@@ -810,9 +810,9 @@ def test_psalm_extract_issue():
         )
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "critical": 0,
-            "total": 8,
+            "total": 7,
             "high": 0,
-            "medium": 8,
+            "medium": 7,
             "low": 0,
         }
 

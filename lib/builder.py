@@ -118,9 +118,9 @@ def android_build(src, reports_dir, lang_tools):
 
     :return: boolean status from the build. True if the command executed successfully. False otherwise
     """
-    if not os.getenv("ANDROID_HOME"):
+    if not os.getenv("ANDROID_SDK_ROOT") and not os.getenv("ANDROID_HOME"):
         LOG.info(
-            "ANDROID_HOME should be set for automatically building android projects"
+            "ANDROID_SDK_ROOT or ANDROID_HOME should be set for automatically building android projects"
         )
         return False
     lang_tools = build_tools_map.get("android")

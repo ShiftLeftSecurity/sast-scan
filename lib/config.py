@@ -39,6 +39,7 @@ detekt_config = os.path.join(TOOLS_CONFIG_DIR, "detekt-config.yml")
 
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
+SPOTBUGS_HOME = "/opt/spotbugs"
 
 # Flag to disable telemetry
 DISABLE_TELEMETRY = False
@@ -412,7 +413,6 @@ scan_tools_args_map = {
         ],
     },
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
-    "rust": ["cargo-audit", "audit", "-q", "--json", "-c", "never"],
     "terraform": {
         "source-tf": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
         "tfsec": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
@@ -487,7 +487,6 @@ build_tools_map = {
         "rush": ["rush", "install", "--bypass-policy", "--no-link"],
     },
     "go": ["go", "build", "./..."],
-    "rust": ["cargo", "build"],
     "php": {
         "init": ["composer", "init", "--quiet"],
         "install": ["composer", "install", "-n", "--ignore-platform-reqs"],

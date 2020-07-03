@@ -36,7 +36,7 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 | plsql                | pmd                                 |
 | python               | bandit, cdxgen, pipenv              |
 | ruby                 | cyclonedx-ruby                      |
-| rust                 | cdxgen, cargo-audit                 |
+| rust                 | cdxgen                              |
 | terraform            | checkov, tfsec                      |
 | Visual Force (vf)    | pmd                                 |
 | Apache Velocity (vm) | pmd                                 |
@@ -45,8 +45,8 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 ## Bundled languages/runtime
 
 - jq
-- Golang 1.13
-- Python 3.6
+- Golang 1.14
+- Python 3.8
 - OpenJDK 11
 - Ruby 2.5.5
 - Node.js 10

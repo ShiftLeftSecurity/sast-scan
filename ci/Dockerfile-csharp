@@ -13,7 +13,7 @@ ENV GOSEC_VERSION=2.3.0 \
     JQ_VERSION=1.6 \
     GOPATH=/opt/app-root/go \
     SHIFTLEFT_HOME=/opt/sl-cli \
-    PATH=${PATH}:/opt/app-root/src/.cargo/bin:${GOPATH}/bin:
+    PATH=${PATH}:${GOPATH}/bin:
 
 USER root
 
@@ -48,7 +48,7 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/${DETEKT_VERSION
     && chmod a+rx /usr/local/bin/shiftleft/sl \
     && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin \
     && /usr/local/bin/shiftleft/sl update csharp2cpg
-RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
+RUN gem install -q puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM shiftleft/scan-base-csharp as sast-scan-tools
 
@@ -75,15 +75,13 @@ ENV APP_SRC_DIR=/usr/local/src \
     GO111MODULE=auto \
     GOARCH=amd64 \
     GOOS=linux \
-    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:
+    PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
-COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 COPY --from=builder /opt/sl-cli /opt/sl-cli
 COPY tools_config/ /usr/local/src/
 COPY requirements.txt /usr/local/src/
@@ -91,11 +89,11 @@ COPY requirements.txt /usr/local/src/
 USER root
 
 RUN pip3 install --no-cache-dir wheel \
-    && pip3 install --no-cache-dir appthreat-depscan \
-    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
+    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
-    && microdnf remove -y ruby-devel
+    && microdnf remove -y ruby-devel \
+    && microdnf clean all
 
 WORKDIR /app
 

@@ -383,8 +383,10 @@ def calculate_line_hash(filename, lineno, line):
 
 def get_env():
     env = os.environ.copy()
-    if os.getenv("USE_JAVA_8") or os.getenv("WITH_JAVA_8"):
+    if (os.getenv("USE_JAVA_8") or os.getenv("WITH_JAVA_8")) and os.getenv(
+        "SCAN_JAVA_8_HOME"
+    ):
         env["SCAN_JAVA_HOME"] = os.getenv("SCAN_JAVA_8_HOME")
-    else:
+    elif os.getenv("SCAN_JAVA_11_HOME"):
         env["SCAN_JAVA_HOME"] = os.getenv("SCAN_JAVA_11_HOME")
     return env

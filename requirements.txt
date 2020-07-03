@@ -4,11 +4,11 @@ defusedxml
 tabulate
 gitpython
 shiftleft-scan-reports
+appthreat-depscan
 requests
 bandit
 ansible-lint
 pipenv
 checkov
-cfn-lint
 yamllint
 njsscan

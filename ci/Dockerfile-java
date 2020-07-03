@@ -9,7 +9,7 @@ ENV GOSEC_VERSION=2.3.0 \
     KUBE_SCORE_VERSION=1.7.0 \
     DETEKT_VERSION=1.10.0 \
     GITLEAKS_VERSION=4.3.1 \
-    GRADLE_VERSION=6.0.1 \
+    GRADLE_VERSION=6.5.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     MAVEN_VERSION=3.6.3 \
     MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
@@ -22,7 +22,7 @@ ENV GOSEC_VERSION=2.3.0 \
     SB_VERSION=4.0.1 \
     GOPATH=/opt/app-root/go \
     SHIFTLEFT_HOME=/opt/sl-cli \
-    PATH=${PATH}:${GRADLE_HOME}/bin:/opt/app-root/src/.cargo/bin:${GOPATH}/bin:
+    PATH=${PATH}:${GRADLE_HOME}/bin:${GOPATH}/bin:
 
 USER root
 
@@ -74,7 +74,7 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/${DETEKT_VERSION
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
     && chmod a+rx /usr/local/bin/shiftleft/sl \
     && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin
-RUN gem install -q cfn-nag puppet-lint cyclonedx-ruby && gem cleanup -q
+RUN gem install -q puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM shiftleft/scan-base-java as sast-scan-tools
 
@@ -103,7 +103,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     SCAN_JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
     SCAN_JAVA_11_HOME=/usr/lib/jvm/jre-11-openjdk \
     SCAN_JAVA_8_HOME=/usr/lib/jvm/jre-1.8.0 \
-    GRADLE_VERSION=6.0.1 \
+    GRADLE_VERSION=6.5.1 \
     GRADLE_HOME=/opt/gradle \
     GRADLE_CMD=gradle \
     MAVEN_VERSION=3.6.3 \
@@ -114,15 +114,13 @@ ENV APP_SRC_DIR=/usr/local/src \
     GO111MODULE=auto \
     GOARCH=amd64 \
     GOOS=linux \
-    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/.cargo/bin:/opt/sl-cli:
+    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
 COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/cfn_nag /usr/local/bin/cfn_nag
 COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
 COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
-COPY --from=builder /opt/app-root/src/.cargo/bin /opt/.cargo/bin
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
@@ -134,11 +132,11 @@ COPY requirements.txt /usr/local/src/
 USER root
 
 RUN pip3 install --no-cache-dir wheel \
-    && pip3 install --no-cache-dir appthreat-depscan \
-    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
+    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
-    && microdnf remove -y ruby-devel
+    && microdnf remove -y ruby-devel \
+    && microdnf clean all
 
 WORKDIR /app
 
