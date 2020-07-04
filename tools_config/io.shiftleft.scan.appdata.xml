@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="console-application">
+  <id>io.shiftleft.scan</id>
+  
+  <name>scan</name>
+  <summary>ShiftLeft Scan is a free open-source security tool for modern DevOps teams</summary>
+  
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  
+  <description>
+    <p>
+      ShiftLeft Scan is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, ShiftLeft Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan. The kind of flaws detected are:
+    </p>
+    <ul>
+      <li>Credentials Scanning to detect accidental secret leaks</li>
+      <li>Static Analysis Security Testing (SAST) for a range of languages and frameworks</li>
+      <li>Open-source dependencies audit</li>
+      <li>Licence violation checks</li>
+    </ul>
+  </description>
+  
+  <icon type="stock">utilities-terminal</icon>
+  
+  <categories>
+    <category>Development</category>
+    <category>Building</category>
+  </categories>
+  <url type="homepage">https://slscan.io</url>
+  <project_group>ShiftLeftSecurity</project_group>
+
+  <provides>
+    <binary>scan</binary>
+  </provides>
+</component>
