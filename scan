@@ -477,7 +477,7 @@ def main():
     # Check if we should authenticate with inspect
     if not args.nocloud:
         inspect.authenticate()
-
+        config.set("DISABLE_TELEMETRY", "true")
     # Identify project type
     if not type:
         # Check the local config first. If not try auto detection

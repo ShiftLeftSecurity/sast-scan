@@ -25,8 +25,7 @@ TOOLS_CONFIG_DIR = os.path.join(os.path.dirname(__file__), "..")
 
 # Depth of credscan
 credscan_depth = "5"
-work_dir = (Path(__file__).parent.parent).as_posix()
-credscan_config = os.path.join(work_dir, "credscan-config.toml")
+credscan_config = os.path.join(TOOLS_CONFIG_DIR, "credscan-config.toml")
 credscan_timeout = "2m"
 
 # Php memory limit
