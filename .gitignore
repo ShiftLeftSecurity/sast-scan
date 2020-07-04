@@ -136,3 +136,5 @@ dmypy.json
 .pyre/
 .coverage
 reports/
+AppDir/
+appimage-builder-cache/

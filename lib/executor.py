@@ -95,6 +95,8 @@ def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
         LOG.info("=" * 80)
         LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
         stderr = subprocess.DEVNULL
+        if LOG.isEnabledFor(DEBUG):
+            stderr = subprocess.STDOUT
         cp = subprocess.run(
             args,
             stdout=stdout,

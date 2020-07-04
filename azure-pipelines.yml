@@ -1,6 +1,12 @@
 trigger:
-- master
-- feature/*
+  tags:
+    include:
+    - v*
+  branches:
+    include:
+    - master
+    - feature/*
+    - fix/*
 pool:
   vmImage: 'ubuntu-latest'
 variables:
