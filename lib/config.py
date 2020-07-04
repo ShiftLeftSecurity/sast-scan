@@ -20,8 +20,10 @@ from pathlib import Path
 
 runtimeValues = {}
 
-APP_SRC_DIR = os.path.join(os.path.dirname(__file__), "..")
-TOOLS_CONFIG_DIR = os.path.join(os.path.dirname(__file__), "..")
+APP_SRC_DIR = os.getenv("APP_SRC_DIR", os.path.join(os.path.dirname(__file__), ".."))
+TOOLS_CONFIG_DIR = os.getenv(
+    "TOOLS_CONFIG_DIR", os.path.join(os.path.dirname(__file__), "..")
+)
 
 # Depth of credscan
 credscan_depth = "5"
@@ -35,6 +37,7 @@ phpstan_config = os.path.join(TOOLS_CONFIG_DIR, "phpstan.neon.dist")
 
 # Kotlint detekt config
 detekt_config = os.path.join(TOOLS_CONFIG_DIR, "detekt-config.yml")
+detekt_jar = "/usr/local/bin/detekt-cli.jar"
 
 DEPSCAN_CMD = "/usr/local/bin/depscan"
 PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
@@ -271,13 +274,34 @@ scan_tools_args_map = {
             "csv",
             "-R",
             get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
-        ]
+        ],
+        "audit-jsp": [
+            "java",
+            "-jar",
+            get("SPOTBUGS_HOME") + "/lib/spotbugs.jar",
+            "-textui",
+            "-include",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/include.xml",
+            "-exclude",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/exclude.xml",
+            "-noClassOk",
+            "-sourcepath",
+            "%(src)s",
+            "-quiet",
+            "-medium",
+            "-xml:withMessages",
+            "-effort:max",
+            "-nested:false",
+            "-output",
+            "%(report_fname_prefix)s.xml",
+            "%(src)s",
+        ],
     },
     "kotlin": {
         "source-kt": [
             "java",
             "-jar",
-            "/usr/local/bin/detekt-cli.jar",
+            get("detekt_jar"),
             "-c",
             get("detekt_config"),
             "-i",
@@ -412,6 +436,52 @@ scan_tools_args_map = {
         ],
     },
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
+    "scala": {
+        "audit-scala": [
+            "java",
+            "-jar",
+            get("SPOTBUGS_HOME") + "/lib/spotbugs.jar",
+            "-textui",
+            "-include",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/include.xml",
+            "-exclude",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/exclude.xml",
+            "-noClassOk",
+            "-sourcepath",
+            "%(src)s",
+            "-quiet",
+            "-medium",
+            "-xml:withMessages",
+            "-effort:max",
+            "-nested:false",
+            "-output",
+            "%(report_fname_prefix)s.xml",
+            "%(src)s",
+        ],
+    },
+    "groovy": {
+        "audit-groovy": [
+            "java",
+            "-jar",
+            get("SPOTBUGS_HOME") + "/lib/spotbugs.jar",
+            "-textui",
+            "-include",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/include.xml",
+            "-exclude",
+            get("TOOLS_CONFIG_DIR") + "/spotbugs/exclude.xml",
+            "-noClassOk",
+            "-sourcepath",
+            "%(src)s",
+            "-quiet",
+            "-medium",
+            "-xml:withMessages",
+            "-effort:max",
+            "-nested:false",
+            "-output",
+            "%(report_fname_prefix)s.xml",
+            "%(src)s",
+        ],
+    },
     "terraform": {
         "source-tf": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
         "tfsec": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
@@ -466,6 +536,7 @@ build_tools_map = {
     "java": {
         "maven": [get("MVN_CMD"), "compile"],
         "gradle": [get("GRADLE_CMD"), "compileJava"],
+        "sbt": ["sbt", "compile"],
     },
     "android": {"gradle": [get("GRADLE_CMD"), "compileDebugSources"],},
     "kotlin": {
@@ -479,6 +550,7 @@ build_tools_map = {
     "scala": {
         "maven": [get("MVN_CMD"), "compile"],
         "gradle": [get("GRADLE_CMD"), "compileScala"],
+        "sbt": ["sbt", "compile"],
     },
     "nodejs": {
         "npm": ["npm", "install"],
@@ -533,6 +605,7 @@ tool_purpose_message = {
     "source-vf": "Source code analyzer for VisualForce",
     "source-sql": "Source code analyzer for SQL",
     "source-jsp": "Source code analyzer for JSP",
+    "audit-jsp": "Security audit for JSP",
     "source-apex": "Source code analyzer for apex",
     "binary": "Binary byte-code analyzer",
     "class": "Class file analyzer",

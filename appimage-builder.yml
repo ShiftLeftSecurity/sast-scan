@@ -72,6 +72,7 @@ AppDir:
       DEPSCAN_CMD: '${APPDIR}/usr/bin/depscan'
       PMD_CMD: '${APPDIR}/opt/pmd-bin/bin/run.sh pmd'
       SPOTBUGS_HOME: '${APPDIR}/opt/spotbugs'
+      DETEKT_JAR: '${APPDIR}/usr/bin/detekt-cli.jar'
 
   test:
     fedora:

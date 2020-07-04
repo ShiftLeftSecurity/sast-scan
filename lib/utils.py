@@ -223,7 +223,9 @@ def detect_project_type(src_dir, scan_mode):
     ):
         project_types.append("php")
         depscan_supported = True
-    if find_files(src_dir, ".scala", False, True):
+    if find_files(src_dir, ".sbt", False, True) or find_files(
+        src_dir, ".scala", False, True
+    ):
         project_types.append("scala")
     if find_files(src_dir, ".kt", False, True):
         project_types.append("kotlin")

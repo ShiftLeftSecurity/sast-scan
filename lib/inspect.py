@@ -212,9 +212,9 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
             analyze_files = utils.find_csharp_artifacts(src)
             cpg_mode = True
         else:
-            if language == "ts":
+            if language == "ts" or language == "nodejs":
                 language = "js"
-                extra_args = ["--", "--ts"]
+                extra_args = ["--", "--ts", "--babel"]
             analyze_files = [src]
             cpg_mode = True
     app_name = find_app_name(src, repo_context)
