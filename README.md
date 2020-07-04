@@ -9,7 +9,7 @@
 ╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This repo builds `shiftleft/sast-scan`, a container image that powers the ShiftLeft Scan product. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+ShiftLeft Scan is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, ShiftLeft Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
 [![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
 
@@ -52,16 +52,24 @@ ShiftLeft Scan is a free open-source security tool for modern DevOps teams. This
 - Node.js 10
 - Yarnpkg
 
+Please visit the official [documentation](https://slscan.io) site for scan to learn about the configuration and CI/CD integration options.
+
 ## Getting started
 
-scan is ideal for use with CI and also as a pre-commit hook for local development.
+scan is ideal for use with CI and also as a pre-commit hook for local development. Scan is distributed as a container image `shiftleft/scan`, and as an AppImage for supported Linux distributions.
 
 ### Scanning projects locally
 
-Scan Python project
+Easy one-liner command below:
 
 ```bash
-docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app --type python
+sh <(curl https://slscan.sh)
+```
+
+The above command simply invokes the below docker run command.
+
+```bash
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --build
 ```
 
 On Windows, the command changes slightly depending on the terminal.
@@ -112,10 +120,6 @@ docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/ap
 **Automatic project detection**
 
 Feel free to skip `--type` to enable auto-detection. Or pass comma-separated values if the project has multiple types.
-
-### Detailed documentation
-
-Please visit the official [documentation](https://slscan.io) site for scan to learn about the configuration and CI/CD integration options.
 
 ## Viewing reports
 
