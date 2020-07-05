@@ -95,6 +95,8 @@ def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
         LOG.info("=" * 80)
         LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
         stderr = subprocess.DEVNULL
+        if LOG.isEnabledFor(DEBUG):
+            stderr = subprocess.STDOUT
         cp = subprocess.run(
             args,
             stdout=stdout,
@@ -194,7 +196,7 @@ def execute_default_cmd(
         crep_fname = utils.get_report_file(
             tool_name, reports_dir, convert, ext_name="sarif"
         )
-        if cmd_with_args[0] == "java":
+        if cmd_with_args[0] == "java" or "pmd-bin" in cmd_with_args[0]:
             convertLib.convert_file(
                 tool_name, cmd_with_args, src, report_fname, crep_fname,
             )
