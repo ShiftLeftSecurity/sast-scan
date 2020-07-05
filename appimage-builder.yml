@@ -9,6 +9,7 @@ script:
   # Copy the python application code into the AppDir
   - cp appimage-reqs.sh scan lib tools_config AppDir/usr/src -r
   - cp tools_config/scan.png AppDir/usr/share/icons/
+  - cp tools_config/io.shiftleft.scan.appdata.xml AppDir/usr/share/metainfo/
   # Install application dependencies
   - python3 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
   - mv AppDir/usr/bin/scan AppDir/usr/bin/depscan
