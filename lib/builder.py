@@ -62,7 +62,11 @@ def auto_build(type_list, src, reports_dir):
             continue
         if isinstance(lang_tools, list):
             cp = exec_tool(
-                lang_tools, src, env=os.environ.copy(), stdout=subprocess.PIPE
+                "auto-build",
+                lang_tools,
+                src,
+                env=os.environ.copy(),
+                stdout=subprocess.PIPE,
             )
             if cp:
                 LOG.debug(cp.stdout)
@@ -101,7 +105,7 @@ def java_build(src, reports_dir, lang_tools):
     if not cmd_args:
         LOG.info("Java auto build is supported only for maven or gradle based projects")
         return False
-    cp = exec_tool(cmd_args, src, env=env, stdout=subprocess.PIPE)
+    cp = exec_tool("auto-build", cmd_args, src, env=env, stdout=subprocess.PIPE)
     if cp:
         LOG.debug(cp.stdout)
         return cp.returncode == 0
@@ -129,7 +133,7 @@ def android_build(src, reports_dir, lang_tools):
     gradle_kts_files = [p.as_posix() for p in Path(src).rglob("build.gradle.kts")]
     if gradle_files or gradle_kts_files:
         cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
-    cp = exec_tool(cmd_args, src, env=env, stdout=subprocess.PIPE)
+    cp = exec_tool("auto-build", cmd_args, src, env=env, stdout=subprocess.PIPE)
     if cp:
         LOG.debug(cp.stdout)
         return cp.returncode == 0
@@ -184,7 +188,7 @@ def nodejs_build(src, reports_dir, lang_tools):
             "Nodejs auto build is supported only for npm or yarn or rush based projects"
         )
         return False
-    cp = exec_tool(cmd_args, src)
+    cp = exec_tool("auto-build", cmd_args, src)
     if cp:
         ret = cp.returncode == 0
     else:
@@ -197,7 +201,7 @@ def nodejs_build(src, reports_dir, lang_tools):
             cmd_args = ["rush", "rebuild"]
         else:
             cmd_args += ["run", "build"]
-        exec_tool(cmd_args, src)
+        exec_tool("auto-build", cmd_args, src)
     except Exception:
         if rush_mode:
             LOG.warning(
@@ -224,18 +228,26 @@ def php_build(src, reports_dir, lang_tools):
     # If there is no composer.json try to create one
     if not cjson_files:
         cp = exec_tool(
-            lang_tools.get("init"), src, env=os.environ.copy(), stdout=subprocess.PIPE
+            "auto-build",
+            lang_tools.get("init"),
+            src,
+            env=os.environ.copy(),
+            stdout=subprocess.PIPE,
         )
         if cp:
             LOG.debug(cp.stdout)
-    cp = exec_tool(cmd_args, src, env=os.environ.copy(), stdout=subprocess.PIPE)
+    cp = exec_tool(
+        "auto-build", cmd_args, src, env=os.environ.copy(), stdout=subprocess.PIPE
+    )
     if cp:
         LOG.debug(cp.stdout)
         ret = cp.returncode == 0
     # If composer install fails, try composer update
     if not ret:
         cmd_args = lang_tools.get("update")
-        cp = exec_tool(cmd_args, src, env=os.environ.copy(), stdout=subprocess.PIPE)
+        cp = exec_tool(
+            "auto-build", cmd_args, src, env=os.environ.copy(), stdout=subprocess.PIPE
+        )
         if cp:
             LOG.debug(cp.stdout)
             ret = cp.returncode == 0

@@ -36,7 +36,7 @@ from pathlib import Path
 from lib.builder import auto_build
 from lib.executor import exec_tool, execute_default_cmd
 from lib.telemetry import track
-from lib.logger import LOG
+from lib.logger import LOG, console
 
 from multiprocessing import Pool
 
@@ -232,7 +232,7 @@ def bandit_scan(src, reports_dir, convert, repo_context):
         ",".join(config.get("ignore_directories")),
         src,
     ]
-    exec_tool(bandit_args)
+    exec_tool("source-python", bandit_args)
     if convert:
         crep_fname = utils.get_report_file(
             "source-python", reports_dir, convert, ext_name="sarif"
@@ -314,7 +314,7 @@ def pmd_scan(src, reports_dir, convert, repo_context):
         "-R",
         config.get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
     ]
-    exec_tool(pmd_args, src)
+    exec_tool("source-java", pmd_args, src)
     if convert:
         crep_fname = utils.get_report_file(
             "source-java", reports_dir, convert, ext_name="sarif"
@@ -370,7 +370,7 @@ def findsecbugs_scan(src, reports_dir, convert, repo_context):
             report_fname,
             src,
         ]
-        exec_tool(findsec_args, src)
+        exec_tool("class", findsec_args, src)
         if convert:
             # We need the filelist to fix the file location paths
             j_files = utils.find_files(src, ".java")
@@ -441,7 +441,7 @@ def sec_scan(src, reports_dir, convert, repo_context):
     sec_args = [sec_cmd, *convert_args]
     js_files = utils.find_files(src, ".js")
     sec_args += js_files
-    exec_tool(sec_args, src)
+    exec_tool("source-js", sec_args, src)
     if convert:
         crep_fname = utils.get_report_file(
             "source-js", reports_dir, convert, ext_name="sarif"
@@ -463,7 +463,7 @@ def bomgen(src, reports_dir, convert, repo_context):
     """
     report_fname = utils.get_report_file("bom", reports_dir, convert, ext_name="xml")
     bom_args = ["cdxgen", "-o", report_fname, src]
-    exec_tool(bom_args, src)
+    exec_tool("cdxgen", bom_args, src)
 
 
 def main():
@@ -481,7 +481,7 @@ def main():
     # Set the source directory as an environment variable
     config.set("SAST_SCAN_SRC_DIR", src_dir)
     repo_context = context.find_repo_details(src_dir)
-    workspace = os.environ.get("WORKSPACE", None)
+    workspace = os.getenv("WORKSPACE")
     if workspace is None and scan_mode != "ide":
         # In case of GitHub action empty workspace forces relative url
         if os.environ.get("GITHUB_ACTION") or os.environ.get("GITHUB_RUN_ID"):
@@ -506,9 +506,9 @@ def main():
     else:
         type = type.split(",")
     if inspect.is_authenticated():
-        print(ngsast_logo, flush=True)
+        console.print(ngsast_logo, style="info")
     else:
-        print(product_logo, flush=True)
+        console.print(product_logo, style="info")
     LOG.info("Scanning {} using plugins {}".format(src_dir, type))
     reports_dir = args.reports_dir
     if not reports_dir:
@@ -529,7 +529,7 @@ def main():
     inspect.convert_to_findings(src_dir, repo_context, reports_dir, sarif_files)
     report_summary, build_status = analysis.summary(sarif_files, agg_fname)
     if report_summary:
-        analysis.print_summary(report_summary)
+        analysis.print_table(report_summary)
         track(
             {
                 "id": run_uuid,

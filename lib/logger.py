@@ -16,8 +16,20 @@
 import logging
 import os
 
+from rich.console import Console
+from rich.logging import RichHandler
+from rich.theme import Theme
+
+custom_theme = Theme({"info": "cyan", "warning": "purple4", "danger": "bold red"})
+console = Console(
+    log_time=False, log_path=False, theme=custom_theme, width=140, color_system="256"
+)
+
 logging.basicConfig(
-    level=logging.INFO, format="%(levelname)s [%(asctime)s] %(message)s"
+    level=logging.INFO,
+    format="%(message)s",
+    datefmt="[%X]",
+    handlers=[RichHandler(console=console, show_path=False, enable_link_path=False)],
 )
 LOG = logging.getLogger(__name__)
 

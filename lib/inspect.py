@@ -64,7 +64,7 @@ def authenticate():
             "--token",
             sl_token,
         ]
-        cp = exec_tool(inspect_login_args)
+        cp = exec_tool("NG SAST", inspect_login_args)
         if cp.returncode != 0:
             LOG.warning(
                 "ShiftLeft NG SAST authentication has failed. Please check the credentials"
@@ -253,7 +253,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     )
     LOG.debug(" ".join(sl_args))
     LOG.debug(repo_context)
-    cp = exec_tool(sl_args, src, env=env)
+    cp = exec_tool("NG SAST", sl_args, src, env=env)
     if cp.returncode != 0:
         LOG.warning("NG SAST cloud analyze has failed with the below logs")
         LOG.debug(sl_args)
