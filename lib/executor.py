@@ -98,7 +98,7 @@ def exec_tool(
         console=console,
         redirect_stderr=False,
         redirect_stdout=False,
-        refresh_per_second=5,
+        refresh_per_second=1,
     ) as progress:
         task = None
         try:
