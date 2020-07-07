@@ -38,6 +38,9 @@ from lib.executor import exec_tool, execute_default_cmd
 from lib.telemetry import track
 from lib.logger import LOG
 
+from multiprocessing import Pool
+
+
 product_logo = """
 ███████╗██╗  ██╗██╗███████╗████████╗██╗     ███████╗███████╗████████╗    ███████╗ ██████╗ █████╗ ███╗   ██╗
 ██╔════╝██║  ██║██║██╔════╝╚══██╔══╝██║     ██╔════╝██╔════╝╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗████╗  ██║
@@ -123,49 +126,63 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
       scan_mode Scan mode string
       repo_context Repo context
     """
-    for type_str in type_list:
-        # Find if there is any scan mode specific config
-        cmd_map_list = config.get("scan_tools_args_map").get(type_str + "-" + scan_mode)
-        if not cmd_map_list:
-            cmd_map_list = config.get("scan_tools_args_map").get(type_str)
-        if cmd_map_list:
-            # Default command list can be in the form of a list or dict
-            if isinstance(cmd_map_list, list):
-                execute_default_cmd(
-                    cmd_map_list,
-                    type_str,
-                    type_str,
-                    src,
-                    reports_dir,
-                    convert,
-                    scan_mode,
-                    repo_context,
+    if __name__ == "__main__":
+        with Pool(processes=os.cpu_count()) as pool:
+            for type_str in type_list:
+                # Find if there is any scan mode specific config
+                cmd_map_list = config.get("scan_tools_args_map").get(
+                    type_str + "-" + scan_mode
                 )
-            elif isinstance(cmd_map_list, dict):
-                for cmd_key, cmd_val in cmd_map_list.items():
-                    execute_default_cmd(
-                        cmd_val,
-                        type_str,
-                        cmd_key,
-                        src,
-                        reports_dir,
-                        convert,
-                        scan_mode,
-                        repo_context,
-                    )
-        else:
-            # Look for any _scan function in this module for execution
-            try:
-                getattr(sys.modules[__name__], "%s_scan" % type_str)(
-                    src, reports_dir, convert, repo_context
-                )
-            except Exception as e:
-                LOG.error(e)
-                LOG.warning(
-                    "Scan using the {} plugin did not produce valid result".format(
-                        type_str
-                    )
-                )
+                if not cmd_map_list:
+                    cmd_map_list = config.get("scan_tools_args_map").get(type_str)
+                if cmd_map_list:
+                    # Default command list can be in the form of a list or dict
+                    if isinstance(cmd_map_list, list):
+                        pool.apply_async(
+                            execute_default_cmd,
+                            (
+                                cmd_map_list,
+                                type_str,
+                                type_str,
+                                src,
+                                reports_dir,
+                                convert,
+                                scan_mode,
+                                repo_context,
+                            ),
+                        )
+                    elif isinstance(cmd_map_list, dict):
+                        for cmd_key, cmd_val in cmd_map_list.items():
+                            pool.apply_async(
+                                execute_default_cmd,
+                                (
+                                    cmd_val,
+                                    type_str,
+                                    cmd_key,
+                                    src,
+                                    reports_dir,
+                                    convert,
+                                    scan_mode,
+                                    repo_context,
+                                ),
+                            )
+                else:
+                    # Look for any _scan function in this module for execution
+                    try:
+                        dfn = getattr(sys.modules[__name__], "%s_scan" % type_str)
+                        if dfn:
+                            pool.apply_async(
+                                dfn, (src, reports_dir, convert, repo_context)
+                            )
+                    except Exception as e:
+                        LOG.error(e)
+                        LOG.warning(
+                            "Scan using the {} plugin did not produce valid result".format(
+                                type_str
+                            )
+                        )
+            pool.close()
+            pool.join()
 
 
 def python_scan(src, reports_dir, convert, repo_context):
@@ -489,9 +506,9 @@ def main():
     else:
         type = type.split(",")
     if inspect.is_authenticated():
-        print(ngsast_logo)
+        print(ngsast_logo, flush=True)
     else:
-        print(product_logo)
+        print(product_logo, flush=True)
     LOG.info("Scanning {} using plugins {}".format(src_dir, type))
     reports_dir = args.reports_dir
     if not reports_dir:
