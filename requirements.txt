@@ -1,7 +1,6 @@
 sarif-om
 jschema_to_python
 defusedxml
-tabulate
 gitpython
 shiftleft-scan-reports
 appthreat-depscan
@@ -12,3 +11,4 @@ pipenv
 checkov
 yamllint
 njsscan
+rich

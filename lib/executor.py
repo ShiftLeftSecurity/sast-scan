@@ -19,11 +19,12 @@ import subprocess
 
 import reporter.grafeas as grafeas
 import reporter.licence as licence
+from rich.progress import Progress
 
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
-from lib.logger import DEBUG, LOG
+from lib.logger import DEBUG, LOG, console
 from lib.telemetry import track
 
 
@@ -46,7 +47,7 @@ def use_java(env):
 
 def should_suppress_output(type_str, command):
     """
-    Method to indicate if the tool's output should be suppressed
+    Method to find if the tool's output should be suppressed
     """
     if "credscan" in type_str:
         return True
@@ -61,7 +62,7 @@ def should_suppress_output(type_str, command):
 
 def should_convert(convert, tool_name, command, report_fname):
     """
-    Method to indicate if sarif conversion should be performed
+    Method to find if sarif conversion should be performed
     """
     if (
         convert
@@ -77,11 +78,14 @@ def should_convert(convert, tool_name, command, report_fname):
     return False
 
 
-def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
+def exec_tool(
+    tool_name, args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL
+):
     """
     Convenience method to invoke cli tools
 
     Args:
+      tool_name Tool name
       args cli command and args
       cwd Current working directory
       env Environment variables
@@ -90,29 +94,44 @@ def exec_tool(args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL):
     Returns:
       CompletedProcess instance
     """
-    try:
-        env = use_java(env)
-        LOG.info("=" * 80)
-        LOG.debug('⚡︎ Executing "{}"'.format(" ".join(args)))
-        stderr = subprocess.DEVNULL
-        if LOG.isEnabledFor(DEBUG):
-            stderr = subprocess.STDOUT
-        cp = subprocess.run(
-            args,
-            stdout=stdout,
-            stderr=stderr,
-            cwd=cwd,
-            env=env,
-            check=False,
-            shell=False,
-            encoding="utf-8",
-        )
-        if cp and LOG.isEnabledFor(DEBUG) and cp.returncode:
-            LOG.debug(cp.stdout)
-        return cp
-    except Exception as e:
-        LOG.debug(e)
-        return None
+    with Progress(
+        console=console,
+        redirect_stderr=False,
+        redirect_stdout=False,
+        refresh_per_second=1,
+    ) as progress:
+        task = None
+        try:
+            env = use_java(env)
+            LOG.debug('⚡︎ Executing tool_name "{}"'.format(" ".join(args)))
+            stderr = subprocess.DEVNULL
+            if LOG.isEnabledFor(DEBUG):
+                stderr = subprocess.STDOUT
+            task = progress.add_task(
+                "[green]Scanning with " + tool_name, total=100, start=False
+            )
+            cp = subprocess.run(
+                args,
+                stdout=stdout,
+                stderr=stderr,
+                cwd=cwd,
+                env=env,
+                check=False,
+                shell=False,
+                encoding="utf-8",
+            )
+            if cp and stdout == subprocess.PIPE:
+                for line in cp.stdout:
+                    progress.update(task, completed=5)
+            if cp and LOG.isEnabledFor(DEBUG) and cp.returncode:
+                LOG.debug(cp.stdout)
+            progress.update(task, completed=100, total=100)
+            return cp
+        except Exception as e:
+            if task:
+                progress.update(task, completed=20, total=10, visible=False)
+            LOG.debug(e)
+            return None
 
 
 def execute_default_cmd(
@@ -190,7 +209,7 @@ def execute_default_cmd(
     # Suppress psalm output
     if should_suppress_output(type_str, cmd_with_args[0]):
         stdout = subprocess.DEVNULL
-    exec_tool(cmd_with_args, cwd=src, stdout=stdout)
+    exec_tool(tool_name, cmd_with_args, cwd=src, stdout=stdout)
     # Should we attempt to convert the report to sarif format
     if should_convert(convert, tool_name, cmd_with_args[0], report_fname):
         crep_fname = utils.get_report_file(

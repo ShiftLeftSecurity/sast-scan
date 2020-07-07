@@ -17,11 +17,12 @@
 
 import json
 
-from tabulate import tabulate
+from rich import box
+from rich.table import Table
 
 import lib.aggregate as aggregate
 import lib.config as config
-from lib.logger import LOG
+from lib.logger import LOG, console
 
 
 def find_tool_shortname(desc):
@@ -103,14 +104,23 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
     return report_summary, build_status
 
 
-def print_summary(report_summary):
-    """Pretty print report summary
+def print_table(report_summary):
+    """Print summary table
     """
-    table = []
+    table = Table(
+        title="SAST Scan Summary", box=box.DOUBLE_EDGE, header_style="bold magenta"
+    )
     headers = None
     for k, v in report_summary.items():
         if not headers:
             headers = v.keys()
-        table.append(v.values())
-    print("\n", flush=True)
-    print(tabulate(table, headers, tablefmt="simple"), flush=True)
+            for h in headers:
+                justify = "left"
+                if not h == "tool":
+                    justify = "right"
+                if h == "status":
+                    justify = "center"
+                table.add_column(header=h.capitalize(), justify=justify)
+        rv = [str(val) for val in v.values()]
+        table.add_row(*rv)
+    console.print(table)
