@@ -138,3 +138,5 @@ dmypy.json
 reports/
 AppDir/
 appimage-builder-cache/
+*.AppImage
+*.AppImage.zsync

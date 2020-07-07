@@ -50,7 +50,6 @@ AppDir:
       - php-json
       - php-pear
       - php-mbstring
-      - composer
       - tar
       - shellcheck
       - jq

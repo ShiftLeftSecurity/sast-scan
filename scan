@@ -153,9 +153,8 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                         )
                     elif isinstance(cmd_map_list, dict):
                         for cmd_key, cmd_val in cmd_map_list.items():
-                            pool.apply_async(
-                                execute_default_cmd,
-                                (
+                            if "init" in cmd_key:
+                                execute_default_cmd(
                                     cmd_val,
                                     type_str,
                                     cmd_key,
@@ -164,8 +163,21 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                                     convert,
                                     scan_mode,
                                     repo_context,
-                                ),
-                            )
+                                )
+                            else:
+                                pool.apply_async(
+                                    execute_default_cmd,
+                                    (
+                                        cmd_val,
+                                        type_str,
+                                        cmd_key,
+                                        src,
+                                        reports_dir,
+                                        convert,
+                                        scan_mode,
+                                        repo_context,
+                                    ),
+                                )
                 else:
                     # Look for any _scan function in this module for execution
                     try:
