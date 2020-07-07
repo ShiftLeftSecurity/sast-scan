@@ -52,4 +52,7 @@ curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-p
     && mv findsecbugs-plugin-${FSB_VERSION}.jar ${OPTDIR}/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
     && mv fb-contrib-${FB_CONTRIB_VERSION}.jar ${OPTDIR}/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
-    && mv ${OPTDIR}/spotbugs-${SB_VERSION} ${OPTDIR}/spotbugs
+    && mv ${OPTDIR}/spotbugs-${SB_VERSION} ${OPTDIR}/spotbugs \
+    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php \
+    && mv composer.phar ${APPDIR}/usr/bin/composer \
+    && rm composer-setup.php

@@ -103,12 +103,15 @@ def exec_tool(
         task = None
         try:
             env = use_java(env)
-            LOG.debug('⚡︎ Executing tool_name "{}"'.format(" ".join(args)))
+            LOG.debug('⚡︎ Executing {} "{}"'.format(tool_name, " ".join(args)))
             stderr = subprocess.DEVNULL
             if LOG.isEnabledFor(DEBUG):
                 stderr = subprocess.STDOUT
+            tool_verb = "Scanning with"
+            if "init" in tool_name:
+                tool_verb = "Initializing"
             task = progress.add_task(
-                "[green]Scanning with " + tool_name, total=100, start=False
+                "[green]" + tool_verb + " " + tool_name, total=100, start=False
             )
             cp = subprocess.run(
                 args,
