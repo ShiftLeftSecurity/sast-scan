@@ -53,7 +53,7 @@ def tweak_severity(tool_name, issue_dict):
     :return:
     """
     issue_severity = issue_dict["issue_severity"]
-    if tool_name in ["staticcheck", "psalm", "phpstan"]:
+    if tool_name in ["staticcheck", "psalm", "phpstan", "source-js"]:
         if issue_severity in ["HIGH", "CRITICAL"]:
             return "MEDIUM"
         return "LOW"
@@ -188,7 +188,11 @@ def extract_from_file(
                         )
             elif tool_name == "source-js":
                 njs_findings = report_data.get("nodejs", {})
+                njs_findings.update(report_data.get("templates", {}))
                 for k, v in njs_findings.items():
+                    # Password detection by njsscan is full of false positives
+                    if k == "node_password":
+                        continue
                     files = v.get("files", [])
                     metadata = v.get("metadata", {})
                     if not files or not metadata:

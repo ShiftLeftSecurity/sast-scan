@@ -181,9 +181,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                 else:
                     # Look for any _scan function in this module for execution
                     try:
-                        dfn = getattr(
-                            sys.modules[__name__], "%s_scan" % type_str, None
-                        )
+                        dfn = getattr(sys.modules[__name__], "%s_scan" % type_str, None)
                         if dfn:
                             pool.apply_async(
                                 dfn, (src, reports_dir, convert, repo_context)
@@ -466,7 +464,10 @@ def sec_scan(src, reports_dir, convert, repo_context):
     sec_cmd = "njsscan"
     sec_args = [sec_cmd, *convert_args]
     js_files = utils.find_files(src, ".js")
+    vue_files = utils.find_files(src, ".vue")
     sec_args += js_files
+    if vue_files:
+        sec_args += vue_files
     exec_tool("source-js", sec_args, src)
     if convert:
         crep_fname = utils.get_report_file(
