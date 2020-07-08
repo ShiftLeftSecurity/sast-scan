@@ -153,7 +153,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                         )
                     elif isinstance(cmd_map_list, dict):
                         for cmd_key, cmd_val in cmd_map_list.items():
-                            if "init" in cmd_key:
+                            if "init" in cmd_key or type_str == "php":
                                 execute_default_cmd(
                                     cmd_val,
                                     type_str,

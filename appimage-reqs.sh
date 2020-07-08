@@ -10,8 +10,8 @@ GITLEAKS_VERSION=4.3.1
 SC_VERSION=2020.1.4
 PMD_VERSION=6.24.0
 FSB_VERSION=1.10.1
-FB_CONTRIB_VERSION=7.4.7
-SB_VERSION=4.0.1
+SB_CONTRIB_VERSION=7.4.7
+SB_VERSION=4.0.6
 NODE_VERSION=14.5.0
 export PATH=$PATH:${APPDIR}/usr/bin:
 
@@ -45,13 +45,13 @@ curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/d
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
     && tar -C ${APPDIR}/usr/bin/ -xvf kubesec_linux_amd64.tar.gz \
     && rm kubesec_linux_amd64.tar.gz \
-    && curl -LO "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/${SB_VERSION}/spotbugs-${SB_VERSION}.zip" \
-    && unzip -q spotbugs-${SB_VERSION}.zip -d ${OPTDIR}/ \
-    && rm spotbugs-${SB_VERSION}.zip
+    && curl -LO "https://github.com/spotbugs/spotbugs/releases/download/${SB_VERSION}/spotbugs-${SB_VERSION}.tgz" \
+    && tar -C ${OPTDIR}/ -xvf spotbugs-${SB_VERSION}.tgz \
+    && rm spotbugs-${SB_VERSION}.tgz
 curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
     && mv findsecbugs-plugin-${FSB_VERSION}.jar ${OPTDIR}/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
-    && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/fb-contrib/fb-contrib/${FB_CONTRIB_VERSION}/fb-contrib-${FB_CONTRIB_VERSION}.jar" \
-    && mv fb-contrib-${FB_CONTRIB_VERSION}.jar ${OPTDIR}/spotbugs-${SB_VERSION}/plugin/fb-contrib.jar \
+    && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/sb-contrib/sb-contrib/${SB_CONTRIB_VERSION}/sb-contrib-${SB_CONTRIB_VERSION}.jar" \
+    && mv sb-contrib-${SB_CONTRIB_VERSION}.jar ${OPTDIR}/spotbugs-${SB_VERSION}/plugin/sb-contrib.jar \
     && mv ${OPTDIR}/spotbugs-${SB_VERSION} ${OPTDIR}/spotbugs \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php \
     && mv composer.phar ${APPDIR}/usr/bin/composer \

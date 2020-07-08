@@ -95,13 +95,15 @@ def java_build(src, reports_dir, lang_tools):
     """
     cmd_args = []
     pom_files = [p.as_posix() for p in Path(src).rglob("pom.xml")]
+    gradle_files = [p.as_posix() for p in Path(src).rglob("build.gradle")]
+    sbt_files = [p.as_posix() for p in Path(src).rglob("build.sbt")]
     env = get_env()
     if pom_files:
         cmd_args = lang_tools.get("maven")
-    else:
-        gradle_files = [p.as_posix() for p in Path(src).rglob("build.gradle")]
-        if gradle_files:
-            cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
+    elif gradle_files:
+        cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
+    elif sbt_files:
+        cmd_args = lang_tools.get("sbt")
     if not cmd_args:
         LOG.info("Java auto build is supported only for maven or gradle based projects")
         return False
@@ -158,6 +160,32 @@ def kotlin_build(src, reports_dir, lang_tools):
         or find_files(src, "AndroidManifest.xml", False, True)
     ):
         return android_build(src, reports_dir, lang_tools)
+    return java_build(src, reports_dir, lang_tools)
+
+
+def scala_build(src, reports_dir, lang_tools):
+    """
+    Automatically build scala project
+
+    :param src: Source directory
+    :param reports_dir: Reports directory to store any logs
+    :param lang_tools: Language specific build tools
+
+    :return: boolean status from the build. True if the command executed successfully. False otherwise
+    """
+    return java_build(src, reports_dir, lang_tools)
+
+
+def groovy_build(src, reports_dir, lang_tools):
+    """
+    Automatically build groovy project
+
+    :param src: Source directory
+    :param reports_dir: Reports directory to store any logs
+    :param lang_tools: Language specific build tools
+
+    :return: boolean status from the build. True if the command executed successfully. False otherwise
+    """
     return java_build(src, reports_dir, lang_tools)
 
 

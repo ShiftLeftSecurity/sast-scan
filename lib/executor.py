@@ -110,6 +110,8 @@ def exec_tool(
             tool_verb = "Scanning with"
             if "init" in tool_name:
                 tool_verb = "Initializing"
+            elif "build" in tool_name:
+                tool_verb = "Building with"
             task = progress.add_task(
                 "[green]" + tool_verb + " " + tool_name, total=100, start=False
             )
