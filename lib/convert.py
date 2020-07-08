@@ -53,11 +53,38 @@ def tweak_severity(tool_name, issue_dict):
     :return:
     """
     issue_severity = issue_dict["issue_severity"]
-    if tool_name in ["staticcheck", "psalm", "phpstan", "source-js"]:
+    if tool_name in [
+        "staticcheck",
+        "psalm",
+        "phpstan",
+        "source-js",
+        "source-php",
+        "audit-php",
+    ]:
         if issue_severity in ["HIGH", "CRITICAL"]:
             return "MEDIUM"
         return "LOW"
     return issue_severity
+
+
+def get_from_taints(taint_trace):
+    """
+    Convert taint trace list to source and sink
+    """
+    source = None
+    sink = None
+    labels = []
+    for taint in taint_trace:
+        filename = taint.get("file_name")
+        if not filename or "psalm" in filename:
+            continue
+        if not source:
+            source = {"filename": filename, "line_number": taint.get("line_from")}
+        if taint.get("label"):
+            labels.append(taint.get("label"))
+    last = taint_trace[-1]
+    sink = {"filename": last.get("file_name"), "line_number": last.get("line_from")}
+    return source, sink, labels
 
 
 def convert_dataflow(working_dir, tool_args, dataflows):
@@ -168,7 +195,29 @@ def extract_from_file(
                                 "issue_confidence": "HIGH",
                             }
                         )
-            elif tool_name == "phpstan":
+            elif tool_name == "taint-php":
+                for entry in report_data:
+                    taint_trace = entry.get("taint_trace")
+                    labels = []
+                    if taint_trace:
+                        source, sink, labels = get_from_taints(taint_trace)
+                    else:
+                        source, _, _ = get_from_taints([entry])
+                    issues.append(
+                        {
+                            "rule_id": entry.get("shortcode"),
+                            "test_name": entry.get("type"),
+                            "description": "{}: {}".format(
+                                entry.get("message"), "\\n".join(labels)
+                            ),
+                            "link": entry.get("link"),
+                            "severity": entry.get("severity"),
+                            "issue_confidence": "HIGH",
+                            "line_number": source.get("line_number"),
+                            "filename": source.get("filename"),
+                        }
+                    )
+            elif tool_name == "phpstan" or tool_name == "source-php":
                 file_errors = report_data.get("files")
                 for filename, messageobj in file_errors.items():
                     messages = messageobj.get("messages")
@@ -565,11 +614,16 @@ def add_region_and_context_region(physical_location, line_number, code):
     :param code: Source code snippet
     """
     first_line_number, snippet_lines = parse_code(code)
+    # Ensure start line is always non-zero
+    if first_line_number == 0:
+        first_line_number = 1
     end_line_number = first_line_number + len(snippet_lines) - 1
     if end_line_number < first_line_number:
         end_line_number = first_line_number + 3
     index = line_number - first_line_number
     snippet_line = ""
+    if line_number == 0:
+        line_number = 1
     if snippet_lines and len(snippet_lines) > index:
         if index > 0:
             snippet_line = snippet_lines[index]
