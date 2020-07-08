@@ -220,7 +220,11 @@ def execute_default_cmd(
         crep_fname = utils.get_report_file(
             tool_name, reports_dir, convert, ext_name="sarif"
         )
-        if cmd_with_args[0] == "java" or "pmd-bin" in cmd_with_args[0]:
+        if (
+            cmd_with_args[0] == "java"
+            or "pmd-bin" in cmd_with_args[0]
+            or "php" in tool_name
+        ):
             convertLib.convert_file(
                 tool_name, cmd_with_args, src, report_fname, crep_fname,
             )
