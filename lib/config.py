@@ -75,6 +75,7 @@ scan_types = [
     "credscan",
     "depscan",
     "go",
+    "groovy",
     "java",
     "jsp",
     "kotlin",
@@ -100,7 +101,6 @@ ignore_directories = [
     ".mvn",
     ".idea",
     "dist",
-    "bin",
     "obj",
     "backup",
     "docs",
@@ -114,6 +114,9 @@ ignore_directories = [
     ".serverless",
     "venv",
     ".virtualenv",
+    "vendor",
+    "bower_components",
+    ".vscode",
 ]
 
 # Ignore files list
@@ -138,6 +141,8 @@ ignore_files = [
     ".d.ts",
     ".min.js",
     ".min.css",
+    ".eslintrc.js",
+    ".babelrc.js",
 ]
 
 

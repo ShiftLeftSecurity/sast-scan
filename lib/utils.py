@@ -66,7 +66,7 @@ def is_ignored_file(base_dir, file_name):
         return False
     file_name = file_name.lower()
     extn = "".join(Path(file_name).suffixes)
-    if extn in config.ignore_files:
+    if extn in config.ignore_files or file_name in config.ignore_files:
         return True
     return False
 

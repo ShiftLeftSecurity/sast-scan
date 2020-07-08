@@ -610,6 +610,32 @@ def test_njsscan_extract_issue():
         "filename": "/Users/prabhu/work/NodeGoat/app/routes/index.js",
         "issue_confidence": "HIGH",
     }
+    issues, metrics, skips = convertLib.extract_from_file(
+        "source-js",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "njs2.json",
+    )
+    assert issues
+    assert len(issues) == 26
+    assert issues[0] == {
+        "rule_id": "a9-usingcomponentswithknownvulnerabilities",
+        "title": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "severity": "WARNING",
+        "line_number": 7,
+        "filename": "vendor/ckeditor/ckeditor/vendor/promise.js",
+        "issue_confidence": "HIGH",
+    }
+    assert issues[-1] == {
+        "rule_id": "a1-injection",
+        "title": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Vue.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "severity": "ERROR",
+        "line_number": 0,
+        "filename": "src/layouts/basic/modules/Chat/components/ChatPanelRight.vue",
+        "issue_confidence": "HIGH",
+    }
 
 
 def test_convert_dataflow():

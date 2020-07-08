@@ -1,0 +1,420 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 26,
+          "line": 1
+        },
+        "extra": {
+          "line": "RedirectMatch 403 (?i).*\\.log$",
+          "message": "Lexical error: unrecognised symbol, in token rule:\\"
+        },
+        "path": ".htaccess",
+        "start": {
+          "col": 25,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 140,
+          "line": 25
+        },
+        "extra": {
+          "line": "function(a){return a.substr(1).toUpperCase()})}}(),buildStyleHtml:function(a){a=[].concat(a);for(var g,d=[],b=0;b<a.length;b++)if(g=a[b])/@import|[{}]/.test(g)?d.push(\"\\x3cstyle\\x3e\"+g+\"\\x3c/style\\x3e\"):d.push('\\x3clink type\\x3d\"text/css\" rel\\x3dstylesheet href\\x3d\"'+g+'\"\\x3e');return d.join(\"\")},htmlEncode:function(a){return void 0===a||null===a?\"\":String(a).replace(c,\"\\x26amp;\").replace(m,\"\\x26gt;\").replace(h,\"\\x26lt;\")},htmlDecode:function(a){return a.replace(d,g)},htmlEncodeAttr:function(a){return CKEDITOR.tools.htmlEncode(a).replace(l,",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "vendor/ckeditor/ckeditor/ckeditor.js",
+        "start": {
+          "col": 139,
+          "line": 25
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "\ufffdPNG\r",
+          "message": "Lexical error: unrecognised symbol, in token rule:\ufffd"
+        },
+        "path": "layouts/resources/Logo/logo",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# test directories",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "src/.yarnclean",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "vendor/ckeditor/ckeditor/vendor/promise.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            481,
+            492
+          ],
+          "match_string": "I=void 0,l=function(a,b){q[k]=a;q[k+1]=b;k+=2;2===k&&(I?I(n):Q())},A=(H=\"undefined\"!==typeof window?window:void 0)||{},J=A.MutationObserver||A.WebKitMutationObserver,A=\"undefined\"===typeof self&&\"undefined\"!==typeof process&&\"[object process]\"==={}.toString.call(process),aa=\"undefined\"!==typeof Uint8ClampedArray&&\"undefined\"!==typeof importScripts&&\"undefined\"!==typeof MessageChannel,q=Array(1E3),Q=void 0,Q=A?w():J?S():aa?T():void 0===H&&\"function\"===typeof require?U():C(),z=Math.random().toString(36).substring(2),"
+        },
+        {
+          "file_path": "layouts/resources/app.js",
+          "match_lines": [
+            1087,
+            1087
+          ],
+          "match_position": [
+            35,
+            46
+          ],
+          "match_string": "\t\tWindow.lastModalId = 'modal_' + Math.random().toString(36).substr(2, 9);"
+        },
+        {
+          "file_path": "layouts/resources/Fields.js",
+          "match_lines": [
+            387,
+            387
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "\t\t\t\tcolor += letters[Math.floor(Math.random() * 16)];"
+        },
+        {
+          "file_path": "layouts/resources/Fields.js",
+          "match_lines": [
+            1033,
+            1033
+          ],
+          "match_position": [
+            28,
+            39
+          ],
+          "match_string": "\t\t\tconst rand = Math.floor(Math.random() * chars.length);"
+        },
+        {
+          "file_path": "layouts/resources/Fields.js",
+          "match_lines": [
+            1044,
+            1044
+          ],
+          "match_position": [
+            5,
+            16
+          ],
+          "match_string": "\t\t\t\tMath.random().toString(36).substr(2, 10) +"
+        },
+        {
+          "file_path": "layouts/resources/Fields.js",
+          "match_lines": [
+            1045,
+            1045
+          ],
+          "match_position": [
+            5,
+            16
+          ],
+          "match_string": "\t\t\t\tMath.random().toString(36).substr(2, 10) +"
+        },
+        {
+          "file_path": "layouts/resources/Fields.js",
+          "match_lines": [
+            1047,
+            1047
+          ],
+          "match_position": [
+            5,
+            16
+          ],
+          "match_string": "\t\t\t\tMath.random().toString(36).substr(2, 6);"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/Edit.js",
+          "match_lines": [
+            84,
+            84
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "\t\t\tvar passlength = parseInt(Math.random() * (max - min) + min);"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/Edit.js",
+          "match_lines": [
+            88,
+            88
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "\t\t\t\tvar charIndex = parseInt(Math.random() * chArray.length);"
+        },
+        {
+          "file_path": "vendor/ckeditor/ckeditor/plugins/image2/dialogs/image2.js",
+          "match_lines": [
+            6,
+            6
+          ],
+          "match_position": [
+            24,
+            35
+          ],
+          "match_string": "(w.baseHref||\"\")+q+\"?\"+Math.random().toString(16).substring(2))}}function F(){var a=this.getValue();t(!1);a!==x.data.src?(G(a,function(a,b,c){t(!0);if(!a)return m(!1);g.setValue(!1===f.config.image2_prefillDimensions?0:b);h.setValue(!1===f.config.image2_prefillDimensions?0:c);u=k=b;v=l=c;m(H.checkHasNaturalRatio(a))}),n=!0):n?(t(!0),g.setValue(k),h.setValue(l),n=!1):t(!0)}function I(){if(e){var a=this.getValue();if(a&&(a.match(D)||m(!1),\"0\"!==a)){var b=\"width\"==this.id,c=k||u,d=l||v,a=b?Math.round(a/"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_password": {
+      "files": [
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/Edit.js",
+          "match_lines": [
+            74,
+            74
+          ],
+          "match_position": [
+            4,
+            21
+          ],
+          "match_string": "\t\t\tvar password = ''; // variable holding new password"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded password in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "layouts/resources/fields/MultiImage.js",
+          "match_lines": [
+            155,
+            156
+          ],
+          "match_position": [
+            4,
+            16
+          ],
+          "match_string": "\t\t\tif (file.hash === hash) {\n\n\t\t\t\treturn file;"
+        },
+        {
+          "file_path": "layouts/resources/fields/MultiImage.js",
+          "match_lines": [
+            767,
+            768
+          ],
+          "match_position": [
+            4,
+            25
+          ],
+          "match_string": "\t\t\tif (file.hash === hash) {\n\n\t\t\t\ttemplate += ` active`;"
+        },
+        {
+          "file_path": "install/tpl/resources/Index.js",
+          "match_lines": [
+            177,
+            178
+          ],
+          "match_position": [
+            5,
+            22
+          ],
+          "match_string": "\t\t\t\tif (password !== element.val()) {\n\n\t\t\t\t\tsetPasswordError();"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/Edit.js",
+          "match_lines": [
+            20,
+            37
+          ],
+          "match_position": [
+            5,
+            44
+          ],
+          "match_string": "\t\t\t\tif (password === '**********') {\n\n\t\t\t\t\tparams = {};\n\n\t\t\t\t\tparams.data = {\n\n\t\t\t\t\t\tmodule: 'OSSPasswords',\n\n\t\t\t\t\t\taction: 'GetPass',\n\n\t\t\t\t\t\trecord: id\n\n\t\t\t\t\t};\n\n\t\t\t\t\tparams.async = false;\n\n\t\t\t\t\tAppConnector.request(params).done(function (data) {\n\n\t\t\t\t\t\tvar response = data['result'];\n\n\t\t\t\t\t\tif (response['success']) {\n\n\t\t\t\t\t\t\tvar el = document.getElementById('OSSPasswords_editView_fieldName_password');\n\n\t\t\t\t\t\t\tel.value = response['password'];\n\n\t\t\t\t\t\t\tel.onchange();\n\n\t\t\t\t\t\t}\n\n\t\t\t\t\t});\n\n\t\t\t\t\t// validate password\n\n\t\t\t\t\tPasswordHelper.passwordStrength('', '');"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/gen_pass.js",
+          "match_lines": [
+            11,
+            12
+          ],
+          "match_position": [
+            3,
+            88
+          ],
+          "match_string": "\t\tif (password == '')\n\n\t\t\tpassword = document.getElementById('OSSPasswords_editView_fieldName_password').value;"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/gen_pass.js",
+          "match_lines": [
+            50,
+            62
+          ],
+          "match_position": [
+            3,
+            95
+          ],
+          "match_string": "\t\tif (password == '') {\n\n\t\t\tdocument.getElementById('passwordDescription').innerHTML = app.vtranslate(\n\n\t\t\t\t'Enter the password'\n\n\t\t\t);\n\n\t\t\tdocument.getElementById('passwordStrength').className = 'input-group-text strength0';\n\n\t\t} else if (password == '**********') {\n\n\t\t\tdocument.getElementById('passwordDescription').innerHTML = app.vtranslate(\n\n\t\t\t\t'Password is hidden'\n\n\t\t\t);\n\n\t\t\tdocument.getElementById('passwordStrength').className = 'input-group-text strength0';\n\n\t\t} else {\n\n\t\t\tdocument.getElementById('passwordDescription').innerHTML = desc[score];\n\n\t\t\tdocument.getElementById('passwordStrength').className = 'input-group-text strength' + score;"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/gen_pass.js",
+          "match_lines": [
+            55,
+            62
+          ],
+          "match_position": [
+            10,
+            95
+          ],
+          "match_string": "\t\t} else if (password == '**********') {\n\n\t\t\tdocument.getElementById('passwordDescription').innerHTML = app.vtranslate(\n\n\t\t\t\t'Password is hidden'\n\n\t\t\t);\n\n\t\t\tdocument.getElementById('passwordStrength').className = 'input-group-text strength0';\n\n\t\t} else {\n\n\t\t\tdocument.getElementById('passwordDescription').innerHTML = desc[score];\n\n\t\t\tdocument.getElementById('passwordStrength').className = 'input-group-text strength' + score;"
+        },
+        {
+          "file_path": "layouts/basic/modules/OSSPasswords/resources/zClipDetailView.js",
+          "match_lines": [
+            12,
+            13
+          ],
+          "match_position": [
+            3,
+            26
+          ],
+          "match_string": "\t\tif (password === '') {\n\n\t\t\tpassword = element.val();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "vue_template": {
+      "files": [
+        {
+          "file_path": "src/layouts/resources/views/KnowledgeBase/KnowledgeBase.vue",
+          "match_position": [
+            4242,
+            4288
+          ],
+          "match_string": "v-html=\"translate('JS_FULL_TEXT_SEARCH_INFO')\""
+        },
+        {
+          "file_path": "src/layouts/resources/views/KnowledgeBase/components/ArticlesList.vue",
+          "match_position": [
+            1948,
+            1983
+          ],
+          "match_string": "v-html=\"props.row.assigned_user_id\""
+        },
+        {
+          "file_path": "src/layouts/resources/views/KnowledgeBase/components/ArticlePreviewContent.vue",
+          "match_position": [
+            5252,
+            5282
+          ],
+          "match_string": "v-html=\"relatedRecord.comment\""
+        },
+        {
+          "file_path": "src/layouts/resources/views/KnowledgeBase/components/ArticlePreviewContent.vue",
+          "match_position": [
+            3952,
+            4032
+          ],
+          "match_string": "v-html=\"typeof record.content === 'object' ? record.content[0] : record.content\""
+        },
+        {
+          "file_path": "src/layouts/resources/views/KnowledgeBase/components/ArticlePreviewContent.vue",
+          "match_position": [
+            725,
+            749
+          ],
+          "match_string": "v-html=\"record.category\""
+        },
+        {
+          "file_path": "src/layouts/resources/views/KnowledgeBase/components/Carousel.vue",
+          "match_position": [
+            670,
+            684
+          ],
+          "match_string": "v-html=\"slide\""
+        },
+        {
+          "file_path": "src/layouts/basic/modules/Chat/components/ChatPanelRight.vue",
+          "match_position": [
+            3714,
+            3744
+          ],
+          "match_string": "v-html=\"participant.role_name\""
+        },
+        {
+          "file_path": "src/layouts/basic/modules/Chat/components/ChatPanelRight.vue",
+          "match_position": [
+            3969,
+            3997
+          ],
+          "match_string": "v-html=\"participant.message\""
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Vue.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "vue_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "v-html=[\\'|\"].+[\\'|\"]",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}
