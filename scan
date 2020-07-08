@@ -181,13 +181,17 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                 else:
                     # Look for any _scan function in this module for execution
                     try:
-                        dfn = getattr(sys.modules[__name__], "%s_scan" % type_str)
+                        dfn = getattr(
+                            sys.modules[__name__], "%s_scan" % type_str, None
+                        )
                         if dfn:
                             pool.apply_async(
                                 dfn, (src, reports_dir, convert, repo_context)
                             )
+                        else:
+                            x_scan(type_str)
                     except Exception as e:
-                        LOG.error(e)
+                        LOG.debug(e)
                         LOG.warning(
                             "Scan using the {} plugin did not produce valid result".format(
                                 type_str
@@ -195,6 +199,16 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
                         )
             pool.close()
             pool.join()
+
+
+def x_scan(type_str):
+    """Default placeholder scan method for missing scanners
+    """
+    LOG.info(
+        "Is there any open-source scanner for {}? Kindly send us a PR 👍".format(
+            type_str
+        )
+    )
 
 
 def python_scan(src, reports_dir, convert, repo_context):
