@@ -614,11 +614,16 @@ def add_region_and_context_region(physical_location, line_number, code):
     :param code: Source code snippet
     """
     first_line_number, snippet_lines = parse_code(code)
+    # Ensure start line is always non-zero
+    if first_line_number == 0:
+        first_line_number = 1
     end_line_number = first_line_number + len(snippet_lines) - 1
     if end_line_number < first_line_number:
         end_line_number = first_line_number + 3
     index = line_number - first_line_number
     snippet_line = ""
+    if line_number == 0:
+        line_number = 1
     if snippet_lines and len(snippet_lines) > index:
         if index > 0:
             snippet_line = snippet_lines[index]
