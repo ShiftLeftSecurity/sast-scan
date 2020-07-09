@@ -66,7 +66,7 @@ def should_convert(convert, tool_name, command, report_fname):
     """
     if (
         convert
-        and not "init" in tool_name
+        and "init" not in tool_name
         and (
             config.tool_purpose_message.get(command)
             or "audit" in tool_name
@@ -194,7 +194,7 @@ def execute_default_cmd(
     stdout = None
     if LOG.isEnabledFor(DEBUG):
         stdout = None
-    if reports_dir and not report_fname_prefix in default_cmd:
+    if reports_dir and report_fname_prefix not in default_cmd:
         report_fname = report_fname_prefix + outext
         stdout = io.open(report_fname, "w")
         LOG.debug("Output will be written to {}".format(report_fname))

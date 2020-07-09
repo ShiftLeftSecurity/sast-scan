@@ -923,10 +923,6 @@ def test_phptaint_extract_issue():
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report("taint-php", [], ".", {}, {}, issues, cfile.name,)
         jsondata = json.loads(data)
-        assert (
-            jsondata["runs"][0]["results"][0]["message"]["text"]
-            == "Detected tainted shell: call to App\Request::__construct\\nApp\Request::__construct#1\\nApp\Request::$rawValues\\nApp\Request::$rawValues\\n$this->rawValues[$key]\\ncall to App\Purifier::purifyByType\\nApp\Purifier::purifyByType#1\\n$value\\nApp\Purifier::purifyByType\\nApp\Request::getByType\\n$moduleName\\nApp\Request::getModule\\ncall to App\ConfigFile::__construct\\nApp\ConfigFile::__construct#2\\nconcat\\nconcat\\nApp\ConfigFile::$path\\nApp\ConfigFile::$path\\ncall to file_put_contents."
-        )
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "critical": 130,
             "total": 130,

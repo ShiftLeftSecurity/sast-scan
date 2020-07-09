@@ -16,7 +16,6 @@
 import json
 import os
 import sys
-from pathlib import Path
 
 runtimeValues = {}
 
@@ -543,7 +542,7 @@ build_tools_map = {
         "gradle": [get("GRADLE_CMD"), "compileJava"],
         "sbt": ["sbt", "compile"],
     },
-    "android": {"gradle": [get("GRADLE_CMD"), "compileDebugSources"],},
+    "android": {"gradle": [get("GRADLE_CMD"), "compileDebugSources"]},
     "kotlin": {
         "maven": [get("MVN_CMD"), "compile"],
         "gradle": [get("GRADLE_CMD"), "build"],

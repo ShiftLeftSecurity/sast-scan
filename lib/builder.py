@@ -160,7 +160,9 @@ def kotlin_build(src, reports_dir, lang_tools):
         return android_build(src, reports_dir, lang_tools)
     if gradle_kts_files:
         cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
-        cp = exec_tool("auto-build", cmd_args, src, env=env, stdout=subprocess.PIPE)
+        cp = exec_tool(
+            "auto-build", cmd_args, src, env=get_env(), stdout=subprocess.PIPE
+        )
         if cp:
             LOG.debug(cp.stdout)
             return cp.returncode == 0
