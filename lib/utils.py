@@ -227,7 +227,9 @@ def detect_project_type(src_dir, scan_mode):
         src_dir, ".scala", False, True
     ):
         project_types.append("scala")
-    if find_files(src_dir, ".kt", False, True):
+    if find_files(src_dir, ".kt", False, True) or find_files(
+        src_dir, ".kts", False, True
+    ):
         project_types.append("kotlin")
         depscan_supported = True
     if (

@@ -100,7 +100,6 @@ def convert_dataflow(working_dir, tool_args, dataflows):
         return None
     file_name_prefix = ""
     location_list = []
-    is_ts = "--ts" in tool_args
     for flow in dataflows:
         fn = flow["location"].get("fileName")
         if not fn or fn == "N/A":

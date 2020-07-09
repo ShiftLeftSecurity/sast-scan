@@ -154,13 +154,20 @@ def kotlin_build(src, reports_dir, lang_tools):
     """
     # Check if this is a android kotlin project
     gradle_kts_files = [p.as_posix() for p in Path(src).rglob("build.gradle.kts")]
-    if (
-        gradle_kts_files
-        or find_files(src, "proguard-rules.pro", False, True)
-        or find_files(src, "AndroidManifest.xml", False, True)
+    if find_files(src, "proguard-rules.pro", False, True) or find_files(
+        src, "AndroidManifest.xml", False, True
     ):
         return android_build(src, reports_dir, lang_tools)
-    return java_build(src, reports_dir, lang_tools)
+    if gradle_kts_files:
+        cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
+        cp = exec_tool(
+            "auto-build", cmd_args, src, env=get_env(), stdout=subprocess.PIPE
+        )
+        if cp:
+            LOG.debug(cp.stdout)
+            return cp.returncode == 0
+    else:
+        return java_build(src, reports_dir, lang_tools)
 
 
 def scala_build(src, reports_dir, lang_tools):
