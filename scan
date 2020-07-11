@@ -566,7 +566,7 @@ def main():
                 "report_summary": report_summary,
                 "scan_mode": scan_mode,
                 "repo_type": type,
-                "scan_time_sec": round((end_time - start_time) / 1000000000, 2)
+                "scan_time_sec": round((end_time - start_time) / 1000000000, 2),
             }
         )
         if not args.noerror and not scan_mode == "ide":
