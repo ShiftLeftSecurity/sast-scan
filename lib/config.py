@@ -245,6 +245,7 @@ scan_tools_args_map = {
     "depscan": [
         get("DEPSCAN_CMD"),
         "--no-banner",
+        "--suggest",
         "--src",
         "%(src)s",
         "--report_file",
