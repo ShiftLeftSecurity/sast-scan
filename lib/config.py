@@ -142,6 +142,8 @@ ignore_files = [
     ".min.css",
     ".eslintrc.js",
     ".babelrc.js",
+    ".spec.js",
+    ".data.js",
 ]
 
 
@@ -837,6 +839,13 @@ rules_severity = {
     "CKV_K8S_5": "CRITICAL",
     "CKV_K8S_6": "CRITICAL",
     "CKV_AWS_46": "CRITICAL",
+    "SA1019": "LOW",
+    "ST1020": "LOW",
+    "ST1021": "LOW",
+    "ST1022": "LOW",
+    "ST1011": "LOW",
+    "ST1012": "LOW",
+    "SA6005": "LOW",
 }
 
 # Build break rules
