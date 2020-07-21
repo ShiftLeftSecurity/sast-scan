@@ -45,6 +45,8 @@ def test_filter_ignored_dirs():
     assert d == ["foo"]
     d = utils.filter_ignored_dirs([".git", ".idea", "node_modules", "tmp"])
     assert d == []
+    d = utils.filter_ignored_dirs([".foo", ".bar"])
+    assert d == []
 
 
 def test_filter_ignored_files():

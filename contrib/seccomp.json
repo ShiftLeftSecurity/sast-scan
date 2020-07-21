@@ -3,8 +3,6 @@
 	"syscalls": [
 		{
 			"names": [
-				"_llseek",
-				"_newselect",
 				"accept",
 				"accept4",
 				"access",
