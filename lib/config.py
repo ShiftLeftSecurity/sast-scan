@@ -116,6 +116,10 @@ ignore_directories = [
     "vendor",
     "bower_components",
     ".vscode",
+    "e2e",
+    ".pytest_cache",
+    "__pycache__",
+    ".storybook",
 ]
 
 # Ignore files list
@@ -144,6 +148,8 @@ ignore_files = [
     ".babelrc.js",
     ".spec.js",
     ".data.js",
+    ".bundle.js",
+    ".snap",
 ]
 
 

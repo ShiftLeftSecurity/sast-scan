@@ -32,7 +32,11 @@ def filter_ignored_dirs(dirs):
     :param dirs: Directories to ignore
     :return: Filtered directory list
     """
-    [dirs.remove(d) for d in list(dirs) if d.lower() in config.ignore_directories]
+    [
+        dirs.remove(d)
+        for d in list(dirs)
+        if d.lower() in config.ignore_directories or d.startswith(".")
+    ]
     return dirs
 
 
@@ -45,7 +49,9 @@ def is_ignored_dir(base_dir, dir_name):
     """
     base_dir = base_dir.lower()
     dir_name = dir_name.lower()
-    if dir_name.startswith("/" + base_dir):
+    if dir_name.startswith("."):
+        return True
+    elif dir_name.startswith("/" + base_dir):
         dir_name = re.sub(r"^/" + base_dir + "/", "", dir_name)
     elif dir_name.startswith(base_dir):
         dir_name = re.sub(r"^" + base_dir + "/", "", dir_name)
