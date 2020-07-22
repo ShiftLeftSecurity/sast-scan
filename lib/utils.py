@@ -74,6 +74,9 @@ def is_ignored_file(base_dir, file_name):
     extn = "".join(Path(file_name).suffixes)
     if extn in config.ignore_files or file_name in config.ignore_files:
         return True
+    for ie in config.ignore_files:
+        if file_name.endswith(ie):
+            return True
     return False
 
 
@@ -272,6 +275,11 @@ def detect_project_type(src_dir, scan_mode):
         depscan_supported = True
     if find_files(src_dir, "Cargo.lock", False, True):
         project_types.append("rust")
+        depscan_supported = True
+    if find_files(src_dir, "Gemfile", False, True) or find_files(
+        src_dir, "Gemfile.lock", False, True
+    ):
+        project_types.append("ruby")
         depscan_supported = True
     if find_files(src_dir, ".tf", False, True):
         project_types.append("terraform")

@@ -48,7 +48,6 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/${DETEKT_VERSION
     && chmod a+rx /usr/local/bin/shiftleft/sl \
     && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin \
     && /usr/local/bin/shiftleft/sl update csharp2cpg
-RUN gem install -q puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM shiftleft/scan-base-csharp as sast-scan-tools
 
@@ -79,10 +78,6 @@ ENV APP_SRC_DIR=/usr/local/src \
     PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
-COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
-COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
-COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/sl-cli /opt/sl-cli
 COPY tools_config/ /usr/local/src/
 COPY requirements.txt /usr/local/src/
@@ -93,7 +88,6 @@ RUN pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
-    && microdnf remove -y ruby-devel \
     && microdnf clean all
 
 WORKDIR /app
