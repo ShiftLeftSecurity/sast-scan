@@ -1,6 +1,7 @@
 # vi:syntax=python
 
-load("github.com/mesosphere/dispatch-catalog/starlark/stable/pipeline@master", "git_checkout_dir", "storage_resource")
+load("github.com/mesosphere/dispatch-catalog/starlark/stable/git@0.0.7", "git_checkout_dir")
+load("github.com/mesosphere/dispatch-catalog/starlark/stable/pipeline@0.0.7", "storage_resource")
 
 __doc__ = """
 # ShiftLeft Scan
