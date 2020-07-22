@@ -204,7 +204,7 @@ def x_scan(type_str):
     """Default placeholder scan method for missing scanners
     """
     LOG.info(
-        "Is there any open-source scanner for {}? Kindly send us a PR 👍".format(
+        "Is there any open-source scanner for {}? Please let us know 👍".format(
             type_str
         )
     )
@@ -299,9 +299,6 @@ def csharp_scan(src, reports_dir, convert, repo_context):
     else:
         LOG.info(
             "Scanning C# and .Net core projects is only possible with ShiftLeft NG SAST. To enable visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
-        )
-        LOG.info(
-            "Alternatively, know any alternative open-source scanner for .Net? Kindly send us a PR 👍"
         )
 
 
@@ -438,9 +435,6 @@ def ts_scan(src, reports_dir, convert, repo_context):
     else:
         LOG.info(
             "Scanning TypeScript projects is only possible with ShiftLeft NG SAST. To enable visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
-        )
-        LOG.info(
-            "Alternatively, know any alternative open-source scanner for TypeScript? Kindly send us a PR 👍"
         )
 
 

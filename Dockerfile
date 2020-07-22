@@ -74,7 +74,6 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSIO
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
     && chmod a+rx /usr/local/bin/shiftleft/sl \
     && mkdir -p /opt/sl-cli
-RUN gem install -q puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM shiftleft/scan-base-slim as sast-scan-tools
 
@@ -118,10 +117,6 @@ ENV APP_SRC_DIR=/usr/local/src \
     PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/sl-cli:/opt/phpsast/vendor/bin:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
-COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
-COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
-COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
@@ -139,7 +134,7 @@ RUN pip3 install --no-cache-dir wheel \
     && mkdir -p /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
     && composer require --quiet --no-cache --dev phpstan/extension-installer \
-    && microdnf remove -y ruby-devel php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
+    && microdnf remove -y php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
     && microdnf clean all
 
 WORKDIR /app

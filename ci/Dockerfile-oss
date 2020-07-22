@@ -70,7 +70,6 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/${DETEKT_VERSION
     && mv findsecbugs-plugin-${FSB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/findsecbugs-plugin.jar \
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/sb-contrib/sb-contrib/${SB_CONTRIB_VERSION}/sb-contrib-${SB_CONTRIB_VERSION}.jar" \
     && mv sb-contrib-${SB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/sb-contrib.jar
-RUN gem install -q puppet-lint cyclonedx-ruby && gem cleanup -q
 
 FROM shiftleft/scan-base-slim as sast-scan-tools
 
@@ -113,10 +112,6 @@ ENV APP_SRC_DIR=/usr/local/src \
     PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
-COPY --from=builder /usr/local/lib64/gems /usr/local/lib64/gems
-COPY --from=builder /usr/local/share/gems /usr/local/share/gems
-COPY --from=builder /usr/local/bin/puppet-lint /usr/local/bin/puppet-lint
-COPY --from=builder /usr/local/bin/cyclonedx-ruby /usr/local/bin/cyclonedx-ruby
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
@@ -133,7 +128,7 @@ RUN pip3 install --no-cache-dir wheel \
     && mkdir -p /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
     && composer require --quiet --no-cache --dev phpstan/extension-installer \
-    && microdnf remove -y ruby-devel php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
+    && microdnf remove -y php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
     && microdnf clean all
 
 WORKDIR /app
