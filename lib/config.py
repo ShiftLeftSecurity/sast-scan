@@ -120,6 +120,8 @@ ignore_directories = [
     ".pytest_cache",
     "__pycache__",
     ".storybook",
+    ".venv",
+    ".tox",
 ]
 
 # Ignore files list
