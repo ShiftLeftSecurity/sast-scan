@@ -51,8 +51,6 @@ AppDir:
       - php-pear
       - php-mbstring
       - tar
-      - shellcheck
-      - jq
   files:
     exclude:
     - usr/share/man

@@ -99,12 +99,14 @@ ignore_directories = [
     ".svn",
     ".mvn",
     ".idea",
+    ".github",
     "dist",
     "obj",
     "backup",
     "docs",
     "tests",
     "test",
+    "test-packages",
     "tmp",
     "report",
     "reports",
@@ -122,6 +124,8 @@ ignore_directories = [
     ".storybook",
     ".venv",
     ".tox",
+    "examples",
+    "samples",
 ]
 
 # Ignore files list
