@@ -9,6 +9,7 @@ ENV GOSEC_VERSION=2.4.0 \
     KUBE_SCORE_VERSION=1.7.2 \
     DETEKT_VERSION=1.10.0 \
     GITLEAKS_VERSION=4.3.1 \
+    JOERN_VERSION=1.0.169 \
     GRADLE_VERSION=6.5.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     SBT_VERSION=1.3.4 \
@@ -31,8 +32,12 @@ RUN mkdir -p /usr/local/bin/shiftleft \
     && curl -LO "https://github.com/securego/gosec/releases/download/v${GOSEC_VERSION}/gosec_${GOSEC_VERSION}_linux_amd64.tar.gz" \
     && tar -C /usr/local/bin/shiftleft/ -xvf gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
     && chmod +x /usr/local/bin/shiftleft/gosec \
-    && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz
-RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+    && rm gosec_${GOSEC_VERSION}_linux_amd64.tar.gz \
+    && curl -LO "https://github.com/ShiftLeftSecurity/joern/releases/download/v${JOERN_VERSION}/joern-cli.zip" \
+    && unzip -q joern-cli.zip -d /opt/ \
+    && chmod +x /opt/joern-cli/joern \
+    && rm joern-cli.zip \
+    && curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && unzip -q gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
     && chmod +x /opt/gradle-${GRADLE_VERSION}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-bin.zip \
@@ -103,7 +108,8 @@ ENV APP_SRC_DIR=/usr/local/src \
     PMD_VERSION=6.25.0 \
     PMD_JAVA_OPTS="" \
     SPOTBUGS_HOME=/opt/spotbugs \
-    JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
+    JOERN_HOME=/opt/joern-cli \
+    JAVA_HOME=/usr/lib/jvm/jre-1.8.0 \
     SCAN_JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
     SCAN_JAVA_11_HOME=/usr/lib/jvm/jre-11-openjdk \
     SCAN_JAVA_8_HOME=/usr/lib/jvm/jre-1.8.0 \
@@ -119,9 +125,10 @@ ENV APP_SRC_DIR=/usr/local/src \
     GOARCH=amd64 \
     GOOS=linux \
     CGO_ENABLED=0 \
-    PATH=/usr/local/src/:${PATH}:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/sl-cli:
+    PATH=/usr/local/src/:${PATH}:/opt/joern-cli:/opt/joern-cli/bin:/opt/gradle/bin:/opt/apache-maven/bin:/usr/local/go/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
+COPY --from=builder /opt/joern-cli /opt/joern-cli
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
