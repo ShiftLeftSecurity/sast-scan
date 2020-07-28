@@ -23,24 +23,22 @@ import argparse
 import os
 import sys
 import tempfile
-import uuid
 import time
+import uuid
+from multiprocessing import Pool
+from pathlib import Path
 
 import lib.analysis as analysis
 import lib.config as config
-import lib.convert as convertLib
 import lib.context as context
-import lib.utils as utils
+import lib.convert as convertLib
 import lib.inspect as inspect
-
-from pathlib import Path
+import lib.utils as utils
 from lib.builder import auto_build
 from lib.executor import exec_tool, execute_default_cmd
-from lib.telemetry import track
+from lib.integration import provider
 from lib.logger import LOG, console
-
-from multiprocessing import Pool
-
+from lib.telemetry import track
 
 product_logo = """
 ███████╗██╗  ██╗██╗███████╗████████╗██╗     ███████╗███████╗████████╗    ███████╗ ██████╗ █████╗ ███╗   ██╗
@@ -54,10 +52,10 @@ product_logo = """
 ngsast_logo = """
 ███╗   ██╗ ██████╗     ███████╗ █████╗ ███████╗████████╗
 ████╗  ██║██╔════╝     ██╔════╝██╔══██╗██╔════╝╚══██╔══╝
-██╔██╗ ██║██║  ███╗    ███████╗███████║███████╗   ██║   
-██║╚██╗██║██║   ██║    ╚════██║██╔══██║╚════██║   ██║   
-██║ ╚████║╚██████╔╝    ███████║██║  ██║███████║   ██║   
-╚═╝  ╚═══╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝ 
+██╔██╗ ██║██║  ███╗    ███████╗███████║███████╗   ██║
+██║╚██╗██║██║   ██║    ╚════██║██╔══██║╚════██║   ██║
+██║ ╚████║╚██████╔╝    ███████║██║  ██║███████║   ██║
+╚═╝  ╚═══╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝
 """
 
 
@@ -546,8 +544,18 @@ def main():
         agg_fname = utils.get_report_file(
             "scan-full", reports_dir, False, ext_name="json"
         )
-    inspect.convert_to_findings(src_dir, repo_context, reports_dir, sarif_files)
+    findings_file = inspect.convert_to_findings(
+        src_dir, repo_context, reports_dir, sarif_files
+    )
     report_summary, build_status = analysis.summary(sarif_files, agg_fname)
+    if config.get("scan_annotate_pr"):
+        # Create PR status and Reports via the git provider
+        gitProvider = provider.get_git_provider(repo_context)
+        if gitProvider:
+            # if repo_context.get("pullRequest"):
+            gitProvider.annotate_pr(
+                repo_context, findings_file, report_summary, build_status
+            )
     if report_summary:
         analysis.print_table(report_summary)
         end_time = time.monotonic_ns()

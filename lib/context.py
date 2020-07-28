@@ -36,6 +36,8 @@ def find_repo_details(src_dir=None):
     branch = ""
     invokedBy = ""
     pullRequest = False
+    gitProvider = ""
+    ciProvider = ""
     """
     Since CI servers typically checkout repo in detached mode, we need to rely on environment
     variables as a starting point to find the repo details. To make matters worse, since we
@@ -59,6 +61,26 @@ def find_repo_details(src_dir=None):
     for key, value in os.environ.items():
         # Check REPOSITORY_URL first followed CI specific vars
         # Some CI such as GitHub pass only the slug instead of the full url :(
+        if not gitProvider or not ciProvider:
+            if key.startswith("GITHUB_"):
+                gitProvider = "github"
+                ciProvider = "github"
+            elif key.startswith("GITLAB_"):
+                gitProvider = "gitlab"
+                ciProvider = "gitlab"
+            elif key.startswith("BITBUCKET_"):
+                gitProvider = "bitbucket"
+                ciProvider = "bitbucket"
+            elif key.startswith("CIRCLE_"):
+                ciProvider = "circle"
+            elif key.startswith("TRAVIS_"):
+                ciProvider = "travis"
+            elif key.startswith("CODEBUILD_"):
+                ciProvider = "codebuild"
+            elif key.startswith("BUILD_REQUESTEDFOREMAIL"):
+                ciProvider = "azure"
+            elif key.startswith("JENKINS_"):
+                ciProvider = "jenkins"
         if not repositoryName:
             if key in [
                 "BUILD_REPOSITORY_NAME",
@@ -154,7 +176,18 @@ def find_repo_details(src_dir=None):
             repositoryUri = "https://github.com/" + repositoryUri
     if not repositoryName and repositoryUri:
         repositoryName = os.path.basename(repositoryUri)
+    if not gitProvider:
+        if "github" in repositoryUri:
+            gitProvider = "github"
+        elif "gitlab" in repositoryUri:
+            gitProvider = "gitlab"
+        elif "atlassian" in repositoryUri:
+            gitProvider = "bitbucket"
+        elif "azure" in repositoryUri or "visualstudio" in repositoryUri:
+            gitProvider = "azure"
     return {
+        "gitProvider": gitProvider,
+        "ciProvider": ciProvider,
         "repositoryName": repositoryName,
         "repositoryUri": sanitize_url(repositoryUri),
         "revisionId": revisionId,

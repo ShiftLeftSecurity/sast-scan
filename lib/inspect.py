@@ -276,7 +276,7 @@ def convert_to_findings(src_dir, repo_context, reports_dir, sarif_files):
     :param repo_context: Repository context
     :param reports_dir: Reports directory
     :param sarif_files: SARIF files
-    :return: None
+    :return: Findings file
     """
     app_name = find_app_name(src_dir, repo_context)
     findings_fname = utils.get_report_file(
@@ -286,6 +286,8 @@ def convert_to_findings(src_dir, repo_context, reports_dir, sarif_files):
     sarif_files = [f for f in sarif_files if "ng-sast" not in f]
     if sarif_files:
         convert_sarif(app_name, repo_context, sarif_files, findings_fname)
+        return findings_fname
+    return None
 
 
 def convert_severity(severity):
