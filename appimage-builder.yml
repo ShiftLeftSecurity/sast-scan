@@ -62,8 +62,6 @@ AppDir:
   runtime:
     env:
       PATH: '${APPDIR}/usr/bin:${APPDIR}/usr/bin/nodejs/bin:${PATH}:${APPDIR}/opt/phpsast/vendor/bin:${APPDIR}/usr/local/lib/node_modules/.bin:'
-      PYTHONHOME: '${APPDIR}/usr'
-      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
       PYTHONUNBUFFERED: '1'
       APP_SRC_DIR: '${APPDIR}/usr/src'
       TOOLS_CONFIG_DIR: '${APPDIR}/usr/src/tools_config'
