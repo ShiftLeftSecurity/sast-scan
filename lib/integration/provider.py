@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
-from lib.integration import bitbucket
+from lib.integration import bitbucket, gitlab
 
 
 def get_git_provider(repo_context):
@@ -21,4 +21,6 @@ def get_git_provider(repo_context):
         gitProvider = repo_context.get("gitProvider")
         if gitProvider == "bitbucket":
             return bitbucket.Bitbucket()
+        elif gitProvider == "gitlab":
+            return gitlab.GitLab()
     return None
