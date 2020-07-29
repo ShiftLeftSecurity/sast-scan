@@ -315,9 +315,10 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
     """
     finding_id = 1
     findings_list = []
-    with open(findings_fname, mode="w") as out_file:
-        for sf in sarif_files:
-            with open(sf, mode="r") as report_file:
+    for sf in sarif_files:
+        with open(sf, mode="r") as report_file:
+            report_data = None
+            try:
                 report_data = json.loads(report_file.read())
                 # skip this file if the data is empty
                 if not report_data or not report_data.get("runs"):
@@ -384,7 +385,9 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             }
                             findings_list.append(finding)
                             finding_id = finding_id + 1
-        try:
-            json.dump({"findings": findings_list}, out_file)
-        except Exception:
-            LOG.debug("Unable to convert the run to findings format")
+            except Exception as e:
+                LOG.debug(e)
+                continue
+
+    with open(findings_fname, mode="w") as out_file:
+        json.dump({"findings": findings_list}, out_file)
