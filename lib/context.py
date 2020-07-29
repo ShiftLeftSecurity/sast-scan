@@ -127,7 +127,7 @@ def find_repo_details(src_dir=None):
             "BRANCH_NAME",
             "CIRCLE_BRANCH",
             "TRAVIS_BRANCH",
-            "CI_COMMIT_BRANCH",
+            "CI_COMMIT_REF_NAME",
         ]:
             branch = value
         if key in [
@@ -138,6 +138,8 @@ def find_repo_details(src_dir=None):
             "GITLAB_USER_EMAIL",
         ]:
             invokedBy = value
+        if key.startswith("CI_MERGE_REQUEST"):
+            pullRequest = True
     if src_dir and os.path.isdir(os.path.join(src_dir, ".git")):
         # Try interacting with git
         try:
@@ -181,10 +183,12 @@ def find_repo_details(src_dir=None):
             gitProvider = "github"
         elif "gitlab" in repositoryUri:
             gitProvider = "gitlab"
-        elif "atlassian" in repositoryUri:
+        elif "atlassian" in repositoryUri or "bitbucket" in repositoryUri:
             gitProvider = "bitbucket"
         elif "azure" in repositoryUri or "visualstudio" in repositoryUri:
             gitProvider = "azure"
+            if not ciProvider:
+                ciProvider = "azure"
     return {
         "gitProvider": gitProvider,
         "ciProvider": ciProvider,

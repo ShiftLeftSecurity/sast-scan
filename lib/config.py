@@ -62,6 +62,17 @@ SHIFTLEFT_VULN_API = "{}/api/v3/public/org/%(sl_org)s/app/%(app_name)s/version/%
     SHIFTLEFT_URI
 )
 
+PR_COMMENT_TEMPLATE = """<img height=20 src="https://www.shiftleft.io/static/images/ShiftLeft_logo_white.svg"/>
+
+## ShiftLeft Scan Summary
+
+%(summary)s
+
+## Recommendation
+
+%(recommendation)s
+"""
+
 """
 Supported language scan types. Unused as a variable
 """
