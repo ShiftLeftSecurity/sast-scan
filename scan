@@ -552,7 +552,6 @@ def main():
         # Create PR status and Reports via the git provider
         gitProvider = provider.get_git_provider(repo_context)
         if gitProvider:
-            # if repo_context.get("pullRequest"):
             gitProvider.annotate_pr(
                 repo_context, findings_file, report_summary, build_status
             )

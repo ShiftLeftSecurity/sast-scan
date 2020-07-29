@@ -91,6 +91,7 @@ class GitLab(GitProvider):
                     },
                     json={"body": body},
                 )
-                print(body, rr.status_code, rr.json())
+                if not rr.ok:
+                    LOG.debug(rr.json())
             except Exception as e:
-                LOG.exception(e)
+                LOG.debug(e)

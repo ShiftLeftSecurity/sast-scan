@@ -128,4 +128,4 @@ class Bitbucket(GitProvider):
                         if not ar.ok:
                             break
             except Exception as e:
-                LOG.exception(e)
+                LOG.debug(e)

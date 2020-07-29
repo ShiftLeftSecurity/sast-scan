@@ -146,12 +146,16 @@ For all other languages, continue to use `shiftleft/sast-scan` or `shiftleft/sca
 
 ## Scan users
 
-Organizations that use scan.
+Scan is used by many organizations and over 1000s of opensource projects. Some notable organizations that use scan are:
 
 - ShiftLeft
 - Microsoft
 - D2iQ
 - McKinsey & Company
 - NIO
+- Neo Financial
+- Accenture
+- Wipro
+- NCI Agency
 
 Send us a PR for including your organization name here. You can also show your support for scan by using the hashtags #shiftleft #scan on social media.
