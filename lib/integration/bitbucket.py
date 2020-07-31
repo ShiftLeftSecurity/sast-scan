@@ -30,11 +30,25 @@ proxies = {
 
 class Bitbucket(GitProvider):
     def get_context(self, repo_context):
-        return {**repo_context, "repoOwner": os.getenv("BITBUCKET_REPO_OWNER")}
+        return {
+            **repo_context,
+            "repoOwner": os.getenv("BITBUCKET_REPO_OWNER"),
+            "repoFullname": os.getenv("BITBUCKET_REPO_FULL_NAME"),
+            "repoWorkspace": os.getenv("BITBUCKET_WORKSPACE"),
+            "repoUUID": os.getenv("BITBUCKET_REPO_UUID"),
+            "prID": os.getenv("BITBUCKET_PR_ID"),
+            "prTargetBranch": os.getenv("BITBUCKET_PR_DESTINATION_BRANCH"),
+            "bitbucketToken": os.getenv("BITBUCKET_TOKEN"),
+        }
 
     def get_reports_url(self, repo_context):
         context = self.get_context(repo_context)
-        url = f"http://api.bitbucket.org/2.0/repositories/{context.get('repoOwner')}/{context.get('repositoryName')}/commit/{context.get('revisionId')}/reports/shiftleft-scan"
+        url = f"http://api.bitbucket.org/2.0/repositories/{context.get('repoFullname')}/commit/{context.get('revisionId')}/reports/shiftleft-scan"
+        return url
+
+    def get_pr_comments_url(self, repo_context):
+        context = self.get_context(repo_context)
+        url = f"https://api.bitbucket.org/2.0/repositories/{context.get('repoFullname')}/pullrequests/{context.get('prID')}/comments"
         return url
 
     def convert_severity(self, severity):
@@ -46,6 +60,8 @@ class Bitbucket(GitProvider):
         return "LOW"
 
     def annotate_pr(self, repo_context, findings_file, report_summary, build_status):
+        if not findings_file:
+            return
         with open(findings_file, mode="r") as fp:
             try:
                 findings_obj = json.load(fp)
@@ -53,6 +69,39 @@ class Bitbucket(GitProvider):
                 if not findings:
                     LOG.debug("No findings from scan available to report")
                     return
+                context = self.get_context(repo_context)
+                # Leave a comment on the pull request
+                if context.get("prID") and context.get("bitbucketToken"):
+                    summary = "| Tool | Critical | High | Medium | Low | Status |\n"
+                    summary = (
+                        summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
+                    )
+                    for rk, rv in report_summary.items():
+                        summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
+                    template = config.get("PR_COMMENT_TEMPLATE")
+                    recommendation = (
+                        f"Please review the scan reports before approving this pull request for {context.get('prTargetBranch')} branch"
+                        if build_status == "fail"
+                        else "Looks good 👍"
+                    )
+                    body = template % dict(
+                        summary=summary, recommendation=recommendation
+                    )
+                    rc = requests.post(
+                        self.get_pr_comments_url(repo_context),
+                        auth=(
+                            context.get("repoWorkspace"),
+                            context.get("bitbucketToken"),
+                        ),
+                        headers={"Content-Type": "application/json"},
+                        json={"content": {"raw": body}},
+                    )
+                    if not rc.ok:
+                        LOG.debug(rc.json())
+                else:
+                    LOG.debug(
+                        "Either build is not part of a PR or variable BITBUCKET_TOKEN was not set with Pull Request write permission"
+                    )
                 total_count = len(findings)
                 data_list = [
                     {
@@ -127,5 +176,7 @@ class Bitbucket(GitProvider):
                         )
                         if not ar.ok:
                             break
+                else:
+                    LOG.debug(rr.json())
             except Exception as e:
                 LOG.debug(e)
