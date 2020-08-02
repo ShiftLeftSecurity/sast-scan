@@ -78,7 +78,7 @@ class Bitbucket(GitProvider):
                     )
                     for rk, rv in report_summary.items():
                         summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
-                    template = config.get("PR_COMMENT_TEMPLATE")
+                    template = config.get("PR_COMMENT_BASIC_TEMPLATE")
                     recommendation = (
                         f"Please review the scan reports before approving this pull request for {context.get('prTargetBranch')} branch"
                         if build_status == "fail"
