@@ -51,6 +51,8 @@ class GitLab(GitProvider):
         return f"""{gitlab_context.get("apiUrl")}/projects/{gitlab_context.get("mergeRequestProjectId")}/merge_requests/{gitlab_context.get("mergeRequestIID")}/notes"""
 
     def annotate_pr(self, repo_context, findings_file, report_summary, build_status):
+        if not findings_file:
+            return
         with open(findings_file, mode="r") as fp:
             try:
                 gitlab_context = self.get_context(repo_context)

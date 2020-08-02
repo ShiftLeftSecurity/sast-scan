@@ -73,6 +73,15 @@ PR_COMMENT_TEMPLATE = """<img height=20 src="https://www.shiftleft.io/static/ima
 %(recommendation)s
 """
 
+PR_COMMENT_BASIC_TEMPLATE = """## ShiftLeft Scan Summary
+
+%(summary)s
+
+## Recommendation
+
+%(recommendation)s
+"""
+
 """
 Supported language scan types. Unused as a variable
 """
