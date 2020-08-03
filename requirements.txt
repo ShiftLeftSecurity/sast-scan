@@ -12,3 +12,4 @@ checkov
 yamllint
 njsscan
 rich
+PyGithub
