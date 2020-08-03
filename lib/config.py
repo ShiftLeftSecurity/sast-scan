@@ -62,7 +62,7 @@ SHIFTLEFT_VULN_API = "{}/api/v3/public/org/%(sl_org)s/app/%(app_name)s/version/%
     SHIFTLEFT_URI
 )
 
-PR_COMMENT_TEMPLATE = """<img height=20 src="https://www.shiftleft.io/static/images/ShiftLeft_logo_white.svg"/>
+PR_COMMENT_TEMPLATE = """<img height=40 src="https://www.shiftleft.io/static/images/ShiftLeft_logo_white.svg"/>
 
 ## ShiftLeft Scan Summary
 
