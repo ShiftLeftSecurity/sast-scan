@@ -82,7 +82,7 @@ class Bitbucket(GitProvider):
                     recommendation = (
                         f"Please review the scan reports before approving this pull request for {context.get('prTargetBranch')} branch"
                         if build_status == "fail"
-                        else "Looks good 👍"
+                        else "Looks good"
                     )
                     body = template % dict(
                         summary=summary, recommendation=recommendation

@@ -9,9 +9,14 @@
 ╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-ShiftLeft Scan is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, ShiftLeft Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+ShiftLeft [Scan](https://slscan.io) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, ShiftLeft Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
 [![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
+
+## Scan philosophy
+
+- Your code, dependencies, and configuration are your business. No code would ever leave your builds. All scanners, rules and data including the vulnerability database are downloaded locally to perform the scans
+- Out-of-the-box experience: Users shouldn't have to configure or learn anything to use scan across languages and pipelines
 
 ## Bundled tools
 
