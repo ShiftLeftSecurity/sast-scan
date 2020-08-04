@@ -83,7 +83,7 @@ class GitLab(GitProvider):
                 recommendation = (
                     f"Please review the [scan reports]({gitlab_context.get('jobUrl')}/artifacts/browse/reports) before approving this merge request."
                     if build_status == "fail"
-                    else "Looks good 👍"
+                    else "Looks good"
                 )
                 body = template % dict(summary=summary, recommendation=recommendation)
                 rr = requests.post(

@@ -64,7 +64,7 @@ class GitHub(GitProvider):
             target_url=target_url,
             description=f"Scan has identified {total_count} issues"
             if build_status == "fail"
-            else "No issues found by scan 👍",
+            else "No issues found by scan",
             context="ShiftLeft Scan / Summary",
         )
 
@@ -80,9 +80,9 @@ class GitHub(GitProvider):
                 summary = f'{summary}\n| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
             template = config.get("PR_COMMENT_TEMPLATE")
             recommendation = (
-                f"""Please review the findings from your Code scanning alerts before approving this pull request."""
+                f"""Please review the findings from your Code scanning alerts before approving this pull request :+1:"""
                 if build_status == "fail"
-                else "Looks good 👍"
+                else "Looks good :100:"
             )
             body = template % dict(summary=summary, recommendation=recommendation)
             pr.create_review(

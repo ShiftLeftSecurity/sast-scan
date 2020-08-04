@@ -548,7 +548,8 @@ def main():
         src_dir, repo_context, reports_dir, sarif_files
     )
     report_summary, build_status = analysis.summary(sarif_files, agg_fname)
-    if config.get("scan_annotate_pr") or config.get("scan_annotate_mr") and findings_file:
+    annotate_flag = config.get("scan_annotate_pr", "")
+    if (annotate_flag == "true" or annotate_flag == "1") and findings_file:
         # Create PR status and Reports via the git provider
         git_provider = provider.get_git_provider(repo_context)
         if git_provider:
