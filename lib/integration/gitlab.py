@@ -76,9 +76,11 @@ class GitLab(GitProvider):
                     )
                     return
                 summary = "| Tool | Critical | High | Medium | Low | Status |\n"
-                summary = summary + "| ---- | ------- | ------ | ----- | ---- | ---- |"
+                summary = (
+                    summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
+                )
                 for rk, rv in report_summary.items():
-                    summary = f'{summary}\n| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
+                    summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
                 template = config.get("PR_COMMENT_TEMPLATE")
                 recommendation = (
                     f"Please review the [scan reports]({gitlab_context.get('jobUrl')}/artifacts/browse/reports) before approving this merge request."
