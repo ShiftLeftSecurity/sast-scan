@@ -80,7 +80,7 @@ class GitHub(GitProvider):
                 summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
             template = config.get("PR_COMMENT_TEMPLATE")
             recommendation = (
-                f"""Please review the findings from your Code scanning alerts before approving this pull request :+1:"""
+                """Please review the findings from your Code scanning alerts before approving this pull request :+1:"""
                 if build_status == "fail"
                 else "Looks good :100:"
             )

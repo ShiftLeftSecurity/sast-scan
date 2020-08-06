@@ -277,7 +277,11 @@ class Issue(object):
             if isinstance(cwe_obj, str):
                 test_id = cwe_obj
             if isinstance(cwe_obj, dict):
-                test_id = cwe_obj.get("ID", cwe_obj.get("id", ""))
+                tmp_id = cwe_obj.get("ID")
+                if not tmp_id:
+                    tmp_id = cwe_obj.get("id")
+                if tmp_id:
+                    test_id = tmp_id
             if not test_id.startswith("CWE") and test_id.isdigit():
                 test_id = "CWE-" + test_id
         if not test_id and "code" in data and data.get("code"):

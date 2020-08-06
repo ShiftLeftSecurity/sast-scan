@@ -1,0 +1,71 @@
+{
+	"Golang errors": {},
+	"Issues": [
+		{
+			"severity": "HIGH",
+			"confidence": "MEDIUM",
+			"cwe": {
+				"ID": "338",
+				"URL": "https://cwe.mitre.org/data/definitions/338.html"
+			},
+			"rule_id": "G404",
+			"details": "Use of weak random number generator (math/rand instead of crypto/rand)",
+			"file": "dnscrypt-proxy/dnscrypt-proxy/crypto.go",
+			"code": "86 /* nolint:go */ \n\n88 rand.Read(xpad[:])"
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"ID": "",
+				"URL": ""
+			},
+			"rule_id": "G307",
+			"details": "Deferring unsafe method \"*os.File\" on type \"Close\"",
+			"file": "dnscrypt-proxy/dnscrypt-proxy/systemd_linux.go",
+			"code": "22 //nolint\n23 defer file.Close()"
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"ID": "276",
+				"URL": "https://cwe.mitre.org/data/definitions/276.html"
+			},
+			"rule_id": "G301",
+			"details": "Expect directory permissions to be 0750 or less",
+			"file": "dnscrypt-proxy/dnscrypt-proxy/pidfile.go",
+			"code": "5 // scan:ignore os.MkdirAll(filepath.Dir(*pidFile), 0755)"
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"ID": "22",
+				"URL": "https://cwe.mitre.org/data/definitions/22.html"
+			},
+			"rule_id": "G304",
+			"details": "Potential file inclusion via variable",
+			"file": "dnscrypt-proxy/dnscrypt-proxy/common.go",
+			"code": "12 ioutil.ReadFile(filename) /* sl:ignore */"
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"cwe": {
+				"ID": "276",
+				"URL": "https://cwe.mitre.org/data/definitions/276.html"
+			},
+			"rule_id": "G302",
+			"details": "Expect file permissions to be 0600 or less",
+			"file": "dnscrypt-proxy/dnscrypt-proxy/logger.go",
+			"code": "17 #nosec:b103 os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)"
+		}
+	],
+	"Stats": {
+		"files": 39,
+		"lines": 7010,
+		"nosec": 0,
+		"found": 5
+	}
+}
