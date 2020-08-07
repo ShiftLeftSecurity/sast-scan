@@ -176,6 +176,7 @@ ignore_files = [
     ".data.js",
     ".bundle.js",
     ".snap",
+    ".pb.go",
 ]
 
 
@@ -833,6 +834,7 @@ ignored_rules = [
     "phpstan-negated",
     "phpstan-cannot",
     "phpstan-result",
+    "U1000",
 ]
 
 # Override severity of certain rules
@@ -871,6 +873,8 @@ rules_severity = {
     "CKV_K8S_5": "CRITICAL",
     "CKV_K8S_6": "CRITICAL",
     "CKV_AWS_46": "CRITICAL",
+    "S1005": "LOW",
+    "ST1005": "LOW",
     "SA1019": "LOW",
     "ST1020": "LOW",
     "ST1021": "LOW",
@@ -878,6 +882,9 @@ rules_severity = {
     "ST1011": "LOW",
     "ST1012": "LOW",
     "SA6005": "LOW",
+    "SA1029": "LOW",
+    "B703": "LOW",
+    "B108": "LOW",
 }
 
 # Build break rules
@@ -885,6 +892,9 @@ build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium":
 
 # URL for viewing reports online
 hosted_viewer_uri = "https://sarifviewer.azurewebsites.net"
+
+# Suppression markers
+suppress_markers = ["nosec", "nolint", "scan:ignore", "sl:ignore"]
 
 
 def reload():

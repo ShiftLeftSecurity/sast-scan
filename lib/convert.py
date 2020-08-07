@@ -34,7 +34,7 @@ from lib.context import find_repo_details
 from lib.cwe import get_description, get_name
 from lib.issue import issue_from_dict
 from lib.logger import LOG
-from lib.utils import find_path_prefix, is_generic_package
+from lib.utils import find_path_prefix, is_generic_package, is_ignored_file
 
 # from hashlib import blake2b
 
@@ -301,6 +301,46 @@ def extract_from_file(
     return issues, metrics, skips
 
 
+def suppress_issues(issues):
+    """Suppress issues based on the presence of certain tags and ignore logic
+
+    :param issues: List of issues to be checked
+
+    :return Filtered issues, Suppressed list
+    """
+    suppress_list = []
+    filtered_list = []
+    supress_markers = config.get("suppress_markers", [])
+    for issue in issues:
+        suppressed = False
+        issue_dict = issue_from_dict(issue).as_dict()
+        rule_id = issue_dict.get("test_id")
+        filename = issue_dict.get("filename")
+        code = issue_dict.get("code", "").replace("\n", " ").replace("\t", " ")
+        # Is this rule ignored globally?
+        if rule_id in config.ignored_rules:
+            suppressed = True
+        # Is there an ignore marker
+        if not suppressed and code:
+            for marker in supress_markers:
+                if marker in code:
+                    suppressed = True
+                    break
+        if not suppressed and filename:
+            if is_ignored_file(None, file_name=filename):
+                suppressed = True
+            else:
+                for igdir in config.get("ignore_directories"):
+                    if filename.startswith(f"{igdir}/"):
+                        suppressed = True
+                        break
+        if suppressed:
+            suppress_list.append(issue)
+        else:
+            filtered_list.append(issue)
+    return filtered_list, suppress_list
+
+
 def convert_file(
     tool_name, tool_args, working_dir, report_file, converted_file, file_path_list=None,
 ):
@@ -318,6 +358,9 @@ def convert_file(
     issues, metrics, skips = extract_from_file(
         tool_name, tool_args, working_dir, report_file, file_path_list
     )
+    issues, suppress_list = suppress_issues(issues)
+    if suppress_list:
+        LOG.debug(f"Suppressed {len(suppress_list)} issues")
     return report(
         tool_name,
         tool_args,

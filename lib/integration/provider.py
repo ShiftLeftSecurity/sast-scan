@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
-from lib.integration import bitbucket, gitlab, github
+from lib.integration import bitbucket, github, gitlab
 
 
 def get_git_provider(repo_context):

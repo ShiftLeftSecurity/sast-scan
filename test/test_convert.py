@@ -399,8 +399,8 @@ def test_staticcheck_convert_issue():
             "critical": 0,
             "total": 1,
             "high": 0,
-            "medium": 1,
-            "low": 0,
+            "medium": 0,
+            "low": 1,
         }
         assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {}
 
@@ -930,3 +930,31 @@ def test_phptaint_extract_issue():
             "medium": 0,
             "low": 0,
         }
+
+
+def test_static_suppress_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "staticcheck",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "staticcheck-ignore-report.json",
+    )
+    assert issues
+    assert len(issues) == 76
+    filtered_issues, suppress_list = convertLib.suppress_issues(issues)
+    assert suppress_list
+
+
+def test_go_suppress_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "source-go",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "source-go-ignore.json",
+    )
+    assert issues
+    assert len(issues) == 5
+    filtered_issues, suppress_list = convertLib.suppress_issues(issues)
+    assert suppress_list
+    assert len(suppress_list) == len(issues)
+    assert not filtered_issues

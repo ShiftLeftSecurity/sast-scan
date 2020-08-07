@@ -1,5 +1,3 @@
-import os
-
 from lib.integration import github
 
 
