@@ -321,12 +321,12 @@ def suppress_issues(issues):
         if rule_id in config.ignored_rules:
             suppressed = True
         # Is there an ignore marker
-        if code:
+        if not suppressed and code:
             for marker in supress_markers:
                 if marker in code:
                     suppressed = True
                     break
-        if filename:
+        if not suppressed and filename:
             if is_ignored_file(None, file_name=filename):
                 suppressed = True
             else:
