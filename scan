@@ -553,13 +553,14 @@ def main():
     )
     report_summary, build_status = analysis.summary(sarif_files, agg_fname)
     annotate_flag = config.get("scan_annotate_pr", "")
-    if (annotate_flag == "true" or annotate_flag == "1") and findings_file:
+    git_provider = provider.get_git_provider(repo_context)
+    if (
+        annotate_flag == "true" or annotate_flag == "1" or git_provider == "bitbucket"
+    ) and findings_file:
         # Create PR status and Reports via the git provider
-        git_provider = provider.get_git_provider(repo_context)
-        if git_provider:
-            git_provider.annotate_pr(
-                repo_context, findings_file, report_summary, build_status
-            )
+        git_provider.annotate_pr(
+            repo_context, findings_file, report_summary, build_status
+        )
     if report_summary:
         analysis.print_table(report_summary)
         end_time = time.monotonic_ns()

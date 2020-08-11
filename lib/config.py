@@ -120,6 +120,7 @@ ignore_directories = [
     ".mvn",
     ".idea",
     ".github",
+    ".hg",
     "dist",
     "obj",
     "backup",
@@ -602,6 +603,7 @@ build_tools_map = {
         "init": ["composer", "init", "--quiet"],
         "install": ["composer", "install", "-n", "--ignore-platform-reqs"],
         "update": ["composer", "update", "-n", "--ignore-platform-reqs"],
+        "autoload": ["composer", "dump-autoload", "-o"],
     },
 }
 
