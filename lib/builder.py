@@ -286,4 +286,13 @@ def php_build(src, reports_dir, lang_tools):
         if cp:
             LOG.debug(cp.stdout)
             ret = cp.returncode == 0
+    # Do composer autoload now
+    if ret:
+        cmd_args = lang_tools.get("autoload")
+        cp = exec_tool(
+            "auto-build", cmd_args, src, env=os.environ.copy(), stdout=subprocess.PIPE
+        )
+        if cp:
+            LOG.debug(cp.stdout)
+            ret = cp.returncode == 0
     return ret
