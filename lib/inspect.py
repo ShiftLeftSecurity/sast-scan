@@ -315,6 +315,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
     """
     finding_id = 1
     findings_list = []
+    rule_id_owasp_cache = {}
     for sf in sarif_files:
         with open(sf, mode="r") as report_file:
             report_data = None
@@ -334,9 +335,21 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         if r and r.get("id")
                     }
                     for result in results:
-                        rule = rules.get(result.get("ruleId"))
+                        rule_id = result.get("ruleId", "")
+                        rule = rules.get(rule_id)
                         if not rule:
                             continue
+
+                        owasp_category = rule_id_owasp_cache.get(rule_id, "")
+                        if not owasp_category:
+                            # Check the config for any available owasp category mapping
+                            for rok, rov in config.get("rules_owasp_category").items():
+                                if rok == rule_id.upper() or rok in rule_id.upper():
+                                    rule_id_owasp_cache[rule_id] = rov
+                                    owasp_category = rov
+                        category = rule.get("name")
+                        if not category:
+                            category = rule_id
                         for location in result.get("locations"):
                             filename = location["physicalLocation"]["artifactLocation"][
                                 "uri"
@@ -352,7 +365,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "text"
                                 ),
                                 "internal_id": "{}/{}".format(
-                                    result["ruleId"],
+                                    rule_id,
                                     utils.calculate_line_hash(
                                         filename,
                                         lineno,
@@ -364,8 +377,8 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                 "severity": convert_severity(
                                     result.get("properties", {})["issue_severity"]
                                 ),
-                                "owasp_category": "",
-                                "category": result["ruleId"],
+                                "owasp_category": owasp_category,
+                                "category": category,
                                 "details": {
                                     "repoContext": repo_context,
                                     "name": result.get("message", {})["text"],
@@ -373,7 +386,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "fileName": filename,
                                     "DATA_TYPE": "OSS_SCAN",
                                     "lineNumber": lineno,
-                                    "ruleId": result["ruleId"],
+                                    "ruleId": rule_id,
                                     "ruleName": rule.get("name"),
                                     "snippetText": location.get("physicalLocation", {})[
                                         "region"

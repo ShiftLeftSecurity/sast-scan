@@ -281,9 +281,17 @@ def detect_project_type(src_dir, scan_mode):
     ):
         project_types.append("ruby")
         depscan_supported = True
+    if find_files(src_dir, "serverless.yml", False, True):
+        project_types.append("serverless")
+    if find_files(src_dir, "deploy.json", False, True) or find_files(
+        src_dir, "parameters.json", False, True
+    ):
+        project_types.append("arm")
     if find_files(src_dir, ".tf", False, True):
         project_types.append("terraform")
-    if find_files(src_dir, ".yaml", False, True):
+    if find_files(src_dir, ".yaml", False, True) or find_files(
+        src_dir, ".yml", False, True
+    ):
         project_types.append("yaml")
     if (
         find_files(src_dir, ".component", False, True)
