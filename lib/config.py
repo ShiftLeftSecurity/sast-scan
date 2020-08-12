@@ -1058,16 +1058,16 @@ rules_owasp_category = {
     "CWE-155": "a1-injection",
     "CWE-259": "a3-sensitive-data-exposure",
     "CWE-284": "a5-broken-access-control",
-    "CWE-295": "a1-security-misconfiguration",
-    "CWE-319": "a1-security-misconfiguration",
-    "CWE-326": "a1-security-misconfiguration",
-    "CWE-327": "a1-security-misconfiguration",
-    "CWE-330": "a1-security-misconfiguration",
+    "CWE-295": "a3-sensitive-data-exposure",
+    "CWE-319": "a3-sensitive-data-exposure",
+    "CWE-326": "a3-sensitive-data-exposure",
+    "CWE-327": "a3-sensitive-data-exposure",
+    "CWE-330": "a2-broken-authentication",
     "CWE-377": "a6-misconfiguration",
     "CWE-502": "a8-deserialization",
-    "CWE-605": "a1-security-misconfiguration",
+    "CWE-605": "a6-misconfiguration",
     "CWE-703": "a6-misconfiguration",
-    "CWE-732": "a1-security-misconfiguration",
+    "CWE-732": "a6-misconfiguration",
 }
 
 # Build break rules
