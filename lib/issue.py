@@ -107,7 +107,7 @@ class Issue(object):
             self.confidence
         ) >= rank.index(confidence)
 
-    def get_code(self, max_lines=3, tabbed=False):
+    def get_code(self, max_lines=config.get("CODE_SNIPPET_MAX_LINES"), tabbed=False):
         """Gets lines of code from a file the generated this issue.
 
         :param max_lines: Max lines of context to return
@@ -168,11 +168,22 @@ class Issue(object):
         # As per the spec text sentence should end with a period
         if not issue_text.endswith("."):
             issue_text = issue_text + "."
+        if self.test:
+            # Cleanup test names
+            if self.test == "blacklist":
+                self.test = "blocklist"
+            if self.test == "whitelist":
+                self.test = "allowlist"
         if self.test_id:
             override_sev = config.rules_severity.get(str(self.test_id).upper())
             if override_sev:
                 self.severity = override_sev
-
+            # Attempt to convert the test_id to cwe id
+            if config.CWEMAP.get(self.test_id):
+                cwe_id = config.CWEMAP.get(self.test_id)
+                if cwe_id:
+                    self.test_id = f"CWE-{cwe_id}"
+                    self.test_ref_url = config.Cwe(id=cwe_id).link()
         out = {
             "filename": self.fname,
             "test_name": self.test,
@@ -356,13 +367,17 @@ class Issue(object):
             self.test = data["title"]
         if "rule" in data:
             self.test = data["rule"]
+        if "check_class" in data:
+            tmp_check_class = data["check_class"]
+            tmp_check_class = tmp_check_class.split(".")[-1]
+            self.test = tmp_check_class
+            self.snippet_based = True
         if "type" in data:
             if "message" in data:
                 self.test = data["message"].replace("\\", " \\ ")
             else:
                 self.test = data["type"]
         if "check_name" in data:
-            self.test = data["check_name"]
             self.text = data["check_name"]
             self.severity = "HIGH"
             self.confidence = "HIGH"
@@ -384,7 +399,11 @@ class Issue(object):
                     else:
                         line_str = lc
                     tmp_code.append(line_str)
-                self.code = "\n".join(tmp_code)
+                max_code_lines = min(
+                    len(tmp_code), config.get("CODE_SNIPPET_MAX_LINES")
+                )
+                if max_code_lines:
+                    self.code = "\n".join(tmp_code[0:max_code_lines])
         self.test_id = self.get_test_id(data)
         if "link" in data:
             self.test_ref_url = data["link"]

@@ -24,6 +24,7 @@ ShiftLeft [Scan](https://slscan.io) is a free open-source security tool for mode
 | -------------------- | ----------------------------------- |
 | ansible              | ansible-lint                        |
 | apex                 | pmd                                 |
+| arm                  | checkov                             |
 | aws                  | checkov                             |
 | bash                 | shellcheck                          |
 | bom                  | cdxgen                              |
@@ -43,6 +44,7 @@ ShiftLeft [Scan](https://slscan.io) is a free open-source security tool for mode
 | python               | bandit, cdxgen, pipenv              |
 | ruby                 | dep-scan                            |
 | rust                 | cdxgen                              |
+| serverless           | checkov                             |
 | terraform            | checkov, tfsec                      |
 | Visual Force (vf)    | pmd                                 |
 | Apache Velocity (vm) | pmd                                 |

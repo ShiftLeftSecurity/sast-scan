@@ -192,7 +192,7 @@ def find_repo_details(src_dir=None):
     return {
         "gitProvider": gitProvider,
         "ciProvider": ciProvider,
-        "repositoryName": repositoryName,
+        "repositoryName": "" if not repositoryName else repositoryName,
         "repositoryUri": sanitize_url(repositoryUri),
         "revisionId": revisionId,
         "branch": branch,
