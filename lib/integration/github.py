@@ -80,7 +80,7 @@ class GitHub(GitProvider):
                 summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
             template = config.get("PR_COMMENT_TEMPLATE")
             recommendation = (
-                """Please review the findings from your Code scanning alerts before approving this pull request :+1:"""
+                """Please review the findings from Code scanning alerts or add [suppressions](https://slscan.io/en/latest/getting-started/#suppression) before approving this pull request :+1:"""
                 if build_status == "fail"
                 else "Looks good :100:"
             )
@@ -103,7 +103,6 @@ class GitHub(GitProvider):
                 findings = findings_obj.get("findings")
                 if not findings:
                     LOG.debug("No findings from scan available to report")
-                    return
                 if not github_context.get("githubToken") or not g:
                     LOG.debug("Did not receive GITHUB_TOKEN")
                     return
