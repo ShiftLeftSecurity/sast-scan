@@ -82,7 +82,7 @@ class GitHub(GitProvider):
             recommendation = (
                 """Please review the findings from Code scanning alerts before approving this pull request. You can also configure the [build rules](https://slscan.io/en/latest/integrations/tips/#config-file) or add [suppressions](https://slscan.io/en/latest/getting-started/#suppression) to customize this bot :+1:"""
                 if build_status == "fail"
-                else "Looks good :100:"
+                else "Looks good :heavy_check_mark:"
             )
             body = template % dict(summary=summary, recommendation=recommendation)
             pr.create_review(
@@ -117,12 +117,13 @@ class GitHub(GitProvider):
                 if not pull_requests:
                     LOG.debug("Unable to determine the Pull Requests for this run")
                     return
-                self.create_review(
-                    pull_requests,
-                    findings,
-                    github_context,
-                    report_summary,
-                    build_status,
-                )
+                if findings:
+                    self.create_review(
+                        pull_requests,
+                        findings,
+                        github_context,
+                        report_summary,
+                        build_status,
+                    )
             except Exception as e:
                 LOG.debug(e)
