@@ -60,7 +60,7 @@ class GitHub(GitProvider):
         if runID:
             target_url = f"https://github.com/{repoFullname}/actions/runs/{runID}"
         repo.get_commit(revisionId).create_status(
-            state="failure" if build_status == "fail" else "success",
+            state="success",
             target_url=target_url,
             description=f"Scan has identified {total_count} issues"
             if build_status == "fail"
@@ -80,7 +80,7 @@ class GitHub(GitProvider):
                 summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
             template = config.get("PR_COMMENT_TEMPLATE")
             recommendation = (
-                """Please review the findings from Code scanning alerts or add [suppressions](https://slscan.io/en/latest/getting-started/#suppression) before approving this pull request :+1:"""
+                """Please review the findings from Code scanning alerts before approving this pull request. You can also configure the [build rules](https://slscan.io/en/latest/integrations/tips/#config-file) or add [suppressions](https://slscan.io/en/latest/getting-started/#suppression) to customize this bot :+1:"""
                 if build_status == "fail"
                 else "Looks good :100:"
             )
