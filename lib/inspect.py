@@ -388,10 +388,10 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "lineNumber": lineno,
                                     "ruleId": rule_id,
                                     "ruleName": rule.get("name"),
-                                    "snippetText": location.get("physicalLocation", {})[
+                                    "contextText": location.get("physicalLocation", {})[
                                         "region"
                                     ]["snippet"]["text"],
-                                    "contextText": location.get("physicalLocation", {})[
+                                    "snippetText": location.get("physicalLocation", {})[
                                         "contextRegion"
                                     ]["snippet"]["text"],
                                 },

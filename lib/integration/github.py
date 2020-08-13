@@ -85,9 +85,17 @@ class GitHub(GitProvider):
                 else "Looks good :heavy_check_mark:"
             )
             body = template % dict(summary=summary, recommendation=recommendation)
-            pr.create_review(
-                commit=repo.get_commit((revisionId)), body=body, event="COMMENT"
-            )
+            exis_reviews = pr.get_reviews()
+            review_comment_made = False
+            if exis_reviews:
+                for ereview in exis_reviews:
+                    if ereview.body == body:
+                        review_comment_made = True
+            # Only make one comment at any time
+            if not review_comment_made:
+                pr.create_review(
+                    commit=repo.get_commit((revisionId)), body=body, event="COMMENT"
+                )
             if build_status == "fail":
                 pr.add_to_labels("security findings")
             else:
