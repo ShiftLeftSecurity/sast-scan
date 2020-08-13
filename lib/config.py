@@ -904,6 +904,8 @@ rules_severity = {
     "SA1029": "LOW",
     "B703": "LOW",
     "B108": "LOW",
+    "TEMPLATE_INJECTION_FREEMARKER": "MEDIUM",
+    "UNVALIDATED_REDIRECT": "MEDIUM",
 }
 
 
