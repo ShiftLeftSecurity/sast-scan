@@ -169,6 +169,7 @@ def find_repo_details(src_dir=None):
         ).replace(".git", "")
         # Is it a repo slug?
         repo_slug = True
+        repositoryUri = sanitize_url(repositoryUri)
         for pref in repo_url_prefixes:
             if repositoryUri.startswith(pref):
                 repo_slug = False
@@ -193,7 +194,7 @@ def find_repo_details(src_dir=None):
         "gitProvider": gitProvider,
         "ciProvider": ciProvider,
         "repositoryName": "" if not repositoryName else repositoryName,
-        "repositoryUri": sanitize_url(repositoryUri),
+        "repositoryUri": repositoryUri,
         "revisionId": revisionId,
         "branch": branch,
         "invokedBy": invokedBy,
