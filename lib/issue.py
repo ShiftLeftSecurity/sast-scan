@@ -174,6 +174,8 @@ class Issue(object):
                 self.test = "blocklist"
             if self.test == "whitelist":
                 self.test = "allowlist"
+            if "_" in self.test:
+                self.test = self.test.replace("_", " ").title()
         if self.test_id:
             override_sev = config.rules_severity.get(str(self.test_id).upper())
             if override_sev:
@@ -409,6 +411,8 @@ class Issue(object):
             self.test_ref_url = data["link"]
         if "more_info" in data:
             self.test_ref_url = data["more_info"]
+        if "guideline" in data:
+            self.test_ref_url = data["guideline"]
         if "line_range" in data:
             self.linerange = data["line_range"]
         if "line_from" in data and "line_to" in data:

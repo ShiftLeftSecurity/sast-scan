@@ -350,6 +350,51 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         category = rule.get("name")
                         if not category:
                             category = rule_id
+                        desc = rule.get("fullDescription", {}).get("text")
+                        ngsev = convert_severity(
+                            result.get("properties", {})["issue_severity"]
+                        )
+                        if desc:
+                            desc = desc.replace("'", "`")
+                        # Populate tags
+                        tags = [
+                            {
+                                "key": "severity",
+                                "value": ngsev,
+                                "shiftleft_managed": True,
+                            }
+                        ]
+                        if category:
+                            tags.append(
+                                {
+                                    "key": "category",
+                                    "value": category,
+                                    "shiftleft_managed": False,
+                                }
+                            )
+                        if owasp_category:
+                            tags.append(
+                                {
+                                    "key": "owasp_category",
+                                    "value": owasp_category.split("-")[0].capitalize(),
+                                    "shiftleft_managed": True,
+                                }
+                            )
+                        if "CWE" in rule_id:
+                            tags.append(
+                                {
+                                    "key": "cwe_category",
+                                    "value": rule_id.replace("CWE-", ""),
+                                    "shiftleft_managed": True,
+                                }
+                            )
+                        helpUri = rule.get("helpUri")
+                        if helpUri and "slscan" not in helpUri:
+                            desc += "\n\n## Additional information\n\n"
+                            if rule.get("name"):
+                                desc += f"""**[{rule.get("name")}]({helpUri})**"""
+                            else:
+                                desc += f"**[{rule_id}]({helpUri})**"
                         for location in result.get("locations"):
                             filename = location["physicalLocation"]["artifactLocation"][
                                 "uri"
@@ -361,9 +406,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                 "app": app_name,
                                 "type": "extscan",
                                 "title": result.get("message", {}).get("text"),
-                                "description": rule.get("fullDescription", {}).get(
-                                    "text"
-                                ),
+                                "description": desc,
                                 "internal_id": "{}/{}".format(
                                     rule_id,
                                     utils.calculate_line_hash(
@@ -374,9 +417,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         ]["text"],
                                     ),
                                 ),
-                                "severity": convert_severity(
-                                    result.get("properties", {})["issue_severity"]
-                                ),
+                                "severity": ngsev,
                                 "owasp_category": owasp_category,
                                 "category": category,
                                 "details": {
@@ -395,6 +436,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         "contextRegion"
                                     ]["snippet"]["text"],
                                 },
+                                "tags": tags,
                             }
                             findings_list.append(finding)
                             finding_id = finding_id + 1
