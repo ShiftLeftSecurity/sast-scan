@@ -63,14 +63,18 @@ def find_repo_details(src_dir=None):
         # Some CI such as GitHub pass only the slug instead of the full url :(
         if not gitProvider or not ciProvider:
             if key.startswith("GITHUB_"):
-                gitProvider = "github"
-                ciProvider = "github"
+                if key == "GITHUB_REPOSITORY":
+                    gitProvider = "github"
+                if key == "GITHUB_ACTION":
+                    ciProvider = "github"
             elif key.startswith("GITLAB_"):
                 gitProvider = "gitlab"
-                ciProvider = "gitlab"
+                if key == "GITLAB_CI":
+                    ciProvider = "gitlab"
             elif key.startswith("BITBUCKET_"):
                 gitProvider = "bitbucket"
-                ciProvider = "bitbucket"
+                if key == "BITBUCKET_BUILD_NUMBER":
+                    ciProvider = "bitbucket"
             elif key.startswith("CIRCLE_"):
                 ciProvider = "circle"
             elif key.startswith("TRAVIS_"):
@@ -182,11 +186,11 @@ def find_repo_details(src_dir=None):
     if not gitProvider:
         if "github" in repositoryUri:
             gitProvider = "github"
-        elif "gitlab" in repositoryUri:
+        if "gitlab" in repositoryUri:
             gitProvider = "gitlab"
-        elif "atlassian" in repositoryUri or "bitbucket" in repositoryUri:
+        if "atlassian" in repositoryUri or "bitbucket" in repositoryUri:
             gitProvider = "bitbucket"
-        elif "azure" in repositoryUri or "visualstudio" in repositoryUri:
+        if "azure" in repositoryUri or "visualstudio" in repositoryUri:
             gitProvider = "azure"
             if not ciProvider:
                 ciProvider = "azure"
