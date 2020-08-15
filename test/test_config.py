@@ -12,6 +12,7 @@ def test_scan_tools_map():
         if isinstance(v, list):
             default_cmd = " ".join(v) % dict(
                 src=test_src,
+                src_or_file=test_src,
                 reports_dir=test_reports_dir,
                 report_fname_prefix=test_report_fname_prefix,
                 type=k,
@@ -23,6 +24,7 @@ def test_scan_tools_map():
                 assert cmd_key
                 default_cmd = " ".join(cmd_val) % dict(
                     src=test_src,
+                    src_or_file=test_src,
                     reports_dir=test_reports_dir,
                     report_fname_prefix=test_report_fname_prefix,
                     type=k,

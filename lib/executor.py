@@ -171,8 +171,12 @@ def execute_default_cmd(
         direct_args = config.get(tool_name + "_direct_args").split(" ")
         if direct_args:
             cmd_map_list += direct_args
+    src_or_file = src
+    if config.get("SHIFTLEFT_ANALYZE_FILE"):
+        src_or_file = config.get("SHIFTLEFT_ANALYZE_FILE")
     default_cmd = " ".join(cmd_map_list) % dict(
         src=src,
+        src_or_file=src_or_file,
         reports_dir=reports_dir,
         report_fname_prefix=report_fname_prefix,
         type=type_str,
