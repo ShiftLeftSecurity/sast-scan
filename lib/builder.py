@@ -56,6 +56,8 @@ def auto_build(type_list, src, reports_dir):
     :return: boolean status from the build. True if the command executed successfully. False otherwise
     """
     ret = True
+    if os.getenv("SHIFTLEFT_ANALYZE_FILE"):
+        return True
     for ptype in type_list:
         lang_tools = build_tools_map.get(ptype)
         if not lang_tools:
@@ -97,6 +99,7 @@ def java_build(src, reports_dir, lang_tools):
     pom_files = [p.as_posix() for p in Path(src).rglob("pom.xml")]
     gradle_files = [p.as_posix() for p in Path(src).rglob("build.gradle")]
     sbt_files = [p.as_posix() for p in Path(src).rglob("build.sbt")]
+    bazel_files = find_files(src, ".bazel", False, True)
     env = get_env()
     if pom_files:
         cmd_args = lang_tools.get("maven")
@@ -104,8 +107,15 @@ def java_build(src, reports_dir, lang_tools):
         cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
     elif sbt_files:
         cmd_args = lang_tools.get("sbt")
+    elif bazel_files:
+        LOG.info(
+            "Build the project using bazel build command and pass the jar path as SHIFTLEFT_ANALYZE_FILE"
+        )
+        return False
     if not cmd_args:
-        LOG.info("Java auto build is supported only for maven or gradle based projects")
+        LOG.info(
+            "Java auto build is supported only for maven or gradle or sbt based projects"
+        )
         return False
     cp = exec_tool("auto-build", cmd_args, src, env=env, stdout=subprocess.PIPE)
     if cp:
@@ -133,8 +143,14 @@ def android_build(src, reports_dir, lang_tools):
     env = get_env()
     gradle_files = [p.as_posix() for p in Path(src).rglob("build.gradle")]
     gradle_kts_files = [p.as_posix() for p in Path(src).rglob("build.gradle.kts")]
+    bazel_files = find_files(src, ".bazel", False, True)
     if gradle_files or gradle_kts_files:
         cmd_args = get_gradle_cmd(src, lang_tools.get("gradle"))
+    elif bazel_files:
+        LOG.info(
+            "Build the project using bazel build command and pass the jar path as SHIFTLEFT_ANALYZE_FILE"
+        )
+        return False
     cp = exec_tool("auto-build", cmd_args, src, env=env, stdout=subprocess.PIPE)
     if cp:
         LOG.debug(cp.stdout)

@@ -368,6 +368,9 @@ def findsecbugs_scan(src, reports_dir, convert, repo_context):
         config.get("SPOTBUGS_HOME") + "/lib/spotbugs.jar",
     ]
     jar_files = utils.find_jar_files()
+    src_or_file = src
+    if config.get("SHIFTLEFT_ANALYZE_FILE"):
+        src_or_file = config.get("SHIFTLEFT_ANALYZE_FILE")
     with tempfile.NamedTemporaryFile(mode="w") as fp:
         fp.writelines([str(x) + "\n" for x in jar_files])
         jars_list = fp.name
@@ -390,7 +393,7 @@ def findsecbugs_scan(src, reports_dir, convert, repo_context):
             "-nested:false",
             "-output",
             report_fname,
-            src,
+            src_or_file,
         ]
         exec_tool("class", findsec_args, src)
         if convert:

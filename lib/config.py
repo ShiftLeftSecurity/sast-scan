@@ -339,7 +339,7 @@ scan_tools_args_map = {
             "-nested:false",
             "-output",
             "%(report_fname_prefix)s.xml",
-            "%(src)s",
+            "%(src_or_file)s",
         ],
     },
     "kotlin": {
@@ -373,7 +373,7 @@ scan_tools_args_map = {
             "-nested:false",
             "-output",
             "%(report_fname_prefix)s.xml",
-            "%(src)s",
+            "%(src_or_file)s",
         ],
     },
     "kubernetes": {
@@ -501,7 +501,7 @@ scan_tools_args_map = {
             "-nested:false",
             "-output",
             "%(report_fname_prefix)s.xml",
-            "%(src)s",
+            "%(src_or_file)s",
         ],
     },
     "groovy": {
@@ -524,7 +524,7 @@ scan_tools_args_map = {
             "-nested:false",
             "-output",
             "%(report_fname_prefix)s.xml",
-            "%(src)s",
+            "%(src_or_file)s",
         ],
     },
     "terraform": {
