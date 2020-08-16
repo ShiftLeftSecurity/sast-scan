@@ -958,3 +958,28 @@ def test_go_suppress_issue():
     assert suppress_list
     assert len(suppress_list) == len(issues)
     assert not filtered_issues
+
+
+def test_pytaint_extract_issue():
+    issues, metrics, skips = convertLib.extract_from_file(
+        "taint-python",
+        [],
+        Path(__file__).parent,
+        Path(__file__).parent / "data" / "taint-python-report.json",
+    )
+    assert issues
+    assert len(issues) == 27
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report("taint-python", [], ".", {}, {}, issues, cfile.name,)
+        jsondata = json.loads(data)
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:21` to the sink `views.py:24`."
+        )
+        assert jsondata["runs"][0]["properties"]["metrics"] == {
+            "critical": 6,
+            "total": 27,
+            "high": 21,
+            "medium": 0,
+            "low": 0,
+        }

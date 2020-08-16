@@ -150,6 +150,9 @@ ignore_directories = [
     ".tox",
     "examples",
     "samples",
+    "db_migrations",
+    "unittests",
+    "unittests_legacy",
 ]
 
 # Ignore files list
@@ -653,8 +656,10 @@ tool_purpose_message = {
     "source-python": "Source code analyzer for Python",
     "source-php": "Source code analyzer for PHP",
     "phpstan": "Source code analyzer for PHP",
+    "audit-python": "Security audit for Python",
     "audit-php": "Security audit for PHP",
     "taint-php": "Security taint analysis for PHP",
+    "taint-python": "Security taint analysis for Python",
     "psalm": "Security audit for PHP",
     "/opt/phpsast/vendor/bin/psalm": "Security taint analysis for PHP",
     "source-js": "Source code analyzer for JavaScript",
@@ -1056,8 +1061,10 @@ rules_owasp_category = {
     "CWE-79": "a7-xss",
     "CWE-80": "a7-xss",
     "CWE-89": "a1-injection",
+    "CWE-91": "a1-injection",
     "CWE-94": "a1-injection",
     "CWE-155": "a1-injection",
+    "CWE-117": "a3-sensitive-data-exposure",
     "CWE-259": "a3-sensitive-data-exposure",
     "CWE-284": "a5-broken-access-control",
     "CWE-295": "a3-sensitive-data-exposure",
@@ -1067,9 +1074,12 @@ rules_owasp_category = {
     "CWE-330": "a2-broken-authentication",
     "CWE-377": "a6-misconfiguration",
     "CWE-502": "a8-deserialization",
+    "CWE-601": "a6-misconfiguration",
     "CWE-605": "a6-misconfiguration",
+    "CWE-644": "a6-misconfiguration",
     "CWE-703": "a6-misconfiguration",
-    "CWE-732": "a6-misconfiguration",
+    "CWE-732": "a5-broken-access-control",
+    "CWE-918": "a6-misconfiguration",
 }
 
 # Build break rules

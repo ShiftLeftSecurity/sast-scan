@@ -1,0 +1,841 @@
+{
+  "generated_at": "2020-08-16T17:10:27Z",
+  "vulnerabilities": [
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "name = (__if_exp_0) ? (request.POST['name']) : ('')",
+        "line_number": 21,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "POST[",
+      "source_type": "UserControlled_Payload",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/injection/sql.html', 'name''correct''solution_sql'namecorrectsolution_sql)",
+        "line_number": 24,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "correct = norm(name) == norm(expected_sql)",
+          "line_number": 22,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:21` to the sink `views.py:24`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 16,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/injection/sql.html', 'name''correct''solution_sql'namecorrectsolution_sql)",
+        "line_number": 24,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "name = (__if_exp_0) ? (request.POST['name']) : ('')",
+          "line_number": 21,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "correct = norm(name) == norm(expected_sql)",
+          "line_number": 22,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:16` to the sink `views.py:24`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "~call_1 = ret_request.GET.get('msg', '')",
+        "line_number": 29,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_2 = ret_render(request, 'vulnerable/injection/file_access.html', 'msg'msg)",
+        "line_number": 30,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "msg = ~call_1",
+          "line_number": 29,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:29` to the sink `views.py:30`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 28,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_2 = ret_render(request, 'vulnerable/injection/file_access.html', 'msg'msg)",
+        "line_number": 30,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "~call_1 = ret_request.GET.get('msg', '')",
+          "line_number": 29,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "msg = ~call_1",
+          "line_number": 29,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:28` to the sink `views.py:30`",
+      "unknown_assignment": {
+        "label": "~call_1 = ret_request.GET.get('msg', '')",
+        "line_number": 29,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-22",
+      "rule_name": "File Write",
+      "severity": "CRITICAL",
+      "owasp_category": "a5-broken-access-control",
+      "source": {
+        "label": "~call_3 = ret_request.GET.get('p')",
+        "line_number": 38,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_4 = ret_open(~call_5, 'rb')",
+        "line_number": 41,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "open(",
+      "sink_type": "FileSystem",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "filename = ~call_3",
+          "line_number": 38,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_5 = ret_os.path.join(base_path, filename)",
+          "line_number": 41,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Data from the source `views.py:38` may reach the sink `views.py:41`"
+    },
+    {
+      "rule_id": "CWE-22",
+      "rule_name": "File Write",
+      "severity": "CRITICAL",
+      "owasp_category": "a5-broken-access-control",
+      "source": {
+        "label": "request",
+        "line_number": 34,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_4 = ret_open(~call_5, 'rb')",
+        "line_number": 41,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "open(",
+      "sink_type": "FileSystem",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "~call_3 = ret_request.GET.get('p')",
+          "line_number": 38,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "filename = ~call_3",
+          "line_number": 38,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_5 = ret_os.path.join(base_path, filename)",
+          "line_number": 41,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Data from the source `views.py:34` may reach the sink `views.py:41`",
+      "unknown_assignment": {
+        "label": "~call_3 = ret_request.GET.get('p')",
+        "line_number": 38,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 34,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_7 = ret_render(request, 'vulnerable/injection/file_access.html', 'msg'msg)",
+        "line_number": 49,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:34` to the sink `views.py:49`"
+    },
+    {
+      "rule_id": "CWE-94",
+      "rule_name": "Remote Code Execution",
+      "severity": "CRITICAL",
+      "owasp_category": "a1-injection",
+      "source": {
+        "label": "~call_2 = ret_request.POST.get('first_name', '')",
+        "line_number": 67,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "POST.get(",
+      "source_type": "UserControlled_Payload",
+      "sink": {
+        "label": "~call_3 = ret_exec(~call_4)",
+        "line_number": 71,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "exec(",
+      "sink_type": "RemoteCodeExecution",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "first_name = ~call_2",
+          "line_number": 67,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_5 = ret_bytes(first_name, 'ascii')",
+          "line_number": 71,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_4 = ret_base64.decodestring(~call_5)",
+          "line_number": 71,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Remote Code Execution via shell with user controlled data from the source `views.py:67` reaching the sink `views.py:71`",
+      "unknown_assignment": {
+        "label": "~call_5 = ret_bytes(first_name, 'ascii')",
+        "line_number": 71,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-94",
+      "rule_name": "Remote Code Execution",
+      "severity": "CRITICAL",
+      "owasp_category": "a1-injection",
+      "source": {
+        "label": "request",
+        "line_number": 55,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_3 = ret_exec(~call_4)",
+        "line_number": 71,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "exec(",
+      "sink_type": "RemoteCodeExecution",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "~call_2 = ret_request.POST.get('first_name', '')",
+          "line_number": 67,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "first_name = ~call_2",
+          "line_number": 67,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_5 = ret_bytes(first_name, 'ascii')",
+          "line_number": 71,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_4 = ret_base64.decodestring(~call_5)",
+          "line_number": 71,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Remote Code Execution via shell with user controlled data from the source `views.py:55` reaching the sink `views.py:71`",
+      "unknown_assignment": {
+        "label": "~call_2 = ret_request.POST.get('first_name', '')",
+        "line_number": 67,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-94",
+      "rule_name": "Remote Code Execution",
+      "severity": "CRITICAL",
+      "owasp_category": "a1-injection",
+      "source": {
+        "label": "~call_2 = ret_request.POST.get('first_name', '')",
+        "line_number": 67,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "POST.get(",
+      "source_type": "UserControlled_Payload",
+      "sink": {
+        "label": "~call_6 = ret_exec(~call_7)",
+        "line_number": 75,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "exec(",
+      "sink_type": "RemoteCodeExecution",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "first_name = ~call_2",
+          "line_number": 67,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_7 = ret_base64.decodestring(first_name)",
+          "line_number": 75,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Remote Code Execution via shell with user controlled data from the source `views.py:67` reaching the sink `views.py:75`",
+      "unknown_assignment": {
+        "label": "~call_7 = ret_base64.decodestring(first_name)",
+        "line_number": 75,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-94",
+      "rule_name": "Remote Code Execution",
+      "severity": "CRITICAL",
+      "owasp_category": "a1-injection",
+      "source": {
+        "label": "request",
+        "line_number": 55,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_6 = ret_exec(~call_7)",
+        "line_number": 75,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "exec(",
+      "sink_type": "RemoteCodeExecution",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "~call_2 = ret_request.POST.get('first_name', '')",
+          "line_number": 67,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "first_name = ~call_2",
+          "line_number": 67,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "~call_7 = ret_base64.decodestring(first_name)",
+          "line_number": 75,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Remote Code Execution via shell with user controlled data from the source `views.py:55` reaching the sink `views.py:75`",
+      "unknown_assignment": {
+        "label": "~call_2 = ret_request.POST.get('first_name', '')",
+        "line_number": 67,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 55,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_10 = ret_render(request, 'vulnerable/injection/code_execution.html', 'first_name''data'request.POST.get('first_name', '')data)",
+        "line_number": 87,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:55` to the sink `views.py:87`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "env = 'qs'request.GET.get('qs', 'hello')",
+        "line_number": 97,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/xss/form.html', env)",
+        "line_number": 98,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:97` to the sink `views.py:98`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 96,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/xss/form.html', env)",
+        "line_number": 98,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:96` to the sink `views.py:98`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "path",
+        "line_number": 103,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/xss/path.html', env)",
+        "line_number": 105,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "env = 'path'path",
+          "line_number": 104,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:103` to the sink `views.py:105`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "env = 'qs'request.GET.get('qs', 'hello')",
+        "line_number": 109,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/xss/query.html', env)",
+        "line_number": 110,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:109` to the sink `views.py:110`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 108,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/xss/query.html', env)",
+        "line_number": 110,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:108` to the sink `views.py:110`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 127,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_2 = ret_render(request, 'vulnerable/direct_object_references/profile.html', env)",
+        "line_number": 138,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:127` to the sink `views.py:138`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 154,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/access_control/admin.html', env)",
+        "line_number": 157,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:154` to the sink `views.py:157`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 154,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_2 = ret_render(request, 'vulnerable/access_control/non_admin.html', env)",
+        "line_number": 158,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:154` to the sink `views.py:158`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "env = 'qs'request.GET.get('qs', '')",
+        "line_number": 165,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/csrf/image.html', env)",
+        "line_number": 166,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:165` to the sink `views.py:166`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 164,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/csrf/image.html', env)",
+        "line_number": 166,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:164` to the sink `views.py:166`"
+    },
+    {
+      "rule_id": "CWE-601",
+      "rule_name": "Open Redirect",
+      "severity": "HIGH",
+      "owasp_category": "a6-misconfiguration",
+      "source": {
+        "label": "~call_1 = ret_request.GET.get('url')",
+        "line_number": 176,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_2 = ret_redirect(url)",
+        "line_number": 177,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "redirect(",
+      "sink_type": "Redirect",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "url = ~call_1",
+          "line_number": 176,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Data from the source `views.py:176` may be used in an open redirect via the sink `views.py:177`"
+    },
+    {
+      "rule_id": "CWE-601",
+      "rule_name": "Open Redirect",
+      "severity": "HIGH",
+      "owasp_category": "a6-misconfiguration",
+      "source": {
+        "label": "request",
+        "line_number": 175,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_2 = ret_redirect(url)",
+        "line_number": 177,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "redirect(",
+      "sink_type": "Redirect",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "~call_1 = ret_request.GET.get('url')",
+          "line_number": 176,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "url = ~call_1",
+          "line_number": 176,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Data from the source `views.py:175` may be used in an open redirect via the sink `views.py:177`",
+      "unknown_assignment": {
+        "label": "~call_1 = ret_request.GET.get('url')",
+        "line_number": 176,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "~call_1 = ret_request.GET.get('fwd')",
+        "line_number": 181,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "GET.get(",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_5 = ret_render(request, 'vulnerable/redirects/forward_failed.html', env)",
+        "line_number": 188,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "forward = ~call_1",
+          "line_number": 181,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "env = 'fwd'forward",
+          "line_number": 187,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:181` to the sink `views.py:188`"
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 180,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_5 = ret_render(request, 'vulnerable/redirects/forward_failed.html', env)",
+        "line_number": 188,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "UnknownVulnerability",
+      "reassignment_nodes": [
+        {
+          "label": "~call_1 = ret_request.GET.get('fwd')",
+          "line_number": 181,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "forward = ~call_1",
+          "line_number": 181,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        },
+        {
+          "label": "env = 'fwd'forward",
+          "line_number": 187,
+          "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+        }
+      ],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:180` to the sink `views.py:188`",
+      "unknown_assignment": {
+        "label": "~call_1 = ret_request.GET.get('fwd')",
+        "line_number": 181,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      }
+    },
+    {
+      "rule_id": "CWE-79",
+      "rule_name": "XSS",
+      "severity": "HIGH",
+      "owasp_category": "a7-xss",
+      "source": {
+        "label": "request",
+        "line_number": 190,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "source_trigger_word": "Framework function URL parameter",
+      "source_type": "UserControlled_Parameter",
+      "sink": {
+        "label": "~call_1 = ret_render(request, 'vulnerable/redirects/admin.html', )",
+        "line_number": 191,
+        "path": "/home/prabhu/sandbox/lets-be-bad-guys/badguys/vulnerable/views.py"
+      },
+      "sink_trigger_word": "render(",
+      "sink_type": "ReturnedToUser",
+      "type": "Vulnerability",
+      "reassignment_nodes": [],
+      "description": "Cross-site scripting (XSS) vulnerability with data reaching from the source `views.py:190` to the sink `views.py:191`"
+    }
+  ]
+}

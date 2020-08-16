@@ -123,7 +123,7 @@ class GitHub(GitProvider):
                     return
                 pull_requests = workflow_run.pull_requests
                 if not pull_requests:
-                    LOG.debug("Unable to determine the Pull Requests for this run")
+                    LOG.debug("No Pull Requests are associated with this workflow run")
                     return
                 if findings:
                     self.create_review(

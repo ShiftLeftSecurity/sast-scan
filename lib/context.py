@@ -178,6 +178,9 @@ def find_repo_details(src_dir=None):
             if repositoryUri.startswith(pref):
                 repo_slug = False
                 break
+        if not repo_slug:
+            if "vs-ssh" in repositoryUri:
+                repo_slug = False
         # For repo slug just assume github for now
         if repo_slug:
             repositoryUri = "https://github.com/" + repositoryUri
