@@ -101,7 +101,7 @@ class ExprVisitor(StmtVisitor):
 
         first_node = module_statements.first_statement
 
-        if CALL_IDENTIFIER not in first_node.label:
+        if first_node is not None and CALL_IDENTIFIER not in first_node.label:
             entry_node.connect(first_node)
 
         last_nodes = module_statements.last_statements
@@ -138,7 +138,7 @@ class ExprVisitor(StmtVisitor):
     def visit_Name(self, node):
         return self.visit_miscelleaneous_node(node)
 
-    def visit_NameConstant(self, node):
+    def visit_Constant(self, node):
         return self.visit_miscelleaneous_node(node)
 
     def visit_Str(self, node):
@@ -250,6 +250,8 @@ class ExprVisitor(StmtVisitor):
 
         # Create e.g. temp_N_def_arg1 = call_arg1_label_visitor.result for each argument
         for i, call_arg in enumerate(call_args):
+            if i > len(def_args) - 1:
+                break
             # If this results in an IndexError it is invalid Python
             def_arg_temp_name = (
                 "temp_" + str(saved_function_call_index) + "_" + def_args[i]
@@ -333,7 +335,11 @@ class ExprVisitor(StmtVisitor):
               preceding call to save_def_args_in_temp.
         """
         # Create e.g. def_arg1 = temp_N_def_arg1 for each argument
+        if def_args is None:
+            return
         for i in range(len(call_args)):
+            if i > len(def_args) - 1:
+                return
             def_arg_local_name = def_args[i]
             def_arg_temp_name = (
                 "temp_" + str(saved_function_call_index) + "_" + def_args[i]
@@ -370,6 +376,8 @@ class ExprVisitor(StmtVisitor):
         self.connect_if_allowed(previous_node, entry_node)
 
         function_body_connect_statements = self.stmt_star_handler(definition.node.body)
+        if isinstance(function_body_connect_statements, IgnoredNode):
+            return (IgnoredNode, first_node)
         entry_node.connect(function_body_connect_statements.first_statement)
 
         exit_node = self.append_node(EntryOrExitNode("Exit " + definition.name))
@@ -439,6 +447,8 @@ class ExprVisitor(StmtVisitor):
             saved_function_call_index(int): Unique number for each call.
             first_node(EntryOrExitNode or RestoreNode): Used to connect previous statements to this function.
         """
+        if not hasattr(function_nodes, "__iter__"):
+            return
         if any(isinstance(node, YieldNode) for node in function_nodes):
             # Presence of a `YieldNode` means that the function is a generator
             rhs_prefix = "yld_"

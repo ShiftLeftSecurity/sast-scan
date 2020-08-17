@@ -288,7 +288,7 @@ def bandit_scan(src, reports_dir, convert, repo_context):
         "-n",
         "3",
         "-s",
-        "B101,B102,B105,B307,B308,B310,B322,B703",
+        "B101,B102,B105,B201,B307,B308,B310,B322,B404,B601,B602,B603,B604,B605,B701,B702,B703",
         "-iii",
         "-ll",
         *convert_args,

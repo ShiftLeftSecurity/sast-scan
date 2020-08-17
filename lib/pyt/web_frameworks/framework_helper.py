@@ -39,6 +39,26 @@ def is_taintable_function(ast_node):
         if isinstance(decorator, ast.Call):
             if _get_last_of_iterable(get_call_names(decorator.func)) in safe_decorators:
                 return False
+            # Flask route and Django tag
+            if _get_last_of_iterable(get_call_names(decorator.func)) in [
+                "route",
+                "simple_tag",
+                "inclusion_tag",
+                "to_end_tag",
+            ]:
+                return True
+    # Ignore database functions
+    if len(ast_node.args.args):
+        first_arg_name = ast_node.args.args[0].arg
+        # Django view
+        if first_arg_name in ["request", "context"]:
+            return True
+        if first_arg_name in ["conn", "cursor", "sql"]:
+            return False
+    # Ignore known validation and sanitization functions
+    for n in ["valid", "sanitize", "sanitise", "is_", "set_"]:
+        if ast_node.name.startswith(n):
+            return False
     return True
 
 

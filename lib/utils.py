@@ -390,17 +390,18 @@ def check_command(cmd):
         return False
 
 
-def calculate_line_hash(filename, lineno, line):
+def calculate_line_hash(filename, lineno, end_lineno, line):
     """
     Method to calculate line hash
 
     :param lineno: Line number
+    :param end_lineno: End Line number
     :param filename: File name
     :param line: Line to hash
     :return: Hash based on blake2b algorithm
     """
-    snippet = "{}:{}:{}".format(
-        lineno, filename, line.strip().replace("\t", "").replace("\n", "")
+    snippet = "{}:{}:{}:{}".format(
+        lineno, end_lineno, filename, line.strip().replace("\t", "").replace("\n", "")
     )
     h = blake2b(digest_size=HASH_DIGEST_SIZE)
     h.update(snippet.encode())

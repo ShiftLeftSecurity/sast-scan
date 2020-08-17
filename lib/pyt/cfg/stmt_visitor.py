@@ -52,6 +52,12 @@ uninspectable_modules = {
     module.name for module in iter_modules()
 }  # Don't warn about failing to import these
 
+# Some builtin packages to break recursion
+BUILTIN_PKGS = ["os", "logging", "json", "markdown"]
+
+# Cache to keep track of visited modules to break recursion
+visited_module_paths = {}
+
 
 class StmtVisitor(ast.NodeVisitor):
     def __init__(self, allow_local_directory_imports=True):
@@ -190,6 +196,8 @@ class StmtVisitor(ast.NodeVisitor):
             else_connect_statements = self.stmt_star_handler(
                 orelse, prev_node_to_avoid=self.nodes[-1]
             )
+            if isinstance(else_connect_statements, IgnoredNode):
+                return IgnoredNode()
             test.connect(else_connect_statements.first_statement)
             return else_connect_statements.last_statements
 
@@ -205,6 +213,8 @@ class StmtVisitor(ast.NodeVisitor):
 
         if node.orelse:
             orelse_last_nodes = self.handle_or_else(node.orelse, test)
+            if isinstance(orelse_last_nodes, IgnoredNode):
+                return IgnoredNode()
             body_connect_stmts.last_statements.extend(orelse_last_nodes)
         else:
             body_connect_stmts.last_statements.append(
@@ -229,6 +239,8 @@ class StmtVisitor(ast.NodeVisitor):
 
         if isinstance(node.value, ast.Call):
             return_value_of_call = self.visit(node.value)
+            if not hasattr(return_value_of_call, "left_hand_side"):
+                return None
             return_node = ReturnNode(
                 LHS + " = " + return_value_of_call.left_hand_side,
                 LHS,
@@ -293,7 +305,8 @@ class StmtVisitor(ast.NodeVisitor):
             orelse_last_nodes = self.handle_or_else(
                 node.orelse, body.last_statements[-1]
             )
-            body.last_statements.extend(orelse_last_nodes)
+            if not isinstance(orelse_last_nodes, IgnoredNode):
+                body.last_statements.extend(orelse_last_nodes)
 
         if node.finalbody:
             finalbody = self.stmt_star_handler(node.finalbody)
@@ -482,6 +495,8 @@ class StmtVisitor(ast.NodeVisitor):
         self.undecided = True  # Used for handling functions in assignments
 
         call = self.visit(ast_node.value)
+        if not hasattr(call, "left_hand_side"):
+            return None
         call_label = call.left_hand_side
 
         call_assignment = AssignmentCallNode(
@@ -807,12 +822,16 @@ class StmtVisitor(ast.NodeVisitor):
         """
         module_path = module[1]
 
+        if module_or_package_name in BUILTIN_PKGS:
+            uninspectable_modules.add(module_or_package_name)
+            return IgnoredNode()
+        if visited_module_paths.get(module[0]):
+            return IgnoredNode()
+        visited_module_paths[module[0]] = True
         parent_definitions = self.module_definitions_stack[-1]
         # Here, in `visit_Import` and in `visit_ImportFrom` are the only places the `import_alias_mapping` is updated
         parent_definitions.import_alias_mapping.update(import_alias_mapping)
         parent_definitions.import_names = local_names
-        if not module_or_package_name:
-            return
         new_module_definitions = ModuleDefinitions(local_names, module_or_package_name)
         new_module_definitions.is_init = is_init
         self.module_definitions_stack.append(new_module_definitions)
@@ -824,7 +843,7 @@ class StmtVisitor(ast.NodeVisitor):
         )
         tree = generate_ast(module_path)
         if not tree:
-            return None
+            return IgnoredNode()
         # module[0] is None during e.g. "from . import foo", so we must str()
         self.nodes.append(EntryOrExitNode("Module Entry " + str(module[0])))
         self.visit(tree)
@@ -899,7 +918,6 @@ class StmtVisitor(ast.NodeVisitor):
                     )
                     parent_definition.node = def_.node
                     parent_definitions.definitions.append(parent_definition)
-
         return exit_node
 
     def from_directory_import(
@@ -1001,6 +1019,9 @@ class StmtVisitor(ast.NodeVisitor):
 
         # Is it a file?
         if name_with_dir.endswith(".py"):
+            if visited_module_paths.get(name_with_dir):
+                return IgnoredNode()
+            visited_module_paths[name_with_dir] = True
             return self.add_module(
                 module=(node.module, name_with_dir),
                 module_or_package_name=None,
@@ -1083,8 +1104,14 @@ class StmtVisitor(ast.NodeVisitor):
                 )
         for module in self.project_modules:
             name = module[0]
+            if node.level == 0:
+                break
             if node.module == name:
                 if os.path.isdir(module[1]):
+                    if visited_module_paths.get(module[1]):
+                        return IgnoredNode()
+                    # Break recursion
+                    visited_module_paths[module[1]] = True
                     return self.from_directory_import(
                         module,
                         not_as_alias_handler(node.names),
@@ -1107,7 +1134,6 @@ class StmtVisitor(ast.NodeVisitor):
             local_definitions.import_alias_mapping[
                 name.asname or name.name
             ] = "{}.{}".format(node.module, name.name)
-
         if node.module not in uninspectable_modules:
             uninspectable_modules.add(node.module)
         return IgnoredNode()

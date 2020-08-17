@@ -57,6 +57,9 @@ class Sink:
     def get_kwarg_from_position(self, index):
         return self.arg_position_to_kwarg.get(index)
 
+    def __str__(self):
+        return f"Sink: Type: {self.sink_type}, Trigger: {self._trigger}"
+
     @property
     def all_arguments_propagate_taint(self):
         if self.kwarg_list:
