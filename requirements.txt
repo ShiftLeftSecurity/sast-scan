@@ -8,7 +8,7 @@ requests
 bandit
 ansible-lint
 pipenv
-checkov
+checkov==1.0.487
 yamllint
 njsscan
 rich

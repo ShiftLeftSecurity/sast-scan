@@ -39,6 +39,8 @@ from lib.executor import exec_tool, execute_default_cmd
 from lib.integration import provider
 from lib.logger import LOG, console
 from lib.telemetry import track
+from lib.pyt.cfg_analyzer import deep_analysis
+from lib.pyt.formatters.json import report as py_json_report
 
 product_logo = """
 ███████╗██╗  ██╗██╗███████╗████████╗██╗     ███████╗███████╗████████╗    ███████╗ ██████╗ █████╗ ███╗   ██╗
@@ -216,7 +218,44 @@ def python_scan(src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
+    py_deep_scan(src, reports_dir, convert, repo_context)
     bandit_scan(src, reports_dir, convert, repo_context)
+
+
+def py_deep_scan(src, reports_dir, convert, repo_context):
+    """
+    Method to perform deep scan of python codebase
+
+    Args:
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+      repo_context Repo context
+    """
+    report_fname = utils.get_report_file(
+        "taint-python", reports_dir, convert, ext_name="json"
+    )
+    py_files = utils.find_files(src, ".py")
+    LOG.debug(f"Scanning {len(py_files)} python files ...")
+    try:
+        vulnerabilities, has_unsanitised_vulnerabilities = deep_analysis(src, py_files)
+        if not vulnerabilities:
+            LOG.debug("taint-python has not found any vulnerabilities")
+            return
+        py_json_report(vulnerabilities, report_fname, False)
+        if convert:
+            crep_fname = utils.get_report_file(
+                "taint-python", reports_dir, convert, ext_name="sarif"
+            )
+            convertLib.convert_file(
+                "taint-python",
+                ["-j", "-a", "e", "-o", report_fname],
+                src,
+                report_fname,
+                crep_fname,
+            )
+    except Exception as e:
+        LOG.debug(e)
 
 
 def bandit_scan(src, reports_dir, convert, repo_context):
@@ -249,8 +288,8 @@ def bandit_scan(src, reports_dir, convert, repo_context):
         "-n",
         "3",
         "-s",
-        "B101,B105,B308",
-        "-ii",
+        "B101,B102,B105,B307,B308,B310,B322,B703",
+        "-iii",
         "-ll",
         *convert_args,
         "-x",

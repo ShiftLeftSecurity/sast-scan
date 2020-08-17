@@ -216,6 +216,21 @@ def extract_from_file(
                             "filename": source.get("filename"),
                         }
                     )
+            elif tool_name == "taint-python":
+                taint_list = report_data.get("vulnerabilities")
+                for taint in taint_list:
+                    source = taint.get("source")
+                    issues.append(
+                        {
+                            "rule_id": taint.get("rule_id"),
+                            "test_name": taint.get("rule_name"),
+                            "description": taint.get("description"),
+                            "severity": taint.get("severity"),
+                            "issue_confidence": "HIGH",
+                            "line_number": source.get("line_number"),
+                            "filename": source.get("path"),
+                        }
+                    )
             elif tool_name == "phpstan" or tool_name == "source-php":
                 file_errors = report_data.get("files")
                 for filename, messageobj in file_errors.items():

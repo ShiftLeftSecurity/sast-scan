@@ -56,7 +56,7 @@ def is_ignored_dir(base_dir, dir_name):
     elif dir_name.startswith(base_dir):
         dir_name = re.sub(r"^" + base_dir + "/", "", dir_name)
     for d in config.ignore_directories:
-        if dir_name == d or dir_name.startswith(d) or (d + "/") in dir_name:
+        if dir_name == d or dir_name.startswith(d) or ("/" + d + "/") in dir_name:
             return True
     return False
 

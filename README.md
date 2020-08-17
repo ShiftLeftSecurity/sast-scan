@@ -41,7 +41,7 @@ ShiftLeft [Scan](https://slscan.io) is a free open-source security tool for mode
 | nodejs               | cdxgen, njsscan, eslint, yarn, rush |
 | php                  | psalm, phpstan (ide only)           |
 | plsql                | pmd                                 |
-| python               | bandit, cdxgen, pipenv              |
+| python               | cfg-scan (\*), bandit, cdxgen       |
 | ruby                 | dep-scan                            |
 | rust                 | cdxgen                              |
 | serverless           | checkov                             |
@@ -49,6 +49,8 @@ ShiftLeft [Scan](https://slscan.io) is a free open-source security tool for mode
 | Visual Force (vf)    | pmd                                 |
 | Apache Velocity (vm) | pmd                                 |
 | yaml                 | yamllint                            |
+
+(\*) - Deep analyzer for Python is a built-in feature
 
 ## Bundled languages/runtime
 
