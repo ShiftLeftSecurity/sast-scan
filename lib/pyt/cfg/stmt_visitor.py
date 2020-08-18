@@ -702,8 +702,10 @@ class StmtVisitor(ast.NodeVisitor):
                         arg_node.arg + "=" + return_value_of_nested_call.left_hand_side
                     )
                 else:
-                    visual_args.append(return_value_of_nested_call.left_hand_side)
-                rhs_vars.append(return_value_of_nested_call.left_hand_side)
+                    if hasattr(return_value_of_nested_call, "left_hand_side"):
+                        visual_args.append(return_value_of_nested_call.left_hand_side)
+                if hasattr(return_value_of_nested_call, "left_hand_side"):
+                    rhs_vars.append(return_value_of_nested_call.left_hand_side)
             else:
                 label = LabelVisitor()
                 label.visit(arg_node)
