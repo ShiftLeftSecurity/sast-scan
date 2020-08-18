@@ -376,7 +376,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             tags.append(
                                 {
                                     "key": "owasp_category",
-                                    "value": owasp_category.split("-")[0].capitalize(),
+                                    "value": owasp_category,
                                     "shiftleft_managed": True,
                                 }
                             )
@@ -402,6 +402,9 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             lineno = location.get("physicalLocation", {})["region"][
                                 "startLine"
                             ]
+                            end_lineno = location.get("physicalLocation", {})[
+                                "contextRegion"
+                            ]["endLine"]
                             finding = {
                                 "app": app_name,
                                 "type": "extscan",
@@ -412,6 +415,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     utils.calculate_line_hash(
                                         filename,
                                         lineno,
+                                        end_lineno,
                                         location.get("physicalLocation", {})["region"][
                                             "snippet"
                                         ]["text"],

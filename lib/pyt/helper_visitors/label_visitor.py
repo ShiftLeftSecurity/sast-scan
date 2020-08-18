@@ -162,7 +162,7 @@ class LabelVisitor(ast.NodeVisitor):
     def insert_space(self):
         self.result += " "
 
-    def visit_NameConstant(self, node):
+    def visit_Constant(self, node):
         self.result += str(node.value)
 
     def visit_Subscript(self, node):

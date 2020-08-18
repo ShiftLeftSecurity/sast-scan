@@ -104,7 +104,7 @@ def find_triggers(nodes, trigger_words):
     """
     trigger_nodes = list()
     for node in nodes:
-        trigger_nodes.extend(iter(label_contains(node, trigger_words)))
+        trigger_nodes.extend(iter(label_starts_with(node, trigger_words)))
     return trigger_nodes
 
 
@@ -122,6 +122,28 @@ def label_contains(node, triggers):
     for trigger in triggers:
         if trigger.trigger_word in node.label:
             yield TriggerNode(trigger, node)
+
+
+def label_starts_with(node, triggers):
+    """Determine if node starts with the trigger_words provided.
+
+    Args:
+        node(Node): CFG node to check.
+        trigger_words(list[Union[Sink, Source]]): list of trigger words to look for.
+
+    Returns:
+        Iterable of TriggerNodes found. Can be multiple because multiple
+        trigger_words can be in one node.
+    """
+    for trigger in triggers:
+        if trigger.trigger_word in node.label:
+            if (
+                f"ret_{trigger.trigger_word}" in node.label
+                or f" {trigger.trigger_word}" in node.label
+                or f".{trigger.trigger_word}" in node.label
+                or node.label.startswith(trigger.trigger_word)
+            ):
+                yield TriggerNode(trigger, node)
 
 
 def build_sanitiser_node_dict(cfg, sinks_in_file):
@@ -229,8 +251,11 @@ def get_vulnerability_chains(current_node, sink, def_use, chain=[]):
             yield chain
         else:
             vuln_chain = list(chain)
-            vuln_chain.append(use)
-            yield from get_vulnerability_chains(use, sink, def_use, vuln_chain)
+            if use not in vuln_chain:
+                vuln_chain.append(use)
+                yield from get_vulnerability_chains(use, sink, def_use, vuln_chain)
+            else:
+                yield chain
 
 
 def how_vulnerable(
@@ -319,7 +344,6 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
         sink_args = get_sink_args(sink.cfg_node)
     else:
         sink_args = get_sink_args_which_propagate(sink, sink.cfg_node.ast_node)
-
     tainted_node_in_sink_arg = get_tainted_node_in_sink_args(
         sink_args, nodes_in_constraint,
     )
@@ -363,8 +387,31 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
 
             vuln_deets["reassignment_nodes"] = chain
             return vuln_factory(vulnerability_type)(**vuln_deets)
-
     return None
+
+
+def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
+    """Filter over tainted objects such as Sensitive Data Leaks
+    """
+    source_cfg = source.cfg_node
+    sink_cfg = sink.cfg_node
+    sensitive_data_list = blackbox_mapping.get("sensitive_data_list")
+    sensitive_allowed_log_levels = blackbox_mapping.get("sensitive_allowed_log_levels")
+    source_type = source.source_type
+    sink_type = sink.sink_type
+    if sink_type == "Logging":
+        # Ignore logging for non-sensitive data
+        if source_cfg.label.lower() not in sensitive_data_list:
+            return None
+        # Ignore vulnerabilities with acceptable log levels
+        for log_level in sensitive_allowed_log_levels:
+            if log_level in sink.trigger_word.lower():
+                return None
+    # render method based on Framework_Parameter is a known FP
+    if sink_type == "ReturnedToUser":
+        if sink.trigger_word == "render(" and source_type == "Framework_Parameter":
+            return None
+    return vulnerability
 
 
 def find_vulnerabilities_in_cfg(
@@ -385,6 +432,11 @@ def find_vulnerabilities_in_cfg(
             vulnerability = get_vulnerability(
                 source, sink, triggers, lattice, cfg, blackbox_mapping
             )
+            # Filter over-tained vulnerability
+            if vulnerability:
+                vulnerability = filter_over_taint(
+                    vulnerability, source, sink, blackbox_mapping
+                )
             if vulnerability:
                 vulnerabilities_list.append(vulnerability)
 
