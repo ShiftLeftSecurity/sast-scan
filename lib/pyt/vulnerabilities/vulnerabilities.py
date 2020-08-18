@@ -142,7 +142,7 @@ def label_starts_with(node, triggers):
                 or f" {trigger.trigger_word}" in node.label
                 or f".{trigger.trigger_word}" in node.label
                 or node.label.startswith(trigger.trigger_word)
-            ):
+            ) and not f"ret_self.{trigger.trigger_word}" in node.label:
                 yield TriggerNode(trigger, node)
 
 

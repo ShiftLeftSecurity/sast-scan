@@ -1,11 +1,14 @@
 """This module contains helper function.
 Useful when working with the ast module."""
-
 import ast
+import codecs
 import logging
 import os
 import subprocess
 from functools import lru_cache
+
+from _ast import AST
+from astsearch import ASTPatternFinder, prepare_pattern
 
 from lib.pyt.core.transformer import PytTransformer
 
@@ -18,7 +21,7 @@ def _convert_to_3(path):  # pragma: no cover
     """Convert python 2 file to python 3."""
     try:
         subprocess.call(["2to3", "-w", path])
-    except subprocess.SubprocessError:
+    except Exception:
         log.debug(
             "Check if 2to3 is installed. https://docs.python.org/2/library/2to3.html"
         )
@@ -74,6 +77,153 @@ def _list_to_dotted_string(list_of_components):
 def get_call_names_as_string(node):
     """Get a list of call names as a string."""
     return _list_to_dotted_string(get_call_names(node))
+
+
+def _get_matches(pattern, ast_tree):
+    return list(ASTPatternFinder(pattern).scan_ast(ast_tree))
+
+
+def get_assignments_as_dict(pattern, ast_tree):
+    pat = prepare_pattern(pattern)
+    node_list = _get_matches(pat, ast_tree)
+    literals_dict = {}
+    if not node_list:
+        return literals_dict
+    for node in node_list:
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                left_hand_side = target
+                right_hand_side = node.value
+                if isinstance(right_hand_side, ast.Call):
+                    right_hand_side = node.value.func
+                if isinstance(right_hand_side, ast.Constant):
+                    right_hand_side = node.value
+                if isinstance(target, ast.Subscript):
+                    left_hand_side = target.slice.value
+                key = ""
+                if hasattr(left_hand_side, "value"):
+                    key = left_hand_side.value
+                elif hasattr(left_hand_side, "id"):
+                    key = left_hand_side.id
+                if key:
+                    literals_dict[key] = {
+                        "left_hand_side": left_hand_side,
+                        "right_hand_side": right_hand_side,
+                    }
+    return literals_dict
+
+
+def is_static_assignment(left_hand_side, right_hand_side):
+    ret = False
+    if (
+        left_hand_side
+        and right_hand_side
+        and isinstance(left_hand_side, ast.Constant)
+        and isinstance(right_hand_side, ast.Constant)
+    ):
+        left_value = left_hand_side.value
+        right_value = right_hand_side.value
+        if isinstance(left_value, str) and isinstance(right_value, value):
+            ret = True
+    return ret
+
+
+def has_import_like(module_name, ast_tree):
+    pat = prepare_pattern(f"import ??")
+    matches = _get_matches(pat, ast_tree)
+    if not matches:
+        pat = prepare_pattern(f"from ?? import ??")
+        matches = _get_matches(pat, ast_tree)
+    if not matches:
+        return False
+    ret = False
+    for match in matches:
+        if isinstance(match, ast.Import) or isinstance(match, ast.ImportFrom):
+            for name in match.names:
+                if name.name.lower().startswith(module_name.lower()):
+                    return True
+    # Repeat with from lookup
+    if not ret:
+        pat = prepare_pattern(f"from ?? import ??")
+        matches = _get_matches(pat, ast_tree)
+    for match in matches:
+        if isinstance(match, ast.ImportFrom):
+            if match.module.lower().startswith(module_name.lower()):
+                return True
+    return ret
+
+
+def has_import(module_name, ast_tree):
+    pat = prepare_pattern(f"import {module_name}")
+    matches = _get_matches(pat, ast_tree)
+    if not matches:
+        pat = prepare_pattern(f"from {module_name} import ??")
+        matches = _get_matches(pat, ast_tree)
+    if not matches:
+        return False
+    for match in matches:
+        if isinstance(match, ast.Import) or isinstance(match, ast.ImportFrom):
+            for name in match.names:
+                if name.name.lower() == module_name.lower():
+                    return True
+    return False
+
+
+def has_method_call(pattern, ast_tree):
+    pat = prepare_pattern(pattern)
+    node_list = _get_matches(pat, ast_tree)
+    for node in node_list:
+        if isinstance(node, ast.Call):
+            return True
+    return False
+
+
+BUILTIN_PURE = (int, float, bool)
+BUILTIN_BYTES = (bytearray, bytes)
+BUILTIN_STR = str
+
+
+def decode_str(value):
+    return value
+
+
+def decode_bytes(value):
+    try:
+        return value.decode("utf-8")
+    except:
+        return codecs.getencoder("hex_codec")(value)[0].decode("utf-8")
+
+
+def ast2json(node):
+    assert isinstance(node, AST)
+    to_return = dict()
+    to_return["_type"] = node.__class__.__name__
+    for attr in dir(node):
+        if attr.startswith("_"):
+            continue
+        to_return[attr] = get_value(getattr(node, attr))
+    return to_return
+
+
+def get_value(attr_value):
+    if attr_value is None:
+        return attr_value
+    if isinstance(attr_value, BUILTIN_PURE):
+        return attr_value
+    if isinstance(attr_value, BUILTIN_BYTES):
+        return decode_bytes(attr_value)
+    if isinstance(attr_value, BUILTIN_STR):
+        return decode_str(attr_value)
+    if isinstance(attr_value, complex):
+        return str(attr_value)
+    if isinstance(attr_value, list):
+        return [get_value(x) for x in attr_value]
+    if isinstance(attr_value, AST):
+        return ast2json(attr_value)
+    else:
+        raise Exception(
+            "unknown case for '%s' of type '%s'" % (attr_value, type(attr_value))
+        )
 
 
 class Arguments:

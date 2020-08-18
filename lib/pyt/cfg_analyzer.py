@@ -1,7 +1,6 @@
 """The comand line module of PyT."""
 
 import os
-import traceback
 
 from lib.logger import LOG
 from lib.pyt.analysis.constraint_table import initialize_constraint_table
@@ -9,7 +8,7 @@ from lib.pyt.analysis.fixed_point import analyse
 from lib.pyt.cfg import make_cfg
 from lib.pyt.core.ast_helper import generate_ast
 from lib.pyt.core.project_handler import get_directory_modules, get_modules
-from lib.pyt.vulnerabilities import find_vulnerabilities
+from lib.pyt.vulnerabilities import find_insights, find_vulnerabilities
 from lib.pyt.vulnerabilities.vulnerability_helper import SanitisedVulnerability
 from lib.pyt.web_frameworks import FrameworkAdaptor, is_taintable_function
 
@@ -26,6 +25,7 @@ default_trigger_word_file = os.path.join(
 def deep_analysis(src, files):
     has_unsanitised_vulnerabilities = False
     cfg_list = list()
+    insights = []
     framework_route_criteria = is_taintable_function
     for path in sorted(files):
         directory = os.path.dirname(path)
@@ -35,6 +35,9 @@ def deep_analysis(src, files):
         if not tree:
             continue
         try:
+            violations = find_insights(tree, path)
+            if violations:
+                insights += violations
             cfg = make_cfg(
                 tree,
                 project_modules,
@@ -48,7 +51,6 @@ def deep_analysis(src, files):
             )
         except Exception as e:
             LOG.debug(e)
-            traceback.print_exc()
 
     # Add all the route functions to the cfg_list
     try:
@@ -56,7 +58,6 @@ def deep_analysis(src, files):
         analyse(cfg_list)
     except Exception as e:
         LOG.debug(e)
-        traceback.print_exc()
     vulnerabilities = find_vulnerabilities(
         cfg_list, default_blackbox_mapping_file, default_trigger_word_file,
     )
@@ -64,4 +65,4 @@ def deep_analysis(src, files):
         has_unsanitised_vulnerabilities = any(
             not isinstance(v, SanitisedVulnerability) for v in vulnerabilities
         )
-    return vulnerabilities, has_unsanitised_vulnerabilities
+    return vulnerabilities, insights, has_unsanitised_vulnerabilities

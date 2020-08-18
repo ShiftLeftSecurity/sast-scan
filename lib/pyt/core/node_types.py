@@ -35,7 +35,7 @@ class Node:
         self.ast_node = ast_node
         if line_number:
             self.line_number = line_number
-        elif ast_node:
+        elif ast_node and hasattr(ast_node, "lineno"):
             self.line_number = ast_node.lineno
         else:
             self.line_number = None
