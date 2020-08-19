@@ -123,16 +123,16 @@ def is_static_assignment(left_hand_side, right_hand_side):
     ):
         left_value = left_hand_side.value
         right_value = right_hand_side.value
-        if isinstance(left_value, str) and isinstance(right_value, value):
+        if isinstance(left_value, str) and isinstance(right_value, str):
             ret = True
     return ret
 
 
 def has_import_like(module_name, ast_tree):
-    pat = prepare_pattern(f"import ??")
+    pat = prepare_pattern("import ??")
     matches = _get_matches(pat, ast_tree)
     if not matches:
-        pat = prepare_pattern(f"from ?? import ??")
+        pat = prepare_pattern("from ?? import ??")
         matches = _get_matches(pat, ast_tree)
     if not matches:
         return False
@@ -144,7 +144,7 @@ def has_import_like(module_name, ast_tree):
                     return True
     # Repeat with from lookup
     if not ret:
-        pat = prepare_pattern(f"from ?? import ??")
+        pat = prepare_pattern("from ?? import ??")
         matches = _get_matches(pat, ast_tree)
     for match in matches:
         if isinstance(match, ast.ImportFrom):
@@ -190,7 +190,7 @@ def decode_str(value):
 def decode_bytes(value):
     try:
         return value.decode("utf-8")
-    except:
+    except Exception:
         return codecs.getencoder("hex_codec")(value)[0].decode("utf-8")
 
 

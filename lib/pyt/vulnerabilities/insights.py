@@ -6,12 +6,10 @@ from collections import namedtuple
 import lib.pyt.vulnerabilities.rules as rules
 from lib.logger import LOG
 from lib.pyt.core.ast_helper import (
-    ast2json,
     get_assignments_as_dict,
     has_import,
     has_import_like,
     has_method_call,
-    is_static_assignment,
 )
 
 Source = namedtuple(
@@ -78,7 +76,9 @@ def convert_node_source_sink(node, path):
         sink_type = (
             node["right_hand_side"].kind if node["right_hand_side"].kind else "Constant"
         )
-    source = Source(source_type, str(source_trigger), source_line_number, str(source_label), path)
+    source = Source(
+        source_type, str(source_trigger), source_line_number, str(source_label), path
+    )
     sink = Sink(sink_type, str(sink_trigger), sink_line_number, str(sink_label), path)
     return source, sink
 
@@ -262,7 +262,7 @@ def _check_flask_common_misconfig(ast_tree, path):
             )
             violations.append(
                 Insight(
-                    f"Consider adding Flask-Security or any alternative security extension to your Flask apps",
+                    "Consider adding Flask-Security or any alternative security extension to your Flask apps",
                     "Missing Security Controls",
                     "LOW",
                     "a6-misconfiguration",
