@@ -310,13 +310,14 @@ class StmtVisitor(ast.NodeVisitor):
 
         if node.finalbody:
             finalbody = self.stmt_star_handler(node.finalbody)
-            for last in last_statements:
-                last.connect(finalbody.first_statement)
+            if not isinstance(finalbody, IgnoredNode):
+                for last in last_statements:
+                    last.connect(finalbody.first_statement)
 
-            for last in body.last_statements:
-                last.connect(finalbody.first_statement)
+                for last in body.last_statements:
+                    last.connect(finalbody.first_statement)
 
-            body.last_statements.extend(finalbody.last_statements)
+                body.last_statements.extend(finalbody.last_statements)
 
         last_statements.extend(remove_breaks(body.last_statements))
 
@@ -538,7 +539,8 @@ class StmtVisitor(ast.NodeVisitor):
         body_connect_stmts = self.stmt_star_handler(
             node.body, prev_node_to_avoid=self.nodes[-1]
         )
-
+        if isinstance(body_connect_stmts, IgnoredNode):
+            return IgnoredNode()
         test.connect(body_connect_stmts.first_statement)
         test.connect_predecessors(body_connect_stmts.last_statements)
 
@@ -551,9 +553,9 @@ class StmtVisitor(ast.NodeVisitor):
             orelse_connect_stmts = self.stmt_star_handler(
                 node.orelse, prev_node_to_avoid=self.nodes[-1]
             )
-
-            test.connect(orelse_connect_stmts.first_statement)
-            last_nodes.extend(orelse_connect_stmts.last_statements)
+            if not isinstance(orelse_connect_stmts, IgnoredNode):
+                test.connect(orelse_connect_stmts.first_statement)
+                last_nodes.extend(orelse_connect_stmts.last_statements)
         else:
             last_nodes.append(
                 test
@@ -755,6 +757,8 @@ class StmtVisitor(ast.NodeVisitor):
             Node(label_visitor.result, node, path=self.filenames[-1])
         )
         connect_statements = self.stmt_star_handler(node.body)
+        if isinstance(connect_statements, IgnoredNode):
+            return IgnoredNode()
         with_node.connect(connect_statements.first_statement)
         return ControlFlowNode(
             with_node,

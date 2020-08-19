@@ -238,11 +238,13 @@ def py_deep_scan(src, reports_dir, convert, repo_context):
     py_files = utils.find_files(src, ".py")
     LOG.debug(f"Scanning {len(py_files)} python files ...")
     try:
-        vulnerabilities, has_unsanitised_vulnerabilities = deep_analysis(src, py_files)
-        if not vulnerabilities:
-            LOG.debug("taint-python has not found any vulnerabilities")
+        vulnerabilities, insights, has_unsanitised_vulnerabilities = deep_analysis(
+            src, py_files
+        )
+        if not vulnerabilities and not insights:
+            LOG.debug(f"taint-python has not found any vulnerabilities or insights")
             return
-        py_json_report(vulnerabilities, report_fname, False)
+        py_json_report(vulnerabilities, insights, report_fname)
         if convert:
             crep_fname = utils.get_report_file(
                 "taint-python", reports_dir, convert, ext_name="sarif"

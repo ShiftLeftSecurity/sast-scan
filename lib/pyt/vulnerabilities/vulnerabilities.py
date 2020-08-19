@@ -142,7 +142,7 @@ def label_starts_with(node, triggers):
                 or f" {trigger.trigger_word}" in node.label
                 or f".{trigger.trigger_word}" in node.label
                 or node.label.startswith(trigger.trigger_word)
-            ):
+            ) and f"ret_self.{trigger.trigger_word}" not in node.label:
                 yield TriggerNode(trigger, node)
 
 
@@ -394,7 +394,6 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     """Filter over tainted objects such as Sensitive Data Leaks
     """
     source_cfg = source.cfg_node
-    sink_cfg = sink.cfg_node
     sensitive_data_list = blackbox_mapping.get("sensitive_data_list")
     sensitive_allowed_log_levels = blackbox_mapping.get("sensitive_allowed_log_levels")
     source_type = source.source_type

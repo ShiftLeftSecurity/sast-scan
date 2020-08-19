@@ -42,13 +42,15 @@ def _get_inner_most_function_call(call_node):
 def _connect_control_flow_node(control_flow_node, next_node):
     """Connect a ControlFlowNode properly to the next_node."""
     for last in control_flow_node.last_nodes:
+        if last is None:
+            continue
         if isinstance(next_node, ControlFlowNode):
             last.connect(next_node.test)  # connect to next if test case
         elif isinstance(next_node, AssignmentCallNode):
             call_node = next_node.call_node
             inner_most_call_node = _get_inner_most_function_call(call_node)
             last.connect(inner_most_call_node)
-        elif last is not None:
+        else:
             last.connect(next_node)
 
 

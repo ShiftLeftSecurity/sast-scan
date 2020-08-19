@@ -13,3 +13,4 @@ yamllint
 njsscan
 rich
 PyGithub
+astsearch
