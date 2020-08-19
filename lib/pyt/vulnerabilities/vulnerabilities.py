@@ -394,6 +394,7 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     """Filter over tainted objects such as Sensitive Data Leaks
     """
     source_cfg = source.cfg_node
+    sink_cfg = sink.cfg_node
     sensitive_data_list = blackbox_mapping.get("sensitive_data_list")
     sensitive_allowed_log_levels = blackbox_mapping.get("sensitive_allowed_log_levels")
     source_type = source.source_type
@@ -410,6 +411,9 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     if sink_type == "ReturnedToUser":
         if sink.trigger_word == "render(" and source_type == "Framework_Parameter":
             return None
+    # Ignore NoSQLi that use parameters
+    if sink_type == "NoSQL" and sink_cfg.label and "parameters" in sink_cfg.label:
+        return None
     return vulnerability
 
 

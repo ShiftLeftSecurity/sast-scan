@@ -10,7 +10,7 @@
   
   <description>
     <p>
-      ShiftLeft Scan is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, ShiftLeft Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan. The kind of flaws detected are:
+      Scan is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan. The kind of flaws detected are:
     </p>
     <ul>
       <li>Credentials Scanning to detect accidental secret leaks</li>

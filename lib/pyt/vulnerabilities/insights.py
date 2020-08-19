@@ -19,7 +19,17 @@ Sink = namedtuple("Sink", ("sink_type", "trigger_word", "line_number", "label", 
 
 Insight = namedtuple(
     "Insight",
-    ("name", "code", "severity", "owasp_category", "source", "sink", "description",),
+    (
+        "short_description",
+        "name",
+        "code",
+        "cwe_category",
+        "severity",
+        "owasp_category",
+        "source",
+        "sink",
+        "description",
+    ),
 )
 
 
@@ -121,6 +131,8 @@ def _check_django_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a static value `{obfuscated_label}`",
                             "Security Misconfiguration",
+                            "misconfiguration-static",
+                            "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
@@ -137,6 +149,8 @@ def _check_django_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a value `{sink.label}` meant for development use",
                             "Security Misconfiguration",
+                            "misconfiguration-insecure",
+                            "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
@@ -164,6 +178,8 @@ def _check_django_common_misconfig(ast_tree, path):
                     Insight(
                         f"""Security Misconfiguration with the config `{mc}` not set to the recommended value `{rsetting.get("recommended")}` for production use""",
                         "Security Misconfiguration",
+                        "misconfiguration-recommended",
+                        "CWE-732",
                         "LOW",
                         "a6-misconfiguration",
                         source,
@@ -195,6 +211,8 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a static value `{obfuscated_label}`",
                             "Security Misconfiguration",
+                            "misconfiguration-static",
+                            "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
@@ -211,6 +229,8 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a value `{sink.label}` meant for development use",
                             "Security Misconfiguration",
+                            "misconfiguration-insecure",
+                            "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
@@ -239,6 +259,8 @@ def _check_flask_common_misconfig(ast_tree, path):
                     Insight(
                         f"""Security Misconfiguration with the config `{mc}` not set to the recommended value `{rsetting.get("recommended")}` for production use""",
                         "Security Misconfiguration",
+                        "misconfiguration-recommended",
+                        "CWE-732",
                         "LOW",
                         "a6-misconfiguration",
                         source,
@@ -264,6 +286,8 @@ def _check_flask_common_misconfig(ast_tree, path):
                 Insight(
                     "Consider adding Flask-Security or any alternative security extension to your Flask apps",
                     "Missing Security Controls",
+                    "misconfiguration-controls",
+                    "CWE-732",
                     "LOW",
                     "a6-misconfiguration",
                     source,

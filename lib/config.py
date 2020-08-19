@@ -65,9 +65,7 @@ SHIFTLEFT_VULN_API = "{}/api/v3/public/org/%(sl_org)s/app/%(app_name)s/version/%
     SHIFTLEFT_URI
 )
 
-PR_COMMENT_TEMPLATE = """<img height=40 src="https://www.shiftleft.io/static/images/ShiftLeft_logo_white.svg"/>
-
-## ShiftLeft Scan Summary
+PR_COMMENT_TEMPLATE = """## Scan Summary
 
 %(summary)s
 
@@ -76,7 +74,7 @@ PR_COMMENT_TEMPLATE = """<img height=40 src="https://www.shiftleft.io/static/ima
 %(recommendation)s
 """
 
-PR_COMMENT_BASIC_TEMPLATE = """## ShiftLeft Scan Summary
+PR_COMMENT_BASIC_TEMPLATE = """## Scan Summary
 
 %(summary)s
 
@@ -909,6 +907,7 @@ rules_severity = {
     "SA1029": "LOW",
     "B703": "LOW",
     "B108": "LOW",
+    "B201": "LOW",
     "TEMPLATE_INJECTION_FREEMARKER": "MEDIUM",
     "UNVALIDATED_REDIRECT": "MEDIUM",
 }
@@ -1078,8 +1077,25 @@ rules_owasp_category = {
     "CWE-605": "a6-misconfiguration",
     "CWE-644": "a6-misconfiguration",
     "CWE-703": "a6-misconfiguration",
-    "CWE-732": "a5-broken-access-control",
+    "CWE-732": "a6-misconfiguration",
     "CWE-918": "a6-misconfiguration",
+    "rce": "a1-injection",
+    "sqli": "a1-injection",
+    "nosqli": "a1-injection",
+    "xmli": "a1-injection",
+    "xss": "a7-xss",
+    "basic-xss": "a7-xss",
+    "broken-access-control": "a5-broken-access-control",
+    "file-write": "a5-broken-access-control",
+    "traversal": "a5-broken-access-control",
+    "ssrf": "a6-misconfiguration",
+    "open-redirect": "a6-misconfiguration",
+    "server-data-leak": "a3-sensitive-data-exposure",
+    "user-data-leak": "a3-sensitive-data-exposure",
+    "user-response": "a6-misconfiguration",
+    "data-leak-log": "a3-sensitive-data-exposure",
+    "ssti": "a1-injection",
+    "misconfiguration-": "a6-misconfiguration",
 }
 
 # Build break rules

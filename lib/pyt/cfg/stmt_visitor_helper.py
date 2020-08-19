@@ -109,10 +109,11 @@ def get_first_node(node, node_not_to_step_past):
     """
     ingoing = None
     i = 0
+    j = 0
     if not node:
         return None
     current_node = node
-    while current_node.ingoing:
+    while current_node.ingoing and j < 5:
         # This is used because there may be multiple ingoing and loop will cause an infinite loop if we did [0]
         i = random.randrange(len(current_node.ingoing))
         # e.g. We don't want to step past the Except of an Except basic block
@@ -120,6 +121,7 @@ def get_first_node(node, node_not_to_step_past):
             break
         ingoing = current_node.ingoing
         current_node = current_node.ingoing[i]
+        j = j + 1
     if ingoing:
         return ingoing[i]
     return current_node

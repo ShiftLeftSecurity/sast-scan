@@ -74,7 +74,6 @@ class StmtVisitor(ast.NodeVisitor):
         """
         break_nodes = list()
         cfg_statements = list()
-
         self.prev_nodes_to_avoid.append(prev_node_to_avoid)
         self.last_control_flow_nodes.append(None)
 
@@ -83,7 +82,8 @@ class StmtVisitor(ast.NodeVisitor):
 
         for stmt in stmts:
             node = self.visit(stmt)
-
+            if isinstance(node, IgnoredNode):
+                continue
             if isinstance(node, ControlFlowNode) and not isinstance(node.test, TryNode):
                 self.last_control_flow_nodes.append(node.test)
             else:
@@ -93,18 +93,15 @@ class StmtVisitor(ast.NodeVisitor):
                 break_nodes.extend(node.break_statements)
             elif isinstance(node, BreakNode):
                 break_nodes.append(node)
-
-            if not isinstance(node, IgnoredNode):
-                cfg_statements.append(node)
-                if not first_node:
-                    if isinstance(node, ControlFlowNode):
-                        first_node = node.test
-                    else:
-                        first_node = get_first_node(node, node_not_to_step_past)
+            cfg_statements.append(node)
+            if not first_node:
+                if isinstance(node, ControlFlowNode):
+                    first_node = node.test
+                else:
+                    first_node = get_first_node(node, node_not_to_step_past)
 
         self.prev_nodes_to_avoid.pop()
         self.last_control_flow_nodes.pop()
-
         if cfg_statements:
             connect_nodes(cfg_statements)
             if first_node:
@@ -113,7 +110,6 @@ class StmtVisitor(ast.NodeVisitor):
                 first_statement = get_first_statement(cfg_statements[0])
 
             last_statements = get_last_statements(cfg_statements)
-
             return ConnectStatements(
                 first_statement=first_statement,
                 last_statements=last_statements,
@@ -933,7 +929,6 @@ class StmtVisitor(ast.NodeVisitor):
             Directories don't need to be packages.
         """
         module_path = module[1]
-
         init_file_location = os.path.join(module_path, "__init__.py")
         init_exists = os.path.isfile(init_file_location)
 
