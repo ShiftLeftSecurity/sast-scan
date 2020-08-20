@@ -115,9 +115,14 @@ def _check_django_common_misconfig(ast_tree, path):
     """Look for common security misconfiguration in Django apps
     """
     violations = []
-    if os.path.basename(path) == "settings.py" and has_import_like("django", ast_tree):
+    config_dict = get_assignments_as_dict("?=?", ast_tree)
+    is_django = (
+        has_import_like("django", ast_tree)
+        or "INSTALLED_APPS" in config_dict.keys()
+        or "MIDDLEWARE_CLASSES" in config_dict.keys()
+    )
+    if os.path.basename(path) == "settings.py" and is_django:
         all_keys = []
-        config_dict = get_assignments_as_dict("?=?", ast_tree)
         for k, v in config_dict.items():
             all_keys.append(k)
             # Static configs
