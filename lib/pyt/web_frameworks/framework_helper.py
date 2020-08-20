@@ -56,7 +56,7 @@ def is_taintable_function(ast_node):
         if first_arg_name in ["conn", "cursor", "sql"]:
             return False
     # Ignore known validation and sanitization functions
-    for n in ["valid", "sanitize", "sanitise", "is_", "set_", "_"]:
+    for n in ["valid", "sanitize", "sanitise", "is_", "set_"]:
         if ast_node.name.startswith(n):
             return False
     return True
