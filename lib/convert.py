@@ -226,6 +226,8 @@ def extract_from_file(
                             "rule_id": taint.get("rule_id"),
                             "test_name": taint.get("rule_name"),
                             "short_description": taint.get("short_description"),
+                            "cwe_category": taint.get("cwe_category"),
+                            "owasp_category": taint.get("owasp_category"),
                             "description": taint.get("description"),
                             "severity": taint.get("severity"),
                             "issue_confidence": "HIGH",
@@ -745,6 +747,8 @@ def get_rule_short_description(tool_name, rule_id, test_name, issue_dict):
     """
     if rule_id and rule_id.upper().startswith("CWE"):
         return get_name(rule_id)
+    if issue_dict.get("cwe_category"):
+        return get_name(issue_dict.get("cwe_category"))
     if issue_dict.get("short_description"):
         return issue_dict.get("short_description")
     if test_name:
@@ -766,6 +770,8 @@ def get_rule_full_description(tool_name, rule_id, test_name, issue_dict):
     """
     if rule_id and rule_id.upper().startswith("CWE"):
         return get_description(rule_id, False)
+    if issue_dict.get("cwe_category"):
+        return get_description(issue_dict.get("cwe_category"), False)
     issue_text = issue_dict.get("issue_text", "")
     # Extract just the first line alone
     if issue_text:
@@ -788,6 +794,8 @@ def get_help(format, tool_name, rule_id, test_name, issue_dict):
     """
     if rule_id and rule_id.upper().startswith("CWE"):
         return get_description(rule_id, True)
+    if issue_dict.get("cwe_category"):
+        return get_description(issue_dict.get("cwe_category"), True)
     issue_text = issue_dict.get("issue_text", "")
     return issue_text
 
@@ -804,6 +812,10 @@ def get_url(tool_name, rule_id, test_name, issue_dict):
         return "https://cwe.mitre.org/data/definitions/%s.html" % rule_id.replace(
             "CWE-", ""
         )
+    if issue_dict.get("cwe_category"):
+        return "https://cwe.mitre.org/data/definitions/%s.html" % issue_dict.get(
+            "cwe_category"
+        ).replace("CWE-", "")
     return "https://slscan.io?q={}".format(rule_id)
 
 
