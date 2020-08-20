@@ -52,7 +52,7 @@ class Bitbucket(GitProvider):
         return url
 
     def convert_severity(self, severity):
-        """Convert ShiftLeft severity to Bitbucket insights"""
+        """Convert scan severity to Bitbucket insights"""
         if severity == "critical":
             return "CRITICAL"
         elif severity == "moderate":
@@ -125,10 +125,10 @@ class Bitbucket(GitProvider):
                     proxies=proxies,
                     headers={"Content-Type": "application/json"},
                     json={
-                        "title": "ShiftLeft Scan",
+                        "title": "Scan",
                         "details": f"This pull request contains {total_count} issues",
                         "report_type": "SECURITY",
-                        "reporter": f"ShiftLeft Scan report for {repo_context.get('repositoryName')}",
+                        "reporter": f"Scan report for {repo_context.get('repositoryName')}",
                         "link": "https://slscan.io",
                         "logo_url": "https://www.shiftleft.io/static/images/ShiftLeft_logo_white.svg",
                         "result": "FAILED" if build_status == "fail" else "PASSED",
@@ -160,7 +160,7 @@ class Bitbucket(GitProvider):
                         if "\n" in title:
                             title = title.split("\n")[0]
                         annotation = {
-                            "title": "ShiftLeft Scan Report",
+                            "title": "Scan Report",
                             "annotation_type": "VULNERABILITY",
                             "summary": title,
                             "details": description,

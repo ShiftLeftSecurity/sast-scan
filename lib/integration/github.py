@@ -65,7 +65,7 @@ class GitHub(GitProvider):
             description=f"Scan has identified {total_count} issues"
             if build_status == "fail"
             else "No issues found by scan",
-            context="ShiftLeft Scan / Summary",
+            context="Scan / Summary",
         )
 
     def create_review(

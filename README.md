@@ -1,15 +1,15 @@
 # Introduction
 
 ```bash
-███████╗██╗  ██╗██╗███████╗████████╗██╗     ███████╗███████╗████████╗    ███████╗ ██████╗ █████╗ ███╗   ██╗
-██╔════╝██║  ██║██║██╔════╝╚══██╔══╝██║     ██╔════╝██╔════╝╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗████╗  ██║
-███████╗███████║██║█████╗     ██║   ██║     █████╗  █████╗     ██║       ███████╗██║     ███████║██╔██╗ ██║
-╚════██║██╔══██║██║██╔══╝     ██║   ██║     ██╔══╝  ██╔══╝     ██║       ╚════██║██║     ██╔══██║██║╚██╗██║
-███████║██║  ██║██║██║        ██║   ███████╗███████╗██║        ██║       ███████║╚██████╗██║  ██║██║ ╚████║
-╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚══════╝╚═╝        ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
+███████╗ ██████╗ █████╗ ███╗   ██╗
+██╔════╝██╔════╝██╔══██╗████╗  ██║
+███████╗██║     ███████║██╔██╗ ██║
+╚════██║██║     ██╔══██║██║╚██╗██║
+███████║╚██████╗██║  ██║██║ ╚████║
+╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-ShiftLeft [Scan](https://slscan.io) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, ShiftLeft Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+[Scan](https://slscan.io) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
 [![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
 
@@ -141,23 +141,10 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.sl-scan-results
 
-## Alternative container images
-
-Scan offers certain language specific container images with additional runtime versions and tools.
-
-| Image name            | Comments                                                         |
-| --------------------- | ---------------------------------------------------------------- |
-| shiftleft/scan-oss    | Just the OSS tools without any ShiftLeft cli                     |
-| shiftleft/scan-java   | Includes both Java 8 and 11 along with ShiftLeft cli             |
-| shiftleft/scan-csharp | Includes both .Net core 2.1 and 3.1 SDK along with ShiftLeft cli |
-
-For all other languages, continue to use `shiftleft/sast-scan` or `shiftleft/scan`
-
 ## Scan users
 
 Scan is used by many organizations and over 1000s of opensource projects. Some notable organizations that use scan are:
 
-- ShiftLeft
 - Microsoft
 - D2iQ
 - McKinsey & Company
@@ -167,4 +154,4 @@ Scan is used by many organizations and over 1000s of opensource projects. Some n
 - Wipro
 - NCI Agency
 
-Send us a PR for including your organization name here. You can also show your support for scan by using the hashtags #shiftleft #scan on social media.
+Send us a PR for including your organization name here. You can also show your support for scan by using the hashtags #slscan on social media.

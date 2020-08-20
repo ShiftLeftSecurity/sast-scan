@@ -39,6 +39,7 @@ class Issue(object):
         if isinstance(text, bytes):
             text = text.decode("utf-8")
         self.text = text
+        self.short_description = ""
         self.code = ""
         self.ident = ident
         self.fname = ""
@@ -175,7 +176,11 @@ class Issue(object):
             if self.test == "whitelist":
                 self.test = "allowlist"
             if "_" in self.test:
-                self.test = self.test.replace("_", " ").title()
+                self.test = self.test.replace("_", " ")
+                # Title case small rule names
+                tmpA = self.test.split(" ")
+                if len(tmpA) < 3:
+                    self.test = self.test.title()
         if self.test_id:
             override_sev = config.rules_severity.get(str(self.test_id).upper())
             if override_sev:
@@ -186,6 +191,9 @@ class Issue(object):
                 if cwe_id:
                     self.test_id = f"CWE-{cwe_id}"
                     self.test_ref_url = config.Cwe(id=cwe_id).link()
+        # Take the first line as short description
+        if not self.short_description and issue_text:
+            self.short_description = issue_text.split(". ")[0]
         out = {
             "filename": self.fname,
             "test_name": self.test,
@@ -197,6 +205,7 @@ class Issue(object):
             "line_number": self.lineno,
             "line_range": self.linerange,
             "first_found": self.first_found,
+            "short_description": self.short_description,
         }
 
         if with_code:
@@ -361,6 +370,8 @@ class Issue(object):
             self.text = data["details"]
         if "description" in data:
             self.text = data["description"]
+        if "short_description" in data:
+            self.short_description = data["short_description"]
         if "message" in data:
             self.text = data["message"].replace("\\", " \\ ")
         if "test_name" in data:

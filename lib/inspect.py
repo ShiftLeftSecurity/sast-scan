@@ -351,6 +351,9 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         if not category:
                             category = rule_id
                         desc = rule.get("fullDescription", {}).get("text")
+                        short_desc = rule.get("shortDescription", {}).get("text")
+                        if not short_desc:
+                            short_desc = result.get("message", {}).get("text")
                         ngsev = convert_severity(
                             result.get("properties", {})["issue_severity"]
                         )
@@ -408,7 +411,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             finding = {
                                 "app": app_name,
                                 "type": "extscan",
-                                "title": result.get("message", {}).get("text"),
+                                "title": short_desc,
                                 "description": desc,
                                 "internal_id": "{}/{}".format(
                                     rule_id,
@@ -419,6 +422,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         location.get("physicalLocation", {})["region"][
                                             "snippet"
                                         ]["text"],
+                                        short_desc,
                                     ),
                                 ),
                                 "severity": ngsev,

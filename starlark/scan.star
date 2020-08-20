@@ -4,9 +4,9 @@ load("github.com/mesosphere/dispatch-catalog/starlark/stable/git@0.0.7", "git_ch
 load("github.com/mesosphere/dispatch-catalog/starlark/stable/pipeline@0.0.7", "storage_resource")
 
 __doc__ = """
-# ShiftLeft Scan
+# Scan
 
-Provides methods for running [Shiftleft Scan](https://www.shiftleft.io/scan/) on your CI.
+Provides methods for running [Scan](https://www.shiftleft.io/scan/) on your CI.
 
 To import, add the following to your Dispatchfile:
 
@@ -19,7 +19,7 @@ For help, please visit https://slscan.io/en/latest/integrations/dispatch/
 
 def sast_scan(task_name, git_name, image="shiftleft/scan:latest", src=None, extra_scan_options=None, **kwargs):
     """
-    Runs a ShiftLeft Scan using the provided image on a given directory.
+    Runs a SAST Scan using the provided image on a given directory.
 
     #### Parameters
     - *task_name* : name of the task to be created

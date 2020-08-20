@@ -220,14 +220,17 @@ def extract_from_file(
                 taint_list = report_data.get("vulnerabilities")
                 for taint in taint_list:
                     source = taint.get("source")
+                    sink = taint.get("sink")
                     issues.append(
                         {
                             "rule_id": taint.get("rule_id"),
                             "test_name": taint.get("rule_name"),
+                            "short_description": taint.get("short_description"),
                             "description": taint.get("description"),
                             "severity": taint.get("severity"),
                             "issue_confidence": "HIGH",
-                            "line_number": source.get("line_number"),
+                            "line_from": source.get("line_number"),
+                            "line_to": sink.get("line_number"),
                             "filename": source.get("path"),
                         }
                     )
@@ -449,8 +452,6 @@ def report(
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX is not None else working_dir
     driver_name = config.tool_purpose_message.get(tool_name, tool_name)
-    if tool_name != "ng-sast" and config.get("CI") or config.get("GITHUB_ACTIONS"):
-        driver_name = "ShiftLeft " + driver_name
     # Construct SARIF log
     log = om.SarifLog(
         schema_uri="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
@@ -744,6 +745,8 @@ def get_rule_short_description(tool_name, rule_id, test_name, issue_dict):
     """
     if rule_id and rule_id.upper().startswith("CWE"):
         return get_name(rule_id)
+    if issue_dict.get("short_description"):
+        return issue_dict.get("short_description")
     if test_name:
         if not test_name.endswith("."):
             test_name = test_name + "."
@@ -848,7 +851,7 @@ def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):
         },
         help_uri=get_url(tool_name, rule_id, issue_dict["test_name"], issue_dict),
         properties={
-            "tags": ["ShiftLeft", "NG SAST" if tool_name == "ng-sast" else "Scan"],
+            "tags": ["NG SAST" if tool_name == "ng-sast" else "Scan"],
             "precision": precision,
         },
         default_configuration={"level": level_from_severity(issue_severity)},

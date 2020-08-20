@@ -42,6 +42,7 @@ def report(vulnerabilities, insights, report_fname):
                 {
                     "rule_id": ins.code,
                     "rule_name": ins.name,
+                    "short_description": ins.short_description,
                     "description": ins.description,
                     "severity": ins.severity,
                     "source": {
