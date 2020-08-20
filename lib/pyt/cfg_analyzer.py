@@ -27,7 +27,7 @@ def deep_analysis(src, files):
     cfg_list = list()
     insights = []
     framework_route_criteria = is_taintable_function
-    for path in sorted(files):
+    for path in sorted(files, key=os.path.dirname, reverse=True):
         directory = os.path.dirname(path)
         project_modules = get_modules(directory, prepend_module_root=False)
         local_modules = get_directory_modules(directory)
