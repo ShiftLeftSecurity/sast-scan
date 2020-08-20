@@ -1,7 +1,6 @@
 """The comand line module of PyT."""
 
 import os
-import traceback
 
 from lib.logger import LOG
 from lib.pyt.analysis.constraint_table import initialize_constraint_table
@@ -33,9 +32,12 @@ def deep_analysis(src, files):
         project_modules = get_modules(directory, prepend_module_root=False)
         local_modules = get_directory_modules(directory)
         LOG.debug(f"Generating AST for {path}")
-        tree = generate_ast(path)
-        if not tree:
-            continue
+        try:
+            tree = generate_ast(path)
+            if not tree:
+                continue
+        except Exception as e:
+            LOG.debug(e)
         try:
             violations = find_insights(tree, path)
             if violations:
@@ -53,7 +55,6 @@ def deep_analysis(src, files):
             )
         except Exception as e:
             LOG.debug(e)
-            traceback.print_exc()
 
     # Add all the route functions to the cfg_list
     try:
@@ -63,7 +64,6 @@ def deep_analysis(src, files):
         analyse(cfg_list)
     except Exception as e:
         LOG.debug(e)
-        traceback.print_exc()
     LOG.debug("Finding vulnerabilities from the graph")
     vulnerabilities = find_vulnerabilities(
         cfg_list, default_blackbox_mapping_file, default_trigger_word_file,

@@ -218,8 +218,7 @@ def python_scan(src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
-    if config.get("SCAN_ENABLE_PYTHON_DEEPSCAN"):
-        py_deep_scan(src, reports_dir, convert, repo_context)
+    py_deep_scan(src, reports_dir, convert, repo_context)
     bandit_scan(src, reports_dir, convert, repo_context)
 
 
