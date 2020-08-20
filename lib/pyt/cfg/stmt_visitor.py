@@ -53,7 +53,30 @@ uninspectable_modules = {
 }  # Don't warn about failing to import these
 
 # Some builtin packages to break recursion
-BUILTIN_PKGS = ["os", "logging", "json", "markdown"]
+BUILTIN_PKGS = [
+    "os",
+    "logging",
+    "json",
+    "markdown",
+    "base64",
+    "datetime",
+    "six",
+    "collections",
+    "re",
+    "pickle",
+    "sys",
+    "csv",
+    "io",
+    "pandas",
+    "zipfile",
+    "tempfile",
+    "environ",
+    "mimetypes",
+    "codecs",
+    "requests",
+    "threading",
+    "socket",
+]
 
 # Cache to keep track of visited modules to break recursion
 visited_module_paths = {}
@@ -65,7 +88,8 @@ class StmtVisitor(ast.NodeVisitor):
         super().__init__()
 
     def visit_Module(self, node):
-        return self.stmt_star_handler(node.body)
+        if node and node.body:
+            return self.stmt_star_handler(node.body)
 
     def stmt_star_handler(self, stmts, prev_node_to_avoid=None):
         """Handle stmt* expressions in an AST node.
@@ -79,7 +103,6 @@ class StmtVisitor(ast.NodeVisitor):
 
         first_node = None
         node_not_to_step_past = self.nodes[-1]
-
         for stmt in stmts:
             node = self.visit(stmt)
             if isinstance(node, IgnoredNode):
@@ -827,9 +850,12 @@ class StmtVisitor(ast.NodeVisitor):
         if module_or_package_name in BUILTIN_PKGS:
             uninspectable_modules.add(module_or_package_name)
             return IgnoredNode()
-        if visited_module_paths.get(module[0]):
+        if visited_module_paths.get(module[0]) or visited_module_paths.get(
+            module_or_package_name
+        ):
             return IgnoredNode()
         visited_module_paths[module[0]] = True
+        visited_module_paths[module_or_package_name] = True
         parent_definitions = self.module_definitions_stack[-1]
         # Here, in `visit_Import` and in `visit_ImportFrom` are the only places the `import_alias_mapping` is updated
         parent_definitions.import_alias_mapping.update(import_alias_mapping)
@@ -1039,7 +1065,36 @@ class StmtVisitor(ast.NodeVisitor):
         )
 
     def visit_Import(self, node):
+        for alias in node.names:
+            # The module is uninspectable (so blackbox or built-in). If it has an alias, we remember
+            # the alias so we can do fully qualified name resolution for blackbox- and built-in trigger words
+            # e.g. we want a call to "os.system" be recognised, even if we do "import os as myos"
+            if alias.asname is not None and alias.asname != alias.name:
+                local_definitions = self.module_definitions_stack[-1]
+                local_definitions.import_alias_mapping[alias.asname] = alias.name
+            if alias.name not in uninspectable_modules:
+                uninspectable_modules.add(
+                    alias.name
+                )  # Don't repeatedly warn about this
+        return IgnoredNode()
+
+    def visit_ImportFrom(self, node):
         for name in node.names:
+            local_definitions = self.module_definitions_stack[-1]
+            local_definitions.import_alias_mapping[
+                name.asname or name.name
+            ] = "{}.{}".format(node.module, name.name)
+        if node.module not in uninspectable_modules:
+            uninspectable_modules.add(node.module)
+        return IgnoredNode()
+
+    def visit_Import_deep(self, node):
+        for name in node.names:
+            if not hasattr(name, "name"):
+                continue
+            if name.name in BUILTIN_PKGS or visited_module_paths.get(name.name):
+                continue
+            visited_module_paths[name.name] = True
             for module in self.local_modules:
                 if name.name == module[0]:
                     if os.path.isdir(module[1]):
@@ -1083,7 +1138,7 @@ class StmtVisitor(ast.NodeVisitor):
                 )  # Don't repeatedly warn about this
         return IgnoredNode()
 
-    def visit_ImportFrom(self, node):
+    def visit_ImportFrom_deep(self, node):
         # Is it relative?
         if node.level > 0:
             return self.handle_relative_import(node)
