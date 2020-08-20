@@ -43,7 +43,10 @@ def report(vulnerabilities, insights, report_fname):
                     "rule_id": ins.code,
                     "rule_name": ins.name,
                     "short_description": ins.short_description,
-                    "description": ins.description,
+                    "description": ins.short_description,
+                    "recommendation": ins.recommendation,
+                    "cwe_category": ins.cwe_category,
+                    "owasp_category": ins.owasp_category,
                     "severity": ins.severity,
                     "source": {
                         "trigger_word": ins.source.trigger_word,

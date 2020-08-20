@@ -28,7 +28,7 @@ Insight = namedtuple(
         "owasp_category",
         "source",
         "sink",
-        "description",
+        "recommendation",
     ),
 )
 

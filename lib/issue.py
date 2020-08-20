@@ -40,6 +40,8 @@ class Issue(object):
             text = text.decode("utf-8")
         self.text = text
         self.short_description = ""
+        self.cwe_category = ""
+        self.owasp_category = ""
         self.code = ""
         self.ident = ident
         self.fname = ""
@@ -206,6 +208,8 @@ class Issue(object):
             "line_range": self.linerange,
             "first_found": self.first_found,
             "short_description": self.short_description,
+            "cwe_category": self.cwe_category,
+            "owasp_category": self.owasp_category,
         }
 
         if with_code:
@@ -372,6 +376,10 @@ class Issue(object):
             self.text = data["description"]
         if "short_description" in data:
             self.short_description = data["short_description"]
+        if "cwe_category" in data:
+            self.cwe_category = data["cwe_category"]
+        if "owasp_category" in data:
+            self.owasp_category = data["owasp_category"]
         if "message" in data:
             self.text = data["message"].replace("\\", " \\ ")
         if "test_name" in data:
