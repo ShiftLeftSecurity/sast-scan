@@ -34,11 +34,11 @@ def generate_ast(path):
         Args:
             path(str): The path to the file e.g. example/foo/bar.py
     """
-    if os.path.isfile(path):
+    if os.path.isfile(path) and os.path.getsize(path):
         with open(path, "r") as f:
             try:
                 tree = ast.parse(f.read())
-                return PytTransformer().visit(tree)
+                return PytTransformer().visit(tree) if tree else None
             except SyntaxError:  # pragma: no cover
                 global recursive
                 if not recursive:
