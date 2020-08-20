@@ -2,6 +2,7 @@
 
 import os
 import traceback
+
 from lib.logger import LOG
 from lib.pyt.analysis.constraint_table import initialize_constraint_table
 from lib.pyt.analysis.fixed_point import analyse
@@ -54,14 +55,16 @@ def deep_analysis(src, files):
             LOG.debug(e)
             traceback.print_exc()
 
-    LOG.debug("About to begin deep analysis")
     # Add all the route functions to the cfg_list
     try:
+        LOG.debug("Building constraints table")
         initialize_constraint_table(cfg_list)
+        LOG.debug("About to begin deep analysis")
         analyse(cfg_list)
     except Exception as e:
         LOG.debug(e)
         traceback.print_exc()
+    LOG.debug("Finding vulnerabilities from the graph")
     vulnerabilities = find_vulnerabilities(
         cfg_list, default_blackbox_mapping_file, default_trigger_word_file,
     )

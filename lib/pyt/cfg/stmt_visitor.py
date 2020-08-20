@@ -960,7 +960,6 @@ class StmtVisitor(ast.NodeVisitor):
 
         if init_exists and not skip_init:
             package_name = os.path.split(module_path)[1]
-            print(936, package_name)
             return self.add_module(
                 module=(module[0], init_file_location),
                 module_or_package_name=package_name,
@@ -974,7 +973,6 @@ class StmtVisitor(ast.NodeVisitor):
             if os.path.isdir(full_name):
                 new_init_file_location = os.path.join(full_name, "__init__.py")
                 if os.path.isfile(new_init_file_location):
-                    print(950, real_name)
                     self.add_module(
                         module=(real_name, new_init_file_location),
                         module_or_package_name=real_name,
@@ -1092,11 +1090,10 @@ class StmtVisitor(ast.NodeVisitor):
 
     def visit_Import_deep(self, node):
         for name in node.names:
-            if not hasattr(name, name):
+            if not hasattr(name, "name"):
                 continue
             if name.name in BUILTIN_PKGS or visited_module_paths.get(name.name):
                 continue
-            print(1044, name.name)
             visited_module_paths[name.name] = True
             for module in self.local_modules:
                 if name.name == module[0]:
