@@ -105,6 +105,27 @@ def _get_matches(pattern, ast_tree):
     return list(ASTPatternFinder(pattern).scan_ast(ast_tree))
 
 
+def get_comparison_as_dict(pattern, ast_tree):
+    pat = prepare_pattern(pattern)
+    node_list = _get_matches(pat, ast_tree)
+    literals_dict = {}
+    for node in node_list:
+        if isinstance(node, ast.Compare):
+            left_hand_side = node.comparators[0]
+            right_hand_side = node.comparators[-1]
+            key = ""
+            if isinstance(left_hand_side, ast.Name):
+                key = left_hand_side.id
+            elif isinstance(left_hand_side, ast.Attribute):
+                key = left_hand_side.attr
+            if key:
+                literals_dict[key] = {
+                    "left_hand_side": left_hand_side,
+                    "right_hand_side": right_hand_side,
+                }
+    return literals_dict
+
+
 def get_assignments_as_dict(pattern, ast_tree):
     pat = prepare_pattern(pattern)
     node_list = _get_matches(pat, ast_tree)
@@ -140,9 +161,9 @@ def get_as_list(ast_list):
     if not ast_list:
         return ret
     if isinstance(ast_list, ast.List):
-        for l in ast_list.elts:
-            if isinstance(l, ast.Constant):
-                ret.append(l.value)
+        for li in ast_list.elts:
+            if isinstance(li, ast.Constant):
+                ret.append(li.value)
     return ret
 
 

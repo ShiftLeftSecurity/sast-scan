@@ -1064,6 +1064,7 @@ rules_owasp_category = {
     "CWE-94": "a1-injection",
     "CWE-155": "a1-injection",
     "CWE-117": "a3-sensitive-data-exposure",
+    "CWE-203": "a3-sensitive-data-exposure",
     "CWE-259": "a3-sensitive-data-exposure",
     "CWE-284": "a5-broken-access-control",
     "CWE-295": "a3-sensitive-data-exposure",

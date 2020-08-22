@@ -8,8 +8,8 @@ from lib.logger import LOG
 from lib.pyt.core.ast_helper import (
     get_as_list,
     get_assignments_as_dict,
+    get_comparison_as_dict,
     get_method_as_dict,
-    has_import,
     has_import_like,
     has_method_call,
 )
@@ -113,6 +113,53 @@ def convert_dict_source_sink(sdict, path):
     return source, sink
 
 
+def _check_timing_attack(ast_tree, path):
+    violations = []
+    common_patterns = [
+        "password==??.password",
+        "??.password==password",
+        "token==??.token",
+        "??.token==token",
+        "hash==??.hash",
+        "??.hash==hash",
+        "access_token==??.access_token",
+        "??.access_token==access_token",
+    ]
+    for cp in common_patterns:
+        config_dict = get_comparison_as_dict(cp, ast_tree)
+        if not config_dict:
+            continue
+        for ck, cv in config_dict.items():
+            clt = cv.get("left_hand_side")
+            if not clt:
+                continue
+            source, sink = convert_dict_source_sink(
+                {
+                    "source_type": "Assignment",
+                    "source_trigger": ck,
+                    "source_line_number": clt.lineno,
+                    "sink_type": "Constant",
+                    "sink_trigger": "",
+                    "sink_line_number": clt.lineno,
+                },
+                path,
+            )
+            violations.append(
+                Insight(
+                    "Insecure comparison using == could lead to timing attacks",
+                    "Insecure Operation",
+                    "insecure-operation",
+                    "CWE-203",
+                    "HIGH",
+                    "a3-sensitive-data-exposure",
+                    source,
+                    sink,
+                    rules.timing_attack_message,
+                )
+            )
+    return violations
+
+
 def _check_pymongo_common_misconfig(ast_tree, path):
     violations = []
     if has_import_like("pymongo", ast_tree):
@@ -137,7 +184,7 @@ def _check_pymongo_common_misconfig(ast_tree, path):
             # pymongo connection to local mongodb instance
             violations.append(
                 Insight(
-                    f"Connection to a MongoDB instance running in default mode without any authentication",
+                    "Connection to a MongoDB instance running in default mode without any authentication",
                     "Security Misconfiguration",
                     "misconfiguration-insecure",
                     "CWE-732",
@@ -152,9 +199,9 @@ def _check_pymongo_common_misconfig(ast_tree, path):
             # ssl checks
             args = method_obj.get("args")
             hostname = args[0].get("value", "localhost")
-            query_args = ""
-            if "?" in hostname:
-                query_args = hostname.split("?")[1]
+            # query_args = ""
+            # if "?" in hostname:
+            #     query_args = hostname.split("?")[1]
             hostname = hostname.replace("mongodb://", "").split("/")[0]
             keywords = method_obj.get("keywords")
             for kw in keywords:
@@ -334,7 +381,7 @@ def _check_django_common_misconfig(ast_tree, path):
             if "django.middleware.security.SecurityMiddleware" not in included_mids:
                 violations.append(
                     Insight(
-                        f"""Consider including the security middleware which provides several security enhancements to django applications""",
+                        "Consider including the security middleware which provides several security enhancements to django applications",
                         "Security Misconfiguration",
                         "misconfiguration-recommended",
                         "CWE-732",
@@ -351,7 +398,7 @@ def _check_django_common_misconfig(ast_tree, path):
             ):
                 violations.append(
                     Insight(
-                        f"""Consider including the clickjacking middleware which provides easy-to-use protection against clickjacking""",
+                        "Consider including the clickjacking middleware which provides easy-to-use protection against clickjacking",
                         "Security Misconfiguration",
                         "misconfiguration-recommended",
                         "CWE-732",
@@ -365,7 +412,7 @@ def _check_django_common_misconfig(ast_tree, path):
             if "django.middleware.csrf.CsrfViewMiddleware" not in included_mids:
                 violations.append(
                     Insight(
-                        f"""Consider including CSRF protection middleware for django applications""",
+                        "Consider including CSRF protection middleware for django applications",
                         "Security Misconfiguration",
                         "misconfiguration-recommended",
                         "CWE-732",
@@ -384,7 +431,7 @@ def _check_flask_common_misconfig(ast_tree, path):
     """
     violations = []
     has_flask_run = has_method_call("app.run(??)", ast_tree)
-    if has_import("flask", ast_tree) and has_flask_run:
+    if has_import_like("flask", ast_tree) and has_flask_run:
         config_method_patterns = [
             "??.from_file(??)",
             "??.from_json(??)",
@@ -473,7 +520,7 @@ def _check_flask_common_misconfig(ast_tree, path):
                     )
 
         # Check for flask security
-        if not has_import("flask_security", ast_tree) and not has_import(
+        if not has_import_like("flask_security", ast_tree) and not has_import_like(
             "flask_talisman", ast_tree
         ):
             source, sink = convert_dict_source_sink(
@@ -524,7 +571,7 @@ def _check_flask_common_misconfig(ast_tree, path):
                 violations.append(
                     Insight(
                         "Disabling XSS protection directly in the code would make the application more vulnerable to XSS attacks",
-                        "Missing Security Controls",
+                        "Security Misconfiguration",
                         "misconfiguration-controls",
                         "CWE-732",
                         "MEDIUM",
@@ -534,4 +581,64 @@ def _check_flask_common_misconfig(ast_tree, path):
                         rules.flask_config_message,
                     )
                 )
+
+        # Flask jwt checks
+        if (
+            has_import_like("flask_jwt_extended", ast_tree)
+            or has_import_like("flask_jwt", ast_tree)
+        ) and not uses_config_import:
+            must_configs = rules.flask_jwt_mustset_config.keys()
+            for mc in must_configs:
+                if mc not in all_keys:
+                    rsetting = rules.flask_jwt_mustset_config[mc]
+                    source, sink = convert_dict_source_sink(
+                        {
+                            "source_type": "Config",
+                            "source_trigger": mc,
+                            "source_line_number": 1,
+                            "sink_type": "Constant",
+                            "sink_trigger": rsetting.get("default"),
+                            "sink_line_number": 1,
+                        },
+                        path,
+                    )
+                    violations.append(
+                        Insight(
+                            f"""Security Misconfiguration with the config `{mc}` not set to the recommended value `{rsetting.get("recommended")}` for production use""",
+                            "Missing Security Controls",
+                            "misconfiguration-controls",
+                            "CWE-732",
+                            "MEDIUM",
+                            "a6-misconfiguration",
+                            source,
+                            sink,
+                            rules.flask_jwt_message,
+                        )
+                    )
+                if mc == "JWT_SECRET_KEY" and mc in all_keys:
+                    # Discourage symmetric key
+                    source, sink = convert_dict_source_sink(
+                        {
+                            "source_type": "Config",
+                            "source_trigger": mc,
+                            "source_line_number": 1,
+                            "sink_type": "Constant",
+                            "sink_trigger": "",
+                            "sink_line_number": 1,
+                        },
+                        path,
+                    )
+                    violations.append(
+                        Insight(
+                            "Use an asymmetric RSA based algorithm such as RS512 for JWT",
+                            "Security Misconfiguration",
+                            "misconfiguration-controls",
+                            "CWE-327",
+                            "MEDIUM",
+                            "a6-misconfiguration",
+                            source,
+                            sink,
+                            rules.flask_jwt_message,
+                        )
+                    )
     return violations

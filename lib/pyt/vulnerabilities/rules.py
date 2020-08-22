@@ -43,6 +43,27 @@ flask_nosec_message = """Flask-Security allows you to quickly add common securit
 **[Flask Talisman](https://github.com/GoogleCloudPlatform/flask-talisman)**
 """
 
+flask_jwt_mustset_config = {
+    "JWT_ALGORITHM": {"recommended": "RS512", "default": "HS256"},
+    "JWT_SECRET_KEY": {"recommended": "unique", "default": "SECRET_KEY"},
+    "JWT_PUBLIC_KEY": {"recommended": "unique", "default": ""},
+    "JWT_PRIVATE_KEY": {"recommended": "unique", "default": ""},
+    "JWT_COOKIE_SECURE": {"recommended": True, "default": False},
+    "JWT_COOKIE_DOMAIN": {"recommended": "domain name", "default": ""},
+    "JWT_BLACKLIST_ENABLED": {"recommended": True, "default": False},
+}
+
+flask_jwt_message = """Flask JWT extension is not configured correctly for deployment to production and live environments. Default settings that are more appropriate for development environment are in use.
+
+## Additional information
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[Flask JWT configuration](https://flask-jwt-extended.readthedocs.io/en/stable/options/#configuration-options)**
+
+**[JWT Algorithms](https://pyjwt.readthedocs.io/en/latest/algorithms.html)**
+"""
+
 django_nostatic_config = [
     "SECRET_KEY",
     "ACCESS_TOKEN_SALT",
@@ -109,4 +130,13 @@ pymongo_config_message = """MongoDB is quite insecure by default allowing unauth
 **[TLS/SSL and PyMongo](https://pymongo.readthedocs.io/en/stable/examples/tls.html)**
 
 **[Field Level Encryption](https://pymongo.readthedocs.io/en/stable/examples/encryption.html)**
+"""
+
+timing_attack_message = """Comparison using == operator leads to content based short-circuiting. By carefully measuring the time, it is possible to guess the correct password or token leading to timing attacks.
+
+To avoid this attack, always use a constant time compare function while comparing sensitive data such as password or secret tokens.
+
+**[Python Compare Digest](https://docs.python.org/3/library/hmac.html#hmac.compare_digest)**
+
+**[Django constant time compare](https://github.com/django/django/blob/stable/3.0.x/django/utils/crypto.py#L49)**
 """
