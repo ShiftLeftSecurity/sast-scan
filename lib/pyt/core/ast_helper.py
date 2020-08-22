@@ -140,9 +140,9 @@ def get_as_list(ast_list):
     if not ast_list:
         return ret
     if isinstance(ast_list, ast.List):
-        for l in ast_list.elts:
-            if isinstance(l, ast.Constant):
-                ret.append(l.value)
+        for li in ast_list.elts:
+            if isinstance(li, ast.Constant):
+                ret.append(li.value)
     return ret
 
 

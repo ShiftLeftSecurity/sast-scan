@@ -43,6 +43,27 @@ flask_nosec_message = """Flask-Security allows you to quickly add common securit
 **[Flask Talisman](https://github.com/GoogleCloudPlatform/flask-talisman)**
 """
 
+flask_jwt_mustset_config = {
+    "JWT_ALGORITHM": {"recommended": "RS512", "default": "HS256"},
+    "JWT_SECRET_KEY": {"recommended": "unique", "default": "SECRET_KEY"},
+    "JWT_PUBLIC_KEY": {"recommended": "unique", "default": ""},
+    "JWT_PRIVATE_KEY": {"recommended": "unique", "default": ""},
+    "JWT_COOKIE_SECURE": {"recommended": True, "default": False},
+    "JWT_COOKIE_DOMAIN": {"recommended": "domain name", "default": ""},
+    "JWT_BLACKLIST_ENABLED": {"recommended": True, "default": False},
+}
+
+flask_jwt_message = """Flask JWT extension is not configured correctly for deployment to production and live environments. Default settings that are more appropriate for development environment are in use.
+
+## Additional information
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[Flask JWT configuration](https://flask-jwt-extended.readthedocs.io/en/stable/options/#configuration-options)**
+
+**[JWT Algorithms](https://pyjwt.readthedocs.io/en/latest/algorithms.html)**
+"""
+
 django_nostatic_config = [
     "SECRET_KEY",
     "ACCESS_TOKEN_SALT",
