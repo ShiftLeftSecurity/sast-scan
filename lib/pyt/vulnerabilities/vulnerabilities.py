@@ -400,13 +400,16 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     source_type = source.source_type
     sink_type = sink.sink_type
     if sink_type == "Logging":
-        # Ignore logging for non-sensitive data
-        if source_cfg.label.lower() not in sensitive_data_list:
-            return None
-        # Ignore vulnerabilities with acceptable log levels
-        for log_level in sensitive_allowed_log_levels:
-            if log_level in sink.trigger_word.lower():
-                return None
+        log_match = False
+        for word in sensitive_data_list:
+            if word.upper() in source_cfg.label.upper():
+                log_match = True
+                break
+        if log_match:
+            # Ignore vulnerabilities with acceptable log levels
+            for log_level in sensitive_allowed_log_levels:
+                if log_level in sink.trigger_word.lower():
+                    return None
     # render method based on Framework_Parameter is a known FP
     if sink_type == "ReturnedToUser":
         if sink.trigger_word == "render(" and source_type == "Framework_Parameter":

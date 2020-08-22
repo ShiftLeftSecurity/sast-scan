@@ -1,3 +1,4 @@
+import lib.pyt.vulnerabilities.rules as rules
 from lib.pyt.vulnerabilities.insights import find_insights
 from lib.pyt.vulnerabilities.vulnerabilities import find_vulnerabilities
 from lib.pyt.vulnerabilities.vulnerability_helper import (
@@ -8,4 +9,5 @@ __all__ = [
     "find_insights",
     "find_vulnerabilities",
     "get_vulnerabilities_not_in_baseline",
+    "rules",
 ]

@@ -25,6 +25,8 @@ flask_config_message = """Flask application is not configured correctly for depl
 
 **[Flask Security](https://flask-security.readthedocs.io/en/develop/configuration.html)**
 
+**[Flask Security Considerations](https://flask.palletsprojects.com/en/1.1.x/security/#security-considerations)**
+
 **[Flask Configuration](https://flask.palletsprojects.com/en/1.1.x/api/#configuration)**
 """
 
@@ -37,6 +39,8 @@ flask_nosec_message = """Flask-Security allows you to quickly add common securit
 **[Flask Security]https://flask-security.readthedocs.io/en/develop/index.html)**
 
 **[Flask Configuration](https://flask.palletsprojects.com/en/1.1.x/api/#configuration)**
+
+**[Flask Talisman](https://github.com/GoogleCloudPlatform/flask-talisman)**
 """
 
 django_nostatic_config = [
@@ -55,6 +59,7 @@ django_mustset_config = {
     },
     "CSRF_COOKIE_DOMAIN": {"recommended": "domain name", "default": None},
     "CSRF_USE_SESSIONS": {"recommended": True, "default": False},
+    "CSRF_COOKIE_SECURE": {"recommended": True, "default": False},
     "CSRF_TRUSTED_ORIGINS": {"recommended": "domain name", "default": []},
     "DATA_UPLOAD_MAX_MEMORY_SIZE": {"recommended": "2621440", "default": "2621440"},
     "DATA_UPLOAD_MAX_NUMBER_FIELDS": {"recommended": "100", "default": "1000"},
@@ -69,7 +74,7 @@ django_mustset_config = {
         "default": "['django.contrib.auth.backends.ModelBackend']",
     },
     "SESSION_COOKIE_DOMAIN": {"recommended": "domain name", "default": None},
-    "SESSION_COOKIE_SECURE": {"recommended": "domain name", "default": None},
+    "SESSION_COOKIE_SECURE": {"recommended": True, "default": False},
 }
 django_config_message = """Django application is not configured correctly for deployment to production and live environments. Default settings that are more appropriate for development environment are in use.
 
@@ -78,13 +83,30 @@ django_config_message = """Django application is not configured correctly for de
 **[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
 
 **[Django Security](https://docs.djangoproject.com/en/2.2/topics/security/)**
+
+**[Deployment Checklist](https://docs.djangoproject.com/en/dev/howto/deployment/checklist/)**
 """
 
-django_nosec_message = """Django Security Middlewares allows you to quickly add common security mechanisms to your Django application
+django_nosec_message = """Django Security Middleware allows you to quickly add common security mechanisms to your Django application
 
 ## Additional information
 
 **[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
 
 **[Django Security](https://docs.djangoproject.com/en/2.2/topics/security/)**
+
+**[Django Security Middleware](https://docs.djangoproject.com/en/dev/ref/middleware/#django.middleware.security.SecurityMiddleware)**
+
+**[Clickjacking Protection](https://docs.djangoproject.com/en/dev/ref/clickjacking/)**
+"""
+
+pymongo_config_message = """MongoDB is quite insecure by default allowing unauthenticated access for all clients. Configuring both MongoDB server and the client using proper authentication, secure tls and client-side field level encryption would improve security by several fold.
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[PyMongo Authentication](https://pymongo.readthedocs.io/en/stable/examples/authentication.html)**
+
+**[TLS/SSL and PyMongo](https://pymongo.readthedocs.io/en/stable/examples/tls.html)**
+
+**[Field Level Encryption](https://pymongo.readthedocs.io/en/stable/examples/encryption.html)**
 """

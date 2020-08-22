@@ -28,6 +28,19 @@ def _convert_to_3(path):  # pragma: no cover
 
 
 @lru_cache()
+def generate_py2_ast(path):
+    """Generate an Abstract Syntax Tree using the ast module for python 2 code
+
+        Args:
+            path(str): The path to the file e.g. example/foo/bar.py
+    """
+    if os.path.isfile(path) and os.path.getsize(path):
+        with open(path, "r") as f:
+            return generate_ast_from_code(f.read())
+    return None
+
+
+@lru_cache()
 def generate_ast(path):
     """Generate an Abstract Syntax Tree using the ast module.
 
@@ -36,17 +49,26 @@ def generate_ast(path):
     """
     if os.path.isfile(path) and os.path.getsize(path):
         with open(path, "r") as f:
-            try:
-                tree = ast.parse(f.read())
-                return PytTransformer().visit(tree) if tree else None
-            except SyntaxError:  # pragma: no cover
-                global recursive
-                if not recursive:
-                    _convert_to_3(path)
-                    recursive = True
-                    return generate_ast(path)
-                else:
-                    return None
+            return generate_ast_from_code(f.read(), path)
+    return None
+
+
+def generate_ast_from_code(code, path=None):
+    """Generate an Abstract Syntax Tree using the ast module.
+
+        Args:
+            code(str): Code snippet
+    """
+    try:
+        tree = ast.parse(code)
+        return PytTransformer().visit(tree) if tree else None
+    except SyntaxError:  # pragma: no cover
+        global recursive
+        if not recursive and path:
+            recursive = True
+            return generate_py2_ast(path)
+        else:
+            return None
     return None
 
 
@@ -113,6 +135,17 @@ def get_assignments_as_dict(pattern, ast_tree):
     return literals_dict
 
 
+def get_as_list(ast_list):
+    ret = []
+    if not ast_list:
+        return ret
+    if isinstance(ast_list, ast.List):
+        for l in ast_list.elts:
+            if isinstance(l, ast.Constant):
+                ret.append(l.value)
+    return ret
+
+
 def is_static_assignment(left_hand_side, right_hand_side):
     ret = False
     if (
@@ -150,6 +183,9 @@ def has_import_like(module_name, ast_tree):
         if isinstance(match, ast.ImportFrom):
             if match.module.lower().startswith(module_name.lower()):
                 return True
+            for name in match.names:
+                if name.name.lower().startswith(module_name.lower()):
+                    return True
     return ret
 
 
@@ -178,6 +214,17 @@ def has_method_call(pattern, ast_tree):
     return False
 
 
+def get_method_as_dict(pattern, ast_tree):
+    pat = prepare_pattern(pattern)
+    node_list = _get_matches(pat, ast_tree)
+    if not node_list:
+        return None
+    for node in node_list:
+        if isinstance(node, ast.Call):
+            node_obj = ast2dict(node)
+            return node_obj
+
+
 BUILTIN_PURE = (int, float, bool)
 BUILTIN_BYTES = (bytearray, bytes)
 BUILTIN_STR = str
@@ -194,7 +241,7 @@ def decode_bytes(value):
         return codecs.getencoder("hex_codec")(value)[0].decode("utf-8")
 
 
-def ast2json(node):
+def ast2dict(node):
     assert isinstance(node, AST)
     to_return = dict()
     to_return["_type"] = node.__class__.__name__
@@ -219,7 +266,7 @@ def get_value(attr_value):
     if isinstance(attr_value, list):
         return [get_value(x) for x in attr_value]
     if isinstance(attr_value, AST):
-        return ast2json(attr_value)
+        return ast2dict(attr_value)
     else:
         raise Exception(
             "unknown case for '%s' of type '%s'" % (attr_value, type(attr_value))

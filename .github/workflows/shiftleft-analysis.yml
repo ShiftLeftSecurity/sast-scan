@@ -1,5 +1,5 @@
 # This workflow integrates Scan with GitHub's code scanning feature
-# ShiftLeft Scan is a free open-source security tool for modern DevOps teams
+# Scan is a free open-source security tool for modern DevOps teams
 # Visit https://slscan.io/en/latest/integrations/github-actions/ for help
 name: Scan
 

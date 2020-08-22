@@ -45,6 +45,7 @@ def is_taintable_function(ast_node):
                 "simple_tag",
                 "inclusion_tag",
                 "to_end_tag",
+                "expose",
             ]:
                 return True
     # Ignore database functions
