@@ -8,6 +8,7 @@ from lib.logger import LOG
 from lib.pyt.core.ast_helper import (
     get_as_list,
     get_assignments_as_dict,
+    get_comparison_as_dict,
     get_method_as_dict,
     has_import_like,
     has_method_call,
@@ -110,6 +111,53 @@ def convert_dict_source_sink(sdict, path):
         path,
     )
     return source, sink
+
+
+def _check_timing_attack(ast_tree, path):
+    violations = []
+    common_patterns = [
+        "password==??.password",
+        "??.password==password",
+        "token==??.token",
+        "??.token==token",
+        "hash==??.hash",
+        "??.hash==hash",
+        "access_token==??.access_token",
+        "??.access_token==access_token",
+    ]
+    for cp in common_patterns:
+        config_dict = get_comparison_as_dict(cp, ast_tree)
+        if not config_dict:
+            continue
+        for ck, cv in config_dict.items():
+            clt = cv.get("left_hand_side")
+            if not clt:
+                continue
+            source, sink = convert_dict_source_sink(
+                {
+                    "source_type": "Assignment",
+                    "source_trigger": ck,
+                    "source_line_number": clt.lineno,
+                    "sink_type": "Constant",
+                    "sink_trigger": "",
+                    "sink_line_number": clt.lineno,
+                },
+                path,
+            )
+            violations.append(
+                Insight(
+                    "Insecure comparison using == could lead to timing attacks",
+                    "Insecure Operation",
+                    "insecure-operation",
+                    "CWE-203",
+                    "HIGH",
+                    "a3-sensitive-data-exposure",
+                    source,
+                    sink,
+                    rules.timing_attack_message,
+                )
+            )
+    return violations
 
 
 def _check_pymongo_common_misconfig(ast_tree, path):

@@ -380,3 +380,39 @@ if __name__ == '__main__':
             rec_found = True
     assert msg_found
     assert rec_found
+
+
+def test_timing_insights():
+    tree = generate_ast_from_code(
+        """
+def authenticate(username, password):
+    user = username_table.get(username, None)
+    if user and user.password == password:
+        return user
+        """
+    )
+    violations = insights._check_timing_attack(tree, None)
+    assert violations
+    msg_found = False
+    for v in violations:
+        if "timing attacks" in v.short_description:
+            msg_found = True
+            break
+    assert msg_found
+
+    tree = generate_ast_from_code(
+        """
+def authenticate(username, token):
+    user = username_table.get(username, None)
+    if user and access_token == remote.access_token:
+        return user
+        """
+    )
+    violations = insights._check_timing_attack(tree, None)
+    assert violations
+    msg_found = False
+    for v in violations:
+        if "timing attacks" in v.short_description:
+            msg_found = True
+            break
+    assert msg_found

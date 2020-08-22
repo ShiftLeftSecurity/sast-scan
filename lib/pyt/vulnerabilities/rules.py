@@ -131,3 +131,12 @@ pymongo_config_message = """MongoDB is quite insecure by default allowing unauth
 
 **[Field Level Encryption](https://pymongo.readthedocs.io/en/stable/examples/encryption.html)**
 """
+
+timing_attack_message = """Comparison using == operator leads to content based short-circuiting. By carefully measuring the time, it is possible to guess the correct password or token leading to timing attacks.
+
+To avoid this attack, always use a constant time compare function while comparing sensitive data such as password or secret tokens.
+
+**[Python Compare Digest](https://docs.python.org/3/library/hmac.html#hmac.compare_digest)**
+
+**[Django constant time compare](https://github.com/django/django/blob/stable/3.0.x/django/utils/crypto.py#L49)**
+"""
