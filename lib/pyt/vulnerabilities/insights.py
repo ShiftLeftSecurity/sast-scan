@@ -113,6 +113,131 @@ def convert_dict_source_sink(sdict, path):
     return source, sink
 
 
+def _check_fastapi_misconfig(ast_tree, path):
+    violations = []
+    if has_import_like("fastapi", ast_tree):
+        all_keys = []
+        for key in rules.fastapi_nostatic_config:
+            config_dict = get_assignments_as_dict(f"{key}=??", ast_tree)
+            if not config_dict:
+                continue
+            for k, v in config_dict.items():
+                all_keys.append(k)
+                # Static configs
+                source, sink = convert_node_source_sink(v, path)
+                if sink.trigger_word:
+                    obfuscated_label = sink.label
+                    if len(obfuscated_label) > 4:
+                        obfuscated_label = obfuscated_label[:4] + "****"
+                    violations.append(
+                        Insight(
+                            f"Security Misconfiguration with the config `{source.label}` set to a static value `{obfuscated_label}`",
+                            "Security Misconfiguration",
+                            "misconfiguration-static",
+                            "CWE-732",
+                            "MEDIUM",
+                            "a6-misconfiguration",
+                            source,
+                            sink,
+                            rules.fastapi_config_message,
+                        )
+                    )
+        # Check for common security extensions
+        cors_found = False
+        for mid in rules.fastapi_mustimport_config:
+            if not has_import_like(mid, ast_tree):
+                source, sink = convert_dict_source_sink(
+                    {
+                        "source_type": "Middleware",
+                        "source_trigger": mid,
+                        "source_line_number": "1",
+                        "sink_type": "Constant",
+                        "sink_trigger": "",
+                        "sink_line_number": "1",
+                    },
+                    path,
+                )
+                violations.append(
+                    Insight(
+                        f"Consider using FastAPI security middleware {mid} to improve security",
+                        "Security Misconfiguration",
+                        "misconfiguration-insecure",
+                        "CWE-732",
+                        "LOW",
+                        "a6-misconfiguration",
+                        source,
+                        sink,
+                        rules.fastapi_config_message,
+                    )
+                )
+            else:
+                if mid == "CORSMiddleware":
+                    cors_found = True
+        # Check for overgenerous CORS settings
+        if cors_found:
+            method_obj_list = get_method_as_dict("??.add_middleware(??)", ast_tree)
+            if method_obj_list:
+                for method_obj in method_obj_list:
+                    if not method_obj:
+                        continue
+                    start_line = method_obj.get("lineno")
+                    method_args = method_obj.get("args")
+                    for margs in method_args:
+                        if margs.get("id") != "CORSMiddleware":
+                            continue
+                        method_keywords = method_obj.get("keywords")
+                        for mkey_obj in method_keywords:
+                            kw_arg = mkey_obj.get("arg")
+                            kw_elts = None
+                            if mkey_obj.get("value").get("_type") == "List":
+                                kw_elts = mkey_obj.get("value").get("elts")
+                            if mkey_obj.get("value").get("_type") == "Constant":
+                                kw_elts = [mkey_obj.get("value")]
+                            if not kw_arg or not kw_elts:
+                                continue
+                            kw_arg_value = kw_elts[0].get("value")
+                            source, sink = convert_dict_source_sink(
+                                {
+                                    "source_type": "Config",
+                                    "source_trigger": kw_arg,
+                                    "source_line_number": start_line,
+                                    "sink_type": "Constant",
+                                    "sink_trigger": kw_arg_value,
+                                    "sink_line_number": start_line,
+                                },
+                                path,
+                            )
+                            if kw_arg == "allow_origins" and kw_arg_value == "*":
+                                violations.append(
+                                    Insight(
+                                        f"Limit the origins allowed for CORS to specific domains to improve security",
+                                        "Security Misconfiguration",
+                                        "misconfiguration-insecure",
+                                        "CWE-732",
+                                        "MEDIUM",
+                                        "a6-misconfiguration",
+                                        source,
+                                        sink,
+                                        rules.fastapi_config_message,
+                                    )
+                                )
+                            if kw_arg == "allow_credentials" and kw_arg_value:
+                                violations.append(
+                                    Insight(
+                                        f"Use of allowed credentials with CORS would decrease the overall API security",
+                                        "Security Misconfiguration",
+                                        "misconfiguration-insecure",
+                                        "CWE-732",
+                                        "LOW",
+                                        "a6-misconfiguration",
+                                        source,
+                                        sink,
+                                        rules.fastapi_config_message,
+                                    )
+                                )
+    return violations
+
+
 def _check_timing_attack(ast_tree, path):
     violations = []
     common_patterns = [
@@ -163,11 +288,12 @@ def _check_timing_attack(ast_tree, path):
 def _check_pymongo_common_misconfig(ast_tree, path):
     violations = []
     if has_import_like("pymongo", ast_tree):
-        method_obj = get_method_as_dict("??.MongoClient(??)", ast_tree)
-        if not method_obj:
-            method_obj = get_method_as_dict("MongoClient(??)", ast_tree)
-        if not method_obj:
+        method_obj_list = get_method_as_dict("??.MongoClient(??)", ast_tree)
+        if not method_obj_list:
+            method_obj_list = get_method_as_dict("MongoClient(??)", ast_tree)
+        if not method_obj_list:
             return None
+        method_obj = method_obj_list[0]
         start_line = method_obj.get("lineno")
         source, sink = convert_dict_source_sink(
             {

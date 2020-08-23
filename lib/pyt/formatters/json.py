@@ -33,35 +33,30 @@ def report(vulnerabilities, insights, report_fname):
                 filtered_vulns.append(avuln)
                 vuln_keys[avuln_key] = True
     for ins in insights:
-        ains_key = (
-            f"""{ins.name}|{ins.code}|{ins.source.trigger_word}|{ins.source.path}"""
+        filtered_insights.append(
+            {
+                "rule_id": ins.code,
+                "rule_name": ins.name,
+                "short_description": ins.short_description,
+                "description": ins.short_description,
+                "recommendation": ins.recommendation,
+                "cwe_category": ins.cwe_category,
+                "owasp_category": ins.owasp_category,
+                "severity": ins.severity,
+                "source": {
+                    "trigger_word": ins.source.trigger_word,
+                    "line_number": ins.source.line_number,
+                    "label": ins.source.label,
+                    "path": ins.source.path,
+                },
+                "sink": {
+                    "trigger_word": ins.sink.trigger_word,
+                    "line_number": ins.sink.line_number,
+                    "label": ins.sink.label,
+                    "path": ins.sink.path,
+                },
+            }
         )
-        if not insight_keys.get(ains_key):
-            insight_keys[ains_key] = True
-            filtered_insights.append(
-                {
-                    "rule_id": ins.code,
-                    "rule_name": ins.name,
-                    "short_description": ins.short_description,
-                    "description": ins.short_description,
-                    "recommendation": ins.recommendation,
-                    "cwe_category": ins.cwe_category,
-                    "owasp_category": ins.owasp_category,
-                    "severity": ins.severity,
-                    "source": {
-                        "trigger_word": ins.source.trigger_word,
-                        "line_number": ins.source.line_number,
-                        "label": ins.source.label,
-                        "path": ins.source.path,
-                    },
-                    "sink": {
-                        "trigger_word": ins.sink.trigger_word,
-                        "line_number": ins.sink.line_number,
-                        "label": ins.sink.label,
-                        "path": ins.sink.path,
-                    },
-                }
-            )
     if filtered_insights:
         filtered_vulns += filtered_insights
     machine_output = {"generated_at": time_string, "vulnerabilities": filtered_vulns}
