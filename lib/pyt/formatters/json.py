@@ -22,7 +22,6 @@ def report(vulnerabilities, insights, report_fname):
     filtered_vulns = []
     filtered_insights = []
     vuln_keys = {}
-    insight_keys = {}
     for vuln in vulnerabilities:
         if not isinstance(vuln, SanitisedVulnerability) and not isinstance(
             vuln, UnknownVulnerability

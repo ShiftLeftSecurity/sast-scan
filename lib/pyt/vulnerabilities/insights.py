@@ -159,7 +159,7 @@ def _check_fastapi_misconfig(ast_tree, path):
                 )
                 violations.append(
                     Insight(
-                        f"Consider using FastAPI security middleware {mid} to improve security",
+                        f"Consider using FastAPI security middleware {mid} to improve overall security",
                         "Security Misconfiguration",
                         "misconfiguration-insecure",
                         "CWE-732",
@@ -210,7 +210,7 @@ def _check_fastapi_misconfig(ast_tree, path):
                             if kw_arg == "allow_origins" and kw_arg_value == "*":
                                 violations.append(
                                     Insight(
-                                        f"Limit the origins allowed for CORS to specific domains to improve security",
+                                        "Limit the origins allowed for CORS to specific domains to improve security",
                                         "Security Misconfiguration",
                                         "misconfiguration-insecure",
                                         "CWE-732",
@@ -224,7 +224,7 @@ def _check_fastapi_misconfig(ast_tree, path):
                             if kw_arg == "allow_credentials" and kw_arg_value:
                                 violations.append(
                                     Insight(
-                                        f"Use of allowed credentials with CORS would decrease the overall API security",
+                                        "Use of allowed credentials with CORS would decrease the overall API security",
                                         "Security Misconfiguration",
                                         "misconfiguration-insecure",
                                         "CWE-732",
