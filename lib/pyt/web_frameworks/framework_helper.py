@@ -51,8 +51,8 @@ def is_taintable_function(ast_node):
     # Ignore database functions
     if len(ast_node.args.args):
         first_arg_name = ast_node.args.args[0].arg
-        # Django view
-        if first_arg_name in ["request", "context"]:
+        # Common view functions such as django, starlette
+        if first_arg_name in ["request", "context", "scope"]:
             return True
     # Ignore known validation and sanitization functions
     for n in ["valid", "sanitize", "sanitise", "is_", "set_"]:

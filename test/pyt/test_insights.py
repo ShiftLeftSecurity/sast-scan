@@ -416,3 +416,62 @@ def authenticate(username, token):
             msg_found = True
             break
     assert msg_found
+
+
+def test_fastapi_insights():
+    tree = generate_ast_from_code(
+        """
+from fastapi import Depends, FastAPI
+
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+@app.get("/users/me/", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user
+        """
+    )
+    violations = insights._check_fastapi_misconfig(tree, None)
+    assert violations
+    msg_found = False
+    misconfig_found = False
+    for v in violations:
+        if "FastAPI security middleware" in v.short_description:
+            msg_found = True
+        if "Security Misconfiguration" in v.short_description:
+            misconfig_found = True
+    assert msg_found and misconfig_found
+
+    tree = generate_ast_from_code(
+        """
+from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/users")
+def read_users():
+    users = session.query(UserTable).all()
+    return users
+        """
+    )
+    violations = insights._check_fastapi_misconfig(tree, None)
+    assert violations
+    msg_found = False
+    misconfig_found = False
+    creds_found = False
+    for v in violations:
+        if "FastAPI security middleware" in v.short_description:
+            msg_found = True
+        if "origins allowed" in v.short_description:
+            misconfig_found = True
+        if "allowed credentials" in v.short_description:
+            creds_found = True
+    assert msg_found and misconfig_found and creds_found

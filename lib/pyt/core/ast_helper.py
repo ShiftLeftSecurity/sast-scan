@@ -240,10 +240,12 @@ def get_method_as_dict(pattern, ast_tree):
     node_list = _get_matches(pat, ast_tree)
     if not node_list:
         return None
+    invocations = []
     for node in node_list:
         if isinstance(node, ast.Call):
             node_obj = ast2dict(node)
-            return node_obj
+            invocations.append(node_obj)
+    return invocations
 
 
 BUILTIN_PURE = (int, float, bool)

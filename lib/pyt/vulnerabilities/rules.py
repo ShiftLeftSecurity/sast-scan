@@ -139,4 +139,27 @@ To avoid this attack, always use a constant time compare function while comparin
 **[Python Compare Digest](https://docs.python.org/3/library/hmac.html#hmac.compare_digest)**
 
 **[Django constant time compare](https://github.com/django/django/blob/stable/3.0.x/django/utils/crypto.py#L49)**
+
+**[Passlib consteq function](https://passlib.readthedocs.io/en/stable/lib/passlib.utils.html?highlight=timing#passlib.utils.consteq)**
+"""
+
+fastapi_nostatic_config = [
+    "SECRET_KEY",
+]
+
+fastapi_mustimport_config = [
+    "SecurityScopes",
+    "CORSMiddleware",
+    "TrustedHostMiddleware",
+]
+
+fastapi_config_message = """FastAPI is not configured correctly for deployment to production and live environments. Default settings that are more appropriate for development environment are in use.
+
+FastAPI security middleware adds useful tools to add CORS headers as well as implement OAuth2 authentication in the API.
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[FastAPI Security](https://fastapi.tiangolo.com/advanced/security/)**
+
+**[FastAPI Deployment - https](https://fastapi.tiangolo.com/deployment/#https)**
 """
