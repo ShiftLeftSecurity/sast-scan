@@ -469,7 +469,11 @@ def report(
                         text="Static Analysis Security Test results using @ShiftLeft/sast-scan"
                     ),
                 ),
-                tool=om.Tool(driver=om.ToolComponent(name=driver_name)),
+                tool=om.Tool(
+                    driver=om.ToolComponent(
+                        name=driver_name, full_name=driver_name, version="1.0.0-scan"
+                    )
+                ),
                 invocations=[
                     om.Invocation(
                         end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),

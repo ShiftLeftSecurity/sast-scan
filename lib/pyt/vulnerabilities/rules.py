@@ -1,3 +1,18 @@
+# This file is part of Scan.
+
+# Scan is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Scan is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Scan.  If not, see <https://www.gnu.org/licenses/>.
+
 flask_nostatic_config = [
     "SECRET_KEY",
     "SECURITY_PASSWORD_SALT",
@@ -163,3 +178,20 @@ FastAPI security middleware adds useful tools to add CORS headers as well as imp
 
 **[FastAPI Deployment - https](https://fastapi.tiangolo.com/deployment/#https)**
 """
+
+rules_message_map = {
+    "fastapi-misconfiguration-static": fastapi_config_message,
+    "fastapi-misconfiguration-recommended": fastapi_config_message,
+    "fastapi-misconfiguration-insecure": fastapi_config_message,
+    "timing-insecure-operation": timing_attack_message,
+    "pymongo-misconfiguration-insecure": pymongo_config_message,
+    "django-misconfiguration-static": django_config_message,
+    "django-misconfiguration-insecure": django_config_message,
+    "django-misconfiguration-recommended": django_config_message,
+    "django-sec-recommended": django_nosec_message,
+    "flask-misconfiguration-static": flask_config_message,
+    "flask-misconfiguration-insecure": flask_config_message,
+    "flask-misconfiguration-recommended": flask_config_message,
+    "flask-misconfiguration-controls": flask_nosec_message,
+    "flask-misconfiguration-jwt": flask_jwt_message,
+}
