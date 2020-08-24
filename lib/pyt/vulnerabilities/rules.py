@@ -51,7 +51,7 @@ flask_nosec_message = """Flask-Security allows you to quickly add common securit
 
 **[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
 
-**[Flask Security]https://flask-security.readthedocs.io/en/develop/index.html)**
+**[Flask Security](https://flask-security.readthedocs.io/en/develop/index.html)**
 
 **[Flask Configuration](https://flask.palletsprojects.com/en/1.1.x/api/#configuration)**
 
