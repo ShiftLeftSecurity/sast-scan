@@ -133,13 +133,13 @@ def _check_fastapi_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a static value `{obfuscated_label}`",
                             "Security Misconfiguration",
-                            "misconfiguration-static",
+                            "fastapi-misconfiguration-static",
                             "CWE-732",
                             "MEDIUM",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.fastapi_config_message,
+                            rules.rules_message_map["fastapi-misconfiguration-static"],
                         )
                     )
         # Check for common security extensions
@@ -161,13 +161,13 @@ def _check_fastapi_misconfig(ast_tree, path):
                     Insight(
                         f"Consider using FastAPI security middleware {mid} to improve overall security",
                         "Security Misconfiguration",
-                        "misconfiguration-insecure",
+                        "fastapi-misconfiguration-recommended",
                         "CWE-732",
                         "LOW",
                         "a6-misconfiguration",
                         source,
                         sink,
-                        rules.fastapi_config_message,
+                        rules.rules_message_map["fastapi-misconfiguration-recommended"],
                     )
                 )
             else:
@@ -212,13 +212,15 @@ def _check_fastapi_misconfig(ast_tree, path):
                                     Insight(
                                         "Limit the origins allowed for CORS to specific domains to improve security",
                                         "Security Misconfiguration",
-                                        "misconfiguration-insecure",
+                                        "fastapi-misconfiguration-insecure",
                                         "CWE-732",
                                         "MEDIUM",
                                         "a6-misconfiguration",
                                         source,
                                         sink,
-                                        rules.fastapi_config_message,
+                                        rules.rules_message_map[
+                                            "fastapi-misconfiguration-insecure"
+                                        ],
                                     )
                                 )
                             if kw_arg == "allow_credentials" and kw_arg_value:
@@ -226,13 +228,15 @@ def _check_fastapi_misconfig(ast_tree, path):
                                     Insight(
                                         "Use of allowed credentials with CORS would decrease the overall API security",
                                         "Security Misconfiguration",
-                                        "misconfiguration-insecure",
+                                        "fastapi-misconfiguration-insecure",
                                         "CWE-732",
                                         "LOW",
                                         "a6-misconfiguration",
                                         source,
                                         sink,
-                                        rules.fastapi_config_message,
+                                        rules.rules_message_map[
+                                            "fastapi-misconfiguration-insecure"
+                                        ],
                                     )
                                 )
     return violations
@@ -273,13 +277,13 @@ def _check_timing_attack(ast_tree, path):
                 Insight(
                     "Insecure comparison using == could lead to timing attacks",
                     "Insecure Operation",
-                    "insecure-operation",
+                    "timing-insecure-operation",
                     "CWE-203",
                     "HIGH",
                     "a3-sensitive-data-exposure",
                     source,
                     sink,
-                    rules.timing_attack_message,
+                    rules.rules_message_map["timing-insecure-operation"],
                 )
             )
     return violations
@@ -312,13 +316,13 @@ def _check_pymongo_common_misconfig(ast_tree, path):
                 Insight(
                     "Connection to a MongoDB instance running in default mode without any authentication",
                     "Security Misconfiguration",
-                    "misconfiguration-insecure",
+                    "pymongo-misconfiguration-insecure",
                     "CWE-732",
                     "LOW",
                     "a6-misconfiguration",
                     source,
                     sink,
-                    rules.pymongo_config_message,
+                    rules.rules_message_map["pymongo-misconfiguration-insecure"],
                 )
             )
         elif method_obj.get("args") and method_obj.get("keywords"):
@@ -343,13 +347,15 @@ def _check_pymongo_common_misconfig(ast_tree, path):
                         Insight(
                             f"Connection to a MongoDB instance at `{hostname}` running in default mode without tls encryption",
                             "Security Misconfiguration",
-                            "misconfiguration-insecure",
+                            "pymongo-misconfiguration-insecure",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.pymongo_config_message,
+                            rules.rules_message_map[
+                                "pymongo-misconfiguration-insecure"
+                            ],
                         )
                     )
                 if arg == "ssl_cert_reqs" and arg_value == "CERT_NONE":
@@ -357,13 +363,15 @@ def _check_pymongo_common_misconfig(ast_tree, path):
                         Insight(
                             f"Connection to a MongoDB instance at `{hostname}` running in default mode without tls certificate verification",
                             "Security Misconfiguration",
-                            "misconfiguration-insecure",
+                            "pymongo-misconfiguration-insecure",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.pymongo_config_message,
+                            rules.rules_message_map[
+                                "pymongo-misconfiguration-insecure"
+                            ],
                         )
                     )
                 if arg == "authMechanism" and arg_value == "MONGODB-CR":
@@ -371,13 +379,15 @@ def _check_pymongo_common_misconfig(ast_tree, path):
                         Insight(
                             f"Connection to a MongoDB instance at `{hostname}` with a deprecated authentication method",
                             "Security Misconfiguration",
-                            "misconfiguration-insecure",
+                            "pymongo-misconfiguration-insecure",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.pymongo_config_message,
+                            rules.rules_message_map[
+                                "pymongo-misconfiguration-insecure"
+                            ],
                         )
                     )
         if not has_import_like("ClientEncryption", ast_tree) or not has_method_call(
@@ -388,13 +398,13 @@ def _check_pymongo_common_misconfig(ast_tree, path):
                 Insight(
                     "Client-side Field Level Encryption allows an application to encrypt specific data fields based on the compliance needs",
                     "Security Misconfiguration",
-                    "misconfiguration-insecure",
+                    "pymongo-misconfiguration-insecure",
                     "CWE-732",
                     "LOW",
                     "a6-misconfiguration",
                     source,
                     sink,
-                    rules.pymongo_config_message,
+                    rules.rules_message_map["pymongo-misconfiguration-insecure"],
                 )
             )
     return violations
@@ -428,13 +438,13 @@ def _check_django_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a static value `{obfuscated_label}`",
                             "Security Misconfiguration",
-                            "misconfiguration-static",
+                            "django-misconfiguration-static",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.django_config_message,
+                            rules.rules_message_map["django-misconfiguration-static"],
                         )
                     )
 
@@ -446,13 +456,13 @@ def _check_django_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a value `{sink.label}` meant for development use",
                             "Security Misconfiguration",
-                            "misconfiguration-insecure",
+                            "django-misconfiguration-insecure",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.django_config_message,
+                            rules.rules_message_map["django-misconfiguration-insecure"],
                         )
                     )
         # Must set configs
@@ -475,13 +485,13 @@ def _check_django_common_misconfig(ast_tree, path):
                     Insight(
                         f"""Security Misconfiguration with the config `{mc}` not set to the recommended value `{rsetting.get("recommended")}` for production use""",
                         "Security Misconfiguration",
-                        "misconfiguration-recommended",
+                        "django-misconfiguration-recommended",
                         "CWE-732",
                         "MEDIUM",
                         "a6-misconfiguration",
                         source,
                         sink,
-                        rules.django_config_message,
+                        rules.rules_message_map["django-misconfiguration-recommended"],
                     )
                 )
         # Django middlewares check
@@ -509,13 +519,13 @@ def _check_django_common_misconfig(ast_tree, path):
                     Insight(
                         "Consider including the security middleware which provides several security enhancements to django applications",
                         "Security Misconfiguration",
-                        "misconfiguration-recommended",
+                        "django-sec-recommended",
                         "CWE-732",
                         "LOW",
                         "a6-misconfiguration",
                         source,
                         sink,
-                        rules.django_nosec_message,
+                        rules.rules_message_map["django-sec-recommended"],
                     )
                 )
             if (
@@ -526,13 +536,13 @@ def _check_django_common_misconfig(ast_tree, path):
                     Insight(
                         "Consider including the clickjacking middleware which provides easy-to-use protection against clickjacking",
                         "Security Misconfiguration",
-                        "misconfiguration-recommended",
+                        "django-sec-recommended",
                         "CWE-732",
                         "LOW",
                         "a6-misconfiguration",
                         source,
                         sink,
-                        rules.django_nosec_message,
+                        rules.rules_message_map["django-sec-recommended"],
                     )
                 )
             if "django.middleware.csrf.CsrfViewMiddleware" not in included_mids:
@@ -540,13 +550,13 @@ def _check_django_common_misconfig(ast_tree, path):
                     Insight(
                         "Consider including CSRF protection middleware for django applications",
                         "Security Misconfiguration",
-                        "misconfiguration-recommended",
+                        "django-sec-recommended",
                         "CWE-732",
                         "LOW",
                         "a6-misconfiguration",
                         source,
                         sink,
-                        rules.django_nosec_message,
+                        rules.rules_message_map["django-sec-recommended"],
                     )
                 )
     return violations
@@ -586,13 +596,13 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a static value `{obfuscated_label}`",
                             "Security Misconfiguration",
-                            "misconfiguration-static",
+                            "flask-misconfiguration-static",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.flask_config_message,
+                            rules.rules_message_map["flask-misconfiguration-static"],
                         )
                     )
 
@@ -604,13 +614,13 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             f"Security Misconfiguration with the config `{source.label}` set to a value `{sink.label}` meant for development use",
                             "Security Misconfiguration",
-                            "misconfiguration-insecure",
+                            "flask-misconfiguration-insecure",
                             "CWE-732",
                             "LOW",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.flask_config_message,
+                            rules.rules_message_map["flask-misconfiguration-insecure"],
                         )
                     )
 
@@ -635,13 +645,15 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             f"""Security Misconfiguration with the config `{mc}` not set to the recommended value `{rsetting.get("recommended")}` for production use""",
                             "Security Misconfiguration",
-                            "misconfiguration-recommended",
+                            "flask-misconfiguration-recommended",
                             "CWE-732",
                             "MEDIUM",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.flask_config_message,
+                            rules.rules_message_map[
+                                "flask-misconfiguration-recommended"
+                            ],
                         )
                     )
 
@@ -664,13 +676,13 @@ def _check_flask_common_misconfig(ast_tree, path):
                 Insight(
                     "Consider adding Flask-Security and Flask-Talisman security extensions to your Flask apps",
                     "Missing Security Controls",
-                    "misconfiguration-controls",
+                    "flask-misconfiguration-controls",
                     "CWE-732",
                     "LOW",
                     "a6-misconfiguration",
                     source,
                     sink,
-                    rules.flask_nosec_message,
+                    rules.rules_message_map["flask-misconfiguration-controls"],
                 )
             )
 
@@ -698,13 +710,13 @@ def _check_flask_common_misconfig(ast_tree, path):
                     Insight(
                         "Disabling XSS protection directly in the code would make the application more vulnerable to XSS attacks",
                         "Security Misconfiguration",
-                        "misconfiguration-controls",
+                        "flask-misconfiguration-insecure",
                         "CWE-732",
                         "MEDIUM",
                         "a6-misconfiguration",
                         source,
                         sink,
-                        rules.flask_config_message,
+                        rules.rules_message_map["flask-misconfiguration-insecure"],
                     )
                 )
 
@@ -732,13 +744,13 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             f"""Security Misconfiguration with the config `{mc}` not set to the recommended value `{rsetting.get("recommended")}` for production use""",
                             "Missing Security Controls",
-                            "misconfiguration-controls",
+                            "flask-misconfiguration-jwt",
                             "CWE-732",
                             "MEDIUM",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.flask_jwt_message,
+                            rules.rules_message_map["flask-misconfiguration-jwt"],
                         )
                     )
                 if mc == "JWT_SECRET_KEY" and mc in all_keys:
@@ -758,13 +770,13 @@ def _check_flask_common_misconfig(ast_tree, path):
                         Insight(
                             "Use an asymmetric RSA based algorithm such as RS512 for JWT",
                             "Security Misconfiguration",
-                            "misconfiguration-controls",
+                            "flask-misconfiguration-jwt",
                             "CWE-327",
                             "MEDIUM",
                             "a6-misconfiguration",
                             source,
                             sink,
-                            rules.flask_jwt_message,
+                            rules.rules_message_map["flask-misconfiguration-jwt"],
                         )
                     )
     return violations

@@ -22,6 +22,7 @@ import lib.convert as convertLib
 import lib.utils as utils
 from lib.executor import exec_tool
 from lib.logger import LOG
+from lib.remediate import get_help
 from lib.telemetry import track
 
 
@@ -329,6 +330,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                     results = run.get("results")
                     if not results:
                         continue
+                    tool_name = run.get("tool", {}).get("driver", {}).get("name")
                     rules = {
                         r["id"]: r
                         for r in run.get("tool", {}).get("driver", {}).get("rules")
@@ -350,15 +352,18 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         category = rule.get("name")
                         if not category:
                             category = rule_id
-                        desc = rule.get("fullDescription", {}).get("text")
+                        desc = get_help(
+                            rule_id,
+                            rule_obj=rule,
+                            tool_name=tool_name,
+                            owasp_category=owasp_category,
+                        )
                         short_desc = rule.get("shortDescription", {}).get("text")
                         if not short_desc:
                             short_desc = result.get("message", {}).get("text")
                         ngsev = convert_severity(
                             result.get("properties", {})["issue_severity"]
                         )
-                        if desc:
-                            desc = desc.replace("'", "`")
                         # Populate tags
                         tags = [
                             {
@@ -391,13 +396,6 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "shiftleft_managed": True,
                                 }
                             )
-                        helpUri = rule.get("helpUri")
-                        if helpUri and "slscan" not in helpUri:
-                            desc += "\n\n## Additional information\n\n"
-                            if rule.get("name"):
-                                desc += f"""**[{rule.get("name")}]({helpUri})**"""
-                            else:
-                                desc += f"**[{rule_id}]({helpUri})**"
                         for location in result.get("locations"):
                             filename = location["physicalLocation"]["artifactLocation"][
                                 "uri"
