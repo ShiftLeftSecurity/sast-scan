@@ -147,6 +147,7 @@ ignore_directories = [
     ".venv",
     ".tox",
     "examples",
+    "tutorials",
     "samples",
     "db_migrations",
     "unittests",
@@ -242,8 +243,30 @@ scan_tools_args_map = {
             get("TOOLS_CONFIG_DIR") + "/rules-pmd.xml",
         ]
     },
-    "arm": {"source-arm": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
-    "aws": {"source-aws": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"]},
+    "arm": {
+        "source-arm": [
+            "checkov",
+            "-s",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ]
+    },
+    "aws": {
+        "source-aws": [
+            "checkov",
+            "-s",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ]
+    },
     "bom": ["cdxgen", "-r", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
     "credscan": [
         "gitleaks",
@@ -378,7 +401,16 @@ scan_tools_args_map = {
         ],
     },
     "kubernetes": {
-        "source-k8s": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "source-k8s": [
+            "checkov",
+            "-s",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ],
         "kubesec": ["kubesec", "scan", "(filelist=yaml)"],
         "kube-score": [
             "kube-score",
@@ -529,7 +561,16 @@ scan_tools_args_map = {
         ],
     },
     "terraform": {
-        "source-tf": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "source-tf": [
+            "checkov",
+            "-s",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ],
         "tfsec": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
     },
     "vf": {
@@ -573,6 +614,7 @@ scan_tools_args_map = {
             "checkov",
             "-s",
             "--quiet",
+            "--no-guide",
             "-o",
             "json",
             "-d",
@@ -581,7 +623,16 @@ scan_tools_args_map = {
     },
     "yaml": {
         "yamllint": ["yamllint", "-f", "parsable", "(filelist=yaml)"],
-        "source-yaml": ["checkov", "-s", "--quiet", "-o", "json", "-d", "%(src)s"],
+        "source-yaml": [
+            "checkov",
+            "-s",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ],
     },
 }
 

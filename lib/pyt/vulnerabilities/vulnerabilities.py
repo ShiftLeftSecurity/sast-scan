@@ -396,13 +396,21 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     source_cfg = source.cfg_node
     sink_cfg = sink.cfg_node
     sensitive_data_list = blackbox_mapping.get("sensitive_data_list")
+    safe_path_list = blackbox_mapping.get("safe_path_list")
     sensitive_allowed_log_levels = blackbox_mapping.get("sensitive_allowed_log_levels")
     source_type = source.source_type
     sink_type = sink.sink_type
     if sink_type == "Logging":
         log_match = False
         for word in sensitive_data_list:
-            if word.upper() in source_cfg.label.upper():
+            if (
+                f" {word.upper()}" in source_cfg.label.upper()
+                or f"{word.upper()} " in source_cfg.label.upper()
+                or f"{word.upper()}," in source_cfg.label.upper()
+                or f",{word.upper()}" in source_cfg.label.upper()
+                or f"({word.upper()}" in source_cfg.label.upper()
+                or "{" + word.upper() in source_cfg.label.upper()
+            ):
                 log_match = True
                 break
         if log_match:
@@ -410,6 +418,8 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
             for log_level in sensitive_allowed_log_levels:
                 if log_level in sink.trigger_word.lower():
                     return None
+        else:
+            return None
     # render method based on Framework_Parameter is a known FP
     if sink_type == "ReturnedToUser":
         if sink.trigger_word == "render(" and source_type == "Framework_Parameter":
@@ -417,6 +427,11 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     # Ignore NoSQLi that use parameters
     if sink_type == "NoSQL" and sink_cfg.label and "parameters" in sink_cfg.label:
         return None
+    # Ignore safe source
+    if source_type == "Framework_Parameter":
+        for wp in safe_path_list:
+            if wp in source.cfg_node.path:
+                return None
     return vulnerability
 
 
