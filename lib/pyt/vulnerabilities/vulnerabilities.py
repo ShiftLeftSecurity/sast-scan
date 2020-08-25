@@ -403,7 +403,14 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
     if sink_type == "Logging":
         log_match = False
         for word in sensitive_data_list:
-            if word.upper() in source_cfg.label.upper():
+            if (
+                f" {word.upper()}" in source_cfg.label.upper()
+                or f"{word.upper()} " in source_cfg.label.upper()
+                or f"{word.upper()}," in source_cfg.label.upper()
+                or f",{word.upper()}" in source_cfg.label.upper()
+                or f"({word.upper()}" in source_cfg.label.upper()
+                or "{" + word.upper() in source_cfg.label.upper()
+            ):
                 log_match = True
                 break
         if log_match:
