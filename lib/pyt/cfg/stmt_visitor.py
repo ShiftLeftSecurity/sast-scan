@@ -76,6 +76,7 @@ BUILTIN_PKGS = [
     "requests",
     "threading",
     "socket",
+    "tensorflow",
 ]
 
 # Cache to keep track of visited modules to break recursion
