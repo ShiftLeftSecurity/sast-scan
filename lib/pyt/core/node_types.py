@@ -81,12 +81,16 @@ class Node:
         outgoing = ""
         ingoing = ""
         if self.ingoing:
-            ingoing = " ".join(("ingoing:\t", str([x.label for x in self.ingoing])))
+            ingoing = " ".join(
+                ("ingoing:\t", str([x.label for x in self.ingoing if x]))
+            )
         else:
             ingoing = " ".join(("ingoing:\t", "[]"))
 
         if self.outgoing:
-            outgoing = " ".join(("outgoing:\t", str([x.label for x in self.outgoing])))
+            outgoing = " ".join(
+                ("outgoing:\t", str([x.label for x in self.outgoing if x]))
+            )
         else:
             outgoing = " ".join(("outgoing:\t", "[]"))
 
