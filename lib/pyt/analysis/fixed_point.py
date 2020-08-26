@@ -4,6 +4,7 @@ from lib.pyt.analysis.reaching_definitions_taint import ReachingDefinitionsTaint
 
 max_analysis_steps = 20
 max_runs = 100
+max_none_runs = 5
 
 
 class FixedPointAnalysis:
@@ -21,9 +22,14 @@ class FixedPointAnalysis:
         """Work list algorithm that runs the fixpoint algorithm."""
         q = self.cfg.nodes
         cnt = 0
+        none_break_cnt = 0
         while q:
             if q[0] is None:
-                continue
+                if none_break_cnt > max_none_runs:
+                    break
+                else:
+                    none_break_cnt = none_break_cnt + 1
+                    continue
             cnt = cnt + 1
             x_i = constraint_table[q[0]]  # x_i = q[0].old_constraint
             self.analysis.fixpointmethod(q[0])  # y = F_i(x_1, ..., x_n);

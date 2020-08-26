@@ -77,6 +77,14 @@ BUILTIN_PKGS = [
     "threading",
     "socket",
     "tensorflow",
+    "tensorflow.python",
+    "tensorflow.python.keras",
+    "gym",
+    "multiprocessing",
+    "numpy",
+    "queue",
+    "matplotlib",
+    "matplotlib.pyplot",
 ]
 
 # Cache to keep track of visited modules to break recursion
