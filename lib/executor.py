@@ -78,7 +78,7 @@ def should_convert(convert, tool_name, command, report_fname):
     return False
 
 
-def exec_tool(
+def exec_tool(  # scan:ignore
     tool_name, args, cwd=None, env=utils.get_env(), stdout=subprocess.DEVNULL
 ):
     """
@@ -139,7 +139,7 @@ def exec_tool(
             return None
 
 
-def execute_default_cmd(
+def execute_default_cmd(  # scan:ignore
     cmd_map_list,
     type_str,
     tool_name,

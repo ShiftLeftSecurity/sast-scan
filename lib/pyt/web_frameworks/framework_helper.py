@@ -54,6 +54,9 @@ def is_taintable_function(ast_node):
         # Common view functions such as django, starlette
         if first_arg_name in ["request", "context", "scope"]:
             return True
+    # Ignore internal functions prefixed with _
+    if is_function_with_leading_(ast_node):
+        return False
     # Ignore known validation and sanitization functions
     for n in ["valid", "sanitize", "sanitise", "is_", "set_"]:
         if ast_node.name.startswith(n):
@@ -61,10 +64,10 @@ def is_taintable_function(ast_node):
     return True
 
 
-def is_function_without_leading_(ast_node):
+def is_function_with_leading_(ast_node):
     if ast_node.name.startswith("_"):
-        return False
-    return True
+        return True
+    return False
 
 
 def _get_last_of_iterable(iterable):

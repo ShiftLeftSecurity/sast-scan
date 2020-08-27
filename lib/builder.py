@@ -25,7 +25,7 @@ from lib.logger import LOG
 from lib.utils import find_files, get_env
 
 
-def get_gradle_cmd(src, cmd_args):
+def get_gradle_cmd(src, cmd_args):  # scan:ignore
     # Check for the presence of local gradle wrapper
     fullPath = os.path.join(src, "gradlew")
     if os.path.exists(fullPath):
@@ -45,7 +45,7 @@ def get_gradle_cmd(src, cmd_args):
     return cmd_args
 
 
-def auto_build(type_list, src, reports_dir):
+def auto_build(type_list, src, reports_dir):  # scan:ignore
     """
     Automatically build project identified by type
 
@@ -85,7 +85,7 @@ def auto_build(type_list, src, reports_dir):
     return ret
 
 
-def java_build(src, reports_dir, lang_tools):
+def java_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build java project
 
@@ -124,7 +124,7 @@ def java_build(src, reports_dir, lang_tools):
     return False
 
 
-def android_build(src, reports_dir, lang_tools):
+def android_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build android project
 
@@ -158,7 +158,7 @@ def android_build(src, reports_dir, lang_tools):
     return False
 
 
-def kotlin_build(src, reports_dir, lang_tools):
+def kotlin_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build kotlin project
 
@@ -186,7 +186,7 @@ def kotlin_build(src, reports_dir, lang_tools):
         return java_build(src, reports_dir, lang_tools)
 
 
-def scala_build(src, reports_dir, lang_tools):
+def scala_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build scala project
 
@@ -199,7 +199,7 @@ def scala_build(src, reports_dir, lang_tools):
     return java_build(src, reports_dir, lang_tools)
 
 
-def groovy_build(src, reports_dir, lang_tools):
+def groovy_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build groovy project
 
@@ -212,7 +212,7 @@ def groovy_build(src, reports_dir, lang_tools):
     return java_build(src, reports_dir, lang_tools)
 
 
-def nodejs_build(src, reports_dir, lang_tools):
+def nodejs_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build nodejs project
 
@@ -263,7 +263,7 @@ def nodejs_build(src, reports_dir, lang_tools):
     return ret
 
 
-def php_build(src, reports_dir, lang_tools):
+def php_build(src, reports_dir, lang_tools):  # scan:ignore
     """
     Automatically build php project
 
