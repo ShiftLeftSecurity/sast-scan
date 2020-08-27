@@ -380,14 +380,6 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "shiftleft_managed": False,
                                 }
                             )
-                        if owasp_category:
-                            tags.append(
-                                {
-                                    "key": "owasp_category",
-                                    "value": owasp_category,
-                                    "shiftleft_managed": True,
-                                }
-                            )
                         if "CWE" in rule_id:
                             tags.append(
                                 {
