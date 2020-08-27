@@ -7,6 +7,7 @@ ENV GOSEC_VERSION=2.4.0 \
     TFSEC_VERSION=0.24.1 \
     KUBESEC_VERSION=2.6.0 \
     KUBE_SCORE_VERSION=1.7.2 \
+    SHELLCHECK_VERSION=0.7.1 \
     DETEKT_VERSION=1.10.0 \
     GITLEAKS_VERSION=4.3.1 \
     GRADLE_VERSION=6.5.1 \
@@ -39,9 +40,9 @@ RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     && unzip -q apache-maven-${MAVEN_VERSION}-bin.zip -d /opt/ \
     && chmod +x /opt/apache-maven-${MAVEN_VERSION}/bin/mvn \
     && rm apache-maven-${MAVEN_VERSION}-bin.zip \
-    && curl -LO "https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz" \
-    && tar -C /tmp/ -xvf shellcheck-stable.linux.x86_64.tar.xz \
-    && cp /tmp/shellcheck-stable/shellcheck /usr/local/bin/shiftleft/shellcheck \
+    && curl -LO "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" \
+    && tar -C /tmp/ -xvf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz \
+    && cp /tmp/shellcheck-v${SHELLCHECK_VERSION}/shellcheck /usr/local/bin/shiftleft/shellcheck \
     && chmod +x /usr/local/bin/shiftleft/shellcheck \
     && curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
     && tar -C /tmp -xvf staticcheck_linux_amd64.tar.gz \
@@ -52,7 +53,7 @@ RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEA
     && chmod +x /usr/local/bin/shiftleft/gitleaks \
     && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
     && chmod +x /usr/local/bin/shiftleft/tfsec \
-    && rm shellcheck-stable.linux.x86_64.tar.xz
+    && rm shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
     && chmod +x /usr/local/bin/shiftleft/kube-score \
     && wget "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip" \

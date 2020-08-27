@@ -33,8 +33,7 @@ curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/s
 curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "${APPDIR}/usr/bin/gitleaks" \
     && chmod +x ${APPDIR}/usr/bin/gitleaks \
     && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "${APPDIR}/usr/bin/tfsec" \
-    && chmod +x ${APPDIR}/usr/bin/tfsec \
-    && rm shellcheck-stable.linux.x86_64.tar.xz
+    && chmod +x ${APPDIR}/usr/bin/tfsec
 curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "${APPDIR}/usr/bin/kube-score" \
     && chmod +x ${APPDIR}/usr/bin/kube-score \
     && wget "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip" \
