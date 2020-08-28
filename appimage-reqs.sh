@@ -8,10 +8,10 @@ KUBE_SCORE_VERSION=1.7.2
 DETEKT_VERSION=1.10.0
 GITLEAKS_VERSION=4.3.1
 SC_VERSION=2020.1.4
-PMD_VERSION=6.25.0
+PMD_VERSION=6.26.0
 FSB_VERSION=1.10.1
 SB_CONTRIB_VERSION=7.4.7
-SB_VERSION=4.0.6
+SB_VERSION=4.1.2
 NODE_VERSION=14.5.0
 export PATH=$PATH:${APPDIR}/usr/bin:
 
@@ -33,8 +33,7 @@ curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/s
 curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "${APPDIR}/usr/bin/gitleaks" \
     && chmod +x ${APPDIR}/usr/bin/gitleaks \
     && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "${APPDIR}/usr/bin/tfsec" \
-    && chmod +x ${APPDIR}/usr/bin/tfsec \
-    && rm shellcheck-stable.linux.x86_64.tar.xz
+    && chmod +x ${APPDIR}/usr/bin/tfsec
 curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "${APPDIR}/usr/bin/kube-score" \
     && chmod +x ${APPDIR}/usr/bin/kube-score \
     && wget "https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip" \

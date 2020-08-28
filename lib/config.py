@@ -267,7 +267,7 @@ scan_tools_args_map = {
             "%(src)s",
         ]
     },
-    "bom": ["cdxgen", "-r", "-o", "%(report_fname_prefix)s.xml", "%(src)s"],
+    "bom": ["cdxgen", "-r", "-o", "%(report_fname_prefix)s.json", "%(src)s"],
     "credscan": [
         "gitleaks",
         "--config=" + get("credscan_config"),
