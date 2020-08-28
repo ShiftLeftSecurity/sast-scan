@@ -346,7 +346,10 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         if not owasp_category:
                             # Check the config for any available owasp category mapping
                             for rok, rov in config.get("rules_owasp_category").items():
-                                if rok == rule_id.upper() or rok in rule_id.upper():
+                                if (
+                                    rok.upper() == rule_id.upper()
+                                    or rok.upper() in rule_id.upper()
+                                ):
                                     rule_id_owasp_cache[rule_id] = rov
                                     owasp_category = rov
                         category = rule.get("name")
