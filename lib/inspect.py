@@ -227,12 +227,13 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
             "Unable to find any build artifacts. Compile your project first before invoking scan or use the auto build feature."
         )
         return
-    if len(analyze_files) > 1:
+    if isinstance(analyze_files, list) and len(analyze_files) > 1:
         LOG.warning(
             "Multiple files found in {}. Only {} will be analyzed".format(
                 analyze_target_dir, analyze_files[0]
             )
         )
+        analyze_files = analyze_files[0]
     sl_args = [
         sl_cmd,
         "analyze",
@@ -245,7 +246,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         "--app",
         app_name,
     ]
-    sl_args += [analyze_files[0]]
+    sl_args += [analyze_files]
     if extra_args:
         sl_args += extra_args
     sl_args = [arg for arg in sl_args if arg is not None]
