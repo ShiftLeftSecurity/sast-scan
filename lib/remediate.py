@@ -13,7 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
+from lib.cis import get_rule
 from lib.pyt.vulnerabilities.rules import rules_message_map
+
+
+IAC_LINKS = "\n\n## Documentation\n\n- [AWS Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)\n- [Azure Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)\n- [Google Cloud Terraform](https://registry.terraform.io/providers/hashicorp/google/latest/docs)"
 
 
 def get_help(
@@ -32,7 +36,15 @@ def get_help(
     """
     desc = ""
     if rules_message_map.get(rule_id):
-        desc = rules_message_map.get(rule_id)
+        return rules_message_map.get(rule_id)
+    cis_rule = get_rule(rule_id)
+    if cis_rule:
+        rem_text = cis_rule.get("remediation", "")
+        desc = f"""CIS Benchmark: **{cis_rule.get("id", "")}**\n\n## Description\n\n{cis_rule.get("text", "")}\n\n## Remediation\n\n{rem_text}"""
+        if cis_rule.get("help_url"):
+            help_urls = "\n- ".join(cis_rule.get("help_url"))
+            desc = desc + f"""\n\n## Additional information\n\n- {help_urls}"""
+        return desc
     else:
         desc = rule_obj.get("fullDescription", {}).get("text")
         if desc:
@@ -44,4 +56,6 @@ def get_help(
                 desc += f"""**[{rule_obj.get("name")}]({helpUri})**"""
             else:
                 desc += f"**[{rule_id}]({helpUri})**"
+        if "CKV_" in rule_id:
+            desc += IAC_LINKS
     return desc

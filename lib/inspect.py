@@ -17,6 +17,7 @@ import os
 
 import requests
 
+import lib.cis as cis
 import lib.config as config
 import lib.convert as convertLib
 import lib.utils as utils
@@ -369,21 +370,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             result.get("properties", {})["issue_severity"]
                         )
                         # Populate tags
-                        tags = [
-                            {
-                                "key": "severity",
-                                "value": ngsev,
-                                "shiftleft_managed": True,
-                            }
-                        ]
-                        if category:
-                            tags.append(
-                                {
-                                    "key": "category",
-                                    "value": category,
-                                    "shiftleft_managed": False,
-                                }
-                            )
+                        tags = []
                         if "CWE" in rule_id:
                             tags.append(
                                 {
@@ -392,6 +379,25 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "shiftleft_managed": True,
                                 }
                             )
+                        if "CKV_" in rule_id or "CIS_" in rule_id:
+                            cis_rule = cis.get_rule(rule_id)
+                            if cis_rule:
+                                tags.append(
+                                    {
+                                        "key": "cis_category",
+                                        "value": cis_rule.get("id", ""),
+                                        "shiftleft_managed": False,
+                                    }
+                                )
+                                if cis_rule.get("scored"):
+                                    tags.append(
+                                        {
+                                            "key": "cis_status",
+                                            "value": "SCORED",
+                                            "shiftleft_managed": False,
+                                        }
+                                    )
+
                         for location in result.get("locations"):
                             filename = location["physicalLocation"]["artifactLocation"][
                                 "uri"
