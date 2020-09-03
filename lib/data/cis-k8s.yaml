@@ -993,9 +993,7 @@ groups:
           If using a Kubelet config file, edit the file to set TLSCipherSuites: to
           `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256`
           or to a subset of these values.
-          If using executable arguments, edit the kubelet service file
-          $kubeletsvc on each worker node and
-          set the --tls-cipher-suites parameter as follows, or to a subset of these values.
+          If using executable arguments, edit the kubelet service file $kubeletsvc on each worker node and set the `--tls-cipher-suites` parameter as follows, or to a subset of these values.
           `--tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256`
           Based on your system, restart the kubelet service. For example:
           ```
@@ -1197,7 +1195,7 @@ groups:
     text: "Network Policies and CNI"
     checks:
       - id: 5.3.1
-        text: "Ensure that the CNI in use supports Network Policies"
+        text: "Ensure that the CNI in use supports Network Policies."
         remediation: |
           If the CNI plugin in use does not support network policies, consideration should be given to making use of a different plugin, or finding an alternate mechanism for restricting traffic in the Kubernetes cluster.
         scored: false
@@ -1212,7 +1210,7 @@ groups:
     text: "Secrets Management"
     checks:
       - id: 5.4.1
-        text: "Prefer using secrets as files over secrets as environment variables"
+        text: "Kubernetes supports mounting secrets as data volumes or as environment variables. Minimize the use of environment variable secrets."
         scan_rule_ids:
           - CKV_K8S_35
           - Secrets

@@ -39,11 +39,14 @@ def get_help(
         return rules_message_map.get(rule_id)
     cis_rule = get_rule(rule_id)
     if cis_rule:
+        cis_desc = cis_rule.get("text", "").strip()
+        if cis_desc and not cis_desc.endswith("."):
+            cis_desc = cis_desc + "."
         rem_text = cis_rule.get("remediation", "")
         rationale_text = cis_rule.get("rationale", "")
         if rationale_text:
             rationale_text += "\n"
-        desc = f"""CIS Benchmark: **{cis_rule.get("id", "")}**\n\n## Description\n\n{cis_rule.get("text", "")}\n\n{rationale_text}## Remediation\n\n{rem_text}"""
+        desc = f"""CIS Benchmark: **{cis_rule.get("id", "")}**\n\n## Description\n\n{cis_desc}\n\n{rationale_text}## Remediation\n\n{rem_text}"""
         if cis_rule.get("help_url"):
             help_urls = "\n- ".join(cis_rule.get("help_url"))
             desc = desc + f"""\n\n## Additional information\n\n- {help_urls}"""
