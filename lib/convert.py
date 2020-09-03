@@ -27,6 +27,7 @@ import sarif_om as om
 from jschema_to_python.to_json import to_json
 from reporter.sarif import render_html
 
+import lib.cis as cis
 import lib.config as config
 import lib.csv_parser as csv_parser
 import lib.xml_parser as xml_parser
@@ -52,6 +53,8 @@ def tweak_severity(tool_name, issue_dict):
     :param issue_dict:
     :return:
     """
+    rule_id = issue_dict["test_id"]
+    rule_name = issue_dict["test_name"]
     issue_severity = issue_dict["issue_severity"]
     if tool_name in [
         "staticcheck",
@@ -64,6 +67,20 @@ def tweak_severity(tool_name, issue_dict):
         if issue_severity in ["HIGH", "CRITICAL"]:
             return "MEDIUM"
         return "LOW"
+    if tool_name in [
+        "checkov",
+        "source-tf",
+        "source-yaml",
+        "source-serverless",
+        "source-arm",
+        "source-aws",
+        "source-k8s",
+    ]:
+        cis_rule = cis.get_rule(rule_id)
+        if not cis_rule:
+            cis_rule = cis.get_rule(rule_name)
+        if cis_rule:
+            return "CRITICAL" if cis_rule.get("scored") else "HIGH"
     return issue_severity
 
 

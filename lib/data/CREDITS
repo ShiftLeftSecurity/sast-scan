@@ -1,0 +1,11 @@
+cis-k8s.yaml
+
+Source:
+https://github.com/aquasecurity/kube-bench/tree/master/cfg/cis-1.5
+
+License: Apache-2.0
+
+cwe_research.csv
+cwe_software.csv
+
+Source: http://cwe.mitre.org/data/
