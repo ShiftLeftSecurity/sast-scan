@@ -126,7 +126,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root $apiserverconf
           ```
         scored: true
@@ -136,7 +136,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod 644 $controllermanagerconf
           ```
         scored: true
@@ -146,7 +146,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root $controllermanagerconf
           ```
         scored: true
@@ -156,7 +156,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod 644 $schedulerconf
           ```
         scored: true
@@ -166,7 +166,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root $schedulerconf
           ```
         scored: true
@@ -176,7 +176,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod 644 $etcdconf
           ```
         scored: true
@@ -186,7 +186,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root $etcdconf
           ```
         scored: true
@@ -196,7 +196,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod 644 <path/to/cni/files>
           ```
         scored: false
@@ -206,7 +206,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root <path/to/cni/files>
           ```
         scored: false
@@ -218,7 +218,7 @@ groups:
           from the below command:
           ps -ef | grep etcd
           Run the below command (based on the etcd data directory found above). For example,
-          ```
+          ```bash
           chmod 700 /var/lib/etcd
           ```
         scored: true
@@ -238,7 +238,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod 644 /etc/kubernetes/admin.conf
           ```
         scored: true
@@ -248,7 +248,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root /etc/kubernetes/admin.conf
           ```
         scored: true
@@ -258,7 +258,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod 644 /etc/kubernetes/scheduler.conf
           ```
         scored: true
@@ -268,7 +268,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root /etc/kubernetes/scheduler.conf
           ```
         scored: true
@@ -288,7 +288,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown root:root /etc/kubernetes/controller-manager.conf
           ```
         scored: true
@@ -298,7 +298,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chown -R root:root /etc/kubernetes/pki/
           ```
         scored: true
@@ -308,7 +308,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod -R 644 /etc/kubernetes/pki/*.crt
           ```
         scored: false
@@ -318,7 +318,7 @@ groups:
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
-          ```
+          ```bash
           chmod -R 600 /etc/kubernetes/pki/*.key
           ```
         scored: false
@@ -815,7 +815,7 @@ groups:
           set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable.
           --anonymous-auth=false
           Based on your system, restart the kubelet service. For example:
-          ```  
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -830,7 +830,7 @@ groups:
           set the below parameter in KUBELET_AUTHZ_ARGS variable.
           --authorization-mode=Webhook
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -846,7 +846,7 @@ groups:
           set the below parameter in KUBELET_AUTHZ_ARGS variable.
           --client-ca-file=<path/to/client-ca-file>
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -861,7 +861,7 @@ groups:
           set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable.
           --read-only-port=0
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -877,7 +877,7 @@ groups:
           set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable.
           --streaming-connection-idle-timeout=5m
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -892,7 +892,7 @@ groups:
           set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable.
           --protect-kernel-defaults=true
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -907,7 +907,7 @@ groups:
           remove the --make-iptables-util-chains argument from the
           KUBELET_SYSTEM_PODS_ARGS variable.
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -920,7 +920,7 @@ groups:
           on each worker node and remove the --hostname-override argument from the
           KUBELET_SYSTEM_PODS_ARGS variable.
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -934,7 +934,7 @@ groups:
           $kubeletsvc on each worker node and
           set the below parameter in `KUBELET_SYSTEM_PODS_ARGS` variable.
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -952,7 +952,7 @@ groups:
           --tls-cert-file=<path/to/tls-certificate-file>
           --tls-private-key-file=<path/to/tls-key-file>
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -968,7 +968,7 @@ groups:
           remove `--rotate-certificates=false` argument from the KUBELET_CERTIFICATE_ARGS
           variable.
           Based on your system, restart the kubelet service. For example:
-          ```  
+          ```bash 
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -981,7 +981,7 @@ groups:
           on each worker node and set the below parameter in KUBELET_CERTIFICATE_ARGS variable.
           `--feature-gates=RotateKubeletServerCertificate=true`
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -996,7 +996,7 @@ groups:
           If using executable arguments, edit the kubelet service file $kubeletsvc on each worker node and set the `--tls-cipher-suites` parameter as follows, or to a subset of these values.
           `--tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256`
           Based on your system, restart the kubelet service. For example:
-          ```
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -1012,7 +1012,7 @@ groups:
         text: "Ensure that the cluster-admin role is only used where required"
         remediation: |
           Identify all clusterrolebindings to the cluster-admin role. Check if they are used and if they need this role or if they could use a role with fewer privileges. Where possible, first bind users to a lower privileged role and then remove the clusterrolebinding to the cluster-admin role :
-          ```
+          ```bash
           kubectl delete clusterrolebinding [name]
           ```
 
@@ -1256,13 +1256,15 @@ groups:
         rationale: |
           Seccomp (secure computing mode) is used to restrict the set of system calls applications can make, allowing cluster administrators greater control over the security of workloads running in the cluster. Kubernetes disables seccomp profiles by default for historical reasons. You should enable it to ensure that the workloads have restricted actions available within the container.
         remediation: |
-          Seccomp is an alpha feature currently. By default, all alpha features are disabled. So, you would need to enable alpha features in the apiserver by passing "--feature-gates=AllAlpha=true" argument. Edit the /etc/kubernetes/apiserver file on the master node and set the KUBE_API_ARGS parameter to "--feature-gates=AllAlpha=true" KUBE_API_ARGS="--feature-gates=AllAlpha=true". Based on your system, restart the kube-apiserver service.
+          Seccomp is an alpha feature currently. By default, all alpha features are disabled. So, you would need to enable alpha features in the apiserver by passing "--feature-gates=AllAlpha=true" argument.
+          Edit the /etc/kubernetes/apiserver file on the master node and set the KUBE_API_ARGS parameter to "--feature-gates=AllAlpha=true" KUBE_API_ARGS="--feature-gates=AllAlpha=true". Based on your system, restart the kube-apiserver service.
           For example:
-          ```
+          ```bash
           systemctl restart kube-apiserver.service
           ```
+
           Use annotations to enable the docker/default seccomp profile in your pod definitions. An example is as below:
-          ```
+          ```yaml
           apiVersion: v1
           kind: Pod
           metadata:
