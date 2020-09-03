@@ -40,7 +40,10 @@ def get_help(
     cis_rule = get_rule(rule_id)
     if cis_rule:
         rem_text = cis_rule.get("remediation", "")
-        desc = f"""CIS Benchmark: **{cis_rule.get("id", "")}**\n\n## Description\n\n{cis_rule.get("text", "")}\n\n## Remediation\n\n{rem_text}"""
+        rationale_text = cis_rule.get("rationale", "")
+        if rationale_text:
+            rationale_text += "\n"
+        desc = f"""CIS Benchmark: **{cis_rule.get("id", "")}**\n\n## Description\n\n{cis_rule.get("text", "")}\n\n{rationale_text}## Remediation\n\n{rem_text}"""
         if cis_rule.get("help_url"):
             help_urls = "\n- ".join(cis_rule.get("help_url"))
             desc = desc + f"""\n\n## Additional information\n\n- {help_urls}"""

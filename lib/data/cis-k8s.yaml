@@ -65,8 +65,7 @@ groups:
         scored: true
 
       - id: 2.4
-        text: "Ensure that the --peer-cert-file and --peer-key-file arguments are
-        set as appropriate"
+        text: "Ensure that the --peer-cert-file and --peer-key-file arguments are set as appropriate"
         remediation: |
           Follow the etcd service documentation and configure peer TLS encryption as appropriate
           for your etcd cluster. Then, edit the etcd pod specification file $etcdconf on the
@@ -255,7 +254,7 @@ groups:
         scored: true
 
       - id: 1.1.15
-        text: "Ensure that the scheduler.conf file permissions are set to 644 or more restrictive"        
+        text: "Ensure that the scheduler.conf file permissions are set to 644 or more restrictive"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -265,7 +264,7 @@ groups:
         scored: true
 
       - id: 1.1.16
-        text: "Ensure that the scheduler.conf file ownership is set to root:root"        
+        text: "Ensure that the scheduler.conf file ownership is set to root:root"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -275,7 +274,7 @@ groups:
         scored: true
 
       - id: 1.1.17
-        text: "Ensure that the controller-manager.conf file permissions are set to 644 or more restrictive"        
+        text: "Ensure that the controller-manager.conf file permissions are set to 644 or more restrictive"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -285,7 +284,7 @@ groups:
         scored: true
 
       - id: 1.1.18
-        text: "Ensure that the controller-manager.conf file ownership is set to root:root"        
+        text: "Ensure that the controller-manager.conf file ownership is set to root:root"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -295,7 +294,7 @@ groups:
         scored: true
 
       - id: 1.1.19
-        text: "Ensure that the Kubernetes PKI directory and file ownership is set to root:root"        
+        text: "Ensure that the Kubernetes PKI directory and file ownership is set to root:root"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -305,7 +304,7 @@ groups:
         scored: true
 
       - id: 1.1.20
-        text: "Ensure that the Kubernetes PKI certificate file permissions are set to 644 or more restrictive"        
+        text: "Ensure that the Kubernetes PKI certificate file permissions are set to 644 or more restrictive"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -315,7 +314,7 @@ groups:
         scored: false
 
       - id: 1.1.21
-        text: "Ensure that the Kubernetes PKI key file permissions are set to 600"      
+        text: "Ensure that the Kubernetes PKI key file permissions are set to 600"
         remediation: |
           Run the below command (based on the file location on your system) on the master node.
           For example,
@@ -328,7 +327,7 @@ groups:
     text: "API Server"
     checks:
       - id: 1.2.1
-        text: "Ensure that the --anonymous-auth argument is set to false"        
+        text: "Ensure that the --anonymous-auth argument is set to false"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the below parameter.
@@ -338,7 +337,7 @@ groups:
         scored: false
 
       - id: 1.2.2
-        text: "Ensure that the --basic-auth-file argument is not set"        
+        text: "Ensure that the --basic-auth-file argument is not set"
         remediation: |
           Follow the documentation and configure alternate mechanisms for authentication. Then,
           edit the API server pod specification file $apiserverconf
@@ -346,7 +345,7 @@ groups:
         scored: true
 
       - id: 1.2.3
-        text: "Ensure that the --token-auth-file parameter is not set"        
+        text: "Ensure that the --token-auth-file parameter is not set"
         remediation: |
           Follow the documentation and configure alternate mechanisms for authentication. Then,
           edit the API server pod specification file $apiserverconf
@@ -354,14 +353,14 @@ groups:
         scored: true
 
       - id: 1.2.4
-        text: "Ensure that the --kubelet-https argument is set to true"        
+        text: "Ensure that the --kubelet-https argument is set to true"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and remove the --kubelet-https parameter.
         scored: true
 
       - id: 1.2.5
-        text: "Ensure that the --kubelet-client-certificate and --kubelet-client-key arguments are set as appropriate"        
+        text: "Ensure that the --kubelet-client-certificate and --kubelet-client-key arguments are set as appropriate"
         remediation: |
           Follow the Kubernetes documentation and set up the TLS connection between the
           apiserver and kubelets. Then, edit API server pod specification file
@@ -372,7 +371,7 @@ groups:
         scored: true
 
       - id: 1.2.6
-        text: "Ensure that the --kubelet-certificate-authority argument is set as appropriate"        
+        text: "Ensure that the --kubelet-certificate-authority argument is set as appropriate"
         remediation: |
           Follow the Kubernetes documentation and setup the TLS connection between
           the apiserver and kubelets. Then, edit the API server pod specification file
@@ -382,7 +381,7 @@ groups:
         scored: true
 
       - id: 1.2.7
-        text: "Ensure that the --authorization-mode argument is not set to AlwaysAllow"        
+        text: "Ensure that the --authorization-mode argument is not set to AlwaysAllow"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --authorization-mode parameter to values other than AlwaysAllow.
@@ -393,7 +392,7 @@ groups:
         scored: true
 
       - id: 1.2.8
-        text: "Ensure that the --authorization-mode argument includes Node"        
+        text: "Ensure that the --authorization-mode argument includes Node"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --authorization-mode parameter to a value that includes Node.
@@ -403,7 +402,7 @@ groups:
         scored: true
 
       - id: 1.2.9
-        text: "Ensure that the --authorization-mode argument includes RBAC"        
+        text: "Ensure that the --authorization-mode argument includes RBAC"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --authorization-mode parameter to a value that includes RBAC,
@@ -414,7 +413,7 @@ groups:
         scored: true
 
       - id: 1.2.10
-        text: "Ensure that the admission control plugin EventRateLimit is set"        
+        text: "Ensure that the admission control plugin EventRateLimit is set"
         remediation: |
           Follow the Kubernetes documentation and set the desired limits in a configuration file.
           Then, edit the API server pod specification file $apiserverconf
@@ -426,7 +425,7 @@ groups:
         scored: false
 
       - id: 1.2.11
-        text: "Ensure that the admission control plugin AlwaysAdmit is not set"        
+        text: "Ensure that the admission control plugin AlwaysAdmit is not set"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and either remove the --enable-admission-plugins parameter, or set it to a
@@ -434,7 +433,7 @@ groups:
         scored: true
 
       - id: 1.2.12
-        text: "Ensure that the admission control plugin AlwaysPullImages is set"        
+        text: "Ensure that the admission control plugin AlwaysPullImages is set"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --enable-admission-plugins parameter to include
@@ -443,7 +442,7 @@ groups:
         scored: false
 
       - id: 1.2.13
-        text: "Ensure that the admission control plugin SecurityContextDeny is set if PodSecurityPolicy is not used"        
+        text: "Ensure that the admission control plugin SecurityContextDeny is set if PodSecurityPolicy is not used"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --enable-admission-plugins parameter to include
@@ -452,7 +451,7 @@ groups:
         scored: false
 
       - id: 1.2.14
-        text: "Ensure that the admission control plugin ServiceAccount is set"        
+        text: "Ensure that the admission control plugin ServiceAccount is set"
         remediation: |
           Follow the documentation and create ServiceAccount objects as per your environment.
           Then, edit the API server pod specification file $apiserverconf
@@ -461,7 +460,7 @@ groups:
         scored: true
 
       - id: 1.2.15
-        text: "Ensure that the admission control plugin NamespaceLifecycle is set"        
+        text: "Ensure that the admission control plugin NamespaceLifecycle is set"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --disable-admission-plugins parameter to
@@ -469,7 +468,7 @@ groups:
         scored: true
 
       - id: 1.2.16
-        text: "Ensure that the admission control plugin PodSecurityPolicy is set"        
+        text: "Ensure that the admission control plugin PodSecurityPolicy is set"
         remediation: |
           Follow the documentation and create Pod Security Policy objects as per your environment.
           Then, edit the API server pod specification file $apiserverconf
@@ -480,7 +479,7 @@ groups:
         scored: true
 
       - id: 1.2.17
-        text: "Ensure that the admission control plugin NodeRestriction is set"        
+        text: "Ensure that the admission control plugin NodeRestriction is set"
         remediation: |
           Follow the Kubernetes documentation and configure NodeRestriction plug-in on kubelets.
           Then, edit the API server pod specification file $apiserverconf
@@ -490,14 +489,14 @@ groups:
         scored: true
 
       - id: 1.2.18
-        text: "Ensure that the --insecure-bind-address argument is not set"        
+        text: "Ensure that the --insecure-bind-address argument is not set"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and remove the --insecure-bind-address parameter.
         scored: true
 
       - id: 1.2.19
-        text: "Ensure that the --insecure-port argument is set to 0"        
+        text: "Ensure that the --insecure-port argument is set to 0"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the below parameter.
@@ -505,7 +504,7 @@ groups:
         scored: true
 
       - id: 1.2.20
-        text: "Ensure that the --secure-port argument is not set to 0"        
+        text: "Ensure that the --secure-port argument is not set to 0"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and either remove the --secure-port parameter or
@@ -513,7 +512,7 @@ groups:
         scored: true
 
       - id: 1.2.21
-        text: "Ensure that the --profiling argument is set to false"        
+        text: "Ensure that the --profiling argument is set to false"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the below parameter.
@@ -530,7 +529,7 @@ groups:
         scored: true
 
       - id: 1.2.23
-        text: "Ensure that the --audit-log-maxage argument is set to 30 or as appropriate"        
+        text: "Ensure that the --audit-log-maxage argument is set to 30 or as appropriate"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --audit-log-maxage parameter to 30 or as an appropriate number of days:
@@ -538,7 +537,7 @@ groups:
         scored: true
 
       - id: 1.2.24
-        text: "Ensure that the --audit-log-maxbackup argument is set to 10 or as appropriate"        
+        text: "Ensure that the --audit-log-maxbackup argument is set to 10 or as appropriate"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --audit-log-maxbackup parameter to 10 or to an appropriate
@@ -547,7 +546,7 @@ groups:
         scored: true
 
       - id: 1.2.25
-        text: "Ensure that the --audit-log-maxsize argument is set to 100 or as appropriate"        
+        text: "Ensure that the --audit-log-maxsize argument is set to 100 or as appropriate"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --audit-log-maxsize parameter to an appropriate size in MB.
@@ -556,7 +555,7 @@ groups:
         scored: true
 
       - id: 1.2.26
-        text: "Ensure that the --request-timeout argument is set as appropriate"        
+        text: "Ensure that the --request-timeout argument is set as appropriate"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           and set the below parameter as appropriate and if needed.
@@ -565,7 +564,7 @@ groups:
         scored: true
 
       - id: 1.2.27
-        text: "Ensure that the --service-account-lookup argument is set to true"        
+        text: "Ensure that the --service-account-lookup argument is set to true"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the below parameter.
@@ -575,7 +574,7 @@ groups:
         scored: true
 
       - id: 1.2.28
-        text: "Ensure that the --service-account-key-file argument is set as appropriate"        
+        text: "Ensure that the --service-account-key-file argument is set as appropriate"
         remediation: |
           Edit the API server pod specification file $apiserverconf
           on the master node and set the --service-account-key-file parameter
@@ -933,7 +932,7 @@ groups:
           If using a Kubelet config file, edit the file to set eventRecordQPS: to an appropriate level.
           If using command line arguments, edit the kubelet service file
           $kubeletsvc on each worker node and
-          set the below parameter in KUBELET_SYSTEM_PODS_ARGS variable.
+          set the below parameter in `KUBELET_SYSTEM_PODS_ARGS` variable.
           Based on your system, restart the kubelet service. For example:
           ```
           systemctl daemon-reload
@@ -949,7 +948,7 @@ groups:
           to the location of the corresponding private key file.
           If using command line arguments, edit the kubelet service file
           $kubeletsvc on each worker node and
-          set the below parameters in KUBELET_CERTIFICATE_ARGS variable.
+          set the below parameters in `KUBELET_CERTIFICATE_ARGS` variable.
           --tls-cert-file=<path/to/tls-certificate-file>
           --tls-private-key-file=<path/to/tls-key-file>
           Based on your system, restart the kubelet service. For example:
@@ -966,7 +965,7 @@ groups:
           remove it altogether to use the default value.
           If using command line arguments, edit the kubelet service file
           $kubeletsvc on each worker node and
-          remove --rotate-certificates=false argument from the KUBELET_CERTIFICATE_ARGS
+          remove `--rotate-certificates=false` argument from the KUBELET_CERTIFICATE_ARGS
           variable.
           Based on your system, restart the kubelet service. For example:
           ```  
@@ -980,7 +979,7 @@ groups:
         remediation: |
           Edit the kubelet service file $kubeletsvc
           on each worker node and set the below parameter in KUBELET_CERTIFICATE_ARGS variable.
-          --feature-gates=RotateKubeletServerCertificate=true
+          `--feature-gates=RotateKubeletServerCertificate=true`
           Based on your system, restart the kubelet service. For example:
           ```
           systemctl daemon-reload
@@ -992,12 +991,12 @@ groups:
         text: "Ensure that the Kubelet only makes use of Strong Cryptographic Ciphers"
         remediation: |
           If using a Kubelet config file, edit the file to set TLSCipherSuites: to
-          TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
+          `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256`
           or to a subset of these values.
           If using executable arguments, edit the kubelet service file
           $kubeletsvc on each worker node and
           set the --tls-cipher-suites parameter as follows, or to a subset of these values.
-          --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
+          `--tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256`
           Based on your system, restart the kubelet service. For example:
           ```
           systemctl daemon-reload
@@ -1014,11 +1013,11 @@ groups:
       - id: 5.1.1
         text: "Ensure that the cluster-admin role is only used where required"
         remediation: |
-          Identify all clusterrolebindings to the cluster-admin role. Check if they are used and
-          if they need this role or if they could use a role with fewer privileges.
-          Where possible, first bind users to a lower privileged role and then remove the
-          clusterrolebinding to the cluster-admin role :
+          Identify all clusterrolebindings to the cluster-admin role. Check if they are used and if they need this role or if they could use a role with fewer privileges. Where possible, first bind users to a lower privileged role and then remove the clusterrolebinding to the cluster-admin role :
+          ```
           kubectl delete clusterrolebinding [name]
+          ```
+
         scored: false
 
       - id: 5.1.2
@@ -1030,8 +1029,7 @@ groups:
       - id: 5.1.3
         text: "Minimize wildcard use in Roles and ClusterRoles"
         remediation: |
-          Where possible replace any use of wildcards in clusterroles and roles with specific
-          objects or actions.
+          Where possible replace any use of wildcards in clusterroles and roles with specific objects or actions.
         scored: false
 
       - id: 5.1.4
@@ -1047,9 +1045,10 @@ groups:
           - DefaultServiceAccountBinding
           - CKV_K8S_42
         text: "Ensure that default service accounts are not actively used."
+        rationale: |
+          Kubernetes provides a `default` service account which is used by cluster workloads where no specific service account is assigned to the pod. Where access to the Kubernetes API from a pod is required, a specific service account should be created for that pod, and rights granted to that service account. The default service account should be configured such that it does not provide a service account token and does not have any explicit rights assignments.
         remediation: |
-          Create explicit service accounts wherever a Kubernetes workload requires specific access
-          to the Kubernetes API server.
+          Create explicit service accounts wherever a Kubernetes workload requires specific access to the Kubernetes API server.
           Modify the configuration of each default service account to include this value
           ```
           automountServiceAccountToken: false
@@ -1057,10 +1056,12 @@ groups:
         scored: true
 
       - id: 5.1.6
+        text: "Ensure that Service Account Tokens are only mounted where necessary"
         scan_rule_ids:
           - ServiceAccountTokens
           - CKV_K8S_38
-        text: "Ensure that Service Account Tokens are only mounted where necessary"
+        rationale: |
+          Mounting service account tokens inside pods can provide an avenue for privilege escalation attacks where an attacker is able to compromise a single pod in the cluster. Avoiding mounting these tokens removes this attack avenue.
         remediation: |
           Modify the definition of pods and service accounts which do not need to mount service account tokens to disable it.
         scored: false
@@ -1069,50 +1070,59 @@ groups:
     text: "Pod Security Policies"
     checks:
       - id: 5.2.1
+        text: "Minimize the admission of privileged containers"
         scan_rule_ids:
           - CKV_K8S_16
           - PrivilegedContainers
           - PrivilegedContainersPSP
           - CKV_K8S_2
-        text: "Minimize the admission of privileged containers"
+        rationale: |
+          Privileged containers have access to all Linux Kernel capabilities and devices. A container running with full privileges can do almost everything that the host can do. This flag exists to allow special use-cases, like manipulating the network stack and accessing devices. There should be at least one PodSecurityPolicy (PSP) defined which does not permit privileged containers. If you need to run privileged containers, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.privileged` field is omitted or set to `false`.
         scored: false
 
       - id: 5.2.2
+        text: "Minimize the admission of containers wishing to share the host process ID namespace"
         scan_rule_ids:
           - CKV_K8S_17
           - ShareHostPID
           - CKV_K8S_1
           - ShareHostPIDPSP
-        text: "Minimize the admission of containers wishing to share the host process ID namespace"
+        rationale: |
+          A container running in the host's PID namespace can inspect processes running outside the container. If the container also has access to ptrace capabilities this can be used to escalate privileges outside of the container. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to share the host PID namespace. If you need to run containers which require hostPID, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.hostPID` field is omitted or set to `false`.
         scored: true
 
       - id: 5.2.3
+        text: "Minimize the admission of containers wishing to share the host IPC namespace"
         scan_rule_ids:
           - CKV_K8S_18
           - ShareHostIPC
           - CKV_K8S_3
           - ShareHostIPCPSP
-        text: "Minimize the admission of containers wishing to share the host IPC namespace"
+        rationale: |
+          A container running in the host's IPC namespace can use IPC to interact with processes outside the container. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to share the host IPC namespace. If you have a requirement to containers which require hostIPC, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.hostIPC` field is omitted or set to `false`.
         scored: true
 
       - id: 5.2.4
+        text: "Minimize the admission of containers wishing to share the host network namespace"
         scan_rule_ids:
           - CKV_K8S_19
           - SharedHostNetworkNamespace
           - SharedHostNetworkNamespacePSP
           - CKV_K8S_4
-        text: "Minimize the admission of containers wishing to share the host network namespace"
+        rationale: |
+          A container running in the host's network namespace could access the local loopback device, and could access network traffic to and from other pods. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to share the host network namespace. If you have need to run containers which require hostNetwork, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.hostNetwork` field is omitted or set to `false`.
         scored: true
 
       - id: 5.2.5
+        text: "Minimize the admission of containers with allowPrivilegeEscalation"
         scan_rule_ids:
           - CKV_K8S_20
           - AllowPrivilegeEscalation
@@ -1121,7 +1131,7 @@ groups:
         help_url:
           - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
           - "[Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/)"
-        text: "Minimize the admission of containers with allowPrivilegeEscalation"
+        rationale: A container running with the allowPrivilegeEscalation flag set to true may have processes that can gain more privileges than their parent. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to allow privilege escalation. The option exists (and is defaulted to true) to permit setuid binaries to run. If you have need to run containers which use setuid binaries or require privilege escalation, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.allowPrivilegeEscalation` field is omitted or set to `false`.
         scored: true
@@ -1137,22 +1147,26 @@ groups:
           - CKV_K8S_6
         help_url:
           - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+        rationale: Containers may run as any Linux user. Containers which run as the root user, whilst constrained by Container Runtime security features still have a escalated likelihood of container breakout. Ideally, all containers should run as a defined non-UID 0 user. There should be at least one PodSecurityPolicy (PSP) defined which does not permit root users in a container. If you need to run root containers, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.runAsUser.rule` is set to either `MustRunAsNonRoot` or `MustRunAs` with the range of UIDs not including `0`.
         scored: false
 
       - id: 5.2.7
+        text: "Do not generally permit containers with the potentially dangerous NET_RAW capability"
         scan_rule_ids:
           - DropCapabilities
           - CKV_K8S_28
           - DropCapabilitiesPSP
           - CKV_K8S_7
-        text: "Minimize the admission of containers with the NET_RAW capability"
+        rationale: |
+          Containers run with a default set of capabilities as assigned by the Container Runtime. By default this can include potentially dangerous capabilities. With Docker as the container runtime the NET_RAW capability is enabled which may be misused by malicious containers. Ideally, all containers should drop this capability. There should be at least one PodSecurityPolicy (PSP) defined which prevents containers with the NET_RAW capability from launching. If you need to run containers with this capability, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.requiredDropCapabilities` is set to include either `NET_RAW` or `ALL`.
         scored: false
 
       - id: 5.2.8
+        text: "Minimize the admission of containers with added capabilities"
         scan_rule_ids:
           - CKV_K8S_25
           - CKV_K8S_24
@@ -1160,18 +1174,21 @@ groups:
           - AllowedCapabilitiesPSP
         help_url:
           - "[Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#capabilities)"
-        text: "Minimize the admission of containers with added capabilities"
+        rationale: |
+          Containers run with a default set of capabilities as assigned by the Container Runtime. Capabilities outside this set can be added to containers which could expose them to risks of container breakout attacks. There should be at least one PodSecurityPolicy (PSP) defined which prevents containers with capabilities beyond the default set from launching. If you need to run containers with additional capabilities, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
           Ensure that allowedCapabilities is not present in PSPs for the cluster unless it is set to an empty array.
         scored: false
 
       - id: 5.2.9
+        text: "Minimize the admission of containers with capabilities assigned"
         scan_rule_ids:
           - CKV_K8S_37
           - MinimizeCapabilities
           - CKV_K8S_36
           - MinimizeCapabilitiesPSP
-        text: "Minimize the admission of containers with capabilities assigned"
+        rationale: |
+          Containers run with a default set of capabilities as assigned by the Container Runtime. Capabilities are parts of the rights generally granted on a Linux system to the root user. In many cases applications running in containers do not require any capabilities to operate, so from the perspective of the principal of least privilege use of capabilities should be minimized.
         remediation: |
           Review the use of capabilites in applications runnning on your cluster. Where a namespace contains applicaions which do not require any Linux capabities to operate consider adding a PSP which forbids the admission of containers which do not drop all capabilities.
         scored: false
@@ -1195,10 +1212,12 @@ groups:
     text: "Secrets Management"
     checks:
       - id: 5.4.1
+        text: "Prefer using secrets as files over secrets as environment variables"
         scan_rule_ids:
           - CKV_K8S_35
           - Secrets
-        text: "Prefer using secrets as files over secrets as environment variables"
+        rationale: |
+          It is reasonably common for application code to log out its environment (particularly in the event of an error). This will include any secret values passed in as environment variables, so secrets can easily be exposed to any user or entity who has access to the logs.
         remediation: |
           Rewrite application code to read secrets from mounted secret files, rather than from environment variables. Refer to the secrets management options offered by your cloud provider or a third-party secrets management solution.
         scored: false
@@ -1223,6 +1242,8 @@ groups:
     checks:
       - id: 5.7.1
         text: "Create administrative boundaries between resources using namespaces"
+        rationale: |
+          Limiting the scope of user permissions can reduce the impact of mistakes or malicious activities. A Kubernetes namespace allows you to partition created resources into logically named groups. Resources created in one namespace can be hidden from other namespaces. By default, each resource created by a user in Kubernetes cluster runs in a default namespace, called default. You can create additional namespaces and attach resources and users to them. You can use Kubernetes Authorization plugins to create policies that segregate access to namespace resources between different users.
         remediation: |
           Follow the documentation and create namespaces for objects in your deployment as you need them.
         scored: false
@@ -1234,17 +1255,15 @@ groups:
           - CKV_K8S_31
           - CKV_K8S_32
         text: "Ensure that the seccomp profile is set to docker/default in your pod definitions"
+        rationale: |
+          Seccomp (secure computing mode) is used to restrict the set of system calls applications can make, allowing cluster administrators greater control over the security of workloads running in the cluster. Kubernetes disables seccomp profiles by default for historical reasons. You should enable it to ensure that the workloads have restricted actions available within the container.
         remediation: |
-          Seccomp is an alpha feature currently. By default, all alpha features are disabled. So, you
-          would need to enable alpha features in the apiserver by passing "--feature-
-          gates=AllAlpha=true" argument.
-          Edit the /etc/kubernetes/apiserver file on the master node and set the KUBE_API_ARGS
-          parameter to "--feature-gates=AllAlpha=true"
-          KUBE_API_ARGS="--feature-gates=AllAlpha=true"
-          Based on your system, restart the kube-apiserver service. For example:
+          Seccomp is an alpha feature currently. By default, all alpha features are disabled. So, you would need to enable alpha features in the apiserver by passing "--feature-gates=AllAlpha=true" argument. Edit the /etc/kubernetes/apiserver file on the master node and set the KUBE_API_ARGS parameter to "--feature-gates=AllAlpha=true" KUBE_API_ARGS="--feature-gates=AllAlpha=true". Based on your system, restart the kube-apiserver service.
+          For example:
+          ```
           systemctl restart kube-apiserver.service
-          Use annotations to enable the docker/default seccomp profile in your pod definitions. An
-          example is as below:
+          ```
+          Use annotations to enable the docker/default seccomp profile in your pod definitions. An example is as below:
           ```
           apiVersion: v1
           kind: Pod
@@ -1269,6 +1288,8 @@ groups:
           - "[CIS Docker Benchmark](https://www.cisecurity.org/benchmark/docker/)"
           - "[Docker Benchmark Scripts](https://github.com/docker/docker-bench-security)"
         text: "Apply Security Context to Your Pods and Containers"
+        rationale: |
+          A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. When designing your containers and pods, make sure that you configure the security context for your pods, containers, and volumes. A security context is a property defined in the deployment yaml. It controls the security parameters that will be assigned to the pod/container/volume. There are two levels of security context: pod level security context, and container level security context.
         remediation: |
           Follow the Kubernetes documentation and apply security contexts to your pods. For a suggested list of security contexts, you may refer to the CIS Security Benchmark for Docker Containers.
         scored: false
@@ -1279,7 +1300,9 @@ groups:
           - DefaultNamespace
         help_url:
           - "[Multi-tenancy SIG](https://github.com/kubernetes-sigs/multi-tenancy/blob/master/incubator/hnc/docs/user-guide/concepts.md#basic)"
-        text: "The default namespace should not be used"
+        text: "Kubernetes provides a default namespace, where objects are placed if no namespace is specified for them. Placing objects in this namespace makes application of RBAC and other controls more difficult."
+        rationale: |
+          Resources in a Kubernetes cluster should be segregated by namespace, to allow for security controls to be applied at that level and to make it easier to manage resources.
         remediation: |
           Ensure that namespaces are created to allow for appropriate segregation of Kubernetes resources and that all new resources are created in a specific namespace. If possible, consider adopting new techniques such as `hierarchical namespaces`.
         scored: true
