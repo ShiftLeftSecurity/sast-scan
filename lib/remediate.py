@@ -16,7 +16,6 @@
 from lib.cis import get_rule
 from lib.pyt.vulnerabilities.rules import rules_message_map
 
-
 IAC_LINKS = "\n\n## Documentation\n\n- [AWS Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)\n- [Azure Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)\n- [Google Cloud Terraform](https://registry.terraform.io/providers/hashicorp/google/latest/docs)"
 
 
