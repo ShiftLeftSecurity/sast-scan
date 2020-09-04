@@ -217,8 +217,8 @@ class StmtVisitor(ast.NodeVisitor):
             control_flow_node = self.visit(orelse[0])
             # Prefix the if label with 'el'
             control_flow_node.test.label = "el" + control_flow_node.test.label
-
-            test.connect(control_flow_node.test)
+            if test is not None:
+                test.connect(control_flow_node.test)
             return control_flow_node.last_nodes
         else:
             else_connect_statements = self.stmt_star_handler(
@@ -226,7 +226,8 @@ class StmtVisitor(ast.NodeVisitor):
             )
             if isinstance(else_connect_statements, IgnoredNode):
                 return IgnoredNode()
-            test.connect(else_connect_statements.first_statement)
+            if test is not None:
+                test.connect(else_connect_statements.first_statement)
             return else_connect_statements.last_statements
 
     def visit_If(self, node):
@@ -237,7 +238,8 @@ class StmtVisitor(ast.NodeVisitor):
             body_connect_stmts = ConnectStatements(
                 first_statement=test, last_statements=[], break_statements=[]
             )
-        test.connect(body_connect_stmts.first_statement)
+        if test is not None:
+            test.connect(body_connect_stmts.first_statement)
 
         if node.orelse:
             orelse_last_nodes = self.handle_or_else(node.orelse, test)
@@ -276,7 +278,8 @@ class StmtVisitor(ast.NodeVisitor):
                 [return_value_of_call.left_hand_side],
                 path=self.filenames[-1],
             )
-            return_value_of_call.connect(return_node)
+            if return_value_of_call is not None:
+                return_value_of_call.connect(return_node)
             return self.append_node(return_node)
         elif node.value is not None:
             rhs_visitor_result = RHSVisitor.result_for_node(node.value)
@@ -295,7 +298,8 @@ class StmtVisitor(ast.NodeVisitor):
 
     def handle_stmt_star_ignore_node(self, body, fallback_cfg_node):
         try:
-            fallback_cfg_node.connect(body.first_statement)
+            if fallback_cfg_node is not None:
+                fallback_cfg_node.connect(body.first_statement)
         except AttributeError:
             body = ConnectStatements(
                 first_statement=[fallback_cfg_node],
@@ -324,6 +328,8 @@ class StmtVisitor(ast.NodeVisitor):
                 )
             )
             for body_node in body.last_statements:
+                if body_node is None:
+                    continue
                 body_node.connect(handler_node)
             handler_body = self.stmt_star_handler(handler.body)
             handler_body = self.handle_stmt_star_ignore_node(handler_body, handler_node)
@@ -340,9 +346,13 @@ class StmtVisitor(ast.NodeVisitor):
             finalbody = self.stmt_star_handler(node.finalbody)
             if not isinstance(finalbody, IgnoredNode):
                 for last in last_statements:
+                    if last is None:
+                        continue
                     last.connect(finalbody.first_statement)
 
                 for last in body.last_statements:
+                    if last is None:
+                        continue
                     last.connect(finalbody.first_statement)
 
                 body.last_statements.extend(finalbody.last_statements)
@@ -537,7 +547,8 @@ class StmtVisitor(ast.NodeVisitor):
             path=self.filenames[-1],
             call_node=call,
         )
-        call.connect(call_assignment)
+        if call is not None:
+            call.connect(call_assignment)
 
         self.nodes.append(call_assignment)
         self.undecided = False
@@ -569,7 +580,8 @@ class StmtVisitor(ast.NodeVisitor):
         )
         if isinstance(body_connect_stmts, IgnoredNode):
             return IgnoredNode()
-        test.connect(body_connect_stmts.first_statement)
+        if test is not None:
+            test.connect(body_connect_stmts.first_statement)
         test.connect_predecessors(body_connect_stmts.last_statements)
 
         # last_nodes is used for making connections to the next node in the parent node
@@ -582,7 +594,8 @@ class StmtVisitor(ast.NodeVisitor):
                 node.orelse, prev_node_to_avoid=self.nodes[-1]
             )
             if not isinstance(orelse_connect_stmts, IgnoredNode):
-                test.connect(orelse_connect_stmts.first_statement)
+                if test is not None:
+                    test.connect(orelse_connect_stmts.first_statement)
                 last_nodes.extend(orelse_connect_stmts.last_statements)
         else:
             last_nodes.append(
@@ -625,7 +638,8 @@ class StmtVisitor(ast.NodeVisitor):
             and get_call_names_as_string(comp_n.func) in self.function_names
         ):
             last_node = self.visit(comp_n)
-            last_node.connect(loop_node)
+            if last_node is not None:
+                last_node.connect(loop_node)
 
     def visit_While(self, node):
         label_visitor = LabelVisitor()
@@ -787,7 +801,8 @@ class StmtVisitor(ast.NodeVisitor):
         connect_statements = self.stmt_star_handler(node.body)
         if isinstance(connect_statements, IgnoredNode):
             return IgnoredNode()
-        with_node.connect(connect_statements.first_statement)
+        if with_node is not None:
+            with_node.connect(connect_statements.first_statement)
         return ControlFlowNode(
             with_node,
             connect_statements.last_statements,

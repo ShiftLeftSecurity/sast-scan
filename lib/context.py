@@ -197,6 +197,9 @@ def find_repo_details(src_dir=None):
             gitProvider = "azure"
             if not ciProvider:
                 ciProvider = "azure"
+        if not gitProvider and "tfs" in repositoryUri:
+            gitProvider = "tfs"
+            ciProvider = "tfs"
     return {
         "gitProvider": gitProvider,
         "ciProvider": ciProvider,

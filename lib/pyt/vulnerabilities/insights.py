@@ -329,6 +329,8 @@ def _check_pymongo_common_misconfig(ast_tree, path):
             # ssl checks
             args = method_obj.get("args")
             hostname = args[0].get("value", "localhost")
+            if not isinstance(hostname, str):
+                return violations
             # query_args = ""
             # if "?" in hostname:
             #     query_args = hostname.split("?")[1]
