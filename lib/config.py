@@ -1179,6 +1179,18 @@ hosted_viewer_uri = "https://sarifviewer.azurewebsites.net"
 # Suppression markers
 suppress_markers = ["nosec", "nolint", "scan:ignore", "sl:ignore"]
 
+# Skip scan for bot triggered builds. See issue https://github.com/ShiftLeftSecurity/sast-scan/issues/192
+skip_bot_triggers = False
+
+# Bot users
+known_bot_users = [
+    "bot@renovateapp.com",
+    "dependabot-preview[bot]",
+    "dependabot[bot]",
+    "depfu[bot]",
+    "snyk-bot",
+]
+
 
 def reload():
     # Load any .sastscanrc file from the root

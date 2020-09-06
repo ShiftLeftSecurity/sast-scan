@@ -7,7 +7,7 @@ import lib.context as context
 def test_find_repo():
     curr_rep_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")
     repo_details = context.find_repo_details(curr_rep_dir)
-    assert len(repo_details.keys()) == 8
+    assert len(repo_details.keys()) > 1
     assert (
         repo_details["repositoryUri"]
         == "https://github.com/ShiftLeftSecurity/sast-scan"
@@ -33,3 +33,12 @@ def test_sanitize():
     assert u == ""
     u = context.sanitize_url("git@gitexample.com/foo/bar")
     assert u == "git@gitexample.com/foo/bar"
+
+
+def test_bot():
+    is_bot = context.is_bot("foo@bar.com")
+    assert not is_bot
+    is_bot = context.is_bot("Renovate Bot <bot@renovateapp.com>")
+    assert is_bot
+    is_bot = context.is_bot("dependabot-preview[bot] <123242134@sdfdsfdsdf.com>")
+    assert is_bot

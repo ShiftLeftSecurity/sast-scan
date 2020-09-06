@@ -397,7 +397,7 @@ def convert_file(
     )
     issues, suppress_list = suppress_issues(issues)
     if suppress_list:
-        LOG.debug(f"Suppressed {len(suppress_list)} issues")
+        LOG.info(f"Suppressed {len(suppress_list)} issues")
     return report(
         tool_name,
         tool_args,
