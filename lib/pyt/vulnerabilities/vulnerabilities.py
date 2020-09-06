@@ -334,6 +334,9 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
     Returns:
         A Vulnerability if it exists, else None
     """
+    # Skip over-tainted nodes
+    if is_over_taint(source, sink, blackbox_mapping):
+        return None
     nodes_in_constraint = [
         secondary
         for secondary in reversed(source.secondary_nodes)
@@ -390,7 +393,7 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
     return None
 
 
-def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
+def is_over_taint(source, sink, blackbox_mapping):
     """Filter over tainted objects such as Sensitive Data Leaks
     """
     source_cfg = source.cfg_node
@@ -417,22 +420,22 @@ def filter_over_taint(vulnerability, source, sink, blackbox_mapping):
             # Ignore vulnerabilities with acceptable log levels
             for log_level in sensitive_allowed_log_levels:
                 if log_level in sink.trigger_word.lower():
-                    return None
+                    return True
         else:
-            return None
+            return True
     # render method based on Framework_Parameter is a known FP
     if sink_type == "ReturnedToUser":
         if sink.trigger_word == "render(" and source_type == "Framework_Parameter":
-            return None
+            return True
     # Ignore NoSQLi that use parameters
     if sink_type == "NoSQL" and sink_cfg.label and "parameters" in sink_cfg.label:
-        return None
+        return True
     # Ignore safe source
     if source_type == "Framework_Parameter":
         for wp in safe_path_list:
             if wp in source.cfg_node.path:
-                return None
-    return vulnerability
+                return True
+    return False
 
 
 def find_vulnerabilities_in_cfg(
@@ -453,11 +456,6 @@ def find_vulnerabilities_in_cfg(
             vulnerability = get_vulnerability(
                 source, sink, triggers, lattice, cfg, blackbox_mapping
             )
-            # Filter over-tained vulnerability
-            if vulnerability:
-                vulnerability = filter_over_taint(
-                    vulnerability, source, sink, blackbox_mapping
-                )
             if vulnerability:
                 vulnerabilities_list.append(vulnerability)
 

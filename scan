@@ -532,6 +532,26 @@ def bomgen(src, reports_dir, convert, repo_context):
     exec_tool("cdxgen", bom_args, src)
 
 
+def should_skip(repo_context, scan_mode):
+    """
+    Method to check if a scan should be skipped
+
+    :param repo_context: Repo context
+    :param scan_mode: Scan mode
+    :return: True if scan should be skipped. False otherwise.
+    """
+    if (
+        scan_mode == "ci"
+        and repo_context.get("botUser")
+        and config.get("skip_bot_triggers")
+    ):
+        LOG.info(
+            f"""Scan will be skipped since the build was triggered by a bot '{repo_context.get("invokedBy")}'"""
+        )
+        return True
+    return False
+
+
 def main():
     start_time = time.monotonic_ns()
     args = build_args()
@@ -548,6 +568,9 @@ def main():
     # Set the source directory as an environment variable
     config.set("SAST_SCAN_SRC_DIR", src_dir)
     repo_context = context.find_repo_details(src_dir)
+    # Should we skip this scan
+    if should_skip(repo_context, scan_mode):
+        sys.exit(0)
     workspace = os.getenv("WORKSPACE")
     if workspace is None and scan_mode != "ide":
         # In case of GitHub action empty workspace forces relative url

@@ -4,7 +4,7 @@ from lib.pyt.analysis.reaching_definitions_taint import ReachingDefinitionsTaint
 
 max_analysis_steps = 20
 max_runs = 100
-max_none_runs = 5
+max_none_runs = 3
 
 
 class FixedPointAnalysis:

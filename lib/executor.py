@@ -128,13 +128,22 @@ def exec_tool(  # scan:ignore
             if cp and stdout == subprocess.PIPE:
                 for line in cp.stdout:
                     progress.update(task, completed=5)
-            if cp and LOG.isEnabledFor(DEBUG) and cp.returncode:
+            if (
+                cp
+                and LOG.isEnabledFor(DEBUG)
+                and cp.returncode
+                and cp.stdout is not None
+            ):
                 LOG.debug(cp.stdout)
             progress.update(task, completed=100, total=100)
             return cp
         except Exception as e:
             if task:
                 progress.update(task, completed=20, total=10, visible=False)
+            if not LOG.isEnabledFor(DEBUG):
+                LOG.info(
+                    f"{tool_name} has reported few errors. To view, pass the environment variable SCAN_DEBUG_MODE=debug"
+                )
             LOG.debug(e)
             return None
 

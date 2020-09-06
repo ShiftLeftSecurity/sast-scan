@@ -18,6 +18,7 @@ from urllib.parse import urlparse
 
 from git import Repo
 
+from lib.config import known_bot_users
 from lib.logger import LOG
 
 repo_url_prefixes = ["http", "git", "ssh"]
@@ -209,6 +210,7 @@ def find_repo_details(src_dir=None):
         "branch": branch,
         "invokedBy": invokedBy,
         "pullRequest": pullRequest,
+        "botUser": is_bot(invokedBy),
     }
 
 
@@ -229,3 +231,16 @@ def sanitize_url(url):
     if password:
         url = url.replace(password, "")
     return url
+
+
+def is_bot(invokedBy):
+    """
+    Method to check if the user triggering this build is a known bot user
+
+    :param invokedBy: Invoking user (str)
+    :return: True if bot user. False otherwise.
+    """
+    for bu in known_bot_users:
+        if bu in invokedBy:
+            return True
+    return False
