@@ -552,12 +552,37 @@ def should_skip(repo_context, scan_mode):
     return False
 
 
+def should_annotate(git_provider, repo_context, findings_file):
+    """
+    Method to check if the build or PR should get annotated.
+
+    :param git_provider: Git Provider string
+    :param repo_context: Repo context
+    :param findings_file: Findings json file
+    :return: True if build should be annotated. False otherwise.
+    """
+    annotate_flag = config.get("scan_annotate_pr", "")
+    if (
+        annotate_flag == "true" or annotate_flag == "1" or git_provider == "bitbucket"
+    ) and findings_file:
+        return True
+    if repo_context.get("pullRequest") and git_provider == "gitlab":
+        LOG.info(
+            "Scan can automatically add the summary as a merge request comment. To learn more - https://slscan.io/en/latest/integrations/gitlab/#merge-request-comment-feature"
+        )
+    return False
+
+
 def main():
     start_time = time.monotonic_ns()
     args = build_args()
     src_dir = args.src_dir
     if not args.src_dir:
         src_dir = os.getcwd()
+    reports_dir = args.reports_dir
+    if not reports_dir:
+        reports_dir = os.path.join(src_dir, "reports")
+    os.makedirs(reports_dir, exist_ok=True)
     type = args.scan_type
     scan_mode = args.scan_mode
     if scan_mode:
@@ -599,9 +624,6 @@ def main():
     else:
         console.print(product_logo, style="info")
     LOG.info("Scanning {} using plugins {}".format(src_dir, type))
-    reports_dir = args.reports_dir
-    if not reports_dir:
-        reports_dir = os.path.join(src_dir, "reports")
     if args.auto_build or config.get("scan_auto_build"):
         build_res = auto_build(type, src_dir, reports_dir)
         if not build_res:
@@ -619,11 +641,8 @@ def main():
         src_dir, repo_context, reports_dir, sarif_files
     )
     report_summary, build_status = analysis.summary(sarif_files, agg_fname)
-    annotate_flag = config.get("scan_annotate_pr", "")
     git_provider = provider.get_git_provider(repo_context)
-    if (
-        annotate_flag == "true" or annotate_flag == "1" or git_provider == "bitbucket"
-    ) and findings_file:
+    if should_annotate(git_provider, repo_context, findings_file):
         # Create PR status and Reports via the git provider
         git_provider.annotate_pr(
             repo_context, findings_file, report_summary, build_status
