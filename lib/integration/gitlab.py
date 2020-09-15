@@ -44,7 +44,15 @@ class GitLab(GitProvider):
             "mergeRequestTargetBranch": os.getenv(
                 "CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
             ),
+            "commitSHA": os.getenv("CI_COMMIT_SHA"),
+            "projectId": os.getenv("CI_PROJECT_ID"),
+            "projectName": os.getenv("CI_PROJECT_NAME"),
+            "projectUrl": os.getenv("CI_PROJECT_URL"),
             "jobUrl": os.getenv("CI_JOB_URL"),
+            "jobId": os.getenv("CI_JOB_ID"),
+            "jobName": os.getenv("CI_JOB_NAME"),
+            #CI_JOB_TOKEN is only available to Silver/Enterprise plan of GitLab 
+            "jobToken": os.getenv("CI_JOB_TOKEN"),
         }
 
     def get_mr_notes_url(self, repo_context):
@@ -87,7 +95,37 @@ class GitLab(GitProvider):
                     if build_status == "fail"
                     else "Looks good"
                 )
-                body = template % dict(summary=summary, recommendation=recommendation)
+                apiUrl = (f"{gitlab_context.get('apiUrl')}")
+                mergeRequestIID = (f"{gitlab_context.get('mergeRequestIID')}")
+                mergeRequestProjectId = (f"{gitlab_context.get('mergeRequestProjectId')}")
+                mergeRequestSourceBranch = (f"{gitlab_context.get('mergeRequestSourceBranch')}")
+                mergeRequestTargetBranch = (f"{gitlab_context.get('mergeRequestTargetBranch')}")
+                commitSHA = (f"{gitlab_context.get('commitSHA')}")
+                projectId = (f"{gitlab_context.get('projectId')}")
+                projectName = (f"{gitlab_context.get('projectName')}")
+                projectUrl = (f"{gitlab_context.get('projectUrl')}")
+                jobUrl = (f"{gitlab_context.get('jobUrl')}")
+                jobId = (f"{gitlab_context.get('jobId')}")
+                jobName = (f"{gitlab_context.get('jobName')}")
+                jobToken = (f"{gitlab_context.get('jobToken')}")
+
+                body = template % dict(
+                    summary=summary,
+                    recommendation=recommendation,
+                    apiUrl=apiUrl,
+                    mergeRequestIID=mergeRequestIID,
+                    mergeRequestProjectId=mergeRequestProjectId,
+                    mergeRequestSourceBranch=mergeRequestSourceBranch,
+                    mergeRequestTargetBranch=mergeRequestTargetBranch,
+                    commitSHA=commitSHA,
+                    projectId=projectId,
+                    projectName=projectName,
+                    projectUrl=projectUrl,
+                    jobUrl=jobUrl,
+                    jobId=jobId,
+                    jobName=jobName,
+                    jobToken=jobToken
+                )
                 rr = requests.post(
                     self.get_mr_notes_url(repo_context),
                     headers={
