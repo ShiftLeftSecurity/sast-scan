@@ -379,7 +379,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "shiftleft_managed": True,
                                 }
                             )
-                        if "CKV_" in rule_id or "CIS_" in rule_id:
+                        if "CKV_" in rule_id or "CIS_" in rule_id or "AWS" in rule_id:
                             cis_rule = cis.get_rule(rule_id)
                             if cis_rule:
                                 tags.append(

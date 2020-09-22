@@ -248,7 +248,7 @@ def test_gosec_convert_issue():
 def test_tfsec_convert_issue():
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
         data = convertLib.report(
-            "tfsec",
+            "lint-tf",
             [],
             ".",
             {},
@@ -355,11 +355,11 @@ def test_checkov_convert_issue():
             == "S3 Bucket has an ACL defined which allows public READ access."
         )
         assert jsondata["runs"][0]["properties"]["metrics"] == {
-            "critical": 0,
+            "critical": 1,
             "total": 2,
-            "high": 2,
+            "high": 0,
             "medium": 0,
-            "low": 0,
+            "low": 1,
         }
 
 

@@ -1,0 +1,137 @@
+---
+text: "Identity and Access Management"
+type: "iam"
+groups:
+  - id: 1
+    text: "IAM Policy"
+    checks:
+      - id: 1.8
+        scan_rule_ids:
+          - CKV_AWS_10
+          - PasswordPolicyLength
+        text: "Ensure IAM password policy requires minimum length of 14 or greater"
+        rationale: |
+          Setting a password complexity policy increases account resiliency against brute force login attempts.
+        scored: true
+      - id: 1.9
+        scan_rule_ids:
+          - CKV_AWS_13
+          - PasswordPolicyReuse
+        text: "Ensure IAM password policy prevents password reuse"
+        rationale: |
+          Preventing password reuse increases account resiliency against brute force login attempts.
+        scored: true
+      - id: 1.12
+        scan_rule_ids:
+          - CKV_AWS_9
+          - PasswordPolicyExpiration
+        text: "Ensure credentials unused for 90 days or greater are disabled"
+        rationale: |
+          Disabling or removing unnecessary credentials will reduce the window of opportunity for credentials associated with a compromised or abandoned account to be used.
+        scored: true
+      - id: 1.16
+        scan_rule_ids:
+          - CKV_AWS_1
+          - AdminPolicyDocument
+        text: |
+          Ensure IAM policies that allow full "*:*" administrative privileges are not created/attached
+        rationale: |
+          It's more secure to start with a minimum set of permissions and grant additional permissions as necessary, rather than starting with permissions that are too lenient and then trying to tighten them later.
+          Providing full administrative privileges instead of restricting to the minimum set of permissions that the user is required to do exposes the resources to potentially unwanted actions.
+          IAM policies that have a statement with `"Effect": "Allow"` with `"Action": "*"` over `"Resource": "*"` should be removed.
+        scored: true
+---
+text: "Storage"
+type: "s3"
+groups:
+  - id: 2
+    text: "Simple Storage Service (S3)"
+    checks:
+      - id: 2.1.1
+        scan_rule_ids:
+          - CKV_AWS_19
+          - S3Encryption
+          - AWS017
+        text: "Ensure all S3 buckets employ encryption-at-rest"
+        rationale: |
+          Encrypting data at rest reduces the likelihood that it is unintentionally exposed and can nullify the impact of disclosure if the encryption remains unbroken.
+        scored: true
+      - id: 2.2.1
+        scan_rule_ids:
+          - CKV_AWS_3
+          - EBSEncryption
+        text: "Ensure EBS volume encryption is enabled"
+        rationale: |
+          Encrypting data at rest reduces the likelihood that it is unintentionally exposed and can nullify the impact of disclosure if the encryption remains unbroken.
+        scored: true
+---
+text: "Logging"
+type: "cloudtrail"
+groups:
+  - id: 3
+    text: "Logging"
+    checks:
+      - id: 3.1
+        scan_rule_ids:
+          - CKV_AWS_67
+          - CloudtrailMultiRegion
+        text: "Ensure CloudTrail is enabled in all regions"
+        rationale: |
+          The AWS API call history produced by CloudTrail enables security analysis, resource change tracking, and compliance auditing. Additionally,
+
+          - ensuring that a multi-regions trail exists will ensure that unexpected activity occurring in otherwise unused regions is detected
+          - ensuring that a multi-regions trail exists will ensure that Global Service Logging is enabled for a trail by default to capture recording of events generated on AWS global services
+          - for a multi-regions trail, ensuring that management events configured for all type of Read/Writes ensures recording of management operations that are performed on all resources in an AWS account
+        scored: true
+      - id: 3.2
+        scan_rule_ids:
+          - CKV_AWS_36
+          - CloudtrailLogValidation
+        text: "Ensure CloudTrail log file validation is enabled"
+        rationale: |
+          Enabling log file validation will provide additional integrity checking of CloudTrail logs.
+        scored: true
+      - id: 3.7
+        scan_rule_ids:
+          - CKV_AWS_35
+          - CloudtrailEncryption
+        text: "Ensure CloudTrail logs are encrypted at rest using KMS CMKs"
+        rationale: |
+          Configuring CloudTrail to use SSE-KMS provides additional confidentiality controls on log data as a given user must have S3 read permission on the corresponding log bucket and must be granted decrypt permission by the CMK policy.
+        scored: true
+      - id: 3.8
+        scan_rule_ids:
+          - CKV_AWS_7
+          - KMSRotation
+          - AWS019
+        text: "Ensure rotation for customer created CMKs is enabled"
+        rationale: |
+          Rotating encryption keys helps reduce the potential impact of a compromised key as data encrypted with a new key cannot be accessed with a previous key that may have been exposed.
+        scored: true
+      - id: 3.11
+        scan_rule_ids:
+          - CKV_AWS_18
+          - S3AccessLogs
+          - AWS002
+        text: "Ensure that Object-level logging for read/write events is enabled for S3 bucket"
+        rationale: |
+          Enabling object-level logging will help you meet data compliance requirements within your organization, perform comprehensive security analysis, monitor specific patterns of user behavior in your AWS account or take immediate actions on any object-level API activity using Amazon CloudWatch Events.
+        scored: true
+---
+text: "Networking"
+type: "networking"
+groups:
+  - id: 5
+    text: "Security Group"
+    checks:
+      - id: 5.2
+        scan_rule_ids:
+          - AWS006
+          - CKV_AWS_24
+          - CKV_AWS_25
+          - SecurityGroupUnrestrictedIngress22
+          - SecurityGroupUnrestrictedIngress3389
+        text: "Ensure no security groups allow ingress from 0.0.0.0/0 to remote server administration ports"
+        rationale: |
+          Public access to remote server administration ports, such as 22 and 3389, increases resource attack surface and unnecessarily raises the risk of resource compromise.
+        scored: true

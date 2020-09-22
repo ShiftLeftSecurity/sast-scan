@@ -185,6 +185,14 @@ ignore_files = [
     ".pb.go",
 ]
 
+# Tool specific ignored rules
+TFSEC_IGNORED_RULES = (
+    "GEN001,GEN002,GEN003,AWS002,AWS003,AWS006,AWS008,AWS009,AWS018,AWS019,AWS023"
+)
+BANDIT_IGNORED_RULES = (
+    "B101,B102,B105,B307,B308,B310,B322,B404,B601,B602,B603,B604,B605,B701,B702,B703"
+)
+
 
 def get(configName, default_value=None):
     """Method to retrieve a config given a name. This method lazy loads configuration
@@ -571,7 +579,15 @@ scan_tools_args_map = {
             "-d",
             "%(src)s",
         ],
-        "tfsec": ["tfsec", "--format", "json", "--no-colour", "%(src)s"],
+        "lint-tf": [
+            "tfsec",
+            "--format",
+            "json",
+            "-e",
+            get("TFSEC_IGNORED_RULES"),
+            "--no-colour",
+            "%(src)s",
+        ],
     },
     "vf": {
         "source-vf": [
@@ -686,6 +702,7 @@ tool_purpose_message = {
     "gitleaks": "Secrets Audit",
     "gosec": "Go Security Audit",
     "tfsec": "Terraform Static Analysis",
+    "lint-tf": "Terraform Static Analysis",
     "shellcheck": "Shell Script Analysis",
     "bandit": "Security Audit for Python",
     "checkov": "Security Audit for Infrastructure",
@@ -736,12 +753,6 @@ tool_ref_url = {
 
 # Rules to ignore
 ignored_rules = [
-    "GEN001",
-    "GEN002",
-    "GEN003",
-    "AWS002",
-    "AWS018",
-    "AWS019",
     "Password Hardcoded",
     "Secret Hardcoded",
     "DuplicateArrayKey",
@@ -929,14 +940,59 @@ rules_severity = {
     "CKV_AWS_50": "MEDIUM",
     "CKV_AWS_51": "LOW",
     "AWS007": "HIGH",
-    "AWS008": "MEDIUM",
-    "AWS009": "HIGH",
     "AWS011": "HIGH",
+    "AWS012": "MEDIUM",
+    "AWS013": "CRITICAL",
+    "AWS014": "MEDIUM",
+    "AWS015": "HIGH",
+    "AWS016": "HIGH",
     "AWS017": "HIGH",
+    "AWS018": "LOW",
+    "AWS023": "LOW",
+    "AWS021": "HIGH",
+    "AWS024": "MEDIUM",
+    "AWS025": "HIGH",
+    "CKV_AWS_3": "CRITICAL",
+    "CKV_AWS_7": "CRITICAL",
+    "CKV_AWS_17": "CRITICAL",
+    "CKV_AWS_19": "CRITICAL",
+    "CKV_AWS_20": "CRITICAL",
+    "CKV_AWS_21": "MEDIUM",
+    "CKV_AWS_24": "CRITICAL",
+    "CKV_AWS_25": "CRITICAL",
     "CKV_AWS_28": "MEDIUM",
     "CKV_AWS_32": "CRITICAL",
+    "CKV_AWS_33": "LOW",
     "CKV_AWS_34": "MEDIUM",
+    "CKV_AWS_35": "MEDIUM",
+    "CKV_AWS_37": "HIGH",
     "CKV_AWS_38": "HIGH",
+    "CKV_AWS_39": "HIGH",
+    "CKV_AWS_40": "MEDIUM",
+    "CKV_AWS_41": "CRITICAL",
+    "CKV_AWS_43": "MEDIUM",
+    "CKV_AWS_45": "CRITICAL",
+    "CKV_AWS_46": "CRITICAL",
+    "CKV_AWS_47": "MEDIUM",
+    "CKV_AWS_50": "HIGH",
+    "CKV_AWS_51": "CRITICAL",
+    "CKV_AWS_52": "LOW",
+    "CKV_AWS_57": "CRITICAL",
+    "CKV_AWS_58": "CRITICAL",
+    "CKV_AWS_69": "CRITICAL",
+    "CKV_AWS_74": "CRITICAL",
+    "CKV_AWS_77": "CRITICAL",
+    "CKV_AWS_78": "CRITICAL",
+    "CKV_AWS_79": "CRITICAL",
+    "CKV_AZURE_2": "CRITICAL",
+    "CKV_AZURE_11": "CRITICAL",
+    "CKV_AZURE_34": "CRITICAL",
+    "CKV_GCP_5": "CRITICAL",
+    "CKV_GCP_15": "CRITICAL",
+    "CKV_GCP_18": "CRITICAL",
+    "CKV_GCP_28": "CRITICAL",
+    "CKV_GCP_43": "HIGH",
+    "CKV_GCP_60": "HIGH",
     "CKV_K8S_14": "MEDIUM",
     "CKV_K8S_21": "CRITICAL",
     "CKV_K8S_27": "CRITICAL",
@@ -945,7 +1001,6 @@ rules_severity = {
     "CKV_K8S_4": "CRITICAL",
     "CKV_K8S_5": "CRITICAL",
     "CKV_K8S_6": "CRITICAL",
-    "CKV_AWS_46": "CRITICAL",
     "S1005": "LOW",
     "ST1005": "LOW",
     "SA1019": "LOW",
@@ -1105,6 +1160,8 @@ CWEMAP = {
 rules_owasp_category = {
     "CKV_": "a6-misconfiguration",
     "AWS": "a6-misconfiguration",
+    "AZU": "a6-misconfiguration",
+    "GCP": "a6-misconfiguration",
     "CWE-20": "a1-injection",
     "CWE-22": "a5-broken-access-control",
     "CWE-78": "a1-injection",

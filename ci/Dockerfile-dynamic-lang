@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/ubi8/python-38 as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV TFSEC_VERSION=0.24.1 \
+ENV TFSEC_VERSION=0.25.0 \
     KUBESEC_VERSION=2.6.0 \
     KUBE_SCORE_VERSION=1.7.2
 
