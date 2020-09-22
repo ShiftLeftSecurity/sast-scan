@@ -41,7 +41,10 @@ def get_help(
         cis_desc = cis_rule.get("text", "").strip()
         if cis_desc and not cis_desc.endswith("."):
             cis_desc = cis_desc + "."
-        rem_text = cis_rule.get("remediation", "")
+        rem_text = cis_rule.get(
+            "remediation",
+            "Refer to the provider documentation for the configuration options available.",
+        )
         rationale_text = cis_rule.get("rationale", "")
         if rationale_text:
             rationale_text += "\n"
