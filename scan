@@ -290,7 +290,7 @@ def bandit_scan(src, reports_dir, convert, repo_context):
         "-n",
         "3",
         "-s",
-        config.get("bandit_ignored_rules"),
+        config.get("BANDIT_IGNORED_RULES", ""),
         "-iii",
         "-ll",
         *convert_args,
