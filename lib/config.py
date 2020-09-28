@@ -43,10 +43,10 @@ PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
 SPOTBUGS_HOME = "/opt/spotbugs"
 
 # Flag to disable telemetry
-DISABLE_TELEMETRY = False
+DISABLE_TELEMETRY = True
 
 # Telemetry server
-TELEMETRY_URL = "https://telemetry.appthreat.io/track"
+TELEMETRY_URL = ""
 
 # Line number hash size
 HASH_DIGEST_SIZE = 8
@@ -743,6 +743,7 @@ tool_purpose_message = {
     "cpg": "ShiftLeft NextGen Analyzer",
     "inspect": "ShiftLeft NextGen Analyzer",
     "ng-sast": "ShiftLeft NextGen Analyzer",
+    "empty-scan": "Empty Scan Ignore",
 }
 
 # Map to link to the reference for the given rule
@@ -937,8 +938,6 @@ rules_severity = {
     "CKV_AWS_23": "LOW",
     "CKV_AWS_33": "LOW",
     "CKV_AWS_40": "MEDIUM",
-    "CKV_AWS_50": "MEDIUM",
-    "CKV_AWS_51": "LOW",
     "AWS007": "HIGH",
     "AWS011": "HIGH",
     "AWS012": "MEDIUM",

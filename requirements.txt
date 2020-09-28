@@ -15,3 +15,4 @@ rich
 PyGithub
 astsearch
 PyYAML
+orjson==3.3.1

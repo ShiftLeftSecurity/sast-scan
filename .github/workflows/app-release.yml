@@ -14,6 +14,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y python3.8 python3.8-dev python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-dev
+        sudo apt-get remove -y ansible
         # Install appimagetool AppImage
         sudo wget https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
         sudo chmod +x /usr/local/bin/appimagetool
