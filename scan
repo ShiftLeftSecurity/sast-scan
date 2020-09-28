@@ -532,10 +532,12 @@ def bomgen(src, reports_dir, convert, repo_context):
     exec_tool("cdxgen", bom_args, src)
 
 
-def should_skip(repo_context, scan_mode):
+def should_skip(src_dir, reports_dir, repo_context, scan_mode):
     """
     Method to check if a scan should be skipped
 
+    :param src_dir: Source directory
+    :param reports_dir: Reports directory
     :param repo_context: Repo context
     :param scan_mode: Scan mode
     :return: True if scan should be skipped. False otherwise.
@@ -548,6 +550,11 @@ def should_skip(repo_context, scan_mode):
         LOG.info(
             f"""Scan will be skipped since the build was triggered by a bot '{repo_context.get("invokedBy")}'"""
         )
+        # Create empty sarif file to prevent codeql upload action from failing
+        crep_fname = utils.get_report_file(
+            "empty-scan", reports_dir, True, ext_name="sarif"
+        )
+        convertLib.report("empty-scan", [], src_dir, None, [], [], crep_fname, None)
         return True
     return False
 
@@ -594,7 +601,7 @@ def main():
     config.set("SAST_SCAN_SRC_DIR", src_dir)
     repo_context = context.find_repo_details(src_dir)
     # Should we skip this scan
-    if should_skip(repo_context, scan_mode):
+    if should_skip(src_dir, reports_dir, repo_context, scan_mode):
         sys.exit(0)
     workspace = os.getenv("WORKSPACE")
     if workspace is None and scan_mode != "ide":

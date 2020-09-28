@@ -11,6 +11,8 @@ script:
   - cp tools_config/scan.png AppDir/usr/share/icons/
   - cp tools_config/io.shiftleft.scan.appdata.xml AppDir/usr/share/metainfo/
   # Install application dependencies
+  - python3 -m pip uninstall ansible --no-input
+  - python3 -m pip install --no-cache-dir --force-reinstall ansible ansible-base
   - python3 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
   - mv AppDir/usr/bin/scan AppDir/usr/bin/depscan
   - chmod +x AppDir/usr/src/appimage-reqs.sh && AppDir/usr/src/appimage-reqs.sh AppDir
