@@ -43,7 +43,7 @@ def get_help(
             cis_desc = cis_desc + "."
         rem_text = cis_rule.get(
             "remediation",
-            "Refer to the provider documentation for the configuration options available.",
+            f"Refer to the provider documentation for the configuration options available.{IAC_LINKS}",
         )
         rationale_text = cis_rule.get("rationale", "")
         if rationale_text:

@@ -43,7 +43,7 @@ PMD_CMD = "/opt/pmd-bin/bin/run.sh pmd"
 SPOTBUGS_HOME = "/opt/spotbugs"
 
 # Flag to disable telemetry
-DISABLE_TELEMETRY = True
+DISABLE_TELEMETRY = "true"
 
 # Telemetry server
 TELEMETRY_URL = ""
@@ -568,7 +568,7 @@ scan_tools_args_map = {
             "%(src_or_file)s",
         ],
     },
-    "terraform": {
+    "terraform-ide": {
         "source-tf": [
             "checkov",
             "-s",
@@ -588,6 +588,18 @@ scan_tools_args_map = {
             "--no-colour",
             "%(src)s",
         ],
+    },
+    "terraform": {
+        "source-tf": [
+            "checkov",
+            "-s",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ]
     },
     "vf": {
         "source-vf": [
