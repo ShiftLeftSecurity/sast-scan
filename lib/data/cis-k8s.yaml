@@ -968,7 +968,7 @@ groups:
           remove `--rotate-certificates=false` argument from the KUBELET_CERTIFICATE_ARGS
           variable.
           Based on your system, restart the kubelet service. For example:
-          ```bash 
+          ```bash
           systemctl daemon-reload
           systemctl restart kubelet.service
           ```
@@ -1074,10 +1074,25 @@ groups:
           - PrivilegedContainers
           - PrivilegedContainersPSP
           - CKV_K8S_2
+        help_url:
+          - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+          - "[Privilege Escalation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privileged)"
         rationale: |
           Privileged containers have access to all Linux Kernel capabilities and devices. A container running with full privileges can do almost everything that the host can do. This flag exists to allow special use-cases, like manipulating the network stack and accessing devices. There should be at least one PodSecurityPolicy (PSP) defined which does not permit privileged containers. If you need to run privileged containers, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.privileged` field is omitted or set to `false`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.privileged` field is omitted or set to `false`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            hostNetwork: false
+            ...
+          ```
         scored: false
 
       - id: 5.2.2
@@ -1087,10 +1102,27 @@ groups:
           - ShareHostPID
           - CKV_K8S_1
           - ShareHostPIDPSP
+        help_url:
+          - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+          - "[Privilege Escalation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privileged)"
         rationale: |
           A container running in the host's PID namespace can inspect processes running outside the container. If the container also has access to ptrace capabilities this can be used to escalate privileges outside of the container. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to share the host PID namespace. If you need to run containers which require hostPID, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.hostPID` field is omitted or set to `false`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.hostPID` field is omitted or set to `false`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            hostNetwork: false
+            hostIPC: false
+            hostPID: false
+            ...
+          ```
         scored: true
 
       - id: 5.2.3
@@ -1100,10 +1132,27 @@ groups:
           - ShareHostIPC
           - CKV_K8S_3
           - ShareHostIPCPSP
+        help_url:
+          - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+          - "[Host namespaces](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#host-namespaces)"
         rationale: |
           A container running in the host's IPC namespace can use IPC to interact with processes outside the container. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to share the host IPC namespace. If you have a requirement to containers which require hostIPC, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.hostIPC` field is omitted or set to `false`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.hostIPC` field is omitted or set to `false`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            hostNetwork: false
+            hostIPC: false
+            hostPID: false
+            ...
+          ```
         scored: true
 
       - id: 5.2.4
@@ -1113,10 +1162,25 @@ groups:
           - SharedHostNetworkNamespace
           - SharedHostNetworkNamespacePSP
           - CKV_K8S_4
+        help_url:
+          - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+          - "[Host namespaces](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#host-namespaces)"
         rationale: |
           A container running in the host's network namespace could access the local loopback device, and could access network traffic to and from other pods. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to share the host network namespace. If you have need to run containers which require hostNetwork, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.hostNetwork` field is omitted or set to `false`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.hostNetwork` field is omitted or set to `false`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            hostNetwork: false
+            ...
+          ```
         scored: true
 
       - id: 5.2.5
@@ -1128,10 +1192,21 @@ groups:
           - AllowPrivilegeEscalationPSP
         help_url:
           - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
-          - "[Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/)"
+          - "[Privilege Escalation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privilege-escalation)"
         rationale: A container running with the allowPrivilegeEscalation flag set to true may have processes that can gain more privileges than their parent. There should be at least one PodSecurityPolicy (PSP) defined which does not permit containers to allow privilege escalation. The option exists (and is defaulted to true) to permit setuid binaries to run. If you have need to run containers which use setuid binaries or require privilege escalation, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.allowPrivilegeEscalation` field is omitted or set to `false`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.allowPrivilegeEscalation` field is set to `false`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            ...
+          ```
         scored: true
 
       - id: 5.2.6
@@ -1145,9 +1220,24 @@ groups:
           - CKV_K8S_6
         help_url:
           - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+          - "[Privilege Escalation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privilege-escalation)"
         rationale: Containers may run as any Linux user. Containers which run as the root user, whilst constrained by Container Runtime security features still have a escalated likelihood of container breakout. Ideally, all containers should run as a defined non-UID 0 user. There should be at least one PodSecurityPolicy (PSP) defined which does not permit root users in a container. If you need to run root containers, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.runAsUser.rule` is set to either `MustRunAsNonRoot` or `MustRunAs` with the range of UIDs not including `0`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.runAsUser.rule` is set to either `MustRunAsNonRoot` or `MustRunAs` with the range of UIDs not including `0`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            runAsUser:
+              # Require the container to run without root privileges.
+              rule: 'MustRunAsNonRoot'
+            ...
+          ```
         scored: false
 
       - id: 5.2.7
@@ -1157,10 +1247,26 @@ groups:
           - CKV_K8S_28
           - DropCapabilitiesPSP
           - CKV_K8S_7
+        help_url:
+          - "[Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)"
+          - "[Privilege Escalation](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privilege-escalation)"
         rationale: |
           Containers run with a default set of capabilities as assigned by the Container Runtime. By default this can include potentially dangerous capabilities. With Docker as the container runtime the NET_RAW capability is enabled which may be misused by malicious containers. Ideally, all containers should drop this capability. There should be at least one PodSecurityPolicy (PSP) defined which prevents containers with the NET_RAW capability from launching. If you need to run containers with this capability, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Create a PSP as described in the Kubernetes documentation, ensuring that the `.spec.requiredDropCapabilities` is set to include either `NET_RAW` or `ALL`.
+          Create a PodSecurityPolicy (PSP) as described in the Kubernetes documentation, ensuring that the `.spec.requiredDropCapabilities` is set to include either `NET_RAW` or `ALL`.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            requiredDropCapabilities:
+              - ALL
+            ...
+          ```
         scored: false
 
       - id: 5.2.8
@@ -1175,7 +1281,19 @@ groups:
         rationale: |
           Containers run with a default set of capabilities as assigned by the Container Runtime. Capabilities outside this set can be added to containers which could expose them to risks of container breakout attacks. There should be at least one PodSecurityPolicy (PSP) defined which prevents containers with capabilities beyond the default set from launching. If you need to run containers with additional capabilities, this should be defined in a separate PSP and you should carefully check RBAC controls to ensure that only limited service accounts and users are given permission to access that PSP.
         remediation: |
-          Ensure that allowedCapabilities is not present in PSPs for the cluster unless it is set to an empty array.
+          Ensure that allowedCapabilities is not present in PodSecurityPolicy (PSPs) for the cluster unless it is set to an empty array.
+          ```yaml
+          apiVersion: policy/v1beta1
+          kind: PodSecurityPolicy
+          metadata:
+            name: example
+          spec:
+            privileged: false  # Don't allow privileged pods!
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            # Remove allowedCapabilities
+            ...
+          ```
         scored: false
 
       - id: 5.2.9
@@ -1185,6 +1303,8 @@ groups:
           - MinimizeCapabilities
           - CKV_K8S_36
           - MinimizeCapabilitiesPSP
+        help_url:
+          - "[Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#capabilities)"
         rationale: |
           Containers run with a default set of capabilities as assigned by the Container Runtime. Capabilities are parts of the rights generally granted on a Linux system to the root user. In many cases applications running in containers do not require any capabilities to operate, so from the perspective of the principal of least privilege use of capabilities should be minimized.
         remediation: |

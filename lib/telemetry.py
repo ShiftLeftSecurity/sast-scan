@@ -27,13 +27,17 @@ def track(track_obj):
     """
     # Check if telemetry is disabled
     disable_telemetry = config.get("DISABLE_TELEMETRY", False)
-    if disable_telemetry == "true" or disable_telemetry == "1":
+    if (
+        disable_telemetry == "true"
+        or disable_telemetry == "1"
+        or not config.get("TELEMETRY_URL")
+    ):
         disable_telemetry = True
     else:
         disable_telemetry = False
     if track_obj and not disable_telemetry:
         try:
             track_obj["tool"] = "@ShiftLeft/scan"
-            requests.post(config.TELEMETRY_URL, json=track_obj)
+            requests.post(config.get("TELEMETRY_URL"), json=track_obj)
         except Exception:
             LOG.debug("Unable to send telemetry")
