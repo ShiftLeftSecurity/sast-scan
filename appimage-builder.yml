@@ -1,17 +1,17 @@
 version: 1
 script:
   # Remove any previous build
-  - rm -rf AppDir  | true
+  - rm -rf AppDir
   # Make usr and icons dirs
   - mkdir -p AppDir/usr/src
-  - mkdir -p AppDir/usr/local/lib
+  - mkdir -p AppDir/usr/local/lib/x86_64-linux-gnu
   - mkdir -p AppDir/usr/share/{metainfo,icons}
   # Copy the python application code into the AppDir
   - cp appimage-reqs.sh scan lib tools_config AppDir/usr/src -r
   - cp tools_config/scan.png AppDir/usr/share/icons/
   - cp tools_config/io.shiftleft.scan.appdata.xml AppDir/usr/share/metainfo/
   # Install application dependencies
-  - python3 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
+  - python3 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt --no-warn-script-location
   - mv AppDir/usr/bin/scan AppDir/usr/bin/depscan
   - chmod +x AppDir/usr/src/appimage-reqs.sh && AppDir/usr/src/appimage-reqs.sh AppDir
   - npm install --only=production --no-save --prefix AppDir/usr/local/lib yarn @appthreat/cdxgen @microsoft/rush
