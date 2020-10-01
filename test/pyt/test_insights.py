@@ -475,3 +475,13 @@ def read_users():
         if "allowed credentials" in v.short_description:
             creds_found = True
     assert msg_found and misconfig_found and creds_found
+
+
+def test_django_settings_contrib():
+    tree = generate_ast_from_code(
+        """
+DB_HOSTS = ["host.docker.internal" if STAGING or PRODUCTION else "minidb" if MINI_DB else "db"]
+"""
+    )
+    violations = insights._check_django_common_misconfig(tree, "settings.py")
+    assert not violations
