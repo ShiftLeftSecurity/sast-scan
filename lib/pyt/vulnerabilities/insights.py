@@ -418,7 +418,7 @@ def _check_django_common_misconfig(ast_tree, path):
     violations = []
 
     if os.path.basename(path) == "settings.py":
-        config_dict = get_assignments_as_dict("??=??", ast_tree)
+        config_dict = get_assignments_as_dict("?=?", ast_tree)
         is_django = (
             has_import_like("django", ast_tree)
             or "INSTALLED_APPS" in config_dict.keys()
