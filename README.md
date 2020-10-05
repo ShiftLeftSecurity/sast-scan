@@ -61,7 +61,7 @@
 - Node.js 10
 - Yarnpkg
 
-Please visit the official [documentation](https://slscan.io) site for scan to learn about the configuration and CI/CD integration options. We also have a dedicated [discord channel](https://discord.gg/gC62PzS) for issues and support.
+Please visit the official [documentation](https://slscan.io) site for scan to learn about the configuration and CI/CD integration options. We also have a dedicated [discord channel](https://discord.gg/7WvSxdK) for issues and support.
 
 ## Getting started
 
