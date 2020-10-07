@@ -21,6 +21,7 @@ Multi-language static analysis scanner
 """
 import argparse
 import os
+import signal
 import sys
 import tempfile
 import time
@@ -115,9 +116,98 @@ def build_args():
     return parser.parse_args()
 
 
-def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
+def scan_project_types(pool, type_list, src, reports_dir, convert, scan_mode, repo_context):
     """
     Method to initiate scan of the codebase
+
+    Args:
+      pool Process pool to submit tasks to
+      type_list List of project type
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+      scan_mode Scan mode string
+      repo_context Repo context
+    """
+    for type_str in type_list:
+        # Find if there is any scan mode specific config
+        cmd_map_list = config.get("scan_tools_args_map").get(
+            type_str + "-" + scan_mode
+        )
+        if not cmd_map_list:
+            cmd_map_list = config.get("scan_tools_args_map").get(type_str)
+        if cmd_map_list:
+            # Default command list can be in the form of a list or dict
+            if isinstance(cmd_map_list, list):
+                pool.apply_async(
+                    execute_default_cmd,
+                    (
+                        cmd_map_list,
+                        type_str,
+                        type_str,
+                        src,
+                        reports_dir,
+                        convert,
+                        scan_mode,
+                        repo_context,
+                    ),
+                )
+            elif isinstance(cmd_map_list, dict):
+                for cmd_key, cmd_val in cmd_map_list.items():
+                    if "init" in cmd_key or type_str == "php":
+                        execute_default_cmd(
+                            cmd_val,
+                            type_str,
+                            cmd_key,
+                            src,
+                            reports_dir,
+                            convert,
+                            scan_mode,
+                            repo_context,
+                        )
+                    else:
+                        pool.apply_async(
+                            execute_default_cmd,
+                            (
+                                cmd_val,
+                                type_str,
+                                cmd_key,
+                                src,
+                                reports_dir,
+                                convert,
+                                scan_mode,
+                                repo_context,
+                            ),
+                        )
+        else:
+            # Look for any _scan function in this module for execution
+            try:
+                dfn = getattr(sys.modules[__name__], "%s_scan" % type_str, None)
+                if dfn:
+                    pool.apply_async(
+                        dfn, (src, reports_dir, convert, repo_context)
+                    )
+                else:
+                    x_scan(type_str)
+            except Exception as e:
+                LOG.debug(e)
+                LOG.warning(
+                    "Scan using the {} plugin did not produce valid result".format(
+                        type_str
+                    )
+                )
+
+
+def init_worker():
+    """
+    Handler for worker processes to let their parent handle interruptions
+    """
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+
+def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
+    """
+    Wrapper around scan_project_types to scan the codebase
 
     Args:
       type_list List of project type
@@ -128,75 +218,12 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
       repo_context Repo context
     """
     if __name__ == "__main__":
-        with Pool(processes=os.cpu_count()) as pool:
-            for type_str in type_list:
-                # Find if there is any scan mode specific config
-                cmd_map_list = config.get("scan_tools_args_map").get(
-                    type_str + "-" + scan_mode
-                )
-                if not cmd_map_list:
-                    cmd_map_list = config.get("scan_tools_args_map").get(type_str)
-                if cmd_map_list:
-                    # Default command list can be in the form of a list or dict
-                    if isinstance(cmd_map_list, list):
-                        pool.apply_async(
-                            execute_default_cmd,
-                            (
-                                cmd_map_list,
-                                type_str,
-                                type_str,
-                                src,
-                                reports_dir,
-                                convert,
-                                scan_mode,
-                                repo_context,
-                            ),
-                        )
-                    elif isinstance(cmd_map_list, dict):
-                        for cmd_key, cmd_val in cmd_map_list.items():
-                            if "init" in cmd_key or type_str == "php":
-                                execute_default_cmd(
-                                    cmd_val,
-                                    type_str,
-                                    cmd_key,
-                                    src,
-                                    reports_dir,
-                                    convert,
-                                    scan_mode,
-                                    repo_context,
-                                )
-                            else:
-                                pool.apply_async(
-                                    execute_default_cmd,
-                                    (
-                                        cmd_val,
-                                        type_str,
-                                        cmd_key,
-                                        src,
-                                        reports_dir,
-                                        convert,
-                                        scan_mode,
-                                        repo_context,
-                                    ),
-                                )
-                else:
-                    # Look for any _scan function in this module for execution
-                    try:
-                        dfn = getattr(sys.modules[__name__], "%s_scan" % type_str, None)
-                        if dfn:
-                            pool.apply_async(
-                                dfn, (src, reports_dir, convert, repo_context)
-                            )
-                        else:
-                            x_scan(type_str)
-                    except Exception as e:
-                        LOG.debug(e)
-                        LOG.warning(
-                            "Scan using the {} plugin did not produce valid result".format(
-                                type_str
-                            )
-                        )
-            pool.close()
+        with Pool(processes=os.cpu_count(), initializer=init_worker) as pool:
+            try:
+                scan_project_types(pool, type_list, src, reports_dir, convert, scan_mode, repo_context)
+                pool.close()
+            except KeyboardInterrupt:
+                pool.terminate()
             pool.join()
 
 
