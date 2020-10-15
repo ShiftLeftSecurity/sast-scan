@@ -152,6 +152,7 @@ ignore_directories = [
     "db_migrations",
     "unittests",
     "unittests_legacy",
+    "stubs",
 ]
 
 # Ignore files list
