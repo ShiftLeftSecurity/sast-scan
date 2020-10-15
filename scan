@@ -116,7 +116,9 @@ def build_args():
     return parser.parse_args()
 
 
-def scan_project_types(pool, type_list, src, reports_dir, convert, scan_mode, repo_context):
+def scan_project_types(
+    pool, type_list, src, reports_dir, convert, scan_mode, repo_context
+):
     """
     Method to initiate scan of the codebase
 
@@ -131,9 +133,7 @@ def scan_project_types(pool, type_list, src, reports_dir, convert, scan_mode, re
     """
     for type_str in type_list:
         # Find if there is any scan mode specific config
-        cmd_map_list = config.get("scan_tools_args_map").get(
-            type_str + "-" + scan_mode
-        )
+        cmd_map_list = config.get("scan_tools_args_map").get(type_str + "-" + scan_mode)
         if not cmd_map_list:
             cmd_map_list = config.get("scan_tools_args_map").get(type_str)
         if cmd_map_list:
@@ -184,9 +184,7 @@ def scan_project_types(pool, type_list, src, reports_dir, convert, scan_mode, re
             try:
                 dfn = getattr(sys.modules[__name__], "%s_scan" % type_str, None)
                 if dfn:
-                    pool.apply_async(
-                        dfn, (src, reports_dir, convert, repo_context)
-                    )
+                    pool.apply_async(dfn, (src, reports_dir, convert, repo_context))
                 else:
                     x_scan(type_str)
             except Exception as e:
@@ -220,7 +218,9 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
     if __name__ == "__main__":
         with Pool(processes=os.cpu_count(), initializer=init_worker) as pool:
             try:
-                scan_project_types(pool, type_list, src, reports_dir, convert, scan_mode, repo_context)
+                scan_project_types(
+                    pool, type_list, src, reports_dir, convert, scan_mode, repo_context
+                )
                 pool.close()
             except KeyboardInterrupt:
                 pool.terminate()
