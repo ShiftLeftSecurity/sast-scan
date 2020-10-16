@@ -153,6 +153,7 @@ ignore_directories = [
     "unittests",
     "unittests_legacy",
     "stubs",
+    "cypress",
 ]
 
 # Ignore files list
