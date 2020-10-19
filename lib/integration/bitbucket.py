@@ -39,6 +39,10 @@ class Bitbucket(GitProvider):
             "prID": os.getenv("BITBUCKET_PR_ID"),
             "prTargetBranch": os.getenv("BITBUCKET_PR_DESTINATION_BRANCH"),
             "bitbucketToken": os.getenv("BITBUCKET_TOKEN"),
+            "commitSHA": os.getenv("BITBUCKET_COMMIT"),
+            "repoId": os.getenv("BITBUCKET_REPO_UUID"),
+            "projectUrl": os.getenv("BITBUCKET_REPO_SLUG"),
+            "jobId": os.getenv("BITBUCKET_BUILD_NUMBER"),
         }
 
     def get_reports_url(self, repo_context):
@@ -84,8 +88,32 @@ class Bitbucket(GitProvider):
                         if build_status == "fail"
                         else "Looks good"
                     )
+                    repoOwner = f"{context.get('BITBUCKET_REPO_OWNER')}"
+                    repoFullname = f"{context.get('BITBUCKET_REPO_FULL_NAME')}"
+                    repoWorkspace = f"{context.get('BITBUCKET_WORKSPACE')}"
+                    repoUUID = f"{context.get('BITBUCKET_REPO_UUID')}"
+                    prID = f"{context.get('BITBUCKET_PR_ID')}"
+                    prTargetBranch = f"{context.get('BITBUCKET_PR_DESTINATION_BRANCH')}"
+                    bitbucketToken = f"{context.get('BITBUCKET_TOKEN')}"
+                    commitSHA = f"{context.get('BITBUCKET_COMMIT')}"
+                    repoId = f"{context.get('BITBUCKET_REPO_UUID')}"
+                    projectUrl = f"{context.get('BITBUCKET_REPO_SLUG')}"
+                    jobId = f"{context.get('BITBUCKET_BUILD_NUMBER')}"
+
                     body = template % dict(
-                        summary=summary, recommendation=recommendation
+                        summary=summary,
+                        recommendation=recommendation,
+                        repoOwner=repoOwner,
+                        repoFullname=repoFullname,
+                        repoWorkspace=repoWorkspace,
+                        repoUUID=repoUUID,
+                        prID=prID,
+                        prTargetBranch=prTargetBranch,
+                        bitbucketToken=bitbucketToken,
+                        commitSHA=commitSHA,
+                        repoId=repoId,
+                        projectUrl=projectUrl,
+                        jobId=jobId,
                     )
                     rc = requests.post(
                         self.get_pr_comments_url(repo_context),
