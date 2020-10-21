@@ -37,6 +37,15 @@ class GitHub(GitProvider):
             "headRef": os.getenv("GITHUB_HEAD_REF"),
             "baseRef": os.getenv("GITHUB_BASE_REF"),
             "githubToken": os.getenv("GITHUB_TOKEN"),
+            "commitSHA": os.getenv("GITHUB_SHA"),
+            "workflow": os.getenv("GITHUB_WORKFLOW"),
+            "home": os.getenv("HOME"),
+            "actionId": os.getenv("GITHUB_ACTION"),
+            "trigger": os.getenv("GITHUB_ACTOR"),
+            "triggerBranchTag": os.getenv("GITHUB_REF"),
+            "serverUrl": os.getenv("GITHUB_SERVER_URL"),
+            "graphqlUrl": os.getenv("GITHUB_GRAPHQL_URL"),
+            "triggerPath": os.getenv("GITHUB_EVENT_PATH"),
         }
 
     def get_workflow(self, github_context):
@@ -84,7 +93,45 @@ class GitHub(GitProvider):
                 if build_status == "fail"
                 else "Looks good :heavy_check_mark:"
             )
-            body = template % dict(summary=summary, recommendation=recommendation)
+            repoWorkspace = f"{github_context.get('GITHUB_WORKSPACE')}"
+            runID = f"{github_context.get('GITHUB_RUN_ID')}"
+            repoFullname = f"{github_context.get('GITHUB_REPOSITORY')}"
+            triggerEvent = f"{github_context.get('GITHUB_EVENT_NAME')}"
+            apiUrl = f"{github_context.get('GITHUB_API_URL')}"
+            headRef = f"{github_context.get('GITHUB_HEAD_REF')}"
+            baseRef = f"{github_context.get('GITHUB_BASE_REF')}"
+            githubToken = f"{github_context.get('GITHUB_TOKEN')}"
+            commitSHA = f"{github_context.get('GITHUB_SHA')}"
+            workflow = f"{github_context.get('GITHUB_WORKFLOW')}"
+            home = f"{github_context.get('HOME')}"
+            actionId = f"{github_context.get('GITHUB_ACTION')}"
+            trigger = f"{github_context.get('GITHUB_ACTOR')}"
+            triggerBranchTag = f"{github_context.get('GITHUB_REF')}"
+            serverUrl = f"{github_context.get('GITHUB_SERVER_URL')}"
+            graphqlUrl = f"{github_context.get('GITHUB_GRAPHQL_URL')}"
+            triggerPath = f"{github_context.get('GITHUB_EVENT_PATH')}"
+
+            body = template % dict(
+                summary=summary,
+                recommendation=recommendation,
+                repoWorkspace=repoWorkspace,
+                runID=runID,
+                repoFullname=repoFullname,
+                triggerEvent=triggerEvent,
+                apiUrl=apiUrl,
+                headRef=headRef,
+                baseRef=baseRef,
+                githubToken=githubToken,
+                commitSHA=commitSHA,
+                workflow=workflow,
+                home=home,
+                actionId=actionId,
+                trigger=trigger,
+                triggerBranchTag=triggerBranchTag,
+                serverUrl=serverUrl,
+                graphqlUrl=graphqlUrl,
+                triggerPath=triggerPath,
+            )
             exis_reviews = pr.get_reviews()
             review_comment_made = False
             if exis_reviews:
