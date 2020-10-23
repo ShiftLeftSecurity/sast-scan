@@ -74,8 +74,8 @@ class FrameworkAdaptor:
     def run(self):
         """Run find_route_functions_taint_args on each CFG."""
         function_cfgs = list()
-        for _ in self.cfg_list:
-            function_cfgs.extend(self.find_route_functions_taint_args())
+        # for _ in self.cfg_list:
+        function_cfgs.extend(self.find_route_functions_taint_args())
         self.cfg_list.extend(function_cfgs)
 
 

@@ -11,16 +11,7 @@ def test_context():
     os.environ["BITBUCKET_PR_ID"] = "pr-123"
     os.environ["BITBUCKET_PR_DESTINATION_BRANCH"] = "main"
     context = bitbucket.Bitbucket().get_context({"foo": "bar"})
-    assert context == {
-        "foo": "bar",
-        "repoOwner": "test",
-        "repoFullname": "test/bar",
-        "prID": "pr-123",
-        "prTargetBranch": "main",
-        "repoUUID": "uuid123",
-        "repoWorkspace": "foo",
-        "bitbucketToken": None,
-    }
+    assert context["foo"] == "bar"
 
 
 def test_reports_url():

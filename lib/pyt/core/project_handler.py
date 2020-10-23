@@ -3,10 +3,12 @@
 The module finds all python modules and generates an ast for them.
 """
 import os
+from functools import lru_cache
 
 _local_modules = list()
 
 
+@lru_cache()
 def get_directory_modules(directory):
     """Return a list containing tuples of
     e.g. ('__init__', 'example/import_test_project/__init__.py')
@@ -31,6 +33,7 @@ def get_directory_modules(directory):
     return _local_modules
 
 
+@lru_cache()
 def get_modules(path, prepend_module_root=True):
     """Return a list containing tuples of
     e.g. ('test_project.utils', 'example/test_project/utils.py')
