@@ -31,7 +31,8 @@ def deep_analysis(src, files):
         directory = os.path.dirname(path)
         project_modules = get_modules(directory, prepend_module_root=False)
         local_modules = get_directory_modules(directory)
-        LOG.debug(f"Generating AST for {path}")
+
+        LOG.debug(f"Generating AST and CFG for {path}")
         try:
             tree = generate_ast(path)
             if not tree:
@@ -49,15 +50,16 @@ def deep_analysis(src, files):
                 path,
                 allow_local_directory_imports=True,
             )
-            cfg_list = [cfg]
-            FrameworkAdaptor(
-                cfg_list, project_modules, local_modules, framework_route_criteria
-            )
+            cfg_list.append(cfg)
         except Exception as e:
             LOG.debug(e)
 
-    # Add all the route functions to the cfg_list
     try:
+        # Taint all possible entry points
+        LOG.debug("Determining taints")
+        FrameworkAdaptor(
+            cfg_list, project_modules, local_modules, framework_route_criteria
+        )
         LOG.debug("Building constraints table")
         initialize_constraint_table(cfg_list)
         LOG.debug("About to begin deep analysis")

@@ -283,7 +283,7 @@ def convert_to_findings(src_dir, repo_context, reports_dir, sarif_files):
     """
     app_name = find_app_name(src_dir, repo_context)
     findings_fname = utils.get_report_file(
-        "inspect", reports_dir, True, ext_name="findings.json"
+        "ngsast", reports_dir, True, ext_name="findings.json"
     )
     # Exclude any ng sast sarif files
     sarif_files = [f for f in sarif_files if "ng-sast" not in f]

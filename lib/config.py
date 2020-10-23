@@ -149,6 +149,7 @@ ignore_directories = [
     "examples",
     "tutorials",
     "samples",
+    "migrations",
     "db_migrations",
     "unittests",
     "unittests_legacy",
