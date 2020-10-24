@@ -1,6 +1,7 @@
 name: Scan AppImage LTS
 
 on:
+  push:
   pull_request:
   workflow_dispatch:
 
