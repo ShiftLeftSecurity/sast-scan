@@ -1,4 +1,4 @@
-name: Scan AppImage
+name: Scan AppImage LTS
 
 on:
   pull_request:
