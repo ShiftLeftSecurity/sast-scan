@@ -10,8 +10,13 @@ script:
   - cp appimage-reqs.sh scan lib tools_config AppDir/usr/src -r
   - cp tools_config/scan.png AppDir/usr/share/icons/
   - cp tools_config/io.shiftleft.scan.appdata.xml AppDir/usr/share/metainfo/
+  # Download python 3.8
+  - curl -LO "https://github.com/actions/python-versions/releases/download/3.8.6-82502/python-3.8.6-linux-20.04-x64.tar.gz"
+  - tar -C AppDir/usr/ -xvf python-3.8.6-linux-20.04-x64.tar.gz && rm python-3.8.6-linux-20.04-x64.tar.gz
   # Install application dependencies
-  - python3 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt --no-warn-script-location
+  - AppDir/usr/bin/python3.8 -m pip install --upgrade pip
+  - AppDir/usr/bin/python3.8 -m pip install --no-cache-dir wheel
+  - AppDir/usr/bin/python3.8 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt --no-warn-script-location
   - mv AppDir/usr/bin/scan AppDir/usr/bin/depscan
   - chmod +x AppDir/usr/src/appimage-reqs.sh && AppDir/usr/src/appimage-reqs.sh AppDir
   - npm install --only=production --no-save --prefix AppDir/usr/local/lib yarn @appthreat/cdxgen @microsoft/rush
@@ -43,8 +48,6 @@ AppDir:
       - sourceline: deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse
       - sourceline: deb http://archive.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse
     include:
-      - python3.8
-      - python3-pkg-resources
       - git
       - php
       - php-json
@@ -61,6 +64,7 @@ AppDir:
 
   runtime:
     env:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:${APPDIR}/usr/lib:
       PATH: '${APPDIR}/usr/bin:${APPDIR}/usr/bin/nodejs/bin:${PATH}:${APPDIR}/opt/phpsast/vendor/bin:${APPDIR}/usr/local/lib/node_modules/.bin:'
       PYTHONHOME: '${APPDIR}/usr'
       PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
