@@ -52,6 +52,11 @@ title = "gitleaks config"
 	description = "LinkedIn Secret Key"
 	regex = '''(?i)linkedin(.{0,20})?['\"][0-9a-z]{16}['\"]'''
 	tags = ["secret", "LinkedIn"]
+	
+[[rules]]
+	description = "NPM Token"
+	regex= '''//registry.npmjs.org/:_authToken=[0-9a-f-]+'''
+	tags = ["key", "NPM"]
 
 [[rules]]
 	description = "Slack"
