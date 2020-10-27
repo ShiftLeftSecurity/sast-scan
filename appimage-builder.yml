@@ -64,7 +64,7 @@ AppDir:
 
   runtime:
     env:
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:${APPDIR}/usr/lib
+      LD_LIBRARY_PATH: '$LD_LIBRARY_PATH:${APPDIR}/usr/lib'
       PATH: '${APPDIR}/usr/bin:${APPDIR}/usr/bin/nodejs/bin:${PATH}:${APPDIR}/opt/phpsast/vendor/bin:${APPDIR}/usr/local/lib/node_modules/.bin:'
       PYTHONHOME: '${APPDIR}/usr'
       PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
