@@ -11,8 +11,8 @@ script:
   - cp tools_config/scan.png AppDir/usr/share/icons/
   - cp tools_config/io.shiftleft.scan.appdata.xml AppDir/usr/share/metainfo/
   # Download python 3.8
-  - curl -LO "https://github.com/actions/python-versions/releases/download/3.8.6-82502/python-3.8.6-linux-20.04-x64.tar.gz"
-  - tar -C AppDir/usr/ -xvf python-3.8.6-linux-20.04-x64.tar.gz && rm python-3.8.6-linux-20.04-x64.tar.gz
+  - curl -LO "https://github.com/actions/python-versions/releases/download/3.8.6-82502/python-3.8.6-linux-18.04-x64.tar.gz"
+  - tar -C AppDir/usr/ -xvf python-3.8.6-linux-18.04-x64.tar.gz && rm python-3.8.6-linux-18.04-x64.tar.gz
   # Install application dependencies
   - AppDir/usr/bin/python3.8 -m pip install --upgrade pip
   - AppDir/usr/bin/python3.8 -m pip install --no-cache-dir wheel
