@@ -534,13 +534,14 @@ def report(
         html_file = crep_fname.replace(".sarif", ".html")
         with io.open(crep_fname, "w") as fileobj:
             fileobj.write(serialized_log)
-        render_html(json.loads(serialized_log), html_file)
-        if fileobj.name != sys.stdout.name:
-            LOG.debug(
-                "SARIF and HTML report written to file: %s, %s 👍",
-                fileobj.name,
-                html_file,
-            )
+        if tool_name != "empty-scan":
+            render_html(json.loads(serialized_log), html_file)
+            if fileobj.name != sys.stdout.name:
+                LOG.debug(
+                    "SARIF and HTML report written to file: %s, %s 👍",
+                    fileobj.name,
+                    html_file,
+                )
     return serialized_log
 
 
