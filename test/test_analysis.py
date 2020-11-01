@@ -25,9 +25,9 @@ def test_summary():
     assert len(report_summary.keys()) == 7
     for k, v in report_summary.items():
         if k == "findsecbugs":
-            assert v["status"] == "❌"
+            assert v["status"] == ":cross_mark:"
         elif k == "nodejsscan":
-            assert v["status"] == "✅"
+            assert v["status"] == ":white_heavy_check_mark:"
     assert build_status == "fail"
 
 
@@ -51,7 +51,7 @@ def test_summary_with_depscan():
     for k, v in report_summary.items():
         if k == "depscan-java":
             assert v == {
-                "status": "❌",
+                "status": ":cross_mark:",
                 "tool": "Dependency Scan (java)",
                 "critical": 29,
                 "high": 25,
@@ -59,9 +59,9 @@ def test_summary_with_depscan():
                 "low": 0,
             }
         if k in ("findsecbugs", "depscan-java"):
-            assert v["status"] == "❌"
+            assert v["status"] == ":cross_mark:"
         elif k == "nodejsscan":
-            assert v["status"] == "✅"
+            assert v["status"] == ":white_heavy_check_mark:"
     assert build_status == "fail"
 
 
@@ -94,7 +94,7 @@ def test_summary_strict():
     )
     assert len(report_summary.keys()) == 7
     for k, v in report_summary.items():
-        assert v["status"] == "❌"
+        assert v["status"] == ":cross_mark:"
     assert build_status == "fail"
 
 
@@ -121,7 +121,7 @@ def test_summary_depscan_strict():
     assert len(report_summary.keys()) == 1
     for k, v in report_summary.items():
         assert v["critical"] == 29
-        assert v["status"] == "❌"
+        assert v["status"] == ":cross_mark:"
     assert build_status == "fail"
 
 
@@ -148,5 +148,5 @@ def test_summary_depscan_relaxed():
     assert len(report_summary.keys()) == 1
     for k, v in report_summary.items():
         assert v["critical"] == 29
-        assert v["status"] == "✅"
+        assert v["status"] == ":white_heavy_check_mark:"
     assert build_status == "pass"

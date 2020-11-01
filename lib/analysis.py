@@ -107,7 +107,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                     "high": metrics["high"],
                     "medium": metrics["medium"],
                     "low": metrics["low"],
-                    "status": "✅",
+                    "status": ":white_heavy_check_mark:",
                 }
                 report_summary[dep_type].pop("total", None)
                 # Compare against the build break rule to determine status
@@ -134,7 +134,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                 ):
                     if build_break_rules.get("max_" + rsev) is not None:
                         if metrics.get(rsev) > build_break_rules["max_" + rsev]:
-                            report_summary[dep_type]["status"] = "❌"
+                            report_summary[dep_type]["status"] = ":cross_mark:"
                             build_status = "fail"
 
     for sf in sarif_files:
@@ -157,7 +157,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                     "high": 0,
                     "medium": 0,
                     "low": 0,
-                    "status": "✅",
+                    "status": ":white_heavy_check_mark:",
                 }
                 results = run.get("results", [])
                 metrics = run.get("properties", {}).get("metrics", None)
@@ -178,7 +178,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                             report_summary.get(tool_name).get(rsev)
                             > build_break_rules["max_" + rsev]
                         ):
-                            report_summary[tool_name]["status"] = "❌"
+                            report_summary[tool_name]["status"] = ":cross_mark:"
                             build_status = "fail"
     # Should we store the aggregate data
     if aggregate_file:
@@ -193,7 +193,7 @@ def print_table(report_summary):
     """Print summary table
     """
     table = Table(
-        title="SAST Scan Summary", box=box.DOUBLE_EDGE, header_style="bold magenta"
+        title="Security Scan Summary", box=box.DOUBLE_EDGE, header_style="bold magenta"
     )
     headers = None
     for k, v in report_summary.items():

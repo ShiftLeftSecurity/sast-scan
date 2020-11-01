@@ -262,7 +262,7 @@ def execute_default_cmd(  # scan:ignore
                         {"id": config.get("run_uuid"), "depscan_summary": depscan_data}
                     )
                     LOG.debug(
-                        "Depscan and HTML report written to file: %s, %s 👍",
+                        "Depscan and HTML report written to file: %s, %s :+1:",
                         df,
                         html_fname,
                     )
@@ -277,7 +277,7 @@ def execute_default_cmd(  # scan:ignore
                         {"id": config.get("run_uuid"), "license_summary": licence_data}
                     )
                     LOG.debug(
-                        "License check and HTML report written to file: %s, %s 👍",
+                        "License check and HTML report written to file: %s, %s :+1:",
                         lf,
                         html_fname,
                     )

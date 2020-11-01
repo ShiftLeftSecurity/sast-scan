@@ -231,7 +231,7 @@ def x_scan(type_str):
     """Default placeholder scan method for missing scanners
     """
     LOG.info(
-        "Is there any open-source scanner for {}? Please let us know 👍".format(type_str)
+        "Is there any open-source scanner for {}? Please let us know :+1:".format(type_str)
     )
 
 
