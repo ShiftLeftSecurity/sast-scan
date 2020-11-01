@@ -118,12 +118,16 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                 for rsev in (
                     "critical",
                     "required_critical",
+                    "optional_critical",
                     "high",
                     "required_high",
+                    "optional_high",
                     "medium",
                     "required_medium",
+                    "optional_medium",
                     "low",
                     "required_low",
+                    "optional_low",
                 ):
                     if build_break_rules.get("max_" + rsev) is not None:
                         if (

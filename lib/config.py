@@ -1241,7 +1241,7 @@ rules_owasp_category = {
     "misconfiguration-": "a6-misconfiguration",
 }
 
-# Build break rules
+# Build break rules. Depscan tool supports required and optional keys to distinguish between packages based on usage scope
 build_break_rules = {
     "default": {"max_critical": 0, "max_high": 2, "max_medium": 5},
     "depscan": {
