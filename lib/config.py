@@ -1241,8 +1241,18 @@ rules_owasp_category = {
     "misconfiguration-": "a6-misconfiguration",
 }
 
-# Build break rules
-build_break_rules = {"default": {"max_critical": 0, "max_high": 2, "max_medium": 5}}
+# Build break rules. Depscan tool supports required and optional keys to distinguish between packages based on usage scope
+build_break_rules = {
+    "default": {"max_critical": 0, "max_high": 2, "max_medium": 5},
+    "depscan": {
+        "max_critical": 0,
+        "max_required_critical": 0,
+        "max_high": 2,
+        "max_required_high": 0,
+        "max_medium": 5,
+        "max_required_medium": 0,
+    },
+}
 
 # URL for viewing reports online
 hosted_viewer_uri = "https://sarifviewer.azurewebsites.net"
