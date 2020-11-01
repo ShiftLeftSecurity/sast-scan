@@ -103,7 +103,10 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                 metrics = calculate_depscan_metrics(dep_data)
                 report_summary[dep_type] = {
                     "tool": f"""Dependency Scan ({dep_type.replace("depscan-", "")})""",
-                    **metrics,
+                    "critical": metrics["critical"],
+                    "high": metrics["high"],
+                    "medium": metrics["medium"],
+                    "low": metrics["low"],
                     "status": "✅",
                 }
                 report_summary[dep_type].pop("total", None)
@@ -130,10 +133,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                     "optional_low",
                 ):
                     if build_break_rules.get("max_" + rsev) is not None:
-                        if (
-                            report_summary.get(dep_type).get(rsev)
-                            > build_break_rules["max_" + rsev]
-                        ):
+                        if metrics.get(rsev) > build_break_rules["max_" + rsev]:
                             report_summary[dep_type]["status"] = "❌"
                             build_status = "fail"
 

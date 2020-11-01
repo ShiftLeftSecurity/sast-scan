@@ -54,17 +54,9 @@ def test_summary_with_depscan():
                 "status": "❌",
                 "tool": "Dependency Scan (java)",
                 "critical": 29,
-                "required_critical": 2,
-                "optional_critical": 26,
                 "high": 25,
-                "required_high": 3,
-                "optional_high": 20,
                 "medium": 5,
-                "required_medium": 1,
-                "optional_medium": 3,
                 "low": 0,
-                "required_low": 0,
-                "optional_low": 0,
             }
         if k in ("findsecbugs", "depscan-java"):
             assert v["status"] == "❌"
