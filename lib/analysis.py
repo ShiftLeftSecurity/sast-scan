@@ -16,6 +16,7 @@
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
+import os
 
 from rich import box
 from rich.table import Table
@@ -38,7 +39,42 @@ def find_tool_shortname(desc):
     return desc
 
 
-def summary(sarif_files, aggregate_file=None, override_rules={}):
+def get_depscan_data(drep_file):
+    dataList = []
+    for depline in drep_file:
+        dataList.append(json.loads(depline))
+    return dataList
+
+
+def calculate_depscan_metrics(dep_data):
+    metrics = {
+        "total": 0,
+        "critical": 0,
+        "required_critical": 0,
+        "optional_critical": 0,
+        "critical": 0,
+        "high": 0,
+        "required_high": 0,
+        "optional_high": 0,
+        "medium": 0,
+        "required_medium": 0,
+        "optional_medium": 0,
+        "low": 0,
+        "required_low": 0,
+        "optional_low": 0,
+    }
+    for finding in dep_data:
+        severity = finding.get("severity", "UNKNOWN").lower()
+        if finding.get("package_usage"):
+            usage = finding.get("package_usage").lower()
+            if usage in ("required", "optional"):
+                metrics[f"{usage}_{severity}"] += 1
+        metrics[severity] += 1
+        metrics["total"] += 1
+    return metrics
+
+
+def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules={}):
     """Generate overall scan summary based on the generated
     SARIF file
 
@@ -51,9 +87,55 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
     build_status = "pass"
     # This is the list of all runs which will get stored as an aggregate
     run_data_list = []
+    default_rules = config.get("build_break_rules").get("default")
+    depscan_default_rules = config.get("build_break_rules").get("depscan")
+    # Collect stats from depscan files if available
+    if depscan_files:
+        for df in depscan_files:
+            with open(df, mode="r") as drep_file:
+                dep_data = get_depscan_data(drep_file)
+                if not dep_data:
+                    continue
+                # depscan-java or depscan-nodejs based on filename
+                dep_type = (
+                    os.path.basename(df).replace(".json", "").replace("-report", "")
+                )
+                metrics = calculate_depscan_metrics(dep_data)
+                report_summary[dep_type] = {
+                    "tool": f"""Dependency Scan ({dep_type.replace("depscan-", "")})""",
+                    **metrics,
+                    "status": "✅",
+                }
+                report_summary[dep_type].pop("total", None)
+                # Compare against the build break rule to determine status
+                dep_tool_rules = config.get("build_break_rules").get(dep_type, {})
+                build_break_rules = {**depscan_default_rules, **dep_tool_rules}
+                if override_rules and override_rules.get("depscan"):
+                    build_break_rules = {
+                        **build_break_rules,
+                        **override_rules.get("depscan"),
+                    }
+                for rsev in (
+                    "critical",
+                    "required_critical",
+                    "high",
+                    "required_high",
+                    "medium",
+                    "required_medium",
+                    "low",
+                    "required_low",
+                ):
+                    if build_break_rules.get("max_" + rsev) is not None:
+                        if (
+                            report_summary.get(dep_type).get(rsev)
+                            > build_break_rules["max_" + rsev]
+                        ):
+                            report_summary[dep_type]["status"] = "❌"
+                            build_status = "fail"
+
     for sf in sarif_files:
         with open(sf, mode="r") as report_file:
-            report_data = json.loads(report_file.read())
+            report_data = json.load(report_file)
             # skip this file if the data is empty
             if not report_data or not report_data.get("runs"):
                 LOG.warn("Report file {} is invalid. Skipping ...".format(sf))
@@ -84,10 +166,9 @@ def summary(sarif_files, aggregate_file=None, override_rules={}):
                         sev = aresult["properties"]["issue_severity"].lower()
                         report_summary[tool_name][sev] += 1
                 # Compare against the build break rule to determine status
-                default_rules = config.get("build_break_rules").get("default")
                 tool_rules = config.get("build_break_rules").get(tool_name, {})
                 build_break_rules = {**default_rules, **tool_rules, **override_rules}
-                for rsev in ["critical", "high", "medium", "low"]:
+                for rsev in ("critical", "high", "medium", "low"):
                     if build_break_rules.get("max_" + rsev) is not None:
                         if (
                             report_summary.get(tool_name).get(rsev)
