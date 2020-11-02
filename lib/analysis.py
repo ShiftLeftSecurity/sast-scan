@@ -47,6 +47,7 @@ def get_depscan_data(drep_file):
 
 
 def calculate_depscan_metrics(dep_data):
+    required_pkgs_found = False
     metrics = {
         "total": 0,
         "critical": 0,
@@ -69,9 +70,11 @@ def calculate_depscan_metrics(dep_data):
             usage = finding.get("package_usage").lower()
             if usage in ("required", "optional"):
                 metrics[f"{usage}_{severity}"] += 1
+                if usage == "required":
+                    required_pkgs_found = True
         metrics[severity] += 1
         metrics["total"] += 1
-    return metrics
+    return metrics, required_pkgs_found
 
 
 def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules={}):
@@ -100,7 +103,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                 dep_type = (
                     os.path.basename(df).replace(".json", "").replace("-report", "")
                 )
-                metrics = calculate_depscan_metrics(dep_data)
+                metrics, required_pkgs_found = calculate_depscan_metrics(dep_data)
                 report_summary[dep_type] = {
                     "tool": f"""Dependency Scan ({dep_type.replace("depscan-", "")})""",
                     "critical": metrics["critical"],
@@ -118,7 +121,8 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                         **build_break_rules,
                         **override_rules.get("depscan"),
                     }
-                for rsev in (
+                # Default severity categories for build status
+                build_status_categories = (
                     "critical",
                     "required_critical",
                     "optional_critical",
@@ -131,7 +135,16 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                     "low",
                     "required_low",
                     "optional_low",
-                ):
+                )
+                # Issue 233 - Consider only required packages if available
+                if required_pkgs_found:
+                    build_status_categories = (
+                        "required_critical",
+                        "required_high",
+                        "required_medium",
+                        "required_low",
+                    )
+                for rsev in build_status_categories:
                     if build_break_rules.get("max_" + rsev) is not None:
                         if metrics.get(rsev) > build_break_rules["max_" + rsev]:
                             report_summary[dep_type]["status"] = ":cross_mark:"
@@ -180,6 +193,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                         ):
                             report_summary[tool_name]["status"] = ":cross_mark:"
                             build_status = "fail"
+
     # Should we store the aggregate data
     if aggregate_file:
         # agg_sarif_file = aggregate_file.replace(".json", ".sarif")
