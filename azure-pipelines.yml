@@ -69,7 +69,7 @@ stages:
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: quay.io/shiftleft/scan
+        repository: shiftleft/scan
         tags: |
           $(tag)
     - task: Docker@2
@@ -77,7 +77,7 @@ stages:
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: quay.io/shiftleft/scan
+        repository: shiftleft/scan
         tags: |
           latest
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -140,6 +140,30 @@ stages:
           latest
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
+    - task: Docker@2
+      inputs:
+        command: 'login'
+        containerRegistry: quay_sl
+    - task: Docker@2
+      displayName: Build oss image (mirror)
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
+        repository: shiftleft/scan-oss
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Release oss image (mirror)
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
+        repository: shiftleft/scan-oss
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
+          latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
   - job: Build_java
     displayName: Docker Build and Push - Java
     pool:
@@ -160,6 +184,30 @@ stages:
           $(tag)
     - task: Docker@2
       displayName: Release java image
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
+        repository: shiftleft/scan-java
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
+          latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+    - task: Docker@2
+      inputs:
+        command: 'login'
+        containerRegistry: quay_sl
+    - task: Docker@2
+      displayName: Build java image (mirror)
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
+        repository: shiftleft/scan-java
+        buildContext: $(Build.SourcesDirectory)
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Release java image (mirror)
       inputs:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
