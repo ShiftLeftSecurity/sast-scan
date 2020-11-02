@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 import os
 import tempfile
 from pathlib import Path
@@ -14,7 +13,12 @@ def find_test_data():
 
 def find_test_depscan_data():
     data_dir = Path(__file__).parent / "data"
-    return [p.as_posix() for p in data_dir.glob("depscan*.json")]
+    return [p.as_posix() for p in data_dir.glob("depscan-report-java.json")]
+
+
+def find_test_depscan_nodejs_data():
+    data_dir = Path(__file__).parent / "data"
+    return [p.as_posix() for p in data_dir.glob("depscan-report-nodejs.json")]
 
 
 def test_summary():
@@ -35,10 +39,11 @@ def test_calculate_depscan_metrics():
     test_depscan_files = find_test_depscan_data()
     with open(test_depscan_files[0]) as fp:
         dep_data = analysis.get_depscan_data(fp)
-        metrics = analysis.calculate_depscan_metrics(dep_data)
+        metrics, required_pkgs_found = analysis.calculate_depscan_metrics(dep_data)
         assert metrics
         assert metrics["critical"] == 29
         assert metrics["optional_critical"] == 26
+        assert required_pkgs_found
 
 
 def test_summary_with_depscan():
@@ -63,6 +68,26 @@ def test_summary_with_depscan():
         elif k == "nodejsscan":
             assert v["status"] == ":white_heavy_check_mark:"
     assert build_status == "fail"
+
+
+def test_summary_with_depscan_usage():
+    test_sarif_files = []
+    test_depscan_files = find_test_depscan_nodejs_data()
+    report_summary, build_status = analysis.summary(
+        test_sarif_files, depscan_files=test_depscan_files
+    )
+    assert len(report_summary.keys()) == 1
+    for k, v in report_summary.items():
+        if k == "depscan-nodejs":
+            assert v == {
+                "status": ":white_heavy_check_mark:",
+                "tool": "Dependency Scan (nodejs)",
+                "critical": 1,
+                "high": 20,
+                "medium": 9,
+                "low": 3,
+            }
+    assert build_status == "pass"
 
 
 def test_summary_with_agg():
