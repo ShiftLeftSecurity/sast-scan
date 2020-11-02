@@ -141,6 +141,14 @@ Some of the reports would be converted to a standard called [SARIF](https://sari
 - Visual Studio extension - https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer
 - Azure DevOps extension - https://marketplace.visualstudio.com/items?itemName=shiftleftsecurity.sl-scan-results
 
+## Issues with dockerhub?
+
+Many scan images are mirrored to quay.io through the CI pipeline. Simply prefix `quay.io/` to the image name. Below are the mirrors available.
+
+- quay.io/shiftleft/scan (https://quay.io/repository/shiftleft/scan)
+- quay.io/shiftleft/scan-java (https://quay.io/repository/shiftleft/scan-java)
+- quay.io/shiftleft/scan-oss (https://quay.io/repository/shiftleft/scan-oss)
+
 ## Scan users
 
 Scan is used by many organizations and over 1000s of opensource projects. Some notable organizations that use scan are:
