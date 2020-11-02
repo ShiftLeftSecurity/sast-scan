@@ -60,6 +60,28 @@ stages:
           latest
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
+    - task: Docker@2
+      inputs:
+        command: 'login'
+        containerRegistry: quay_sl
+    - task: Docker@2
+      displayName: Build base image (mirror)
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: quay.io/shiftleft/scan
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Release base image (mirror)
+      inputs:
+        command: 'buildAndPush'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: quay.io/shiftleft/scan
+        tags: |
+          latest
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
   - job: Build_slim
     displayName: Docker Build and Push - slim
     pool:
