@@ -538,7 +538,7 @@ def report(
             render_html(json.loads(serialized_log), html_file)
             if fileobj.name != sys.stdout.name:
                 LOG.debug(
-                    "SARIF and HTML report written to file: %s, %s :+1:",
+                    "SARIF and HTML report written to file: %s, %s :thumbsup:",
                     fileobj.name,
                     html_file,
                 )
