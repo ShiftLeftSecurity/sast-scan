@@ -442,15 +442,6 @@ def is_over_taint(source, sink, blackbox_mapping):
     if sink_type == "ReturnedToUser":
         if sink.trigger_word == "render(" and source_type == "Framework_Parameter":
             return True
-    # Ignore SQLi based on non-first argument
-    if sink_type == "SQL" and source_type == "Framework_Parameter":
-        if "," in sink_cfg.label:
-            tmpfirst = sink_cfg.label.split(",")[0]
-            if "(" in tmpfirst:
-                tmpfirst = tmpfirst.split("(")[-1]
-            if source_cfg.label not in tmpfirst:
-                return True
-
     # Ignore NoSQLi that use parameters
     if sink_type == "NoSQL" and sink_cfg.label and "parameters" in sink_cfg.label:
         return True
