@@ -385,8 +385,8 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
             for sanitiser in sink.sanitisers:
                 for cfg_node in triggers.sanitiser_dict[sanitiser]:
                     # Break early with blackbox sanitizers
-                    # if isinstance(cfg_node, BBorBInode):
-                    #    return None
+                    if isinstance(cfg_node, BBorBInode):
+                        return None
                     if isinstance(cfg_node, AssignmentNode):
                         sanitiser_nodes.add(cfg_node)
                     elif isinstance(cfg_node, IfNode):
