@@ -1248,9 +1248,9 @@ build_break_rules = {
         "max_critical": 0,
         "max_required_critical": 0,
         "max_high": 2,
-        "max_required_high": 0,
+        "max_required_high": 2,
         "max_medium": 5,
-        "max_required_medium": 0,
+        "max_required_medium": 5,
     },
 }
 
