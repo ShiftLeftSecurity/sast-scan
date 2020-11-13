@@ -25,39 +25,26 @@ stages:
       inputs:
         command: 'login'
         containerRegistry: sl_docker
-    - task: Docker@2
-      displayName: Build base image
+    - task: CmdLine@2
+      displayName: Setup buildx
       inputs:
-        command: 'buildAndPush'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: shiftleft/scan
-        tags: |
-          $(tag)
-    - task: Docker@2
-      displayName: Release base image
+        script: |
+          docker buildx ls
+          docker buildx rm build
+          docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+          docker buildx create --use --name build --node build --driver-opt network=host
+          docker buildx inspect build --bootstrap
+          docker buildx use build
+    - task: CmdLine@2
+      displayName: Multi arch build
       inputs:
-        command: 'buildAndPush'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: shiftleft/scan
-        tags: |
-          latest
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    - task: Docker@2
-      displayName: Build alias image
+        script: |
+          docker buildx build --platform linux/amd64,linux/arm64 -t shiftleft/scan:$(tag) -t shiftleft/sast-scan:$(tag) --push .
+    - task: CmdLine@2
+      displayName: Release multi arch build
       inputs:
-        command: 'buildAndPush'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: shiftleft/sast-scan
-        tags: |
-          $(tag)
-    - task: Docker@2
-      displayName: Release alias image
-      inputs:
-        command: 'buildAndPush'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: shiftleft/sast-scan
-        tags: |
-          latest
+        script: |
+          docker buildx build --platform linux/amd64,linux/arm64 -t shiftleft/scan:latest -t shiftleft/sast-scan:latest --push .
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: Docker@2
@@ -91,24 +78,26 @@ stages:
       inputs:
         command: 'login'
         containerRegistry: sl_docker
-    - task: Docker@2
-      displayName: Build slim image
+    - task: CmdLine@2
+      displayName: Setup buildx
       inputs:
-        command: 'buildAndPush'
-        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang'
-        repository: shiftleft/scan-slim
-        buildContext: $(Build.SourcesDirectory)
-        tags: |
-          $(tag)
-    - task: Docker@2
-      displayName: Release slim image
+        script: |
+          docker buildx ls
+          docker buildx rm build
+          docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+          docker buildx create --use --name build --node build --driver-opt network=host
+          docker buildx inspect build --bootstrap
+          docker buildx use build
+    - task: CmdLine@2
+      displayName: Multi arch build
       inputs:
-        command: 'buildAndPush'
-        dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang'
-        repository: shiftleft/scan-slim
-        buildContext: $(Build.SourcesDirectory)
-        tags: |
-          latest
+        script: |
+          docker buildx build --platform linux/amd64,linux/arm64 -t shiftleft/scan-slim:$(tag) -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
+    - task: CmdLine@2
+      displayName: Release multi arch build
+      inputs:
+        script: |
+          docker buildx build --platform linux/amd64,linux/arm64 -t shiftleft/scan-slim:latest -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_oss

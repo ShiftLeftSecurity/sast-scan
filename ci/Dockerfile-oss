@@ -122,14 +122,14 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel \
+RUN microdnf install python38-devel && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
     && mkdir -p /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
     && composer require --quiet --no-cache --dev phpstan/extension-installer \
-    && microdnf remove -y php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
+    && microdnf remove -y python38-devel php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
     && microdnf clean all
 
 WORKDIR /app
