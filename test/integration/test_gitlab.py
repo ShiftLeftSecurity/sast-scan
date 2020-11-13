@@ -15,3 +15,12 @@ def test_reports_url():
         {"repositoryName": "bar", "revisionId": "123"}
     )
     assert url == "https://gitlab.com/api/v4/projects/test/merge_requests/test/notes"
+
+
+def test_emoji():
+    emoji = gitlab.GitLab().to_emoji("foo")
+    assert emoji == "foo"
+    emoji = gitlab.GitLab().to_emoji(":white_heavy_check_mark:")
+    assert emoji == "✅"
+    emoji = gitlab.GitLab().to_emoji(":cross_mark:")
+    assert emoji == "❌"
