@@ -63,6 +63,10 @@ class Bitbucket(GitProvider):
             return "MEDIUM"
         return "LOW"
 
+    def to_emoji(self, status):
+        emoji_codes = {":white_heavy_check_mark:": "✅", ":cross_mark:": "❌"}
+        return emoji_codes.get(status, status)
+
     def annotate_pr(self, repo_context, findings_file, report_summary, build_status):
         if not findings_file:
             return
@@ -81,7 +85,8 @@ class Bitbucket(GitProvider):
                         summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
                     )
                     for rk, rv in report_summary.items():
-                        summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {rv.get("status")} |\n'
+                        status_emoji = self.to_emoji(rv.get("status"))
+                        summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {status_emoji} |\n'
                     template = config.get("PR_COMMENT_BASIC_TEMPLATE")
                     recommendation = (
                         f"Please review the scan reports before approving this pull request for {context.get('prTargetBranch')} branch"

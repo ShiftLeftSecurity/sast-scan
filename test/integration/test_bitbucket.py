@@ -37,3 +37,12 @@ def test_pr_comments_url():
         url
         == "https://api.bitbucket.org/2.0/repositories/test/bar/pullrequests/pr-123/comments"
     )
+
+
+def test_emoji():
+    emoji = bitbucket.Bitbucket().to_emoji("foo")
+    assert emoji == "foo"
+    emoji = bitbucket.Bitbucket().to_emoji(":white_heavy_check_mark:")
+    assert emoji == "✅"
+    emoji = bitbucket.Bitbucket().to_emoji(":cross_mark:")
+    assert emoji == "❌"
