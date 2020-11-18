@@ -15,7 +15,7 @@ script:
   - mv AppDir/usr/bin/scan AppDir/usr/bin/depscan
   - chmod +x AppDir/usr/src/appimage-reqs.sh && AppDir/usr/src/appimage-reqs.sh AppDir
   - npm install --only=production --no-save --prefix AppDir/usr/local/lib yarn @appthreat/cdxgen @microsoft/rush
-  - mkdir -p AppDir/opt/phpsast && cd AppDir/opt/phpsast && composer init --quiet && composer require --quiet --no-cache --dev vimeo/psalm
+  - mkdir -p AppDir/opt/phpsast && cd AppDir/opt/phpsast && composer init --name shiftleft/scan --description scan --quiet && composer require --quiet --no-cache -n --no-ansi --dev vimeo/psalm:^4.1
   - cd AppDir/opt/phpsast && composer require --quiet --no-cache --dev phpstan/phpstan
 
 AppDir:
