@@ -63,6 +63,9 @@ def calculate_depscan_metrics(dep_data):
         "low": 0,
         "required_low": 0,
         "optional_low": 0,
+        "unspecified": 0,
+        "required_unspecified": 0,
+        "optional_unspecified": 0,
     }
     for finding in dep_data:
         severity = finding.get("severity", "UNKNOWN").lower()
