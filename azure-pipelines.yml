@@ -39,12 +39,12 @@ stages:
       displayName: Multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t shiftleft/scan:$(tag) -t shiftleft/sast-scan:$(tag) --push .
+          docker buildx build --platform linux/amd64 -t shiftleft/scan:$(tag) -t shiftleft/sast-scan:$(tag) --push .
     - task: CmdLine@2
       displayName: Release multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t shiftleft/scan:latest -t shiftleft/sast-scan:latest --push .
+          docker buildx build --platform linux/amd64 -t shiftleft/scan:latest -t shiftleft/sast-scan:latest --push .
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: Docker@2
