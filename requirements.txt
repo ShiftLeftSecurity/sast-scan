@@ -14,3 +14,4 @@ njsscan
 rich
 PyGithub
 PyYAML
+ruamel.yaml==0.16.10
