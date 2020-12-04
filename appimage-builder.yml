@@ -24,10 +24,6 @@ AppDir:
   app_info:
     id: io.shiftleft.scan
     name: scan
-    summary: Scan is a free open-source security tool for modern DevOps teams
-    metadata_license: FSFAP
-    project_license: GPL-3.0-or-later
-    project_group: ShiftLeftSecurity
     icon: utilities-terminal
     version: latest
     # Set the python executable as entry point
