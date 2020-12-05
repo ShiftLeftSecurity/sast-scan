@@ -89,8 +89,7 @@ def get_report_data(xmlfile, file_path_list=[], working_dir=""):
 
 
 def parse_checkstyle(root, file_path_list, working_dir):
-    """Parse checkstyle xml
-    """
+    """Parse checkstyle xml"""
     issues = []
     metrics = {}
     for child in root:

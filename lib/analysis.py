@@ -207,8 +207,7 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
 
 
 def print_table(report_summary):
-    """Print summary table
-    """
+    """Print summary table"""
     table = Table(
         title="Security Scan Summary", box=box.DOUBLE_EDGE, header_style="bold magenta"
     )

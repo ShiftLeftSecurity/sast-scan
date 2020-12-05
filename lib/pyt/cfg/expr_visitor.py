@@ -567,7 +567,9 @@ class ExprVisitor(StmtVisitor):
             # Change list.append(x) ---> list += list.append(x)
             # This does in fact propagate as we don't know that append returns None
             fake_aug_assign = ast.AugAssign(
-                target=node.func.value, op=ast.Add, value=node,
+                target=node.func.value,
+                op=ast.Add,
+                value=node,
             )
             ast.copy_location(fake_aug_assign, node)
             self._within_mutating_call = True  # Don't do this recursively

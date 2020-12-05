@@ -21,7 +21,9 @@ def test_findsec_parse():
 def test_checkstyle_parse():
     with open(
         os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "data", "source-kt-report.xml",
+            os.path.dirname(os.path.realpath(__file__)),
+            "data",
+            "source-kt-report.xml",
         )
     ) as rf:
         issues, metrics = xml_parser.get_report_data(rf)

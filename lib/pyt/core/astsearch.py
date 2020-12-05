@@ -80,8 +80,7 @@ def must_not_exist_checker(node, path):
 
 
 class ArgsDefChecker:
-    """Checks the arguments of a function definition against pattern arguments.
-    """
+    """Checks the arguments of a function definition against pattern arguments."""
 
     def __init__(self, args, defaults, vararg, kwonly_args_dflts, koa_subset, kwarg):
         self.args = args

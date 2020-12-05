@@ -31,8 +31,8 @@ def _convert_to_3(path):  # pragma: no cover
 def generate_py2_ast(path):
     """Generate an Abstract Syntax Tree using the ast module for python 2 code
 
-        Args:
-            path(str): The path to the file e.g. example/foo/bar.py
+    Args:
+        path(str): The path to the file e.g. example/foo/bar.py
     """
     if os.path.isfile(path) and os.path.getsize(path):
         with open(path, "r") as f:
@@ -44,8 +44,8 @@ def generate_py2_ast(path):
 def generate_ast(path):
     """Generate an Abstract Syntax Tree using the ast module.
 
-        Args:
-            path(str): The path to the file e.g. example/foo/bar.py
+    Args:
+        path(str): The path to the file e.g. example/foo/bar.py
     """
     if os.path.isfile(path) and os.path.getsize(path):
         with open(path, "r") as f:
@@ -56,8 +56,8 @@ def generate_ast(path):
 def generate_ast_from_code(code, path=None):
     """Generate an Abstract Syntax Tree using the ast module.
 
-        Args:
-            code(str): Code snippet
+    Args:
+        code(str): Code snippet
     """
     try:
         tree = ast.parse(code)

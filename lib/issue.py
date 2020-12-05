@@ -362,7 +362,9 @@ class Issue(object):
                 )
             else:
                 self.text = "Credential in plaintext?\n\nRule: {}\nLine: {}\n\nCommit: {}".format(
-                    data.get("rule", ""), data.get("line"), data.get("commit", ""),
+                    data.get("rule", ""),
+                    data.get("line"),
+                    data.get("commit", ""),
                 )
             tmplines = data.get("line", "").split("\n")
             tmplines = [li for li in tmplines if li and li.strip() != ""]

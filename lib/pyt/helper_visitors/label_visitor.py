@@ -300,7 +300,7 @@ class LabelVisitor(ast.NodeVisitor):
 
     def visit_JoinedStr(self, node):
         """
-            JoinedStr(expr* values)
+        JoinedStr(expr* values)
         """
         self.result += "f'"
         self.visit_joined_str(node)
@@ -308,7 +308,7 @@ class LabelVisitor(ast.NodeVisitor):
 
     def visit_FormattedValue(self, node):
         """
-            FormattedValue(expr value, int? conversion, expr? format_spec)
+        FormattedValue(expr value, int? conversion, expr? format_spec)
         """
         self.result += "{"
         self.visit(node.value)

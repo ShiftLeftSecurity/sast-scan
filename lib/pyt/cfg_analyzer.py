@@ -68,7 +68,9 @@ def deep_analysis(src, files):
         LOG.debug(e)
     LOG.debug("Finding vulnerabilities from the graph")
     vulnerabilities = find_vulnerabilities(
-        cfg_list, default_blackbox_mapping_file, default_trigger_word_file,
+        cfg_list,
+        default_blackbox_mapping_file,
+        default_trigger_word_file,
     )
     if vulnerabilities:
         has_unsanitised_vulnerabilities = any(

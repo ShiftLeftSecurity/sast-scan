@@ -103,9 +103,9 @@ def extract_left_hand_side(target):
 
 def get_first_node(node, node_not_to_step_past):
     """
-        This is a super hacky way of getting the first node after a statement.
-        We do this because we visit a statement and keep on visiting and get something in return that is rarely the first node.
-        So we loop and loop backwards until we hit the statement or there is nothing to step back to.
+    This is a super hacky way of getting the first node after a statement.
+    We do this because we visit a statement and keep on visiting and get something in return that is rarely the first node.
+    So we loop and loop backwards until we hit the statement or there is nothing to step back to.
     """
     ingoing = None
     i = 0

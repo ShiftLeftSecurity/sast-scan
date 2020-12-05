@@ -828,7 +828,15 @@ def test_psalm_extract_issue():
     assert issues
     assert len(issues) == 317
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
-        data = convertLib.report("psalm", [], ".", {}, {}, issues, cfile.name,)
+        data = convertLib.report(
+            "psalm",
+            [],
+            ".",
+            {},
+            {},
+            issues,
+            cfile.name,
+        )
         jsondata = json.loads(data)
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
@@ -853,7 +861,15 @@ def test_phpstan_extract_issue():
     assert issues
     assert len(issues) == 670
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
-        data = convertLib.report("phpstan", [], ".", {}, {}, issues, cfile.name,)
+        data = convertLib.report(
+            "phpstan",
+            [],
+            ".",
+            {},
+            {},
+            issues,
+            cfile.name,
+        )
         jsondata = json.loads(data)
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
@@ -898,7 +914,15 @@ def test_phptaint_extract_issue():
     assert issues
     assert len(issues) == 7
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
-        data = convertLib.report("taint-php", [], ".", {}, {}, issues, cfile.name,)
+        data = convertLib.report(
+            "taint-php",
+            [],
+            ".",
+            {},
+            {},
+            issues,
+            cfile.name,
+        )
         jsondata = json.loads(data)
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]
@@ -921,7 +945,15 @@ def test_phptaint_extract_issue():
     assert issues
     assert len(issues) == 130
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
-        data = convertLib.report("taint-php", [], ".", {}, {}, issues, cfile.name,)
+        data = convertLib.report(
+            "taint-php",
+            [],
+            ".",
+            {},
+            {},
+            issues,
+            cfile.name,
+        )
         jsondata = json.loads(data)
         assert jsondata["runs"][0]["properties"]["metrics"] == {
             "critical": 130,
@@ -970,7 +1002,15 @@ def test_pytaint_extract_issue():
     assert issues
     assert len(issues) == 27
     with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
-        data = convertLib.report("taint-python", [], ".", {}, {}, issues, cfile.name,)
+        data = convertLib.report(
+            "taint-python",
+            [],
+            ".",
+            {},
+            {},
+            issues,
+            cfile.name,
+        )
         jsondata = json.loads(data)
         assert (
             jsondata["runs"][0]["results"][0]["message"]["text"]

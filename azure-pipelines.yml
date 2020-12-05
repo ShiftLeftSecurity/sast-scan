@@ -8,7 +8,7 @@ trigger:
     - feature/*
     - fix/*
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-20.04'
 variables:
   tag: '$(Build.SourceBranchName)'
 
@@ -19,7 +19,7 @@ stages:
   - job: Build
     displayName: Docker Build and Push - default
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
     - task: Docker@2
       inputs:
@@ -72,7 +72,7 @@ stages:
   - job: Build_slim
     displayName: Docker Build and Push - slim
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
     - task: Docker@2
       inputs:
@@ -103,7 +103,7 @@ stages:
   - job: Build_oss
     displayName: Docker Build and Push - oss
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
     - task: Docker@2
       inputs:
@@ -156,7 +156,7 @@ stages:
   - job: Build_java
     displayName: Docker Build and Push - Java
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
     - task: Docker@2
       inputs:
@@ -209,7 +209,7 @@ stages:
   - job: Build_csharp
     displayName: Docker Build and Push - Csharp
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     steps:
     - task: Docker@2
       inputs:

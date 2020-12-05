@@ -38,7 +38,7 @@
 | kotlin               | detekt, find-sec-bugs               |
 | scala                | find-sec-bugs                       |
 | kubernetes           | checkov, kubesec, kube-score        |
-| nodejs               | cdxgen, njsscan, eslint, yarn, rush |
+| nodejs               | cdxgen, yarn, rush                  |
 | php                  | psalm, phpstan (ide only)           |
 | plsql                | pmd                                 |
 | python               | cfg-scan (\*), bandit, cdxgen       |
