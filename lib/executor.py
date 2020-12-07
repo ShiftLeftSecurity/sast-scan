@@ -238,11 +238,19 @@ def execute_default_cmd(  # scan:ignore
             or "php" in tool_name
         ):
             convertLib.convert_file(
-                tool_name, cmd_with_args, src, report_fname, crep_fname,
+                tool_name,
+                cmd_with_args,
+                src,
+                report_fname,
+                crep_fname,
             )
         else:
             convertLib.convert_file(
-                cmd_with_args[0], cmd_with_args[1:], src, report_fname, crep_fname,
+                cmd_with_args[0],
+                cmd_with_args[1:],
+                src,
+                report_fname,
+                crep_fname,
             )
         try:
             if not LOG.isEnabledFor(DEBUG):

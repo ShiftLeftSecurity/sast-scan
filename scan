@@ -228,8 +228,7 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
 
 
 def x_scan(type_str):
-    """Default placeholder scan method for missing scanners
-    """
+    """Default placeholder scan method for missing scanners"""
     LOG.info(
         "Is there any open-source scanner for {}? Please let us know :thumbsup:".format(
             type_str
@@ -333,7 +332,11 @@ def bandit_scan(src, reports_dir, convert, repo_context):
             "source-python", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "source-python", bandit_args[1:], src, report_fname, crep_fname,
+            "source-python",
+            bandit_args[1:],
+            src,
+            report_fname,
+            crep_fname,
         )
 
 
@@ -412,7 +415,11 @@ def pmd_scan(src, reports_dir, convert, repo_context):
             "source-java", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "source-java", pmd_args[1:], src, report_fname, crep_fname,
+            "source-java",
+            pmd_args[1:],
+            src,
+            report_fname,
+            crep_fname,
         )
 
 
@@ -473,7 +480,12 @@ def findsecbugs_scan(src, reports_dir, convert, repo_context):
                 "class", reports_dir, convert, ext_name="sarif"
             )
             convertLib.convert_file(
-                "class", findsec_args[1:], src, report_fname, crep_fname, j_files,
+                "class",
+                findsec_args[1:],
+                src,
+                report_fname,
+                crep_fname,
+                j_files,
             )
 
 
@@ -521,6 +533,11 @@ def sec_scan(src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
+    if not utils.check_command("njsscan"):
+        LOG.warning(
+            "njsscan is no longer bundled with scan. Please use shiftleft/scan-oss container image if this tool is required."
+        )
+        return
     convert_args = []
     report_fname = utils.get_report_file("source-js", reports_dir, convert)
     if reports_dir or convert:
@@ -542,7 +559,11 @@ def sec_scan(src, reports_dir, convert, repo_context):
             "source-js", reports_dir, convert, ext_name="sarif"
         )
         convertLib.convert_file(
-            "source-js", sec_args[1:], src, report_fname, crep_fname,
+            "source-js",
+            sec_args[1:],
+            src,
+            report_fname,
+            crep_fname,
         )
 
 

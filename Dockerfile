@@ -73,8 +73,7 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSIO
     && curl -LO "https://repo1.maven.org/maven2/com/mebigfatguy/sb-contrib/sb-contrib/${SB_CONTRIB_VERSION}/sb-contrib-${SB_CONTRIB_VERSION}.jar" \
     && mv sb-contrib-${SB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/sb-contrib.jar \
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
-    && chmod a+rx /usr/local/bin/shiftleft/sl \
-    && mkdir -p /opt/sl-cli
+    && chmod a+rx /usr/local/bin/shiftleft/sl
 
 FROM shiftleft/scan-base-slim as sast-scan-tools
 
@@ -122,7 +121,6 @@ COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
 COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
-COPY --from=builder /opt/sl-cli /opt/sl-cli
 COPY tools_config/ /usr/local/src/
 COPY requirements.txt /usr/local/src/
 
@@ -132,7 +130,7 @@ RUN microdnf install python38-devel && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
-    && mkdir -p /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
+    && mkdir -p /opt/sl-cli /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
     && composer require --quiet --no-cache --dev phpstan/extension-installer \
     && microdnf remove -y python38-devel php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \

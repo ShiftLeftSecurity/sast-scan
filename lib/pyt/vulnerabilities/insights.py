@@ -413,8 +413,7 @@ def _check_pymongo_common_misconfig(ast_tree, path):
 
 
 def _check_django_common_misconfig(ast_tree, path):
-    """Look for common security misconfiguration in Django apps
-    """
+    """Look for common security misconfiguration in Django apps"""
     violations = []
 
     if os.path.basename(path) == "settings.py":
@@ -565,8 +564,7 @@ def _check_django_common_misconfig(ast_tree, path):
 
 
 def _check_flask_common_misconfig(ast_tree, path):
-    """Look for common security misconfiguration in Flask apps
-    """
+    """Look for common security misconfiguration in Flask apps"""
     violations = []
     has_flask_run = has_method_call("app.run(??)", ast_tree)
     if has_import_like("flask", ast_tree) and has_flask_run:

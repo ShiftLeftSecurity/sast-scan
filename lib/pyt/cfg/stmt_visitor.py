@@ -976,7 +976,7 @@ class StmtVisitor(ast.NodeVisitor):
         self, module, real_names, local_names, import_alias_mapping, skip_init=False
     ):
         """
-            Directories don't need to be packages.
+        Directories don't need to be packages.
         """
         module_path = module[1]
         init_file_location = os.path.join(module_path, "__init__.py")
@@ -1036,9 +1036,9 @@ class StmtVisitor(ast.NodeVisitor):
 
     def handle_relative_import(self, node):
         """
-            from A means node.level == 0
-            from . import B means node.level == 1
-            from .A means node.level == 1
+        from A means node.level == 0
+        from . import B means node.level == 1
+        from .A means node.level == 1
         """
         no_file = os.path.abspath(os.path.join(self.filenames[-1], os.pardir))
         skip_init = False

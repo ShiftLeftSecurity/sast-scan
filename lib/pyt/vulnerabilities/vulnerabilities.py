@@ -51,12 +51,12 @@ def filter_cfg_nodes(cfg, cfg_node_type):
 
 def find_secondary_sources(assignment_nodes, sources, lattice):
     """
-        Sets the secondary_nodes attribute of each source in the sources list.
+    Sets the secondary_nodes attribute of each source in the sources list.
 
-        Args:
-            assignment_nodes([AssignmentNode])
-            sources([tuple])
-            lattice(Lattice): the lattice we're analysing.
+    Args:
+        assignment_nodes([AssignmentNode])
+        sources([tuple])
+        lattice(Lattice): the lattice we're analysing.
     """
     for source in sources:
         source.secondary_nodes = find_assignments(assignment_nodes, source, lattice)
@@ -361,7 +361,8 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
     else:
         sink_args = get_sink_args_which_propagate(sink, sink.cfg_node.ast_node)
     tainted_node_in_sink_arg = get_tainted_node_in_sink_args(
-        sink_args, nodes_in_constraint,
+        sink_args,
+        nodes_in_constraint,
     )
     source_type = ""
     sink_type = ""
@@ -409,8 +410,7 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
 
 
 def is_over_taint(source, sink, blackbox_mapping):
-    """Filter over tainted objects such as Sensitive Data Leaks
-    """
+    """Filter over tainted objects such as Sensitive Data Leaks"""
     source_cfg = source.cfg_node
     sink_cfg = sink.cfg_node
     sensitive_data_list = blackbox_mapping.get("sensitive_data_list")
@@ -476,7 +476,9 @@ def find_vulnerabilities_in_cfg(
 
 
 def find_vulnerabilities(
-    cfg_list, blackbox_mapping_file, sources_and_sinks_file,
+    cfg_list,
+    blackbox_mapping_file,
+    sources_and_sinks_file,
 ):
     """Find vulnerabilities in a list of CFGs from a trigger_word_file.
 
