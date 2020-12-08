@@ -38,3 +38,8 @@ class GitProvider(metaclass=ABCMeta):
     @classmethod
     def manage_issues(cls, repo_context, findings_file, report_summary, build_status):
         pass
+
+    @classmethod
+    def to_emoji(cls, status):
+        emoji_codes = {":white_heavy_check_mark:": "✅", ":cross_mark:": "❌"}
+        return emoji_codes.get(status, status)
