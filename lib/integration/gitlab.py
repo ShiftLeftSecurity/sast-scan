@@ -59,10 +59,6 @@ class GitLab(GitProvider):
         gitlab_context = self.get_context(repo_context)
         return f"""{gitlab_context.get("apiUrl")}/projects/{gitlab_context.get("mergeRequestProjectId")}/merge_requests/{gitlab_context.get("mergeRequestIID")}/notes"""
 
-    def to_emoji(self, status):
-        emoji_codes = {":white_heavy_check_mark:": "✅", ":cross_mark:": "❌"}
-        return emoji_codes.get(status, status)
-
     def annotate_pr(self, repo_context, findings_file, report_summary, build_status):
         if not findings_file:
             return
