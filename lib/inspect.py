@@ -367,7 +367,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                         if not short_desc:
                             short_desc = result.get("message", {}).get("text")
                         ngsev = convert_severity(
-                            result.get("properties", {})["issue_severity"]
+                            result.get("properties", {}).get("issue_severity", "medium")
                         )
                         # Populate tags
                         tags = []
@@ -405,9 +405,11 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                             lineno = location.get("physicalLocation", {})["region"][
                                 "startLine"
                             ]
-                            end_lineno = location.get("physicalLocation", {})[
-                                "contextRegion"
-                            ]["endLine"]
+                            end_lineno = (
+                                location.get("physicalLocation", {})
+                                .get("contextRegion", {})
+                                .get("endLine")
+                            )
                             finding = {
                                 "app": app_name,
                                 "type": "extscan",
@@ -419,9 +421,10 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                         filename,
                                         lineno,
                                         end_lineno,
-                                        location.get("physicalLocation", {})["region"][
-                                            "snippet"
-                                        ]["text"],
+                                        location.get("physicalLocation", {})
+                                        .get("region", {})
+                                        .get("snippet", {})
+                                        .get("text", ""),
                                         short_desc,
                                     ),
                                 ),
@@ -437,12 +440,14 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                     "lineNumber": lineno,
                                     "ruleId": rule_id,
                                     "ruleName": rule.get("name"),
-                                    "contextText": location.get("physicalLocation", {})[
-                                        "region"
-                                    ]["snippet"]["text"],
-                                    "snippetText": location.get("physicalLocation", {})[
-                                        "contextRegion"
-                                    ]["snippet"]["text"],
+                                    "contextText": location.get("physicalLocation", {})
+                                    .get("region", {})
+                                    .get("snippet", {})
+                                    .get("text", ""),
+                                    "snippetText": location.get("physicalLocation", {})
+                                    .get("contextRegion", {})
+                                    .get("snippet", {})
+                                    .get("text", ""),
                                 },
                                 "tags": tags,
                             }

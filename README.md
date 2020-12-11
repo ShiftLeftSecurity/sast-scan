@@ -20,37 +20,38 @@
 
 ## Bundled tools
 
-| Programming Language | Tools                               |
-| -------------------- | ----------------------------------- |
-| ansible              | ansible-lint                        |
-| apex                 | pmd                                 |
-| arm                  | checkov                             |
-| aws                  | checkov                             |
-| bash                 | shellcheck                          |
-| bom                  | cdxgen                              |
-| credscan             | gitleaks                            |
-| depscan              | dep-scan                            |
-| go                   | gosec, staticcheck                  |
-| groovy               | find-sec-bugs                       |
-| java                 | cdxgen, gradle, find-sec-bugs, pmd  |
-| jsp                  | pmd, find-sec-bugs                  |
-| json                 | jq, jsondiff, jsonschema            |
-| kotlin               | detekt, find-sec-bugs               |
-| scala                | find-sec-bugs                       |
-| kubernetes           | checkov, kubesec, kube-score        |
-| nodejs               | cdxgen, yarn, rush                  |
-| php                  | psalm, phpstan (ide only)           |
-| plsql                | pmd                                 |
-| python               | cfg-scan (\*), bandit, cdxgen       |
-| ruby                 | dep-scan                            |
-| rust                 | cdxgen                              |
-| serverless           | checkov                             |
-| terraform            | checkov, tfsec                      |
-| Visual Force (vf)    | pmd                                 |
-| Apache Velocity (vm) | pmd                                 |
-| yaml                 | yamllint                            |
+| Programming Language | Tools                              |
+| -------------------- | ---------------------------------- |
+| ansible              | ansible-lint                       |
+| apex                 | pmd                                |
+| arm                  | checkov                            |
+| aws                  | checkov                            |
+| bash                 | shellcheck                         |
+| bom                  | cdxgen                             |
+| credscan             | gitleaks                           |
+| depscan              | dep-scan                           |
+| go                   | gosec, staticcheck                 |
+| groovy               | find-sec-bugs                      |
+| java                 | cdxgen, gradle, find-sec-bugs, pmd |
+| jsp                  | pmd, find-sec-bugs                 |
+| json                 | jq, jsondiff, jsonschema           |
+| kotlin               | detekt, find-sec-bugs              |
+| scala                | find-sec-bugs                      |
+| kubernetes           | checkov, kubesec, kube-score       |
+| nodejs               | cdxgen, yarn, rush                 |
+| php                  | psalm, phpstan (ide only)          |
+| plsql                | pmd                                |
+| python               | cfg-scan (1), bandit, cdxgen       |
+| ruby                 | brakeman (2), dep-scan             |
+| rust                 | cdxgen                             |
+| serverless           | checkov                            |
+| terraform            | checkov, tfsec                     |
+| Visual Force (vf)    | pmd                                |
+| Apache Velocity (vm) | pmd                                |
+| yaml                 | yamllint                           |
 
-(\*) - Deep analyzer for Python is a built-in feature
+(1) - Deep analyzer for Python is a built-in feature
+(2) - Brakeman is not bundled with scan. Use brakeman with an appropriate license and export the report in json format using `-o reports/source-ruby-report.json`
 
 ## Bundled languages/runtime
 

@@ -525,6 +525,19 @@ scan_tools_args_map = {
         ],
     },
     "puppet": ["puppet-lint", "--error-level", "all", "--json", "%(src)s"],
+    "ruby-ide": {
+        "source-ruby": [
+            "brakeman",
+            "--skip-libs",
+            "--no-exit-on-warn",
+            "--no-exit-on-error",
+            "-w",
+            "2",
+            "--ignore-protected",
+            "-o",
+            "%(report_fname_prefix)s.json",
+        ]
+    },
     "scala": {
         "audit-scala": [
             "java",
@@ -758,6 +771,7 @@ tool_purpose_message = {
     "cpg": "ShiftLeft NextGen Analyzer",
     "inspect": "ShiftLeft NextGen Analyzer",
     "ng-sast": "ShiftLeft NextGen Analyzer",
+    "source-ruby": "Ruby Source Analyzer",
     "empty-scan": "Empty Scan Ignore",
 }
 
@@ -1271,6 +1285,9 @@ known_bot_users = [
     "depfu[bot]",
     "snyk-bot",
 ]
+
+# Default severity for external tools incase the SARIF file is missing severity
+exttool_default_severity = {"brakeman": "medium"}
 
 
 def reload():

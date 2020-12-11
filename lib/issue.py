@@ -128,7 +128,6 @@ class Issue(object):
             tmplt = "%i\t%s" if tabbed else "%i %s"
             for line in moves.xrange(lmin, lmax):
                 text = linecache.getline(self.fname, line)
-
                 if isinstance(text, bytes):
                     text = text.decode("utf-8")
 
@@ -240,6 +239,8 @@ class Issue(object):
 
     def find_severity(self, data):
         severity = constants.SEVERITY_DEFAULT
+        if "confidence" in data:
+            severity = data["confidence"].upper()
         if "issue_severity" in data or "priority" in data:
             sev = data.get("issue_severity", data.get("priority"))
             severity = sev
@@ -290,6 +291,8 @@ class Issue(object):
             test_id = data["test_id"]
         if "rule_id" in data:
             test_id = data["rule_id"]
+        if "check_name" in data:
+            test_id = data["check_name"]
         if "check_id" in data:
             test_id = data["check_id"]
         if "tag" in data:
@@ -323,7 +326,7 @@ class Issue(object):
         :param data: Data dictionary from the tools
         :param with_code: Boolean indicating if code snippet should get added
         """
-        if "code" in data:
+        if "code" in data and data.get("code"):
             if str(data["code"]).isdigit():
                 self.test_id = str(data["code"])
             elif len(data.get("code").split()) > 1:
@@ -336,9 +339,13 @@ class Issue(object):
             self.fname = data["filename"]
         if "fileName" in data:
             self.fname = data["fileName"]
-        if "location" in data and "filename" in data["location"]:
+        if (
+            "location" in data
+            and data.get("location")
+            and "filename" in data["location"]
+        ):
             self.fname = data["location"]["filename"]
-        if "location" in data and "file" in data["location"]:
+        if "location" in data and data.get("location") and "file" in data["location"]:
             self.fname = data["location"]["file"]
         if "file" in data:
             self.fname = data["file"]
@@ -348,13 +355,15 @@ class Issue(object):
             self.fname = data["file_path"]
         self.severity = self.find_severity(data)
         if "issue_confidence" in data:
-            self.confidence = data["issue_confidence"]
+            self.confidence = data["issue_confidence"].upper()
         if "confidence" in data:
-            self.confidence = data["confidence"]
+            self.confidence = data["confidence"].upper()
         if "issue_text" in data:
             self.text = data["issue_text"]
         if "title" in data:
             self.text = data["title"]
+        if "warning_type" in data:
+            self.test = data["warning_type"]
         if "commitMessage" in data and "commit" in data:
             if data.get("commitMessage") == "***STAGED CHANGES***":
                 self.text = "Credential in plaintext?\n\nRule: {}, Secret: {}".format(
@@ -400,7 +409,7 @@ class Issue(object):
                 self.test = data["message"].replace("\\", " \\ ")
             else:
                 self.test = data["type"]
-        if "check_name" in data:
+        if "check_name" in data and "check_id" in data:
             self.text = data["check_name"]
             self.severity = "HIGH"
             self.confidence = "HIGH"

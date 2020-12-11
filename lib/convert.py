@@ -306,6 +306,9 @@ def extract_from_file(
                         issues += rd.get("results", {}).get("failed_checks")
                 else:
                     issues = report_data.get("results", {}).get("failed_checks")
+            elif tool_name == "source-ruby":
+                issues = report_data.get("warnings", [])
+                issues += report_data.get("errors", [])
             elif isinstance(report_data, list):
                 issues = report_data
             else:
@@ -446,7 +449,6 @@ def report(
     repo_details = find_repo_details(working_dir)
     log_uuid = str(uuid.uuid4())
     run_uuid = config.get("run_uuid")
-
     # Populate metrics
     metrics = {
         "total": 0,

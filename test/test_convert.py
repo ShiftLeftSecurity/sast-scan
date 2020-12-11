@@ -1023,3 +1023,60 @@ def test_pytaint_extract_issue():
             "medium": 0,
             "low": 0,
         }
+
+
+def test_ruby_convert_issue():
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=True) as cfile:
+        data = convertLib.report(
+            "source-ruby",
+            [],
+            ".",
+            {},
+            {},
+            [
+                {
+                    "warning_type": "Remote Code Execution",
+                    "warning_code": 25,
+                    "fingerprint": "07f5143982fb589796b35ec8252bef03d1696639ba57242317926977ae7e0d49",
+                    "check_name": "Deserialize",
+                    "message": "`Marshal.load` called with parameter value",
+                    "file": "app/controllers/password_resets_controller.rb",
+                    "line": 6,
+                    "link": "https://brakemanscanner.org/docs/warning_types/unsafe_deserialization",
+                    "code": "Marshal.load(Base64.decode64(params[:user]))",
+                    "render_path": "",
+                    "location": {
+                        "type": "method",
+                        "class": "PasswordResetsController",
+                        "method": "reset_password",
+                    },
+                    "user_input": "params[:user]",
+                    "confidence": "Medium",
+                },
+                {
+                    "warning_type": "SQL Injection",
+                    "warning_code": 0,
+                    "fingerprint": "27033d08c8870bed7adc52075447f220c78d5e3b2c42ad05dc2c36625a0f5774",
+                    "check_name": "SQL",
+                    "message": "Possible SQL injection",
+                    "file": "app/models/analytics.rb",
+                    "line": 3,
+                    "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+                    "code": 'select("#{col}")',
+                    "render_path": "",
+                    "location": {
+                        "type": "method",
+                        "class": "Analytics",
+                        "method": "hits_by_ip",
+                    },
+                    "user_input": "col",
+                    "confidence": "Medium",
+                },
+            ],
+            cfile.name,
+        )
+        jsondata = json.loads(data)
+        assert (
+            jsondata["runs"][0]["results"][0]["message"]["text"]
+            == "`Marshal.load` called with parameter value."
+        )
