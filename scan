@@ -238,9 +238,15 @@ def x_scan(type_str, src, reports_dir, convert, repo_context):
       convert Boolean to enable normalisation of reports json
       repo_context Repo context
     """
+    # Report file in the reports dir
     report_fname = utils.get_report_file(
         f"source-{type_str}", reports_dir, convert, ext_name="json"
     )
+    # Report file in the source dir
+    src_report_fname = utils.get_report_file(
+        f"source-{type_str}", src, convert, ext_name="json"
+    )
+    # SARIF file name for conversion
     crep_fname = utils.get_report_file(
         f"source-{type_str}", reports_dir, convert, ext_name="sarif"
     )
@@ -253,6 +259,14 @@ def x_scan(type_str, src, reports_dir, convert, repo_context):
             [],
             src,
             report_fname,
+            crep_fname,
+        )
+    elif os.path.exists(src_report_fname) and convert:
+        convertLib.convert_file(
+            f"source-{type_str}",
+            [],
+            src,
+            src_report_fname,
             crep_fname,
         )
     else:
