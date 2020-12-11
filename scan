@@ -186,7 +186,7 @@ def scan_project_types(
                 if dfn:
                     pool.apply_async(dfn, (src, reports_dir, convert, repo_context))
                 else:
-                    x_scan(type_str)
+                    x_scan(type_str, src, reports_dir, convert, repo_context)
             except Exception as e:
                 LOG.debug(e)
                 LOG.warning(
@@ -227,13 +227,38 @@ def scan(type_list, src, reports_dir, convert, scan_mode, repo_context):
             pool.join()
 
 
-def x_scan(type_str):
-    """Default placeholder scan method for missing scanners"""
-    LOG.info(
-        "Is there any open-source scanner for {}? Please let us know :thumbsup:".format(
-            type_str
-        )
+def x_scan(type_str, src, reports_dir, convert, repo_context):
+    """
+    Default placeholder scan method for missing scanners
+
+    Args:
+      type_str Project type
+      src Project dir
+      reports_dir Directory for output reports
+      convert Boolean to enable normalisation of reports json
+      repo_context Repo context
+    """
+    report_fname = utils.get_report_file(
+        f"source-{type_str}", reports_dir, convert, ext_name="json"
     )
+    crep_fname = utils.get_report_file(
+        f"source-{type_str}", reports_dir, convert, ext_name="sarif"
+    )
+    # If there is an existing report available simply use it
+    if os.path.exists(crep_fname):
+        LOG.info(f"Found an existing SARIF report at {crep_fname} :thumbsup:")
+    elif os.path.exists(report_fname) and convert:
+        convertLib.convert_file(
+            f"source-{type_str}",
+            [],
+            src,
+            report_fname,
+            crep_fname,
+        )
+    else:
+        LOG.info(
+            f"Is there any open-source scanner for {type_str}? Please let us know :thumbsup:"
+        )
 
 
 def python_scan(src, reports_dir, convert, repo_context):

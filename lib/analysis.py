@@ -183,7 +183,12 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                     report_summary[tool_name].pop("total", None)
                 else:
                     for aresult in results:
-                        sev = aresult["properties"]["issue_severity"].lower()
+                        if aresult.get("properties"):
+                            sev = aresult["properties"]["issue_severity"].lower()
+                        else:
+                            sev = config.get("exttool_default_severity").get(
+                                tool_name.lower(), "medium"
+                            )
                         report_summary[tool_name][sev] += 1
                 # Compare against the build break rule to determine status
                 tool_rules = config.get("build_break_rules").get(tool_name, {})
