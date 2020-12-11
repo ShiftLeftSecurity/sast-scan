@@ -529,6 +529,8 @@ scan_tools_args_map = {
         "source-ruby": [
             "brakeman",
             "--skip-libs",
+            "--no-exit-on-warn",
+            "--no-exit-on-error",
             "-w",
             "2",
             "--ignore-protected",
