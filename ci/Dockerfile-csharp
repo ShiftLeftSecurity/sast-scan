@@ -85,7 +85,8 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN pip3 install --no-cache-dir wheel \
+RUN python3 -m pip install --upgrade pip \
+    && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
