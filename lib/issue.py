@@ -37,7 +37,7 @@ class Issue(object):
         self.severity = severity
         self.confidence = confidence
         if isinstance(text, bytes):
-            text = text.decode("utf-8")
+            text = text.decode("utf-8", "ignore")
         self.text = text
         self.short_description = ""
         self.cwe_category = ""
@@ -129,7 +129,7 @@ class Issue(object):
             for line in moves.xrange(lmin, lmax):
                 text = linecache.getline(self.fname, line)
                 if isinstance(text, bytes):
-                    text = text.decode("utf-8")
+                    text = text.decode("utf-8", "ignore")
 
                 if not len(text):
                     break

@@ -46,6 +46,13 @@ def is_taintable_function(ast_node):
                 "inclusion_tag",
                 "to_end_tag",
                 "expose",
+                "view_config",
+                "template",
+                "get",
+                "post",
+                "put",
+                "delete",
+                "middleware",
             ]:
                 return True
     # Ignore database functions
