@@ -127,13 +127,19 @@ class Issue(object):
 
             tmplt = "%i\t%s" if tabbed else "%i %s"
             for line in moves.xrange(lmin, lmax):
-                text = linecache.getline(self.fname, line)
-                if isinstance(text, bytes):
-                    text = text.decode("utf-8", "ignore")
+                try:
+                    text = linecache.getline(self.fname, line)
+                    if isinstance(text, bytes):
+                        text = text.decode("utf-8", "ignore")
 
-                if not len(text):
-                    break
-                lines.append(tmplt % (line, text))
+                    if not len(text):
+                        break
+                    lines.append(tmplt % (line, text))
+                except Exception as e:
+                    LOG.debug(
+                        f"Unable to retrieve code snippet for {self.fname} at {line}"
+                    )
+                    LOG.debug(e)
             if lines:
                 return "".join(lines)
             elif self.code:
