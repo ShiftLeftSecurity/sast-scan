@@ -314,7 +314,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
     findings_list = []
     rule_id_owasp_cache = {}
     for sf in sarif_files:
-        with open(sf, mode="r") as report_file:
+        with open(sf, mode="r", encoding="utf-8") as report_file:
             report_data = None
             try:
                 report_data = json.loads(report_file.read())

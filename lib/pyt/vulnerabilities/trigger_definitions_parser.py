@@ -88,7 +88,7 @@ def parse(trigger_word_file):
     Returns:
        A definitions tuple with sources and sinks.
     """
-    with open(trigger_word_file) as fd:
+    with open(trigger_word_file, mode="r", encoding="utf-8") as fd:
         triggers_dict = json.load(fd)
     sources = []
     sinks = []
@@ -107,7 +107,7 @@ def parse_rules(taint_config_file):
     Returns:
        List of rules
     """
-    with open(taint_config_file) as fd:
+    with open(taint_config_file, mode="r", encoding="utf-8") as fd:
         taints_dict = json.load(fd)
     rules = []
     for r in taints_dict.get("rules"):
