@@ -111,7 +111,7 @@ class Issue(object):
             self.confidence
         ) >= rank.index(confidence)
 
-    def get_code_line(self, fname, line):
+    def _get_code_line(self, fname, line):
         """Return the given line from the file. Handles any utf8 error from tokenize
 
         :param fname: File name
@@ -148,7 +148,7 @@ class Issue(object):
 
             tmplt = "%i\t%s" if tabbed else "%i %s"
             for line in moves.xrange(lmin, lmax):
-                text = self.get_code_line(self.fname, line)
+                text = self._get_code_line(self.fname, line)
                 if isinstance(text, bytes):
                     text = text.decode("utf-8", "ignore")
 
