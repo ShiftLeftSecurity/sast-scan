@@ -1,4 +1,5 @@
 import ast
+import sys
 
 
 class LabelVisitor(ast.NodeVisitor):
@@ -187,9 +188,10 @@ class LabelVisitor(ast.NodeVisitor):
                 for d in node.dims:
                     self.visit(d)
         else:
-            self.visit(
-                node.value
-            )  # This should be changed to self.visit(node) for python 3.9
+            if sys.version_info.major == 3 and sys.version_info.minor == 9:
+                self.visit(node)
+            else:
+                self.visit(node.value)
 
     #  operator = Add | Sub | Mult | MatMult | Div | Mod | Pow | LShift | RShift | BitOr | BitXor | BitAnd | FloorDiv
     def visit_Add(self, node):

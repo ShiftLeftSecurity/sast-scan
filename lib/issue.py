@@ -15,6 +15,7 @@
 
 # Adapted from bandit/core
 
+import io
 import linecache
 
 from six import moves
@@ -110,6 +111,26 @@ class Issue(object):
             self.confidence
         ) >= rank.index(confidence)
 
+    def _get_code_line(self, fname, line):
+        """Return the given line from the file. Handles any utf8 error from tokenize
+
+        :param fname: File name
+        :param line: Line number
+        :return: Exact line as string
+        """
+        text = ""
+        try:
+            text = linecache.getline(fname, line)
+        except UnicodeDecodeError:
+            LOG.debug(
+                f"Error parsing the file {fname} in utf-8. Falling to binary mode"
+            )
+            with io.open(fname, "rb") as fp:
+                all_lines = fp.readlines()
+                if line < len(all_lines):
+                    text = all_lines[line]
+        return text
+
     def get_code(self, max_lines=config.get("CODE_SNIPPET_MAX_LINES"), tabbed=False):
         """Gets lines of code from a file the generated this issue.
 
@@ -127,7 +148,7 @@ class Issue(object):
 
             tmplt = "%i\t%s" if tabbed else "%i %s"
             for line in moves.xrange(lmin, lmax):
-                text = linecache.getline(self.fname, line)
+                text = self._get_code_line(self.fname, line)
                 if isinstance(text, bytes):
                     text = text.decode("utf-8", "ignore")
 
