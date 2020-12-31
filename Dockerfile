@@ -3,24 +3,24 @@ FROM shiftleft/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.4.0 \
-    TFSEC_VERSION=0.25.0 \
-    KUBESEC_VERSION=2.6.0 \
-    KUBE_SCORE_VERSION=1.7.2 \
+ENV GOSEC_VERSION=2.5.0 \
+    TFSEC_VERSION=0.36.10 \
+    KUBESEC_VERSION=2.8.0 \
+    KUBE_SCORE_VERSION=1.10.0 \
     SHELLCHECK_VERSION=0.7.1 \
-    DETEKT_VERSION=1.14.2 \
+    DETEKT_VERSION=1.15.0 \
     GITLEAKS_VERSION=4.3.1 \
     GRADLE_VERSION=6.5.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     MAVEN_VERSION=3.6.3 \
     MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
-    SC_VERSION=2020.1.6 \
-    PMD_VERSION=6.29.0 \
+    SC_VERSION=2020.2 \
+    PMD_VERSION=6.30.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
-    FSB_VERSION=1.10.1 \
+    FSB_VERSION=1.11.0 \
     SB_CONTRIB_VERSION=7.4.7 \
-    SB_VERSION=4.1.4 \
+    SB_VERSION=4.2.0 \
     GOPATH=/opt/app-root/go \
     SHIFTLEFT_HOME=/opt/sl-cli \
     PATH=${PATH}:${GRADLE_HOME}/bin:${GOPATH}/bin:
@@ -94,8 +94,8 @@ ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
     MVN_CMD="/opt/apache-maven/bin/mvn" \
     PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
-    SB_VERSION=4.1.4 \
-    PMD_VERSION=6.29.0 \
+    SB_VERSION=4.2.0 \
+    PMD_VERSION=6.30.0 \
     PMD_JAVA_OPTS="" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
