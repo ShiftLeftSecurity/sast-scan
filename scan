@@ -763,6 +763,9 @@ def main():
                 "scan_time_sec": round((end_time - start_time) / 1000000000, 2),
             }
         )
+        # Issue https://github.com/ShiftLeftSecurity/scan-action/issues/23
+        if not sarif_files:
+            create_empty_result(src_dir, reports_dir)
         if not args.noerror and not scan_mode == "ide":
             sys.exit(1 if build_status == "fail" else 0)
     else:
