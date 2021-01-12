@@ -445,6 +445,24 @@ def is_over_taint(source, sink, blackbox_mapping):
     # Ignore NoSQLi that use parameters
     if sink_type == "NoSQL" and sink_cfg.label and "parameters" in sink_cfg.label:
         return True
+    # Ignore SQLi that use parameters
+    if (
+        sink_type == "SQL"
+        and sink_cfg.label
+        and ("?" in sink_cfg.label or ":" in sink_cfg.label or "%" in sink_cfg.label)
+    ):
+        # Ignore proper parameterization
+        if (
+            ":" + source_cfg.label in sink_cfg.label
+            or "(" + source_cfg.label in sink_cfg.label
+            or source_cfg.label + ")s" in sink_cfg.label
+            or (", (" in sink_cfg.label and source_cfg.label + "))" in sink_cfg.label)
+            or source_cfg.label + ")d" in sink_cfg.label
+            or source_cfg.label + ")f" in sink_cfg.label
+            or "%(" + source_cfg.label in sink_cfg.label
+        ):
+            return True
+
     # Ignore safe source
     if source_type == "Framework_Parameter":
         for wp in safe_path_list:

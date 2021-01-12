@@ -21,6 +21,16 @@ default_trigger_word_file = os.path.join(
     os.path.dirname(__file__), "vulnerability_definitions", "all_sources_sinks.pyt"
 )
 
+# Some framework have special files that can be ignored
+special_framework_path = ["management/commands"]
+
+
+def is_analyzable(src, path):
+    for d in special_framework_path:
+        if d in path:
+            return False
+    return True
+
 
 def deep_analysis(src, files):
     has_unsanitised_vulnerabilities = False
@@ -28,6 +38,9 @@ def deep_analysis(src, files):
     insights = []
     framework_route_criteria = is_taintable_function
     for path in sorted(files, key=os.path.dirname, reverse=True):
+        # Check if the file path is analyzable
+        if not is_analyzable(src, path):
+            continue
         directory = os.path.dirname(path)
         project_modules = get_modules(directory, prepend_module_root=False)
         local_modules = get_directory_modules(directory)

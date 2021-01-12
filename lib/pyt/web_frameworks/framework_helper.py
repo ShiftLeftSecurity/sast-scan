@@ -53,6 +53,8 @@ def is_taintable_function(ast_node):
                 "put",
                 "delete",
                 "middleware",
+                "api_view",
+                "action",
             ]:
                 return True
     # Ignore database functions
@@ -68,6 +70,10 @@ def is_taintable_function(ast_node):
     for n in ["valid", "sanitize", "sanitise", "is_", "set_"]:
         if ast_node.name.startswith(n):
             return False
+    # Should we limit the scan only to web routes?
+    web_route_only = os.environ.get("WEB_ROUTE_ONLY", False)
+    if web_route_only:
+        return False
     return True
 
 

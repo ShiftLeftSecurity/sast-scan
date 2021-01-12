@@ -155,6 +155,8 @@ ignore_directories = [
     "unittests_legacy",
     "stubs",
     "cypress",
+    "mock",
+    "mocks",
 ]
 
 # Ignore files list
@@ -186,6 +188,7 @@ ignore_files = [
     ".bundle.js",
     ".snap",
     ".pb.go",
+    ".tests.py",
 ]
 
 # Tool specific ignored rules
