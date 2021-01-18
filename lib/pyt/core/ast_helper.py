@@ -8,7 +8,6 @@ import subprocess
 from functools import lru_cache
 
 from _ast import AST
-
 from lib.pyt.core.astsearch import ASTPatternFinder, prepare_pattern
 from lib.pyt.core.transformer import PytTransformer
 

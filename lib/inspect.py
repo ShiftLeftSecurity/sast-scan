@@ -397,7 +397,17 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                             "shiftleft_managed": False,
                                         }
                                     )
-
+                        # If there are any tags specified in the issue use them
+                        issue_tags = result.get("properties", {}).get("issue_tags")
+                        if issue_tags:
+                            for ik, iv in issue_tags.items():
+                                tags.append(
+                                    {
+                                        "key": ik,
+                                        "value": iv,
+                                        "shiftleft_managed": False,
+                                    }
+                                )
                         for location in result.get("locations"):
                             filename = location["physicalLocation"]["artifactLocation"][
                                 "uri"
@@ -410,6 +420,30 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                 .get("contextRegion", {})
                                 .get("endLine")
                             )
+                            line_hash = utils.calculate_line_hash(
+                                filename,
+                                lineno,
+                                end_lineno,
+                                location.get("physicalLocation", {})
+                                .get("region", {})
+                                .get("snippet", {})
+                                .get("text", ""),
+                                short_desc,
+                            )
+                            finding_hash = line_hash
+                            # Use the modern hash
+                            if config.get("USE_NEW_FINDING_HASH") and result.get(
+                                "partialFingerprints"
+                            ):
+                                partialFingerprints = result.get("partialFingerprints")
+                                if partialFingerprints.get("scanTagsHash"):
+                                    finding_hash = partialFingerprints.get(
+                                        "scanTagsHash"
+                                    )
+                                elif partialFingerprints.get("scanPrimaryLocationHash"):
+                                    finding_hash = partialFingerprints.get(
+                                        "scanPrimaryLocationHash"
+                                    )
                             finding = {
                                 "app": app_name,
                                 "type": "extscan",
@@ -417,16 +451,7 @@ def convert_sarif(app_name, repo_context, sarif_files, findings_fname):
                                 "description": desc,
                                 "internal_id": "{}/{}".format(
                                     rule_id,
-                                    utils.calculate_line_hash(
-                                        filename,
-                                        lineno,
-                                        end_lineno,
-                                        location.get("physicalLocation", {})
-                                        .get("region", {})
-                                        .get("snippet", {})
-                                        .get("text", ""),
-                                        short_desc,
-                                    ),
+                                    finding_hash,
                                 ),
                                 "severity": ngsev,
                                 "owasp_category": owasp_category,

@@ -55,6 +55,7 @@ class Issue(object):
         self.snippet_based = False
         self.line_hash = ""
         self.first_found = None
+        self.tags = {}
 
     def __str__(self):
         return ("Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i") % (
@@ -230,6 +231,7 @@ class Issue(object):
             "short_description": self.short_description,
             "cwe_category": self.cwe_category,
             "owasp_category": self.owasp_category,
+            "tags": self.tags,
         }
 
         if with_code:
@@ -473,6 +475,8 @@ class Issue(object):
         self.lineno = self.get_lineno(data)
         if "first_found" in data:
             self.first_found = data["first_found"]
+        if "tags" in data and isinstance(data["tags"], dict):
+            self.tags = data["tags"]
 
 
 def issue_from_dict(data):

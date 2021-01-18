@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
+from datetime import datetime
 import json
 import uuid
 
@@ -39,7 +40,7 @@ def jsonl_aggregate(run_data_list, out_file_name):
 
 
 def sarif_aggregate(run_data_list, out_sarif_name):
-    """
+    """Produce aggregated sarif data (Unused)
 
     :param run_data_list:
     :param out_sarif_name:
@@ -58,3 +59,20 @@ def sarif_aggregate(run_data_list, out_sarif_name):
     serialized_log = to_json(log)
     with open(out_sarif_name, "w") as outfile:
         outfile.write(serialized_log)
+
+
+def store_baseline(baseline_fingerprints, baseline_file):
+    """Produce baseline file
+
+    :param baseline_fingerprints: Fingerprints to store
+    :param baseline_file: Baseline filename
+    """
+    with open(baseline_file, "w") as outfile:
+        json.dump(
+            {
+                "baseline_fingerprints": baseline_fingerprints,
+                "created_at": str(datetime.now()),
+            },
+            outfile,
+            indent=2,
+        )

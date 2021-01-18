@@ -413,6 +413,18 @@ def calculate_line_hash(filename, lineno, end_lineno, line, short_desc):
     return h.hexdigest()
 
 
+def to_fingerprint_hash(str_to_hash, digest_size):
+    """
+    Method to calculate fingerprint hash
+
+    :param str_to_hash: String to hash
+    :param digest_size: Digest size
+    """
+    h = blake2b(digest_size=digest_size)
+    h.update(str_to_hash.encode())
+    return h.hexdigest()
+
+
 def get_env():
     env = os.environ.copy()
     if (os.getenv("USE_JAVA_8") or os.getenv("WITH_JAVA_8")) and os.getenv(
