@@ -231,7 +231,19 @@ def summary(
         LOG.debug("Aggregate report written to {}\n".format(aggregate_file))
     if baseline_file:
         aggregate.store_baseline(baseline_fingerprints, baseline_file)
-        LOG.debug("Baseline file written to {}\n".format(baseline_file))
+        LOG.info(
+            """Baseline file written to {}
+Copy and commit this file to the root directory to automatically suppress the current findings in future scans :thumbsup:""".format(
+                baseline_file
+            )
+        )
+        LOG.debug(
+            """Baseline files only include small hashes and hence can be safely stored in git :thumbsup:
+
+Some use cases:
+1. Generate and commit the baseline file for your master/main branch scans. Subsequent feature branch scans would use only the new findings for breaking the builds.
+2. Store the baseline files for your release branches and use any json diff tool to identify the security trends"""
+        )
 
     return report_summary, build_status
 
