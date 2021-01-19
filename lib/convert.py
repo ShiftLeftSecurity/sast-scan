@@ -35,9 +35,12 @@ from lib.context import find_repo_details
 from lib.cwe import get_description, get_name
 from lib.issue import issue_from_dict
 from lib.logger import LOG
-from lib.utils import find_path_prefix, is_generic_package, is_ignored_file
-
-# from hashlib import blake2b
+from lib.utils import (
+    find_path_prefix,
+    is_generic_package,
+    is_ignored_file,
+    to_fingerprint_hash,
+)
 
 TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -238,6 +241,17 @@ def extract_from_file(
                 for taint in taint_list:
                     source = taint.get("source")
                     sink = taint.get("sink")
+                    tags = {}
+                    for taint_props in [
+                        "source_trigger_word",
+                        "source_label",
+                        "source_type",
+                        "sink_trigger_word",
+                        "sink_label",
+                        "sink_type",
+                    ]:
+                        if taint.get(taint_props):
+                            tags[taint_props] = taint.get(taint_props)
                     issues.append(
                         {
                             "rule_id": taint.get("rule_id"),
@@ -251,6 +265,7 @@ def extract_from_file(
                             "line_from": source.get("line_number"),
                             "line_to": sink.get("line_number"),
                             "filename": source.get("path"),
+                            "tags": tags,
                         }
                     )
             elif tool_name == "phpstan" or tool_name == "source-php":
@@ -449,31 +464,7 @@ def report(
     repo_details = find_repo_details(working_dir)
     log_uuid = str(uuid.uuid4())
     run_uuid = config.get("run_uuid")
-    # Populate metrics
-    metrics = {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 0,
-    }
 
-    total = 0
-    for issue in issues:
-        issue_dict = issue_from_dict(issue).as_dict()
-        rule_id = issue_dict.get("test_id")
-        # Is this rule ignored globally?
-        if rule_id in config.ignored_rules:
-            continue
-        total += 1
-        issue_severity = issue_dict["issue_severity"]
-        # Fix up severity for certain tools
-        issue_severity = tweak_severity(tool_name, issue_dict)
-        key = issue_severity.lower()
-        if not metrics.get(key):
-            metrics[key] = 0
-        metrics[key] += 1
-    metrics["total"] = total
     # working directory to use in the log
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     wd_dir_log = WORKSPACE_PREFIX if WORKSPACE_PREFIX is not None else working_dir
@@ -517,7 +508,6 @@ def report(
                         end_time_utc=datetime.datetime.utcnow().strftime(TS_FORMAT),
                     ),
                 },
-                properties={"metrics": metrics},
                 version_control_provenance=[
                     om.VersionControlDetails(
                         repository_uri=repo_details["repositoryUri"],
@@ -596,15 +586,62 @@ def add_results(tool_name, issues, run, file_path_list=None, working_dir=None):
 
     rules = {}
     rule_indices = {}
+    # Populate metrics
+    metrics = {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+    }
+    total = 0
+
     for issue in issues:
         result = create_result(
             tool_name, issue, rules, rule_indices, file_path_list, working_dir
         )
         if result:
             run.results.append(result)
+            issue_dict = issue_from_dict(issue).as_dict()
+            rule_id = issue_dict.get("test_id")
+            # Is this rule ignored globally?
+            if rule_id in config.ignored_rules:
+                continue
+            total += 1
+            issue_severity = issue_dict["issue_severity"]
+            # Fix up severity for certain tools
+            issue_severity = tweak_severity(tool_name, issue_dict)
+            key = issue_severity.lower()
+            if not metrics.get(key):
+                metrics[key] = 0
+            metrics[key] += 1
 
     if len(rules) > 0:
         run.tool.driver.rules = list(rules.values())
+
+    metrics["total"] = total
+    run.properties = {"metrics": metrics}
+
+
+def should_suppress_fingerprint(fingerprint, working_dir):
+    """Method to check if a result has to be suppressed based on its fingerprint hash
+
+    :param fingerprint: Fingerprint hash object
+    :param working_dir: Working directory
+    """
+    if not fingerprint:
+        return False
+    supress_fps = config.get_suppress_fingerprints(working_dir)
+    if not supress_fps or not isinstance(supress_fps, dict):
+        return False
+    # supress_fps = {"scanPrimaryLocationHash": [], "scanTagsHash": [], "scanFileHash": []}
+    for sk, svl in supress_fps.items():
+        if not svl:
+            continue
+        if fingerprint[sk] in svl:
+            LOG.debug(f"Suppressing fingerprint {fingerprint[sk]} of type {sk}")
+            return True
+    return False
 
 
 def create_result(tool_name, issue, rules, rule_indices, file_path_list, working_dir):
@@ -653,14 +690,24 @@ def create_result(tool_name, issue, rules, rule_indices, file_path_list, working
     )
     issue_severity = tweak_severity(tool_name, issue_dict)
     fingerprint = {}
-    """
     if physical_location.region and physical_location.region.snippet.text:
         snippet = physical_location.region.snippet.text
         snippet = snippet.strip().replace("\t", "").replace("\n", "")
-        h = blake2b(digest_size=HASH_DIGEST_SIZE)
-        h.update(snippet.encode())
-        fingerprint = {"primaryLocationLineHash": h.hexdigest() + ":1"}
-    """
+        fingerprint = {
+            "scanPrimaryLocationHash": to_fingerprint_hash(snippet, HASH_DIGEST_SIZE)
+        }
+    if issue_dict.get("tags"):
+        tag_str = ""
+        for tk, tv in issue_dict.get("tags", {}).items():
+            tag_str += tv
+        if tag_str:
+            fingerprint["scanTagsHash"] = to_fingerprint_hash(tag_str, HASH_DIGEST_SIZE)
+    # Filename hash
+    fingerprint["scanFileHash"] = to_fingerprint_hash(filename, HASH_DIGEST_SIZE)
+
+    # Should we suppress this fingerprint?
+    if should_suppress_fingerprint(fingerprint, working_dir):
+        return None
     return om.Result(
         rule_id=rule.id,
         rule_index=rule_index,
@@ -674,6 +721,7 @@ def create_result(tool_name, issue, rules, rule_indices, file_path_list, working
         properties={
             "issue_confidence": issue_dict["issue_confidence"],
             "issue_severity": issue_severity,
+            "issue_tags": issue_dict.get("tags", {}),
         },
         baseline_state="unchanged" if issue_dict["first_found"] else "new",
     )

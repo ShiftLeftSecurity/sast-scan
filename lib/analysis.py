@@ -80,16 +80,28 @@ def calculate_depscan_metrics(dep_data):
     return metrics, required_pkgs_found
 
 
-def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules={}):
+def summary(
+    sarif_files,
+    depscan_files=None,
+    aggregate_file=None,
+    override_rules={},
+    baseline_file=None,
+):
     """Generate overall scan summary based on the generated
     SARIF file
 
     :param sarif_files: List of generated sarif report files
+    :param depscan_files: Depscan result files
     :param aggregate_file: Filename to store aggregate data
     :param override_rules Build break rules to override for testing
+    :param baseline_file: Scan baseline file
     :returns dict representing the summary
     """
     report_summary = {}
+    baseline_fingerprints = {
+        "scanPrimaryLocationHash": [],
+        "scanTagsHash": [],
+    }
     build_status = "pass"
     # This is the list of all runs which will get stored as an aggregate
     run_data_list = []
@@ -181,8 +193,8 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                 if metrics:
                     report_summary[tool_name].update(metrics)
                     report_summary[tool_name].pop("total", None)
-                else:
-                    for aresult in results:
+                for aresult in results:
+                    if not metrics:
                         if aresult.get("properties"):
                             sev = aresult["properties"]["issue_severity"].lower()
                         else:
@@ -190,6 +202,15 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
                                 tool_name.lower(), "medium"
                             )
                         report_summary[tool_name][sev] += 1
+                    # Track the fingerprints
+                    if aresult.get("partialFingerprints"):
+                        result_fingerprints = aresult.get("partialFingerprints")
+                        for rfk, rfv in result_fingerprints.items():
+                            if not rfv:
+                                continue
+                            # We are only interested in a small subset of hashes namely scanPrimaryLocationHash, scanTagsHash
+                            if rfk in ["scanPrimaryLocationHash", "scanTagsHash"]:
+                                baseline_fingerprints.setdefault(rfk, []).append(rfv)
                 # Compare against the build break rule to determine status
                 tool_rules = config.get("build_break_rules").get(tool_name, {})
                 build_break_rules = {**default_rules, **tool_rules, **override_rules}
@@ -208,6 +229,22 @@ def summary(sarif_files, depscan_files=None, aggregate_file=None, override_rules
         # aggregate.sarif_aggregate(run_data_list, agg_sarif_file)
         aggregate.jsonl_aggregate(run_data_list, aggregate_file)
         LOG.debug("Aggregate report written to {}\n".format(aggregate_file))
+    if baseline_file:
+        aggregate.store_baseline(baseline_fingerprints, baseline_file)
+        LOG.info(
+            """Baseline file written to {}
+Copy and commit this file to the root directory to automatically suppress the current findings in future scans :thumbsup:""".format(
+                baseline_file
+            )
+        )
+        LOG.debug(
+            """Baseline files only include small hashes and hence can be safely stored in git :thumbsup:
+
+Some use cases:
+1. Generate and commit the baseline file for your master/main branch scans. Subsequent feature branch scans would use only the new findings for breaking the builds.
+2. Store the baseline files for your release branches and use any json diff tool to identify the security trends"""
+        )
+
     return report_summary, build_status
 
 
