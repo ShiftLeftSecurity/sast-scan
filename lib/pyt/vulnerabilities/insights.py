@@ -76,9 +76,7 @@ def convert_node_source_sink(node, path):
         sink_type = ""
     if hasattr(node["right_hand_side"], "lineno"):
         sink_line_number = node["right_hand_side"].lineno
-    if isinstance(node["right_hand_side"], ast.Subscript) or isinstance(
-        node["right_hand_side"], ast.Constant
-    ):
+    if isinstance(node["right_hand_side"], (ast.Subscript, ast.Constant)):
         sink_trigger = node["right_hand_side"].value
         sink_label = node["right_hand_side"].value
     if isinstance(node["right_hand_side"], ast.Attribute):
@@ -289,6 +287,151 @@ def _check_timing_attack(ast_tree, path):
     return violations
 
 
+def _check_aioredis_common_misconfig(ast_tree, path):
+    violations = []
+    if has_import_like("aioredis", ast_tree):
+        # Look for all variations
+        method_obj_list = get_method_as_dict("??.create_redis_pool(??)", ast_tree)
+        if not method_obj_list:
+            method_obj_list = get_method_as_dict("create_redis_pool(??)", ast_tree)
+        if not method_obj_list:
+            method_obj_list = get_method_as_dict("??.create_pool(??)", ast_tree)
+        if not method_obj_list:
+            method_obj_list = get_method_as_dict("create_pool(??)", ast_tree)
+        if not method_obj_list:
+            return None
+        method_obj = method_obj_list[0]
+        start_line = method_obj.get("lineno")
+        source, sink = convert_dict_source_sink(
+            {
+                "source_type": "Config",
+                "source_trigger": "aioredis",
+                "source_line_number": start_line,
+                "sink_type": "Constant",
+                "sink_trigger": "",
+                "sink_line_number": start_line,
+            },
+            path,
+        )
+        if not method_obj.get("args"):
+            # connection to local redis instance
+            violations.append(
+                Insight(
+                    "Connection to a Redis instance running in default mode without any authentication",
+                    "Security Misconfiguration",
+                    "aioredis-misconfiguration-insecure",
+                    "CWE-732",
+                    "MEDIUM",
+                    "a6-misconfiguration",
+                    source,
+                    sink,
+                    rules.rules_message_map["aioredis-misconfiguration-insecure"],
+                )
+            )
+        elif method_obj.get("args"):
+            # password checks
+            args = method_obj.get("args")
+            args_value = args[0].get("value", "")
+            if not isinstance(args_value, str):
+                return violations
+            hostname = args_value.replace("redis://", "").split("/")[0]
+            keywords = method_obj.get("keywords")
+            if not keywords:
+                if "password=" not in args_value:
+                    violations.append(
+                        Insight(
+                            f"Connection to a Redis instance at `{hostname}` in default mode without any authentication",
+                            "Security Misconfiguration",
+                            "aioredis-misconfiguration-insecure",
+                            "CWE-732",
+                            "MEDIUM",
+                            "a6-misconfiguration",
+                            source,
+                            sink,
+                            rules.rules_message_map[
+                                "aioredis-misconfiguration-insecure"
+                            ],
+                        )
+                    )
+                else:
+                    password_val_list = args_value.split("password=")
+                    if len(password_val_list) > 1:
+                        password_val = password_val_list[-1].split("&")[0]
+                        for spe in ["%(", "{", "%s"]:
+                            if spe in password_val:
+                                return violations
+                        # hardcoded password
+                        if password_val and password_val not in [
+                            "test",
+                            "password",
+                            "ignore",
+                        ]:
+                            violations.append(
+                                Insight(
+                                    f"Connection to a Redis instance at `{hostname}` with a hardcoded password",
+                                    "Security Misconfiguration",
+                                    "aioredis-misconfiguration-insecure",
+                                    "CWE-732",
+                                    "MEDIUM",
+                                    "a6-misconfiguration",
+                                    source,
+                                    sink,
+                                    rules.rules_message_map[
+                                        "aioredis-misconfiguration-insecure"
+                                    ],
+                                )
+                            )
+                return violations
+            # Check if password is specified as a keyword
+            for kw in keywords:
+                arg = kw.get("arg")
+                arg_value = ""
+                if kw["value"]["_type"] == "Constant":
+                    arg_value = kw["value"]["value"]
+                if arg == "password" and not arg_value:
+                    return violations
+                if arg == "password" and arg_value:
+                    for spe in ["%(", "{", "%s"]:
+                        if spe in arg_value:
+                            return violations
+                    # hardcoded password
+                    if arg_value and arg_value not in [
+                        "test",
+                        "password",
+                        "ignore",
+                    ]:
+                        violations.append(
+                            Insight(
+                                f"Connection to a Redis instance at `{hostname}` with a hardcoded password",
+                                "Security Misconfiguration",
+                                "aioredis-misconfiguration-insecure",
+                                "CWE-732",
+                                "MEDIUM",
+                                "a6-misconfiguration",
+                                source,
+                                sink,
+                                rules.rules_message_map[
+                                    "aioredis-misconfiguration-insecure"
+                                ],
+                            )
+                        )
+                    return violations
+            violations.append(
+                Insight(
+                    f"Connection to a Redis instance at `{hostname}` in default mode without any authentication",
+                    "Security Misconfiguration",
+                    "aioredis-misconfiguration-insecure",
+                    "CWE-732",
+                    "MEDIUM",
+                    "a6-misconfiguration",
+                    source,
+                    sink,
+                    rules.rules_message_map["aioredis-misconfiguration-insecure"],
+                )
+            )
+    return violations
+
+
 def _check_pymongo_common_misconfig(ast_tree, path):
     violations = []
     if has_import_like("pymongo", ast_tree):
@@ -412,6 +555,79 @@ def _check_pymongo_common_misconfig(ast_tree, path):
     return violations
 
 
+def _check_aiohttp_common_misconfig(ast_tree, path):
+    """Look for common security misconfiguration in aiohttp apps"""
+    violations = []
+
+    if os.path.basename(path) == "app.py":
+        is_aiohttp = has_import_like("aiohttp", ast_tree) or has_import_like(
+            "aiohttp.web", ast_tree
+        )
+        if not is_aiohttp:
+            return violations
+        # Middleware check
+        uses_csrf = has_import_like("aiohttp_csrf", ast_tree)
+        if not uses_csrf:
+            source, sink = convert_dict_source_sink(
+                {
+                    "source_type": "Config",
+                    "source_trigger": "middlewares",
+                    "source_line_number": 1,
+                    "sink_type": "Constant",
+                    "sink_trigger": "csrf_middleware",
+                    "sink_line_number": 1,
+                },
+                path,
+            )
+            violations.append(
+                Insight(
+                    "Enable csrf_middleware in this aiohttp application",
+                    "Security Misconfiguration",
+                    "aiohttp-sec-recommended",
+                    "CWE-732",
+                    "MEDIUM",
+                    "a6-misconfiguration",
+                    source,
+                    sink,
+                    rules.rules_message_map["aiohttp-misconfiguration-insecure"],
+                )
+            )
+        # jinja check
+        uses_jinja = has_import_like("aiohttp_jinja2", ast_tree)
+        if uses_jinja:
+            esc_dict = get_assignments_as_dict(
+                "setup_jinja(??, autoescape=False)", ast_tree
+            )
+            if esc_dict and esc_dict.get("autoescape"):
+                esc_value = esc_dict.get("autoescape").get("right_hand_side")
+                if not esc_value.value:
+                    source, sink = convert_dict_source_sink(
+                        {
+                            "source_type": "Config",
+                            "source_trigger": "setup_jinja",
+                            "source_line_number": esc_value.lineno,
+                            "sink_type": "Constant",
+                            "sink_trigger": "False",
+                            "sink_line_number": esc_value.lineno,
+                        },
+                        path,
+                    )
+                    violations.append(
+                        Insight(
+                            "Enable Jinja autoescape by setting this value to True",
+                            "Security Misconfiguration",
+                            "jinja-sec-recommended",
+                            "CWE-732",
+                            "MEDIUM",
+                            "a6-misconfiguration",
+                            source,
+                            sink,
+                            rules.rules_message_map["jinja-misconfiguration-insecure"],
+                        )
+                    )
+    return violations
+
+
 def _check_django_common_misconfig(ast_tree, path):
     """Look for common security misconfiguration in Django apps"""
     violations = []
@@ -421,6 +637,7 @@ def _check_django_common_misconfig(ast_tree, path):
         is_django = (
             has_import_like("django", ast_tree)
             or "INSTALLED_APPS" in config_dict.keys()
+            or "MIDDLEWARE" in config_dict.keys()
             or "MIDDLEWARE_CLASSES" in config_dict.keys()
         )
         if not is_django:
@@ -495,7 +712,129 @@ def _check_django_common_misconfig(ast_tree, path):
                         rules.rules_message_map["django-misconfiguration-recommended"],
                     )
                 )
-        # Django middlewares check
+        # Django toolbar check
+        django_toolbar_ast = get_assignments_as_dict(
+            "DEBUG_TOOLBAR_CONFIG=??", ast_tree
+        )
+        if django_toolbar_ast and django_toolbar_ast.get("DEBUG_TOOLBAR_CONFIG"):
+            toolbar_value = django_toolbar_ast.get("DEBUG_TOOLBAR_CONFIG").get(
+                "right_hand_side"
+            )
+            source, sink = convert_dict_source_sink(
+                {
+                    "source_type": "Config",
+                    "source_trigger": "DEBUG_TOOLBAR_CONFIG",
+                    "source_line_number": toolbar_value.lineno,
+                    "sink_type": "Constant",
+                    "sink_trigger": "signed_cookies",
+                    "sink_line_number": toolbar_value.lineno,
+                },
+                path,
+            )
+            violations.append(
+                Insight(
+                    "Disable django-debug-toolbar completely or ensure SHOW_TOOLBAR_CALLBACK performs an explicit check for administrative roles",
+                    "Security Misconfiguration",
+                    "django-sec-recommended",
+                    "CWE-732",
+                    "MEDIUM",
+                    "a6-misconfiguration",
+                    source,
+                    sink,
+                    rules.rules_message_map["django-misconfiguration-insecure"],
+                )
+            )
+        # Django session check - Version 1.8.x
+        django_session_ast = get_assignments_as_dict("SESSION_ENGINE=??", ast_tree)
+        if django_session_ast and django_session_ast.get("SESSION_ENGINE"):
+            session_value = django_session_ast.get("SESSION_ENGINE").get(
+                "right_hand_side"
+            )
+            if (
+                isinstance(session_value, ast.Constant)
+                and "signed_cookies" in session_value.value
+            ):
+                source, sink = convert_dict_source_sink(
+                    {
+                        "source_type": "Config",
+                        "source_trigger": "SESSION_ENGINE",
+                        "source_line_number": session_value.lineno,
+                        "sink_type": "Constant",
+                        "sink_trigger": "signed_cookies",
+                        "sink_line_number": session_value.lineno,
+                    },
+                    path,
+                )
+                violations.append(
+                    Insight(
+                        "Replace signed_cookies with a db backend for storing session data",
+                        "Security Misconfiguration",
+                        "django-sec-recommended",
+                        "CWE-732",
+                        "MEDIUM",
+                        "a6-misconfiguration",
+                        source,
+                        sink,
+                        rules.rules_message_map["django-misconfiguration-insecure"],
+                    )
+                )
+        # Django middlewares check - Version 1.8.x
+        django_middlewares_ast = get_assignments_as_dict(
+            "MIDDLEWARE_CLASSES=??", ast_tree
+        )
+        if django_middlewares_ast and django_middlewares_ast.get("MIDDLEWARE_CLASSES"):
+            assign_ast = django_middlewares_ast.get("MIDDLEWARE_CLASSES").get(
+                "left_hand_side"
+            )
+            included_mids = get_as_list(
+                django_middlewares_ast.get("MIDDLEWARE_CLASSES").get("right_hand_side")
+            )
+            if not included_mids:
+                return violations
+            source, sink = convert_dict_source_sink(
+                {
+                    "source_type": "Config",
+                    "source_trigger": "MIDDLEWARE_CLASSES",
+                    "source_line_number": assign_ast.lineno,
+                    "sink_type": "Constant",
+                    "sink_trigger": "",
+                    "sink_line_number": assign_ast.lineno,
+                },
+                path,
+            )
+            if (
+                "django.middleware.clickjacking.XFrameOptionsMiddleware"
+                not in included_mids
+            ):
+                violations.append(
+                    Insight(
+                        "Consider including the clickjacking middleware which provides easy-to-use protection against clickjacking",
+                        "Security Misconfiguration",
+                        "django-sec-recommended",
+                        "CWE-732",
+                        "LOW",
+                        "a6-misconfiguration",
+                        source,
+                        sink,
+                        rules.rules_message_map["django-sec-recommended"],
+                    )
+                )
+            if "django.middleware.csrf.CsrfViewMiddleware" not in included_mids:
+                violations.append(
+                    Insight(
+                        "Consider including CSRF protection middleware for django 1.x applications",
+                        "Security Misconfiguration",
+                        "django-sec-recommended",
+                        "CWE-732",
+                        "LOW",
+                        "a6-misconfiguration",
+                        source,
+                        sink,
+                        rules.rules_message_map["django-sec-recommended"],
+                    )
+                )
+
+        # Django middlewares check - Version 3.x
         django_middlewares_ast = get_assignments_as_dict("MIDDLEWARE=??", ast_tree)
         if django_middlewares_ast and django_middlewares_ast.get("MIDDLEWARE"):
             assign_ast = django_middlewares_ast.get("MIDDLEWARE").get("left_hand_side")
@@ -503,7 +842,7 @@ def _check_django_common_misconfig(ast_tree, path):
                 django_middlewares_ast.get("MIDDLEWARE").get("right_hand_side")
             )
             if not included_mids:
-                return
+                return violations
             source, sink = convert_dict_source_sink(
                 {
                     "source_type": "Config",

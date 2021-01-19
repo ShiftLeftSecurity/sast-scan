@@ -55,6 +55,7 @@ def is_taintable_function(ast_node):
                 "middleware",
                 "api_view",
                 "action",
+                "csrf_exempt",
             ]:
                 return True
     # Ignore database functions
@@ -63,6 +64,9 @@ def is_taintable_function(ast_node):
         # Common view functions such as django, starlette
         if first_arg_name in ["request", "context", "scope"]:
             return True
+        # Ignore dao classes
+        if first_arg_name in ["conn", "connection", "cls"]:
+            return False
     # Ignore internal functions prefixed with _
     if is_function_with_leading_(ast_node):
         return False

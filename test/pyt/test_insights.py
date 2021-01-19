@@ -176,6 +176,96 @@ MIDDLEWARE = [
             break
     assert msg_found
 
+    tree = generate_ast_from_code(
+        """
+ALLOWED_HOSTS = ['*']
+
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app.apps.AppConfig',
+    'bootstrap4',
+    'fullcalendar',
+]
+
+MIDDLEWARE_CLASSES = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+]
+    """
+    )
+    violations = insights._check_django_common_misconfig(tree, "/tmp/settings.py")
+    assert violations
+    msg_found = False
+    for v in violations:
+        if "CSRF protection" in v.short_description:
+            msg_found = True
+            break
+    assert msg_found
+
+
+    tree = generate_ast_from_code(
+        """
+ALLOWED_HOSTS = ['*']
+
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app.apps.AppConfig',
+    'bootstrap4',
+    'fullcalendar',
+]
+
+# A2: Broken Auth and Session Management
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+    """
+    )
+    violations = insights._check_django_common_misconfig(tree, "/tmp/settings.py")
+    assert violations
+    msg_found = False
+    for v in violations:
+        if "signed_cookies" in v.short_description:
+            msg_found = True
+            break
+    assert msg_found
+
+
+    tree = generate_ast_from_code(
+        """
+ALLOWED_HOSTS = ['*']
+
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app.apps.AppConfig',
+    'bootstrap4',
+    'fullcalendar',
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': 'badguys.settings.show_toolbar'
+}
+    """
+    )
+    violations = insights._check_django_common_misconfig(tree, "/tmp/settings.py")
+    assert violations
+    msg_found = False
+    for v in violations:
+        if "django-debug-toolbar" in v.short_description:
+            msg_found = True
+            break
+    assert msg_found
+
 
 def test_flask_insights():
     tree = generate_ast_from_code(
@@ -485,3 +575,132 @@ DB_HOSTS = ["host.docker.internal" if STAGING or PRODUCTION else "minidb" if MIN
     )
     violations = insights._check_django_common_misconfig(tree, "settings.py")
     assert not violations
+
+
+def test_aiohttp_insights():
+    tree = generate_ast_from_code(
+        """
+from aiohttp.web import Application
+from aiohttp_jinja2 import setup as setup_jinja
+
+app = Application(
+    debug=True,
+    middlewares=[
+        session_middleware,
+        error_middleware,
+    ]
+)
+app['config'] = config
+setup_jinja(app, loader=PackageLoader('sqli', 'templates'),
+    context_processors=[csrf_processor, auth_user_processor],
+    autoescape=False)
+        """
+    )
+    violations = insights._check_aiohttp_common_misconfig(tree, "app.py")
+    assert violations
+    msg_found = False
+    esc_found = False
+    for v in violations:
+        if "csrf_middleware" in v.short_description:
+            msg_found = True
+        if "Jinja autoescape" in v.short_description:
+            esc_found = True
+    assert msg_found and esc_found
+
+
+def test_aioredis_insights():
+    tree = generate_ast_from_code(
+        """
+import asyncio
+import aioredis
+
+
+async def main():
+    redis = await aioredis.create_redis_pool('redis://localhost')
+    await redis.set('my-key', 'value')
+    """
+    )
+    violations = insights._check_aioredis_common_misconfig(tree, None)
+    assert len(violations) == 1
+
+    tree = generate_ast_from_code(
+        """
+import asyncio
+import aioredis
+
+
+async def main():
+    redis = await aioredis.create_redis_pool('redis://localhost/?password=sEcRet')
+    await redis.set('my-key', 'value')
+    """
+    )
+    violations = insights._check_aioredis_common_misconfig(tree, None)
+    assert len(violations) == 1
+    msg_found = False
+    for v in violations:
+        if "hardcoded password" in v.short_description:
+            msg_found = True
+    assert msg_found
+
+    tree = generate_ast_from_code(
+        """
+import asyncio
+import aioredis
+
+secret = ''
+async def main():
+    redis = await aioredis.create_redis_pool('redis://localhost/?password=%s', secret)
+    redis = await aioredis.create_redis_pool('redis://localhost/?password=%(secret)s', secret)
+    redis = await aioredis.create_redis_pool('redis://localhost/?password=password')
+    await redis.set('my-key', 'value')
+    """
+    )
+    violations = insights._check_aioredis_common_misconfig(tree, None)
+    assert len(violations) == 0
+
+    tree = generate_ast_from_code(
+        """
+import asyncio
+import aioredis
+
+
+async def main():
+    redis = await aioredis.create_redis_pool('redis://localhost/', password='sEcRet')
+    await redis.set('my-key', 'value')
+    """
+    )
+    violations = insights._check_aioredis_common_misconfig(tree, None)
+    assert len(violations) == 1
+    msg_found = False
+    for v in violations:
+        if "hardcoded password" in v.short_description:
+            msg_found = True
+    assert msg_found
+
+    tree = generate_ast_from_code(
+        """
+import asyncio
+import aioredis
+
+secret = ''
+async def main():
+    redis = await aioredis.create_redis_pool('redis://localhost/', password=secret)
+    await redis.set('my-key', 'value')
+    """
+    )
+    violations = insights._check_aioredis_common_misconfig(tree, None)
+    assert len(violations) == 0
+
+    tree = generate_ast_from_code(
+        """
+import asyncio
+import aioredis
+
+secret = ''
+async def main():
+    redis = await aioredis.create_redis_pool('redis://localhost/', db='foo')
+    await redis.set('my-key', 'value')
+    """
+    )
+    violations = insights._check_aioredis_common_misconfig(tree, None)
+    assert len(violations) == 1

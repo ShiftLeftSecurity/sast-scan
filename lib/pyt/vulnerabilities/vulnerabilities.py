@@ -449,7 +449,12 @@ def is_over_taint(source, sink, blackbox_mapping):
     if (
         sink_type == "SQL"
         and sink_cfg.label
-        and ("?" in sink_cfg.label or ":" in sink_cfg.label or "%" in sink_cfg.label)
+        and (
+            "?" in sink_cfg.label
+            or ":" in sink_cfg.label
+            or "%" in sink_cfg.label
+            or "param" in sink_cfg.label
+        )
     ):
         # Ignore proper parameterization
         if (
@@ -460,9 +465,16 @@ def is_over_taint(source, sink, blackbox_mapping):
             or source_cfg.label + ")d" in sink_cfg.label
             or source_cfg.label + ")f" in sink_cfg.label
             or "%(" + source_cfg.label in sink_cfg.label
+            or "param" in sink_cfg.label
         ):
             return True
-
+    # Trim idor
+    if (
+        sink_type == "PrivateRef"
+        and source_type != "Framework_Parameter"
+        and not source_cfg.label.endswith("_id")
+    ):
+        return True
     # Ignore safe source
     if source_type == "Framework_Parameter":
         for wp in safe_path_list:
