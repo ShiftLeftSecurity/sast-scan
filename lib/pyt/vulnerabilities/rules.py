@@ -118,7 +118,7 @@ django_config_message = """Django application is not configured correctly for de
 
 **[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
 
-**[Django Security](https://docs.djangoproject.com/en/2.2/topics/security/)**
+**[Django Security](https://docs.djangoproject.com/en/3.1/topics/security/)**
 
 **[Deployment Checklist](https://docs.djangoproject.com/en/dev/howto/deployment/checklist/)**
 """
@@ -129,7 +129,7 @@ django_nosec_message = """Django Security Middleware allows you to quickly add c
 
 **[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
 
-**[Django Security](https://docs.djangoproject.com/en/2.2/topics/security/)**
+**[Django Security](https://docs.djangoproject.com/en/3.1/topics/security/)**
 
 **[Django Security Middleware](https://docs.djangoproject.com/en/dev/ref/middleware/#django.middleware.security.SecurityMiddleware)**
 
@@ -145,6 +145,15 @@ pymongo_config_message = """MongoDB is quite insecure by default allowing unauth
 **[TLS/SSL and PyMongo](https://pymongo.readthedocs.io/en/stable/examples/tls.html)**
 
 **[Field Level Encryption](https://pymongo.readthedocs.io/en/stable/examples/encryption.html)**
+"""
+
+aioredis_config_message = """Redis is quite insecure by default allowing unauthenticated access for all clients. Configure both server and the client to use authentication and ssl to improve security.
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[aioredis Documentation](https://aioredis.readthedocs.io/en/v1.3.0/start.html#connecting-to-password-protected-redis-instance)**
+
+**[Redis Encryption](https://redis.io/topics/encryption)**
 """
 
 timing_attack_message = """Comparison using == operator leads to content based short-circuiting. By carefully measuring the time, it is possible to guess the correct password or token leading to timing attacks.
@@ -179,6 +188,24 @@ FastAPI security middleware adds useful tools to add CORS headers as well as imp
 **[FastAPI Deployment - https](https://fastapi.tiangolo.com/deployment/#https)**
 """
 
+aiohttp_nosec_message = """aiohttp csrf middleware adds xsrf protection to your application
+
+## Additional information
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[aiohttp_csrf](https://pypi.org/project/aiohttp-csrf/)**
+"""
+
+jinja_config_message = """Jinja templating is not configured correctly for deployment to production and live environments.
+
+## Additional information
+
+**[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**
+
+**[Jinja2 documentation](https://jinja.palletsprojects.com/en/2.11.x/)**
+"""
+
 rules_message_map = {
     "fastapi-misconfiguration-static": fastapi_config_message,
     "fastapi-misconfiguration-recommended": fastapi_config_message,
@@ -194,4 +221,7 @@ rules_message_map = {
     "flask-misconfiguration-recommended": flask_config_message,
     "flask-misconfiguration-controls": flask_nosec_message,
     "flask-misconfiguration-jwt": flask_jwt_message,
+    "aiohttp-misconfiguration-insecure": aiohttp_nosec_message,
+    "jinja-misconfiguration-insecure": jinja_config_message,
+    "aioredis-misconfiguration-insecure": aioredis_config_message,
 }

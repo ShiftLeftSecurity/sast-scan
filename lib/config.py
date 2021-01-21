@@ -199,6 +199,7 @@ BANDIT_IGNORED_RULES = (
     "B101,B102,B105,B307,B308,B310,B322,B404,B601,B602,B603,B604,B605,B701,B702,B703"
 )
 
+
 # Suppression fingerprints
 def get_suppress_fingerprints(working_dir):
     # To suppress based on fingerprint create a file called .sastscan.baseline in the root directory

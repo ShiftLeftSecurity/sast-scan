@@ -53,9 +53,11 @@ def deep_analysis(src, files):
         except Exception as e:
             LOG.debug(e)
         try:
-            violations = find_insights(tree, path)
-            if violations:
-                insights += violations
+            # Should we skip insights?
+            if not os.environ.get("SKIP_INSIGHTS"):
+                violations = find_insights(tree, path)
+                if violations:
+                    insights += violations
             cfg = make_cfg(
                 tree,
                 project_modules,
