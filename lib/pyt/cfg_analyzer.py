@@ -1,6 +1,7 @@
 """The comand line module of PyT."""
 
 import os
+import traceback
 
 from lib.logger import LOG
 from lib.pyt.analysis.constraint_table import initialize_constraint_table
@@ -36,6 +37,7 @@ def deep_analysis(src, files):
     has_unsanitised_vulnerabilities = False
     cfg_list = list()
     insights = []
+    vulnerabilities = []
     framework_route_criteria = is_taintable_function
     for path in sorted(files, key=os.path.dirname, reverse=True):
         # Check if the file path is analyzable
@@ -51,7 +53,9 @@ def deep_analysis(src, files):
             if not tree:
                 continue
         except Exception as e:
+            track = traceback.format_exc()
             LOG.debug(e)
+            LOG.debug(track)
         try:
             # Should we skip insights?
             if not os.environ.get("SKIP_INSIGHTS"):
@@ -67,7 +71,9 @@ def deep_analysis(src, files):
             )
             cfg_list.append(cfg)
         except Exception as e:
+            track = traceback.format_exc()
             LOG.debug(e)
+            LOG.debug(track)
 
     try:
         # Taint all possible entry points
@@ -80,13 +86,20 @@ def deep_analysis(src, files):
         LOG.debug("About to begin deep analysis")
         analyse(cfg_list)
     except Exception as e:
+        track = traceback.format_exc()
         LOG.debug(e)
+        LOG.debug(track)
     LOG.debug("Finding vulnerabilities from the graph")
-    vulnerabilities = find_vulnerabilities(
-        cfg_list,
-        default_blackbox_mapping_file,
-        default_trigger_word_file,
-    )
+    try:
+        vulnerabilities = find_vulnerabilities(
+            cfg_list,
+            default_blackbox_mapping_file,
+            default_trigger_word_file,
+        )
+    except Exception as e:
+        track = traceback.format_exc()
+        LOG.debug(e)
+        LOG.debug(track)
     if vulnerabilities:
         has_unsanitised_vulnerabilities = any(
             not isinstance(v, SanitisedVulnerability) for v in vulnerabilities
