@@ -192,6 +192,8 @@ def find_sanitiser_nodes(sanitiser, sanitisers_in_file):
 
 
 def get_sink_args(cfg_node):
+    if cfg_node is None or cfg_node.ast_node is None:
+        return None
     if isinstance(cfg_node.ast_node, ast.Call):
         rhs_visitor = RHSVisitor()
         rhs_visitor.visit(cfg_node.ast_node)
