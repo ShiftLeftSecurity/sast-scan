@@ -465,6 +465,7 @@ def is_over_taint(source, sink, blackbox_mapping):
             or source_cfg.label + ")s" in sink_cfg.label
             or (", (" in sink_cfg.label and source_cfg.label + "))" in sink_cfg.label)
             or source_cfg.label + ")d" in sink_cfg.label
+            or source_cfg.label + "=" in sink_cfg.label
             or source_cfg.label + ")f" in sink_cfg.label
             or "%(" + source_cfg.label in sink_cfg.label
             or "param" in sink_cfg.label
