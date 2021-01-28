@@ -220,9 +220,8 @@ def get_sink_args_which_propagate(sink, ast_node):
         if kwarg:
             kwargs_present.add(kwarg)
         if sink.trigger.kwarg_propagates(kwarg):
-            if kwarg == "text" and not vars:
+            if kwarg != "text" and vars:
                 sink_args.extend(vars)
-
     for keyword, vars in sink_args_with_positions.kwargs.items():
         kwargs_present.add(keyword)
         if sink.trigger.kwarg_propagates(keyword):
