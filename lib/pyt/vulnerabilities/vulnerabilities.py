@@ -220,8 +220,8 @@ def get_sink_args_which_propagate(sink, ast_node):
         if kwarg:
             kwargs_present.add(kwarg)
         if sink.trigger.kwarg_propagates(kwarg):
-            sink_args.extend(vars)
-
+            if kwarg != "text" and vars:
+                sink_args.extend(vars)
     for keyword, vars in sink_args_with_positions.kwargs.items():
         kwargs_present.add(keyword)
         if sink.trigger.kwarg_propagates(keyword):
@@ -366,48 +366,49 @@ def get_vulnerability(source, sink, triggers, lattice, cfg, blackbox_mapping):
         sink_args,
         nodes_in_constraint,
     )
+    if not tainted_node_in_sink_arg:
+        return None
     source_type = ""
     sink_type = ""
     if hasattr(source, "source_type"):
         source_type = source.source_type
     if hasattr(sink, "sink_type"):
         sink_type = sink.sink_type
-    if tainted_node_in_sink_arg:
-        vuln_deets = {
-            "source": source.cfg_node,
-            "source_trigger_word": source.trigger_word,
-            "source_type": source_type,
-            "sink": sink.cfg_node,
-            "sink_trigger_word": sink.trigger_word,
-            "sink_type": sink_type,
-        }
-
-        sanitiser_nodes = set()
-        potential_sanitiser = None
-        if sink.sanitisers:
-            for sanitiser in sink.sanitisers:
-                for cfg_node in triggers.sanitiser_dict[sanitiser]:
-                    # Break early with blackbox sanitizers
-                    if isinstance(cfg_node, BBorBInode):
-                        return None
-                    if isinstance(cfg_node, AssignmentNode):
-                        sanitiser_nodes.add(cfg_node)
-                    elif isinstance(cfg_node, IfNode):
-                        potential_sanitiser = cfg_node
-        def_use = build_def_use_chain(cfg.nodes, lattice)
-        for chain in get_vulnerability_chains(source.cfg_node, sink.cfg_node, def_use):
-            vulnerability_type = how_vulnerable(
-                chain,
-                blackbox_mapping,
-                sanitiser_nodes,
-                potential_sanitiser,
-                cfg.blackbox_assignments,
-                vuln_deets,
-            )
-            if vulnerability_type == VulnerabilityType.FALSE:
-                continue
-            vuln_deets["reassignment_nodes"] = chain
-            return vuln_factory(vulnerability_type)(**vuln_deets)
+    vuln_deets = {
+        "source": source.cfg_node,
+        "source_trigger_word": source.trigger_word,
+        "source_type": source_type,
+        "sink": sink.cfg_node,
+        "sink_trigger_word": sink.trigger_word,
+        "sink_type": sink_type,
+        "sink_args": sink_args,
+    }
+    sanitiser_nodes = set()
+    potential_sanitiser = None
+    if sink.sanitisers:
+        for sanitiser in sink.sanitisers:
+            for cfg_node in triggers.sanitiser_dict[sanitiser]:
+                # Break early with blackbox sanitizers
+                if isinstance(cfg_node, BBorBInode):
+                    return None
+                if isinstance(cfg_node, AssignmentNode):
+                    sanitiser_nodes.add(cfg_node)
+                elif isinstance(cfg_node, IfNode):
+                    potential_sanitiser = cfg_node
+    def_use = build_def_use_chain(cfg.nodes, lattice)
+    for chain in get_vulnerability_chains(source.cfg_node, sink.cfg_node, def_use):
+        vulnerability_type = how_vulnerable(
+            chain,
+            blackbox_mapping,
+            sanitiser_nodes,
+            potential_sanitiser,
+            cfg.blackbox_assignments,
+            vuln_deets,
+        )
+        if vulnerability_type == VulnerabilityType.FALSE:
+            continue
+        vuln_deets["reassignment_nodes"] = chain
+        return vuln_factory(vulnerability_type)(**vuln_deets)
     return None
 
 
@@ -448,20 +449,12 @@ def is_over_taint(source, sink, blackbox_mapping):
     if sink_type == "NoSQL" and sink_cfg.label and "parameters" in sink_cfg.label:
         return True
     # Ignore SQLi that use parameters
-    if (
-        sink_type == "SQL"
-        and sink_cfg.label
-        and (
-            "?" in sink_cfg.label
-            or ":" in sink_cfg.label
-            or "%" in sink_cfg.label
-            or "param" in sink_cfg.label
-        )
-    ):
-        # Ignore proper parameterization
+    if sink_type == "SQL" and sink_cfg.label:
+        # Ignore proper parameterization. Workaround that will be removed at some point
         if (
             ":" + source_cfg.label in sink_cfg.label
             or "(" + source_cfg.label in sink_cfg.label
+            or "[" + source_cfg.label in sink_cfg.label
             or source_cfg.label + ")s" in sink_cfg.label
             or (", (" in sink_cfg.label and source_cfg.label + "))" in sink_cfg.label)
             or source_cfg.label + ")d" in sink_cfg.label
