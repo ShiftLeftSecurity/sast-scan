@@ -130,7 +130,7 @@ RUN microdnf install python38-devel && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
     && mv /usr/local/bin/scan /usr/local/bin/depscan \
-    && npm install --only=production -g @appthreat/cdxgen @microsoft/rush \
+    && npm install --only=production -g @appthreat/cdxgen @microsoft/rush --unsafe-perm \
     && mkdir -p /opt/sl-cli /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
     && composer require --quiet --no-cache --dev phpstan/extension-installer \
