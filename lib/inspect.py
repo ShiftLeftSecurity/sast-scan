@@ -228,17 +228,11 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
             "Unable to find any build artifacts. Compile your project first before invoking scan or use the auto build feature."
         )
         return
-    if isinstance(analyze_files, list) and len(analyze_files) > 1:
-        LOG.warning(
-            "Multiple files found in {}. Only {} will be analyzed".format(
-                analyze_target_dir, analyze_files[0]
-            )
-        )
+    if isinstance(analyze_files, list):
         analyze_files = analyze_files[0]
     sl_args = [
         sl_cmd,
         "analyze",
-        "--no-auto-update" if language == "java" else None,
         "--wait",
         "--cpg" if cpg_mode else None,
         "--" + language,
@@ -247,7 +241,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
         "--app",
         app_name,
     ]
-    sl_args += [analyze_files]
+    sl_args.append(analyze_files)
     if extra_args:
         sl_args += extra_args
     sl_args = [arg for arg in sl_args if arg is not None]
@@ -256,7 +250,7 @@ def inspect_scan(language, src, reports_dir, convert, repo_context):
     )
     LOG.debug(" ".join(sl_args))
     LOG.debug(repo_context)
-    cp = exec_tool("NG SAST", sl_args, src, env=env)
+    cp = exec_tool("ng-sast", sl_args, src, env=env)
     if cp.returncode != 0:
         LOG.warning("NG SAST cloud analyze has failed with the below logs")
         LOG.debug(sl_args)
