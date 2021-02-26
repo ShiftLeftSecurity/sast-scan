@@ -218,6 +218,11 @@ def execute_default_cmd(  # scan:ignore
         ei = default_cmd.find(")", si + 10)
         ext = default_cmd[si + 10 : ei]
         filelist = utils.find_files(src, ext)
+        # Temporary fix for the yaml issue
+        if ext == "yaml":
+            yml_list = utils.find_files(src, "yml")
+            if yml_list:
+                filelist.extend(yml_list)
         delim = " "
         default_cmd = default_cmd.replace(
             filelist_prefix + ext + ")", delim.join(filelist)

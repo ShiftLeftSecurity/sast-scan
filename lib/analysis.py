@@ -75,8 +75,12 @@ def calculate_depscan_metrics(dep_data):
                 metrics[f"{usage}_{severity}"] += 1
                 if usage == "required":
                     required_pkgs_found = True
-        metrics[severity] += 1
-        metrics["total"] += 1
+        # Ignore unknown severity for now
+        if severity == "unknown":
+            continue
+        else:
+            metrics[severity] += 1
+            metrics["total"] += 1
     return metrics, required_pkgs_found
 
 
@@ -110,6 +114,9 @@ def summary(
     # Collect stats from depscan files if available
     if depscan_files:
         for df in depscan_files:
+            # Skip analyzing risk audit files
+            if "risk" in df:
+                continue
             with open(df, mode="r") as drep_file:
                 dep_data = get_depscan_data(drep_file)
                 if not dep_data:
