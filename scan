@@ -578,15 +578,6 @@ def sec_scan(src, reports_dir, convert, repo_context):
       repo_context Repo context
     """
     if not utils.check_command("njsscan"):
-        LOG.debug(
-            "njsscan is no longer bundled with scan. Please use shiftleft/scan-oss container image if this tool is required."
-        )
-        LOG.debug(
-            "Know any decent open-source SAST tool for JavaScript? It should use AST and CFG and not just regex or grep. Please let us know :thumbsup:"
-        )
-        LOG.debug(
-            "Please feel free to try ShiftLeft NG SAST. To enable visit https://www.shiftleft.io/register to signup and pass the tokens as environment variables!"
-        )
         return
     convert_args = []
     report_fname = utils.get_report_file("source-js", reports_dir, convert)
