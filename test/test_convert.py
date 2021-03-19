@@ -1021,7 +1021,10 @@ def test_pytaint_extract_issue():
             "medium": 0,
             "low": 0,
         }
-        assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {"scanFileHash": "422e70bb97927cc5", "scanTagsHash": "d9a496fd1c3ce8a9"}
+        assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {
+            "scanFileHash": "422e70bb97927cc5",
+            "scanTagsHash": "d9a496fd1c3ce8a9",
+        }
 
 
 def test_ruby_convert_issue():
@@ -1079,4 +1082,6 @@ def test_ruby_convert_issue():
             jsondata["runs"][0]["results"][0]["message"]["text"]
             == "`Marshal.load` called with parameter value."
         )
-        assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {"scanFileHash": "c7b25d276c64a838"}
+        assert jsondata["runs"][0]["results"][0]["partialFingerprints"] == {
+            "scanFileHash": "c7b25d276c64a838"
+        }

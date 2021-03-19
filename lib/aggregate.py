@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Scan.  If not, see <https://www.gnu.org/licenses/>.
 
-from datetime import datetime
 import json
 import uuid
+from datetime import datetime
 
 import sarif_om as om
 from jschema_to_python.to_json import to_json

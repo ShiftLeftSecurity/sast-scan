@@ -207,7 +207,6 @@ MIDDLEWARE_CLASSES = [
             break
     assert msg_found
 
-
     tree = generate_ast_from_code(
         """
 ALLOWED_HOSTS = ['*']
@@ -235,7 +234,6 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
             msg_found = True
             break
     assert msg_found
-
 
     tree = generate_ast_from_code(
         """
