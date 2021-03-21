@@ -37,7 +37,7 @@ class ASTPatternFinder(object):
         :param file: Path to a Python file, or a readable file object
         """
         if isinstance(file, str):
-            with open(file, "rb") as f:
+            with open(file, mode="rb") as f:
                 tree = ast.parse(f.read())
         else:
             tree = ast.parse(file.read())

@@ -36,17 +36,19 @@ client = pymongo.MongoClient('mongodb://example.com/?ssl=true')
     violations = insights._check_pymongo_common_misconfig(tree, None)
     assert len(violations) == 1
 
+
+def test_pymongo_insights1():
     tree = generate_ast_from_code(
         """
 from pymongo import MongoClient
-import ssl
-
 client = MongoClient('mongodb://example.com/?ssl=true')
     """
     )
     violations = insights._check_pymongo_common_misconfig(tree, None)
     assert len(violations) == 1
 
+
+def test_pymongo_insights2():
     tree = generate_ast_from_code(
         """
 import pymongo

@@ -34,7 +34,7 @@ def generate_py2_ast(path):
         path(str): The path to the file e.g. example/foo/bar.py
     """
     if os.path.isfile(path) and os.path.getsize(path):
-        with open(path, "r") as f:
+        with open(path, mode="r", encoding="utf-8") as f:
             return generate_ast_from_code(f.read())
     return None
 
@@ -47,7 +47,7 @@ def generate_ast(path):
         path(str): The path to the file e.g. example/foo/bar.py
     """
     if os.path.isfile(path) and os.path.getsize(path):
-        with open(path, "r") as f:
+        with open(path, mode="r", encoding="utf-8") as f:
             return generate_ast_from_code(f.read(), path)
     return None
 
@@ -141,7 +141,11 @@ def get_assignments_as_dict(pattern, ast_tree):
                 if isinstance(right_hand_side, ast.Constant):
                     right_hand_side = node.value
                 if isinstance(target, ast.Subscript):
-                    left_hand_side = target.slice.value
+                    # python 3.9 fix
+                    if isinstance(target.slice.value, str):
+                        left_hand_side = target.slice
+                    else:
+                        left_hand_side = target.slice.value
                 key = ""
                 if hasattr(left_hand_side, "value"):
                     key = left_hand_side.value
