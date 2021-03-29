@@ -303,10 +303,6 @@ def py_deep_scan(src, reports_dir, convert, repo_context):
         "taint-python", reports_dir, convert, ext_name="json"
     )
     web_route_only = config.get("WEB_ROUTE_ONLY", False)
-    if not web_route_only:
-        LOG.info(
-            "Set the environment variable `WEB_ROUTE_ONLY` to narrow the analysis scope.\nThis often helps reduce false positives and would become the default soon."
-        )
     py_files = utils.find_files(src, ".py")
     LOG.debug(f"Scanning {len(py_files)} python files ...")
     try:
