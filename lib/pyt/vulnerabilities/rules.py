@@ -21,6 +21,8 @@ flask_nostatic_config = [
     "SECURITY_RESET_SALT",
     "SECURITY_LOGIN_SALT",
     "SECURITY_REMEMBER_SALT",
+    "SECRET_KEY_HMAC",
+    "SECRET_KEY_HMAC_2",
 ]
 flask_noset_config = [
     "DEBUG",

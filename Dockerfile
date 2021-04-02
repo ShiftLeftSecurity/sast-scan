@@ -9,7 +9,7 @@ ENV GOSEC_VERSION=2.7.0 \
     KUBE_SCORE_VERSION=1.10.0 \
     SHELLCHECK_VERSION=0.7.1 \
     DETEKT_VERSION=1.16.0 \
-    GITLEAKS_VERSION=4.3.1 \
+    GITLEAKS_VERSION=7.3.0 \
     GRADLE_VERSION=6.8.3 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     MAVEN_VERSION=3.6.3 \
@@ -121,7 +121,6 @@ COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
 COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
-COPY tools_config/ /usr/local/src/
 COPY requirements.txt /usr/local/src/
 
 USER root
@@ -138,6 +137,7 @@ RUN microdnf install python38-devel && pip3 install --no-cache-dir wheel \
     && microdnf clean all
 
 WORKDIR /app
+COPY tools_config/ /usr/local/src/
 COPY scan /usr/local/src/
 COPY lib /usr/local/src/lib
 

@@ -906,6 +906,8 @@ def _check_flask_common_misconfig(ast_tree, path):
     """Look for common security misconfiguration in Flask apps"""
     violations = []
     has_flask_run = has_method_call("app.run(??)", ast_tree)
+    if not has_flask_run:
+        has_flask_run = has_method_call("http_server.listen(??)", ast_tree)
     if has_import_like("flask", ast_tree) and has_flask_run:
         config_method_patterns = [
             "??.from_file(??)",
@@ -925,7 +927,7 @@ def _check_flask_common_misconfig(ast_tree, path):
         for k, v in config_dict.items():
             all_keys.append(k)
             # Static configs
-            if k in rules.flask_nostatic_config:
+            if k.upper() in rules.flask_nostatic_config:
                 source, sink = convert_node_source_sink(v, path)
                 if sink.trigger_word:
                     obfuscated_label = sink.label

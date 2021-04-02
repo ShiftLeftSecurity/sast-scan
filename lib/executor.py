@@ -96,6 +96,7 @@ def exec_tool(  # scan:ignore
     """
     with Progress(
         console=console,
+        transient=True,
         redirect_stderr=False,
         redirect_stdout=False,
         refresh_per_second=1,
