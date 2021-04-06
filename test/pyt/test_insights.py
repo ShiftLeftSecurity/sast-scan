@@ -470,6 +470,26 @@ if __name__ == '__main__':
             rec_found = True
     assert msg_found
     assert rec_found
+    tree = generate_ast_from_code(
+        """
+from flask import session, Flask
+import jwt
+
+decoded = jwt.decode(token, verify = False)
+decoded2 = jwt.decode(token, app.config['SECRET_KEY_HMAC'], verify=True, issuer = 'we45', leeway=10, algorithms=['HS256'])
+"""
+    )
+    violations = insights._check_flask_common_misconfig(tree, None)
+    assert violations
+    msg_found = False
+    rec_found = False
+    for v in violations:
+        if "Security Misconfiguration" in v.short_description:
+            msg_found = True
+        if "asymmetric RSA based algorithm" in v.short_description:
+            rec_found = True
+    assert msg_found
+    assert rec_found
 
 
 def test_timing_insights():
