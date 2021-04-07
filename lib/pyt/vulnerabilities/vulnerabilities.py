@@ -220,7 +220,7 @@ def get_sink_args_which_propagate(sink, ast_node):
         if kwarg:
             kwargs_present.add(kwarg)
         if sink.trigger.kwarg_propagates(kwarg):
-            if kwarg != "text" and vars:
+            if kwarg == "text" and vars:
                 sink_args.extend(vars)
     for keyword, vars in sink_args_with_positions.kwargs.items():
         kwargs_present.add(keyword)
@@ -453,7 +453,6 @@ def is_over_taint(source, sink, blackbox_mapping):
         # Ignore proper parameterization. Workaround that will be removed at some point
         if (
             ":" + source_cfg.label in sink_cfg.label
-            or "(" + source_cfg.label in sink_cfg.label
             or "[" + source_cfg.label in sink_cfg.label
             or source_cfg.label + ")s" in sink_cfg.label
             or (", (" in sink_cfg.label and source_cfg.label + "))" in sink_cfg.label)

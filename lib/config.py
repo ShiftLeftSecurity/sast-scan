@@ -1296,6 +1296,7 @@ rules_owasp_category = {
 # Build break rules. Depscan tool supports required and optional keys to distinguish between packages based on usage scope
 build_break_rules = {
     "default": {"max_critical": 0, "max_high": 2, "max_medium": 5},
+    "Secrets Audit": {"max_critical": 0, "max_high": 0, "max_medium": 1},
     "depscan": {
         "max_critical": 0,
         "max_required_critical": 0,
