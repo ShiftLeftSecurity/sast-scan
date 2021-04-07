@@ -58,13 +58,22 @@ def is_taintable_function(ast_node):
                 "csrf_exempt",
                 "deserialise_with",
                 "marshal_with",
+                "before",
+                "csrf_protect",
+                "requires_csrf_token",
+                "xframe_options_exempt",
+                "xframe_options_deny",
+                "xframe_options_sameorigin",
+                "before_first_request",
             ]:
                 return True
     # Ignore database functions
     if len(ast_node.args.args):
         first_arg_name = ast_node.args.args[0].arg
-        # Common view functions such as django, starlette
-        if first_arg_name in ["request", "context", "scope"]:
+        if first_arg_name == "self" and len(ast_node.args.args) > 1:
+            first_arg_name = ast_node.args.args[1].arg
+        # Common view functions such as django, starlette, falcon
+        if first_arg_name in ["req", "request", "context", "scope"]:
             return True
         # Ignore dao classes due to potential FP
         if first_arg_name in ["conn", "connection", "cls", "session", "session_cls"]:
