@@ -188,6 +188,7 @@ ignore_files = [
     ".snap",
     ".pb.go",
     ".tests.py",
+    ".vdb",
 ]
 
 # Tool specific ignored rules
