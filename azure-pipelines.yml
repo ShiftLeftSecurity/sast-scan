@@ -39,14 +39,14 @@ stages:
       displayName: Multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/arm64 -t shiftleft/scan:arm -t shiftleft/sast-scan:arm --push .
-          docker buildx build --platform linux/amd64 -t shiftleft/scan:$(tag) -t shiftleft/sast-scan:$(tag) --push .
+          docker buildx build --platform linux/arm64,linux/amd64 -t shiftleft/scan -t shiftleft/sast-scan --push .
+          # docker buildx build --platform linux/arm64 -t shiftleft/scan:arm -t shiftleft/sast-scan:arm --push .
+          # docker buildx build --platform linux/amd64 -t shiftleft/scan:$(tag) -t shiftleft/sast-scan:$(tag) --push .
     - task: CmdLine@2
       displayName: Release multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/arm64 -t shiftleft/scan:arm -t shiftleft/sast-scan:arm --push .
-          docker buildx build --platform linux/amd64 -t shiftleft/scan:latest -t shiftleft/sast-scan:latest --push .
+          docker buildx build --platform linux/arm64,linux/amd64 -t shiftleft/scan -t shiftleft/sast-scan --push .
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: Docker@2
@@ -59,6 +59,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         repository: shiftleft/scan
+        addPipelineData: false
         tags: |
           $(tag)
     - task: Docker@2
@@ -67,6 +68,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         repository: shiftleft/scan
+        addPipelineData: false
         tags: |
           latest
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -100,8 +102,7 @@ stages:
       displayName: Release multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/arm64 -t shiftleft/scan-slim:arm -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
-          docker buildx build --platform linux/amd64 -t shiftleft/scan-slim:latest -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
+          docker buildx build --platform linux/arm64,linux/amd64 -t shiftleft/scan-slim -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_oss
@@ -119,6 +120,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
         repository: shiftleft/scan-oss
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
@@ -128,6 +130,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
         repository: shiftleft/scan-oss
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           latest
@@ -143,6 +146,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
         repository: shiftleft/scan-oss
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
@@ -152,6 +156,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-oss'
         repository: shiftleft/scan-oss
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           latest
@@ -172,6 +177,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
         repository: shiftleft/scan-java
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
@@ -181,6 +187,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
         repository: shiftleft/scan-java
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           latest
@@ -196,6 +203,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
         repository: shiftleft/scan-java
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
@@ -205,6 +213,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-java'
         repository: shiftleft/scan-java
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           latest
@@ -225,6 +234,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-csharp'
         repository: shiftleft/scan-csharp
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
@@ -234,6 +244,7 @@ stages:
         command: 'buildAndPush'
         dockerfile: '$(Build.SourcesDirectory)/ci/Dockerfile-csharp'
         repository: shiftleft/scan-csharp
+        addPipelineData: false
         buildContext: $(Build.SourcesDirectory)
         tags: |
           latest
