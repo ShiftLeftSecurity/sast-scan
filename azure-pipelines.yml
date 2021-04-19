@@ -41,6 +41,7 @@ stages:
         script: |
           docker buildx build --platform linux/arm64 -t shiftleft/scan:arm -t shiftleft/sast-scan:arm --push .
           docker buildx build --platform linux/amd64 -t shiftleft/scan:$(tag) -t shiftleft/sast-scan:$(tag) --push .
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: CmdLine@2
       displayName: Release multi arch build
       inputs:
@@ -61,6 +62,7 @@ stages:
         addPipelineData: false
         tags: |
           $(tag)
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Release base image (mirror)
       inputs:
@@ -97,6 +99,7 @@ stages:
         script: |
           docker buildx build --platform linux/arm64 -t shiftleft/scan-slim:arm -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
           docker buildx build --platform linux/amd64 -t shiftleft/scan-slim:$(tag) -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: CmdLine@2
       displayName: Release multi arch build
       inputs:
@@ -123,6 +126,7 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Release oss image
       inputs:
@@ -149,6 +153,7 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Release oss image (mirror)
       inputs:
@@ -180,6 +185,7 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Release java image
       inputs:
@@ -206,6 +212,7 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Release java image (mirror)
       inputs:
@@ -237,6 +244,7 @@ stages:
         buildContext: $(Build.SourcesDirectory)
         tags: |
           $(tag)
+      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: Docker@2
       displayName: Build csharp image
       inputs:
