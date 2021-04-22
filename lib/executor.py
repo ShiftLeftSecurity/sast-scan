@@ -126,6 +126,10 @@ def exec_tool(  # scan:ignore
                 shell=False,
                 encoding="utf-8",
             )
+            if cp and LOG.isEnabledFor(DEBUG):
+                LOG.debug("=== Full output from the underlying tool below ===")
+                LOG.debug(cp.stdout)
+                LOG.debug(cp.stderr)
             if cp and stdout == subprocess.PIPE:
                 for line in cp.stdout:
                     progress.update(task, completed=5)
