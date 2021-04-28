@@ -8,7 +8,7 @@ requests
 bandit
 ansible-lint
 pipenv
-checkov==1.0.846
+checkov==2.0.84
 yamllint
 rich
 PyGithub

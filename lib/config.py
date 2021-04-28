@@ -291,6 +291,8 @@ scan_tools_args_map = {
         "source-arm": [
             "checkov",
             "-s",
+            "--framework",
+            "arm",
             "--quiet",
             "--no-guide",
             "-o",
@@ -303,6 +305,8 @@ scan_tools_args_map = {
         "source-aws": [
             "checkov",
             "-s",
+            "--framework",
+            "cloudformation",
             "--quiet",
             "--no-guide",
             "-o",
@@ -365,6 +369,20 @@ scan_tools_args_map = {
         "--report_file",
         "%(report_fname_prefix)s.json",
     ],
+    "docker": {
+        "source-docker": [
+            "checkov",
+            "-s",
+            "--framework",
+            "dockerfile",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ]
+    },
     "go": {
         "source-go": [
             "gosec",
@@ -454,6 +472,8 @@ scan_tools_args_map = {
         "source-k8s": [
             "checkov",
             "-s",
+            "--framework",
+            "kubernetes",
             "--quiet",
             "--no-guide",
             "-o",
@@ -627,6 +647,8 @@ scan_tools_args_map = {
         "source-tf": [
             "checkov",
             "-s",
+            "--framework",
+            "terraform",
             "--quiet",
             "--no-guide",
             "-o",
@@ -648,6 +670,8 @@ scan_tools_args_map = {
         "source-tf": [
             "checkov",
             "-s",
+            "--framework",
+            "terraform",
             "--quiet",
             "--no-guide",
             "-o",
@@ -696,6 +720,8 @@ scan_tools_args_map = {
         "source-serverless": [
             "checkov",
             "-s",
+            "--framework",
+            "serverless",
             "--quiet",
             "--no-guide",
             "-o",
@@ -1054,6 +1080,14 @@ rules_severity = {
     "CKV_AZURE_2": "CRITICAL",
     "CKV_AZURE_11": "CRITICAL",
     "CKV_AZURE_34": "CRITICAL",
+    "CKV_DOCKER_1": "CRITICAL",
+    "CKV_DOCKER_2": "MEDIUM",
+    "CKV_DOCKER_3": "LOW",
+    "CKV_DOCKER_4": "HIGH",
+    "CKV_DOCKER_5": "HIGH",
+    "CKV_DOCKER_6": "LOW",
+    "CKV_DOCKER_7": "LOW",
+    "CKV_DOCKER_8": "HIGH",
     "CKV_GCP_5": "CRITICAL",
     "CKV_GCP_15": "CRITICAL",
     "CKV_GCP_18": "CRITICAL",
@@ -1068,6 +1102,11 @@ rules_severity = {
     "CKV_K8S_4": "CRITICAL",
     "CKV_K8S_5": "CRITICAL",
     "CKV_K8S_6": "CRITICAL",
+    "CKV_K8S_10": "LOW",
+    "CKV_K8S_11": "LOW",
+    "CKV_K8S_12": "LOW",
+    "CKV_K8S_13": "LOW",
+    "CKV_K8S_49": "LOW",
     "S1005": "LOW",
     "ST1005": "LOW",
     "SA1019": "LOW",

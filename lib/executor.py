@@ -126,10 +126,6 @@ def exec_tool(  # scan:ignore
                 shell=False,
                 encoding="utf-8",
             )
-            if cp and LOG.isEnabledFor(DEBUG):
-                LOG.debug("=== Full output from the underlying tool below ===")
-                LOG.debug(cp.stdout)
-                LOG.debug(cp.stderr)
             if cp and stdout == subprocess.PIPE:
                 for line in cp.stdout:
                     progress.update(task, completed=5)
@@ -213,7 +209,7 @@ def execute_default_cmd(  # scan:ignore
         stdout = None
     if reports_dir and report_fname_prefix not in default_cmd:
         report_fname = report_fname_prefix + outext
-        stdout = io.open(report_fname, "w")
+        stdout = io.open(report_fname, "w", encoding="utf-8")
         LOG.debug("Output will be written to {}".format(report_fname))
 
     # If the command is requesting list of files then construct the argument
