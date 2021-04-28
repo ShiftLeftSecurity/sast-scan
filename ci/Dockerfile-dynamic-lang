@@ -4,12 +4,15 @@ ARG CLI_VERSION
 ARG BUILD_DATE
 
 ENV TFSEC_VERSION=0.36.10 \
+    GITLEAKS_VERSION=7.3.0 \
     KUBESEC_VERSION=2.11.0 \
     KUBE_SCORE_VERSION=1.10.0
 
 USER root
 
 RUN mkdir -p /usr/local/bin/shiftleft \
+    && curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
+    && chmod +x /usr/local/bin/shiftleft/gitleaks \
     && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
     && chmod +x /usr/local/bin/shiftleft/tfsec \
     && curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \

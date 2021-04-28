@@ -97,7 +97,6 @@ stages:
       displayName: Multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/arm64 -t shiftleft/scan-slim:arm -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
           docker buildx build --platform linux/amd64 -t shiftleft/scan-slim:$(tag) -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
       condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     - task: CmdLine@2
