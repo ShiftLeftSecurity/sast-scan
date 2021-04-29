@@ -20,7 +20,6 @@ script:
 
 AppDir:
   path: ./AppDir
-
   app_info:
     id: io.shiftleft.scan
     name: scan
@@ -59,7 +58,8 @@ AppDir:
     env:
       PATH: '${APPDIR}/usr/bin:${APPDIR}/usr/bin/nodejs/bin:${PATH}:${APPDIR}/opt/phpsast/vendor/bin:${APPDIR}/usr/local/lib/node_modules/.bin:'
       PYTHONHOME: '${APPDIR}/usr'
-      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages:$APPDIR/usr/lib/python3.8:$APPDIR/usr/lib/python3.8/lib-dynload'
+      SSL_CERT_FILE: '${APPDIR}/usr/lib/python3.8/site-packages/certifi/cacert.pem'
       PYTHONUNBUFFERED: '1'
       APP_SRC_DIR: '${APPDIR}/usr/src'
       TOOLS_CONFIG_DIR: '${APPDIR}/usr/src/tools_config'
