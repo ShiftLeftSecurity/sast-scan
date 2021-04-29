@@ -103,7 +103,7 @@ stages:
       displayName: Release multi arch build
       inputs:
         script: |
-          docker buildx build --platform linux/arm64,linux/amd64 -t shiftleft/scan-slim -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
+          docker buildx build --platform linux/amd64 -t shiftleft/scan-slim -f $(Build.SourcesDirectory)/ci/Dockerfile-dynamic-lang --push .
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - job: Build_oss
