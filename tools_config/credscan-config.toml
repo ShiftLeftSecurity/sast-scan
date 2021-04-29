@@ -55,7 +55,7 @@ title = "gitleaks config"
 	description = "LinkedIn Secret Key"
 	regex = '''(?i)linkedin(.{0,20})?['\"][0-9a-z]{16}['\"]'''
 	tags = ["secret", "LinkedIn"]
-	
+
 [[rules]]
 	description = "NPM Token"
 	regex= '''//registry.npmjs.org/:_authToken=[0-9a-f-]+'''
@@ -569,5 +569,5 @@ title = "gitleaks config"
 
 [allowlist]
 	description = "Allowlisted files"
-	files = ['''(.*?)(png|jpg|gif|doc|docx|pdf|bin|xls|zip)$''', '''buildsearchers.xml''','''(?i)(credscan-config.toml|go.mod|go.sum|yarn.lock|package-lock.json)''']
+	files = ['''(.*?)(png|jpg|gif|doc|docx|pdf|bin|xls|zip)$''', '''buildsearchers.xml''','''(?i)(credscan-config.toml|go.mod|go.sum|yarn.lock|package-lock.json|.terraform.lock.hcl)''']
 	paths = ['''(?i)(test|reports|node_modules)''']
