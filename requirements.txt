@@ -11,5 +11,5 @@ pipenv
 checkov==2.0.84
 yamllint
 rich
-PyGithub
+PyGithub==1.54.0.1
 PyYAML
