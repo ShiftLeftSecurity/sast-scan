@@ -104,7 +104,10 @@ def exec_tool(  # scan:ignore
         task = None
         try:
             env = use_java(env)
-            LOG.debug('⚡︎ Executing {} "{}"'.format(tool_name, " ".join(args)))
+            if tool_name == "NG SAST":
+                LOG.debug("⚡︎ Performing ShiftLeft NG SAST analysis")
+            else:
+                LOG.debug('⚡︎ Executing {} "{}"'.format(tool_name, " ".join(args)))
             stderr = subprocess.DEVNULL
             if LOG.isEnabledFor(DEBUG):
                 stderr = subprocess.STDOUT
