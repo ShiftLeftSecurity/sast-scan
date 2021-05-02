@@ -1307,6 +1307,7 @@ rules_owasp_category = {
     "taint-basic-xss": "a7-xss",
     "taint-broken-access-control": "a5-broken-access-control",
     "taint-file-write": "a5-broken-access-control",
+    "taint-file-write-session": "a5-broken-access-control",
     "taint-traversal": "a5-broken-access-control",
     "taint-ssrf": "a6-misconfiguration",
     "taint-open-redirect": "a6-misconfiguration",

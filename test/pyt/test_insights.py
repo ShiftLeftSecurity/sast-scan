@@ -405,6 +405,28 @@ if __name__ == '__main__':
             break
     assert msg_found
 
+    tree = generate_ast_from_code(
+        """
+from flask import Flask, render_template_string, make_response, request
+
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = "aeZ1iwoh2ree2mo0Eer"
+
+
+if __name__ == '__main__':
+    app.run()
+"""
+    )
+    violations = insights._check_flask_common_misconfig(tree, None)
+    assert violations
+    msg_found = False
+    for v in violations:
+        if "Security Misconfiguration" in v.short_description:
+            msg_found = True
+            break
+    assert msg_found
+
 
 def test_flask_jwt_insights():
     tree = generate_ast_from_code(

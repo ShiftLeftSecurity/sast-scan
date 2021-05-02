@@ -59,7 +59,10 @@ def convert_node_source_sink(node, path):
     if isinstance(node["left_hand_side"], ast.Name):
         source_trigger = node["left_hand_side"].id
         source_label = node["left_hand_side"].id
-    if hasattr(node["left_hand_side"], "value"):
+    elif isinstance(node["left_hand_side"], ast.Attribute):
+        source_trigger = node["left_hand_side"].attr
+        source_label = node["left_hand_side"].attr
+    elif hasattr(node["left_hand_side"], "value"):
         source_trigger = node["left_hand_side"].value
         source_label = node["left_hand_side"].value
     if hasattr(node["left_hand_side"], "kind"):
@@ -907,6 +910,10 @@ def _check_flask_common_misconfig(ast_tree, path):
     violations = []
     has_flask_run = has_method_call("app.run(??)", ast_tree)
     if not has_flask_run:
+        has_flask_run = has_method_call("Flask(??)", ast_tree)
+    if not has_flask_run:
+        has_flask_run = has_method_call("register_blueprint(??)", ast_tree)
+    if not has_flask_run:
         has_flask_run = has_method_call("http_server.listen(??)", ast_tree)
     if has_import_like("flask", ast_tree) and has_flask_run:
         config_method_patterns = [
@@ -924,6 +931,8 @@ def _check_flask_common_misconfig(ast_tree, path):
                 break
         all_keys = []
         config_dict = get_assignments_as_dict("?.config[?] = ?", ast_tree)
+        app_config_dict = get_assignments_as_dict("app.?? = ?", ast_tree)
+        config_dict.update(app_config_dict)
         for k, v in config_dict.items():
             all_keys.append(k)
             # Static configs
