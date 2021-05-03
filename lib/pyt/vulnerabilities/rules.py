@@ -36,6 +36,8 @@ flask_mustset_config = {
 }
 flask_config_message = """Flask application is not configured correctly for deployment to production and live environments. Default settings that are more appropriate for development environment are in use.
 
+NOTE: Some recommended settings may have to be set for every route even when using blueprint design pattern.
+
 ## Additional information
 
 **[OWASP-A6](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)**

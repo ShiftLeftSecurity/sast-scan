@@ -147,7 +147,9 @@ def get_assignments_as_dict(pattern, ast_tree):
                     else:
                         left_hand_side = target.slice.value
                 key = ""
-                if hasattr(left_hand_side, "value"):
+                if isinstance(left_hand_side, ast.Attribute):
+                    key = left_hand_side.attr
+                elif hasattr(left_hand_side, "value"):
                     key = left_hand_side.value
                 elif hasattr(left_hand_side, "id"):
                     key = left_hand_side.id
