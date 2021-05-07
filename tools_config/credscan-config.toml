@@ -225,6 +225,12 @@ title = "gitleaks config"
 	tags = ["file", "openvpn"]
 
 [[rules]]
+	description = "Unknown Key"
+	regex = '''.'''
+	file = '''\.key$'''
+	tags = ["file", "openvpn"]
+
+[[rules]]
 	description = "Keychain file"
 	regex = '''.'''
 	file = '''\.(kdb|agilekeychain|keychain|kwallet|git-credentials|proftpdpasswd|dockercfg|credentials)$'''
