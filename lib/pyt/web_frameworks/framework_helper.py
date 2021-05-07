@@ -64,7 +64,9 @@ def is_taintable_function(ast_node):
                 "xframe_options_exempt",
                 "xframe_options_deny",
                 "xframe_options_sameorigin",
-                "before_first_request"
+                "before_first_request",
+                "receiver",
+                "require_http_methods",
             ]:
                 return True
     # Ignore database functions
