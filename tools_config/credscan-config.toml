@@ -174,13 +174,13 @@ title = "gitleaks config"
 
 [[rules]]
 	description = "Env Var"
-	regex = '''(?i)(apikey|secret|key|password|certificate_osx_p12|certificate_password|codacy_project_token|coveralls_api_token|coveralls_repo_token|coveralls_token|coverity_scan_token|cypress_record_key|database_password|db_password|deploy_password|deploy_token|digitalocean_access_token|docker_hub_password|docker_password|dockerhub_password|sonatype_password|firebase_api_token|firebase_token|firefox_secret|flask_secret_key|fossa_api_key|gcloud_service_key|gcr_password|gh_api_key|gh_next_oauth_client_secret|gh_next_unstable_oauth_client_secret|gh_oauth_client_secret|gpg_private_key|gpg_passphrase|gpg_secret_keys|heroku_api_key|okta_client_token|pypi_password|sonatype_nexus_password|travis_token|refresh_token|client_id|client_secret)(.*)?[:=](\s)?['\"][0-9a-zA-Z-_!$^%]{10,120}['\"]'''
+	regex = '''(?i)(apikey|secret|password|certificate_osx_p12|certificate_password|codacy_project_token|coveralls_api_token|coveralls_repo_token|coveralls_token|coverity_scan_token|cypress_record_key|database_password|db_password|deploy_password|deploy_token|digitalocean_access_token|docker_hub_password|docker_password|dockerhub_password|sonatype_password|firebase_api_token|firebase_token|firefox_secret|flask_secret_key|fossa_api_key|gcloud_service_key|gcr_password|gh_api_key|gh_next_oauth_client_secret|gh_next_unstable_oauth_client_secret|gh_oauth_client_secret|gpg_private_key|gpg_passphrase|gpg_secret_keys|heroku_api_key|okta_client_token|pypi_password|sonatype_nexus_password|travis_token|refresh_token|client_id|client_secret)(.*)?[:=](\s)?['\"][0-9a-zA-Z-_!$^%=]{10,120}['\"]'''
     tags = ["key", "env"]
     [[rules.entropies]]
         Min = "4.2"
         Max = "7.0"
     [rules.allowlist]
-		regexes = ['''(?i)(password|passwd|attrgetter|itemgetter|ifloordiv|imatmul|itruediv|yourpassword|foo|bar|serial|mpan|secret_key)''']
+		regexes = ['''(?i)(expect|assert|Component|Control|passwd|attrgetter|itemgetter|ifloordiv|imatmul|itruediv|yourpassword|foo|bar|serial|mpan|secret_key)''']
 		description = "ignore default"
 
 [[rules]]
@@ -192,8 +192,8 @@ title = "gitleaks config"
         Max = "7.0"
     [rules.allowlist]
         description = "ignore ssh key and pems"
-        files = ['''(pem|ppk|env)$''']
-        paths = ['''(.*)?ssh''']
+        regexes = ['''(ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890|0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz)''']
+        paths = ['''(.*)?(ssh|i18n|locales)''']
 
 [[rules]]
 	description = "WP-Config"
@@ -508,7 +508,7 @@ title = "gitleaks config"
 
 [[rules]]
 	description = "CSCAN0220: DefaultPasswordContexts 7"
-	file = '''\.(?:cs|xml|config|json|ts|cfg|txt|ps1|bat|cscfg|publishsettings|cmd|psm1|aspx|asmx|vbs|added_cluster|clean|pubxml|ccf|ini|svd|sql|c|xslt|csv|FF|ExtendedTests|settings|cshtml|template|trd|argfile)$|(config|certificate|publish|UT)\.js$|(commands|user|tests)\.cpp$'''
+	file = '''\.(?:cs|xml|config|json|cfg|txt|ps1|bat|cscfg|publishsettings|cmd|psm1|aspx|asmx|vbs|added_cluster|clean|pubxml|ccf|ini|svd|sql|c|xslt|csv|FF|ExtendedTests|settings|cshtml|template|trd|argfile)$|(config|certificate|publish|UT)\.js$|(commands|user|tests)\.cpp$'''
 	regex = '''password\s*=\s*N?(["][^"\r?\n]{4,}["]|['][^'\r?\n]{4,}['])'''
 	tags = ["key", "DefaultPasswordContexts"]
 	[[rules.whitelist]]
@@ -570,4 +570,4 @@ title = "gitleaks config"
 [allowlist]
 	description = "Allowlisted files"
 	files = ['''(.*?)(png|jpg|gif|doc|docx|pdf|bin|xls|zip)$''', '''buildsearchers.xml''','''(?i)(credscan-config.toml|go.mod|go.sum|yarn.lock|package-lock.json|.terraform.lock.hcl)''']
-	paths = ['''(?i)(test|reports|node_modules)''']
+	paths = ['''(?i)(test|reports|node_modules|venv|.venv|.m2|.gradle)''']
