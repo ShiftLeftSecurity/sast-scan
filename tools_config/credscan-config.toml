@@ -228,7 +228,7 @@ title = "gitleaks config"
 	description = "Unknown Key"
 	regex = '''.'''
 	file = '''\.key$'''
-	tags = ["file", "openvpn"]
+	tags = ["file", "key"]
 
 [[rules]]
 	description = "Keychain file"
