@@ -187,6 +187,7 @@ title = "gitleaks config"
 	description = "Static key"
 	regex = '''(?i)(cookieParser)(.*)?[(](\s)?['\"][0-9a-zA-Z-_!$^%=]{5,20}['\")]'''
     tags = ["key", "sign"]
+    file = '''\.(js|ts)$'''
     [rules.allowlist]
 		regexes = ['''(?i)(require|import|expect|assert|Component|Control|passwd|attrgetter|itemgetter|ifloordiv|imatmul|itruediv|yourpassword|foo|bar|serial|mpan|secret_key)''']
 		description = "ignore default"
