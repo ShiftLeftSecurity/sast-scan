@@ -137,7 +137,6 @@ USER root
 RUN python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && mv /usr/local/bin/scan /usr/local/bin/depscan \
     && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @microsoft/rush --unsafe-perm \
     && microdnf clean all
 
