@@ -42,6 +42,7 @@ def is_taintable_function(ast_node):
             # Flask route and Django tag
             if _get_last_of_iterable(get_call_names(decorator.func)) in [
                 "route",
+                "errorhandler",
                 "simple_tag",
                 "inclusion_tag",
                 "to_end_tag",
@@ -67,6 +68,11 @@ def is_taintable_function(ast_node):
                 "before_first_request",
                 "receiver",
                 "require_http_methods",
+                "application",
+                "command",
+                "option",
+                "group",
+                "argument",
             ]:
                 return True
     # Ignore database functions
@@ -75,7 +81,7 @@ def is_taintable_function(ast_node):
         if first_arg_name == "self" and len(ast_node.args.args) > 1:
             first_arg_name = ast_node.args.args[1].arg
         # Common view functions such as django, starlette, falcon
-        if first_arg_name in ["req", "request", "context", "scope"]:
+        if first_arg_name in ["req", "request", "context", "scope", "environ"]:
             return True
         # Ignore dao classes due to potential FP
         if first_arg_name in ["conn", "connection", "cls", "session", "session_cls"]:

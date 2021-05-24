@@ -215,6 +215,8 @@ class StmtVisitor(ast.NodeVisitor):
         """
         if isinstance(orelse[0], ast.If):
             control_flow_node = self.visit(orelse[0])
+            if isinstance(control_flow_node, IgnoredNode):
+                return IgnoredNode()
             # Prefix the if label with 'el'
             control_flow_node.test.label = "el" + control_flow_node.test.label
             if test is not None:
