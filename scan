@@ -675,16 +675,30 @@ def main():
     start_time = time.monotonic_ns()
     args = build_args()
     src_dir = args.src_dir
+    type = args.scan_type
+    reports_base_dir = os.getcwd()
     if not args.src_dir:
         src_dir = os.getcwd()
-    reports_dir = args.reports_dir
-    if not reports_dir:
-        reports_dir = os.path.join(src_dir, "reports")
-    os.makedirs(reports_dir, exist_ok=True)
-    type = args.scan_type
     scan_mode = args.scan_mode
     if scan_mode:
         scan_mode = scan_mode.lower()
+    # Identify project type
+    if not type:
+        # Check the local config first. If not try auto detection
+        type = config.get("scan_type")
+        if type:
+            type = type.split(",")
+        else:
+            type = utils.detect_project_type(src_dir, scan_mode)
+    else:
+        type = type.split(",")
+    reports_dir = args.reports_dir
+    if not reports_dir:
+        if "docker" in type or "podman" in type or "container" in type:
+            reports_dir = os.path.join(reports_base_dir, "reports")
+        else:
+            reports_dir = os.path.join(src_dir, "reports")
+    os.makedirs(reports_dir, exist_ok=True)
     # Get or construct the run uuid
     run_uuid = os.environ.get("SCAN_ID", str(uuid.uuid4()))
     config.set("run_uuid", run_uuid)
@@ -707,16 +721,6 @@ def main():
     # Check if we should authenticate with inspect
     if not args.nocloud:
         inspect.authenticate()
-    # Identify project type
-    if not type:
-        # Check the local config first. If not try auto detection
-        type = config.get("scan_type")
-        if type:
-            type = type.split(",")
-        else:
-            type = utils.detect_project_type(src_dir, scan_mode)
-    else:
-        type = type.split(",")
     if inspect.is_authenticated():
         console.print(ngsast_logo, style="info")
     else:

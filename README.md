@@ -9,7 +9,7 @@
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-[Scan](https://slscan.io) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker, results baseline and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+[Scan](https://slscan.io) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application, and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker, results baseline and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
 [![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
 
@@ -20,38 +20,40 @@
 
 ## Bundled tools
 
-| Programming Language | Tools                              |
-| -------------------- | ---------------------------------- |
-| ansible              | ansible-lint                       |
-| apex                 | pmd                                |
-| arm                  | checkov                            |
-| aws                  | checkov                            |
-| bash                 | shellcheck                         |
-| bom                  | cdxgen                             |
-| credscan             | gitleaks                           |
-| depscan              | dep-scan                           |
-| go                   | gosec, staticcheck                 |
-| groovy               | find-sec-bugs                      |
-| java                 | cdxgen, gradle, find-sec-bugs, pmd |
-| jsp                  | pmd, find-sec-bugs                 |
-| json                 | jq, jsondiff, jsonschema           |
-| kotlin               | detekt, find-sec-bugs              |
-| scala                | find-sec-bugs                      |
-| kubernetes           | checkov, kubesec, kube-score       |
-| nodejs               | cdxgen, yarn, rush                 |
-| php                  | psalm, phpstan (ide only)          |
-| plsql                | pmd                                |
-| python               | cfg-scan (1), bandit, cdxgen       |
-| ruby                 | brakeman (2), dep-scan             |
-| rust                 | cdxgen                             |
-| serverless           | checkov                            |
-| terraform            | checkov, tfsec                     |
-| Visual Force (vf)    | pmd                                |
-| Apache Velocity (vm) | pmd                                |
-| yaml                 | yamllint                           |
+| Programming Language   | Tools                              |
+| ---------------------- | ---------------------------------- |
+| ansible                | ansible-lint                       |
+| apex                   | pmd                                |
+| arm                    | checkov                            |
+| aws                    | checkov                            |
+| bash                   | shellcheck                         |
+| bom                    | cdxgen                             |
+| credscan               | gitleaks                           |
+| depscan                | dep-scan                           |
+| dockerfile             | checkov                            |
+| go                     | gosec, staticcheck                 |
+| groovy                 | find-sec-bugs                      |
+| java                   | cdxgen, gradle, find-sec-bugs, pmd |
+| jsp                    | pmd, find-sec-bugs                 |
+| json                   | jq, jsondiff, jsonschema           |
+| kotlin                 | detekt, find-sec-bugs              |
+| scala                  | find-sec-bugs                      |
+| kubernetes             | checkov, kubesec, kube-score       |
+| nodejs                 | cdxgen, yarn, rush                 |
+| php                    | psalm, phpstan (ide only)          |
+| plsql                  | pmd                                |
+| python                 | cfg-scan (1), bandit, cdxgen       |
+| ruby                   | brakeman (2), dep-scan             |
+| rust                   | cdxgen                             |
+| serverless             | checkov                            |
+| terraform              | checkov, tfsec                     |
+| Visual Force (vf)      | pmd                                |
+| Apache Velocity (vm)   | pmd                                |
+| yaml                   | yamllint                           |
+| docker/container image | dep-scan                           |
 
-(1) - Deep analyzer for Python is a built-in feature
-(2) - Brakeman is not bundled with scan. Use brakeman with an appropriate license and export the report in json format using `-o reports/source-ruby-report.json`
+- (1) - Deep analyzer for Python is a built-in feature
+- (2) - Brakeman is not bundled with scan. Use brakeman with an appropriate license and export the report in json format using `-o reports/source-ruby-report.json`
 
 ## Bundled languages/runtime
 
@@ -130,6 +132,47 @@ docker run --rm -e "WORKSPACE=${PWD}" -v ~/.gradle:/.gradle -v <source path>:/ap
 **Automatic project detection**
 
 Feel free to skip `--type` to enable auto-detection. Or pass comma-separated values if the project has multiple types.
+
+### Scanning container images
+
+Scanning container images is now possible with slscan. The recommended approach is to export the container image using docker or podman save command first followed by an invocation of scan with the .tar file.
+
+```bash
+docker pull shiftleft/scan-slim:latest
+docker save -o scanslim.tar shiftleft/scan-slim:latest
+# podman save --format oci-archive -o scanslim.tar shiftleft/scan-slim:latest
+docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app/scanslim.tar -o /app/reports --type docker
+```
+
+Alternatively, it is possible to let scan pull the container image before analysis. However, it requires exposing your docker or podman daemon socket and therefore **not recommended**. You can try it if you are feeling adventurous by passing the below parameters to the docker run command.
+
+```bash
+-e "DOCKER_HOST=unix:/var/run/docker.sock:" -v "/var/run/docker.sock:/var/run/docker.sock"
+```
+
+Example: To scan the container image `shiftleft/scan-slim`:
+
+```bash
+docker run --rm -e "WORKSPACE=$(pwd)" -e "DOCKER_HOST=unix:/var/run/docker.sock:" \
+    -v "/var/run/docker.sock:/var/run/docker.sock" \
+    -v "$(pwd):/app" shiftleft/scan scan -t docker -i shiftleft/scan-slim
+```
+
+Example: To scan the container image `redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e`:
+
+```bash
+docker run --rm -e "WORKSPACE=$(pwd)" -e "DOCKER_HOST=unix:/var/run/docker.sock:" \
+    -v "/var/run/docker.sock:/var/run/docker.sock" \
+    -v "$(pwd):/app" shiftleft/scan scan -t docker -i redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e
+```
+
+Same example with podman
+
+```bash
+podman run --rm -e "WORKSPACE=$(pwd)" -e "DOCKER_HOST=unix:/run/user/1000/podman/podman.sock:" \
+    -v "/run/user/1000:/run/user/1000" \
+    -v "$(pwd):/app" shiftleft/scan scan -t docker -i redmine@sha256:a5c5f8a64a0d9a436a0a6941bc3fb156be0c89996add834fe33b66ebeed2439e
+```
 
 ## Viewing reports
 

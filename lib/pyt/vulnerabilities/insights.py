@@ -1161,7 +1161,7 @@ def _check_flask_common_misconfig(ast_tree, path):
                             },
                             path,
                         )
-                        if kw_arg == "verify" and kw_arg_value == False:
+                        if kw_arg == "verify" and not kw_arg_value:
                             violations.append(
                                 Insight(
                                     f"""Security Misconfiguration with the config `{kw_arg}` not set to the recommended value `True` for production use""",

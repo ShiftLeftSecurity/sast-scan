@@ -374,7 +374,60 @@ scan_tools_args_map = {
         "%(report_fname_prefix)s.json",
     ],
     "docker": {
-        "source-docker": [
+        "image-docker": [
+            get("DEPSCAN_CMD"),
+            "--no-banner",
+            "--suggest",
+            "-t",
+            "docker",
+            "--src",
+            "%(src)s",
+            "--report_file",
+            "%(report_fname_prefix)s.json",
+        ]
+    },
+    "podman": {
+        "image-podman": [
+            get("DEPSCAN_CMD"),
+            "--no-banner",
+            "--suggest",
+            "-t",
+            "docker",
+            "--src",
+            "%(src)s",
+            "--report_file",
+            "%(report_fname_prefix)s.json",
+        ]
+    },
+    "container": {
+        "image-container": [
+            get("DEPSCAN_CMD"),
+            "--no-banner",
+            "--suggest",
+            "-t",
+            "docker",
+            "--src",
+            "%(src)s",
+            "--report_file",
+            "%(report_fname_prefix)s.json",
+        ]
+    },
+    "dockerfile": {
+        "source-dockerfile": [
+            "checkov",
+            "-s",
+            "--framework",
+            "dockerfile",
+            "--quiet",
+            "--no-guide",
+            "-o",
+            "json",
+            "-d",
+            "%(src)s",
+        ]
+    },
+    "containerfile": {
+        "source-containerfile": [
             "checkov",
             "-s",
             "--framework",
@@ -805,7 +858,11 @@ tool_purpose_message = {
     "checkov": "Security Audit for Infrastructure",
     "source-aws": "Security Audit for AWS",
     "source-arm": "Security Audit for Azure Resource Manager",
-    "source-docker": "Dockerfile Security Audit",
+    "source-containerfile": "Containerfile Security Audit",
+    "source-dockerfile": "Dockerfile Security Audit",
+    "image-container": "Container Image Audit",
+    "image-docker": "Container Image Audit",
+    "image-podman": "Container Image Audit",
     "source-k8s": "Kubernetes Security Audit",
     "source-kt": "Kotlin Static Analysis",
     "audit-kt": "Kotlin Security Audit",

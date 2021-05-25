@@ -235,7 +235,12 @@ def execute_default_cmd(  # scan:ignore
     # Suppress psalm output
     if should_suppress_output(type_str, cmd_with_args[0]):
         stdout = subprocess.DEVNULL
-    exec_tool(tool_name, cmd_with_args, cwd=src, stdout=stdout)
+    exec_tool(
+        tool_name,
+        cmd_with_args,
+        cwd=os.getcwd() if "image" in tool_name else src,
+        stdout=stdout,
+    )
     # Should we attempt to convert the report to sarif format
     if should_convert(convert, tool_name, cmd_with_args[0], report_fname):
         crep_fname = utils.get_report_file(

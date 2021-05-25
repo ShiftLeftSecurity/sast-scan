@@ -220,6 +220,15 @@ def detect_project_type(src_dir, scan_mode):
     else:
         project_types.append("credscan")
     depscan_supported = False
+    if (
+        "docker.io" in src_dir
+        or "quay.io" in src_dir
+        or ":latest" in src_dir
+        or "@sha256" in src_dir
+        or src_dir.endswith(".tar")
+        or src_dir.endswith(".tar.gz")
+    ):
+        project_types.append("docker")
     if find_files(src_dir, ".cls", False, True):
         project_types.append("apex")
     if find_python_reqfiles(src_dir) or find_files(src_dir, ".py", False, True):
@@ -285,7 +294,7 @@ def detect_project_type(src_dir, scan_mode):
     if find_files(src_dir, "serverless.yml", False, True):
         project_types.append("serverless")
     if find_files(src_dir, "Dockerfile", True, True):
-        project_types.append("docker")
+        project_types.append("dockerfile")
     if find_files(src_dir, "deploy.json", False, True) or find_files(
         src_dir, "parameters.json", False, True
     ):
