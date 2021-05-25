@@ -12,6 +12,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Test container images
       run: |
+        docker pull shiftleft/scan-slim:latest
         docker save -o scanslim.tar shiftleft/scan-slim:latest
         docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app/scanslim.tar -o /app/reports --type docker
       env:

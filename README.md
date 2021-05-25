@@ -138,6 +138,7 @@ Feel free to skip `--type` to enable auto-detection. Or pass comma-separated val
 Scanning container images is now possible with slscan. The recommended approach is to export the container image using docker or podman save command first followed by an invocation of scan with the .tar file.
 
 ```bash
+docker pull shiftleft/scan-slim:latest
 docker save -o scanslim.tar shiftleft/scan-slim:latest
 # podman save --format oci-archive -o scanslim.tar shiftleft/scan-slim:latest
 docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app/scanslim.tar -o /app/reports --type docker
