@@ -1,0 +1,23 @@
+name: docker tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Test container images
+      run: |
+        docker save -o scanslim.tar shiftleft/scan-slim:latest
+        docker run --rm -e "WORKSPACE=${PWD}" -v $PWD:/app shiftleft/scan scan --src /app/scanslim.tar -o /app/reports --type docker
+      env:
+        PYTHONPATH: "."
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/upload-artifact@v1
+      with:
+        name: reports
+        path: reports
