@@ -682,6 +682,22 @@ def main():
     scan_mode = args.scan_mode
     if scan_mode:
         scan_mode = scan_mode.lower()
+    # Set the source directory as an environment variable
+    config.set("SAST_SCAN_SRC_DIR", src_dir)
+    # Get or construct the run uuid
+    run_uuid = os.environ.get("SCAN_ID", str(uuid.uuid4()))
+    config.set("run_uuid", run_uuid)
+    repo_context = context.find_repo_details(src_dir)
+    workspace = os.getenv("WORKSPACE")
+    if workspace is None and scan_mode != "ide":
+        # In case of GitHub action empty workspace forces relative url
+        if os.environ.get("GITHUB_ACTION") or os.environ.get("GITHUB_RUN_ID"):
+            workspace = ""
+        else:
+            workspace = utils.get_workspace(repo_context)
+        if workspace:
+            config.set("WORKSPACE", workspace)
+    config.reload()
     # Identify project type
     if not type:
         # Check the local config first. If not try auto detection
@@ -699,25 +715,9 @@ def main():
         else:
             reports_dir = os.path.join(src_dir, "reports")
     os.makedirs(reports_dir, exist_ok=True)
-    # Get or construct the run uuid
-    run_uuid = os.environ.get("SCAN_ID", str(uuid.uuid4()))
-    config.set("run_uuid", run_uuid)
-    # Set the source directory as an environment variable
-    config.set("SAST_SCAN_SRC_DIR", src_dir)
-    repo_context = context.find_repo_details(src_dir)
     # Should we skip this scan
     if should_skip(src_dir, reports_dir, repo_context, scan_mode):
         sys.exit(0)
-    workspace = os.getenv("WORKSPACE")
-    if workspace is None and scan_mode != "ide":
-        # In case of GitHub action empty workspace forces relative url
-        if os.environ.get("GITHUB_ACTION") or os.environ.get("GITHUB_RUN_ID"):
-            workspace = ""
-        else:
-            workspace = utils.get_workspace(repo_context)
-        if workspace:
-            config.set("WORKSPACE", workspace)
-    config.reload()
     # Check if we should authenticate with inspect
     if not args.nocloud:
         inspect.authenticate()
