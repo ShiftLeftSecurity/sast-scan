@@ -79,7 +79,7 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSIO
     && mv sb-contrib-${SB_CONTRIB_VERSION}.jar /opt/spotbugs-${SB_VERSION}/plugin/sb-contrib.jar \
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
     && chmod a+rx /usr/local/bin/shiftleft/sl \
-    && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin
+    && mkdir -p /opt/sl-cli
 
 FROM shiftleft/scan-base-java as sast-scan-tools
 

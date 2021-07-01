@@ -47,7 +47,7 @@ RUN curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSIO
     && rm kubesec_linux_amd64.tar.gz \
     && curl "https://cdn.shiftleft.io/download/sl" > /usr/local/bin/shiftleft/sl \
     && chmod a+rx /usr/local/bin/shiftleft/sl \
-    && mkdir -p /opt/sl-cli && /usr/local/bin/shiftleft/sl update libplugin \
+    && mkdir -p /opt/sl-cli \
     && /usr/local/bin/shiftleft/sl update csharp2cpg
 
 FROM shiftleft/scan-base-csharp as sast-scan-tools
