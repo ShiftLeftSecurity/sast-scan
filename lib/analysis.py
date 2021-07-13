@@ -175,6 +175,7 @@ def summary(
     for sf in sarif_files:
         with open(sf, mode="r") as report_file:
             report_data = json.load(report_file)
+            existing_tool = False
             # skip this file if the data is empty
             if not report_data or not report_data.get("runs"):
                 LOG.warn("Report file {} is invalid. Skipping ...".format(sf))
@@ -185,23 +186,26 @@ def summary(
                 run_data_list.append(run)
                 tool_desc = run["tool"]["driver"]["name"]
                 tool_name = tool_desc
-                # Initialise
-                report_summary[tool_name] = {
-                    "tool": tool_desc,
-                    "critical": 0,
-                    "high": 0,
-                    "medium": 0,
-                    "low": 0,
-                    "status": ":white_heavy_check_mark:",
-                }
+                # Initialise if the referred tool is seen for the first time
+                if not report_summary.get(tool_name):
+                    report_summary[tool_name] = {
+                        "tool": tool_desc,
+                        "critical": 0,
+                        "high": 0,
+                        "medium": 0,
+                        "low": 0,
+                        "status": ":white_heavy_check_mark:",
+                    }
+                else:
+                    existing_tool = True
                 results = run.get("results", [])
                 metrics = run.get("properties", {}).get("metrics", None)
                 # If the result includes metrics use it. If not compute it
-                if metrics:
+                if metrics and not existing_tool:
                     report_summary[tool_name].update(metrics)
                     report_summary[tool_name].pop("total", None)
                 for aresult in results:
-                    if not metrics:
+                    if not metrics or existing_tool:
                         if aresult.get("properties"):
                             sev = aresult["properties"]["issue_severity"].lower()
                         else:

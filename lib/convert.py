@@ -78,6 +78,7 @@ def tweak_severity(tool_name, issue_dict):
         "source-arm",
         "source-aws",
         "source-k8s",
+        "source-dockerfile",
     ]:
         cis_rule = cis.get_rule(rule_id)
         if not cis_rule:
