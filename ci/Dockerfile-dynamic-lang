@@ -48,7 +48,8 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN microdnf install -y python38 nodejs git-core which \
+RUN echo -e "[nodejs]\nname=nodejs\nstream=14\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
+    && microdnf install -y python38 nodejs git-core which \
     && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \
