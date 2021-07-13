@@ -3,14 +3,14 @@ FROM shiftleft/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.7.0 \
-    TFSEC_VERSION=0.36.10 \
-    KUBESEC_VERSION=2.11.0 \
-    KUBE_SCORE_VERSION=1.10.0 \
-    SHELLCHECK_VERSION=0.7.1 \
-    DETEKT_VERSION=1.16.0 \
-    GITLEAKS_VERSION=7.3.0 \
-    SC_VERSION=2020.2.3 \
+ENV GOSEC_VERSION=2.8.1 \
+    TFSEC_VERSION=0.46.2 \
+    KUBESEC_VERSION=2.11.2 \
+    KUBE_SCORE_VERSION=1.11.0 \
+    SHELLCHECK_VERSION=0.7.2 \
+    DETEKT_VERSION=1.17.1 \
+    GITLEAKS_VERSION=7.5.0 \
+    SC_VERSION=2021.1 \
     JQ_VERSION=1.6 \
     GOPATH=/opt/app-root/go \
     SHIFTLEFT_HOME=/opt/sl-cli \
@@ -34,7 +34,7 @@ RUN curl -LO "https://github.com/koalaman/shellcheck/releases/download/v${SHELLC
     && rm staticcheck_linux_amd64.tar.gz
 RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
     && chmod +x /usr/local/bin/shiftleft/gitleaks \
-    && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
+    && curl -L "https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
     && chmod +x /usr/local/bin/shiftleft/tfsec \
     && rm shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \

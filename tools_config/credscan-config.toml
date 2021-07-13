@@ -180,7 +180,7 @@ title = "gitleaks config"
         Min = "4.2"
         Max = "7.0"
     [rules.allowlist]
-		regexes = ['''(?i)(expect|assert|Component|Control|passwd|attrgetter|itemgetter|ifloordiv|imatmul|itruediv|yourpassword|foo|bar|serial|mpan|secret_key)''']
+		regexes = ['''(?i)(expect|assert|Component|Control|passwd|attrgetter|itemgetter|ifloordiv|imatmul|itruediv|yourpassword|foo|bar|serial|mpan|secret_key|grant_type|ngModel)''']
 		description = "ignore default"
 
 [[rules]]

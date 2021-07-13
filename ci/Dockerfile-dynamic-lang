@@ -3,17 +3,17 @@ FROM registry.access.redhat.com/ubi8/python-38 as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV TFSEC_VERSION=0.36.10 \
-    GITLEAKS_VERSION=7.3.0 \
-    KUBESEC_VERSION=2.11.0 \
-    KUBE_SCORE_VERSION=1.10.0
+ENV TFSEC_VERSION=0.46.2 \
+    GITLEAKS_VERSION=7.5.0 \
+    KUBESEC_VERSION=2.11.2 \
+    KUBE_SCORE_VERSION=1.11.0
 
 USER root
 
 RUN mkdir -p /usr/local/bin/shiftleft \
     && curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
     && chmod +x /usr/local/bin/shiftleft/gitleaks \
-    && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
+    && curl -L "https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
     && chmod +x /usr/local/bin/shiftleft/tfsec \
     && curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
     && chmod +x /usr/local/bin/shiftleft/kube-score \
@@ -48,7 +48,8 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN microdnf install -y python38 nodejs git-core which \
+RUN echo -e "[nodejs]\nname=nodejs\nstream=14\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
+    && microdnf install -y python38 nodejs git-core which \
     && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \

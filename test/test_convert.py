@@ -255,7 +255,7 @@ def test_tfsec_convert_issue():
             [
                 {
                     "rule_id": "AWSTEST",
-                    "link": "https://github.com/liamg/tfsec/wiki/AWS018",
+                    "link": "https://github.com/aquasecurity/tfsec/wiki/AWS018",
                     "location": {
                         "filename": "/app/main.tf",
                         "start_line": 1,
