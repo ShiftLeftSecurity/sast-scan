@@ -3,25 +3,25 @@ FROM shiftleft/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.7.0 \
-    TFSEC_VERSION=0.36.10 \
-    KUBESEC_VERSION=2.11.0 \
-    KUBE_SCORE_VERSION=1.10.0 \
-    SHELLCHECK_VERSION=0.7.1 \
-    DETEKT_VERSION=1.16.0 \
-    GITLEAKS_VERSION=7.3.0 \
-    GRADLE_VERSION=6.8.3 \
+ENV GOSEC_VERSION=2.8.1 \
+    TFSEC_VERSION=0.46.2 \
+    KUBESEC_VERSION=2.11.2 \
+    KUBE_SCORE_VERSION=1.11.0 \
+    SHELLCHECK_VERSION=0.7.2 \
+    DETEKT_VERSION=1.17.1 \
+    GITLEAKS_VERSION=7.5.0 \
+    GRADLE_VERSION=7.1.1 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     SBT_VERSION=1.5.4 \
-    MAVEN_VERSION=3.6.3 \
+    MAVEN_VERSION=3.8.1 \
     MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
-    SC_VERSION=2020.2.3 \
-    PMD_VERSION=6.32.0 \
+    SC_VERSION=2021.1 \
+    PMD_VERSION=6.36.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
     FSB_VERSION=1.11.0 \
     SB_CONTRIB_VERSION=7.4.7 \
-    SB_VERSION=4.2.2 \
+    SB_VERSION=4.3.0 \
     GOPATH=/opt/app-root/go \
     SHIFTLEFT_HOME=/opt/sl-cli \
     PATH=${PATH}:${GRADLE_HOME}/bin:${GOPATH}/bin:
@@ -56,7 +56,7 @@ RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     && rm staticcheck_linux_amd64.tar.gz
 RUN curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
     && chmod +x /usr/local/bin/shiftleft/gitleaks \
-    && curl -L "https://github.com/liamg/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
+    && curl -L "https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
     && chmod +x /usr/local/bin/shiftleft/tfsec \
     && rm shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 RUN curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
@@ -100,18 +100,18 @@ ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
     MVN_CMD="/opt/apache-maven/bin/mvn" \
     PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
-    SB_VERSION=4.2.2 \
-    PMD_VERSION=6.32.0 \
+    SB_VERSION=4.3.0 \
+    PMD_VERSION=6.36.0 \
     PMD_JAVA_OPTS="--enable-preview" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-1.8.0 \
     SCAN_JAVA_HOME=/usr/lib/jvm/jre-1.8.0 \
     SCAN_JAVA_11_HOME=/usr/lib/jvm/jre-11-openjdk \
     SCAN_JAVA_8_HOME=/usr/lib/jvm/jre-1.8.0 \
-    GRADLE_VERSION=6.8.3 \
+    GRADLE_VERSION=7.1.1 \
     GRADLE_HOME=/opt/gradle \
     GRADLE_CMD=gradle \
-    MAVEN_VERSION=3.6.3 \
+    MAVEN_VERSION=3.8.1 \
     MAVEN_HOME=/opt/apache-maven \
     PYTHONUNBUFFERED=1 \
     DOTNET_CLI_TELEMETRY_OPTOUT=1 \
