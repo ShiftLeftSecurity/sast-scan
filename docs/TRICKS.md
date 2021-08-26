@@ -45,7 +45,7 @@ Below is an example.
       "--repo-path=%(src)s",
       "--redact",
       "--report=%(report_fname_prefix)s.json",
-      "--report-format=json"
+      "--format=json"
     ]
   }
 }
