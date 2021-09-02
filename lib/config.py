@@ -244,7 +244,7 @@ def get(configName, default_value=None):
     try:
         value = runtimeValues.get(configName)
         if value is None:
-            value = os.environ.get(configName.upper())
+            value = os.environ.get(configName.replace("-", "_").upper())
         if value is None:
             value = getattr(sys.modules[__name__], configName, None)
         if value is None:
@@ -1591,18 +1591,20 @@ exttool_default_severity = {"brakeman": "medium"}
 
 def reload():
     # Load any .sastscanrc file from the root
+    scanrc = os.path.join(os.getcwd(), ".sastscanrc")
     if get("SAST_SCAN_SRC_DIR"):
         scanrc = os.path.join(get("SAST_SCAN_SRC_DIR"), ".sastscanrc")
-        if os.path.exists(scanrc):
-            with open(scanrc, "r") as rcfile:
-                try:
-                    new_config = json.loads(rcfile.read())
-                    for key, value in new_config.items():
-                        exis_config = get(key)
-                        if isinstance(exis_config, dict):
-                            exis_config.update(value)
-                            set(key, exis_config)
-                        else:
-                            set(key, value)
-                except Exception:
-                    print(".sastscanrc should be a valid json file")
+    if os.path.exists(scanrc):
+        with open(scanrc, "r") as rcfile:
+            try:
+                print("Overriding the config with .sastscanrc")
+                new_config = json.loads(rcfile.read())
+                for key, value in new_config.items():
+                    exis_config = get(key)
+                    if isinstance(exis_config, dict):
+                        exis_config.update(value)
+                        set(key, exis_config)
+                    else:
+                        set(key, value)
+            except Exception:
+                print(".sastscanrc should be a valid json file")
