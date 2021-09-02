@@ -40,6 +40,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
     PMD_CMD="" \
     PYTHONUNBUFFERED=1 \
+    NVD_EXCLUDE_TYPES="o,h" \
     PATH=/usr/local/src/:${PATH}:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin

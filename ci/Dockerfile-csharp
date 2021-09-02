@@ -76,6 +76,7 @@ ENV APP_SRC_DIR=/usr/local/src \
     GOARCH=amd64 \
     GOOS=linux \
     CGO_ENABLED=0 \
+    NVD_EXCLUDE_TYPES="o,h" \
     PATH=/usr/local/src/:${PATH}:/usr/local/go/bin:/opt/sl-cli:
 
 COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
