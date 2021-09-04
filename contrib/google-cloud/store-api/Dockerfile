@@ -3,10 +3,10 @@ FROM python:3.9
 LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.schema-version="1.0" \
       org.label-schema.vendor="shiftleft" \
-      org.label-schema.name="inspect-api" \
+      org.label-schema.name="store-api" \
       org.label-schema.version="1.0.0" \
       org.label-schema.license="UNLICENSED" \
-      org.label-schema.description="API to store AppThreat reports" \
+      org.label-schema.description="API to store and retrieve AppThreat reports" \
       org.label-schema.url="https://www.shiftleft.io" \
       org.label-schema.usage="https://github.com/ShiftLeftSecurity/sast-scan" \
       org.label-schema.build-date=$BUILD_DATE \
