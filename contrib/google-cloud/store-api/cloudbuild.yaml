@@ -1,0 +1,28 @@
+steps:
+- name: 'docker:latest'
+  args: [ 'build', '-t', 'gcr.io/${PROJECT_ID}/${_NAME_SPACE}/${_SERVICE_NAME}:${_TAG}', '.']
+- name: 'docker:latest'
+  args: ['push', 'gcr.io/${PROJECT_ID}/${_NAME_SPACE}/${_SERVICE_NAME}:${_TAG}']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  args:
+  - 'gcloud'
+  - 'run'
+  - 'deploy'
+  - '${_SERVICE_NAME}'
+  - '--image'
+  - 'gcr.io/${PROJECT_ID}/${_NAME_SPACE}/${_SERVICE_NAME}:${_TAG}'
+  - '--region'
+  - '${_REGION}'
+  - '--memory=1Gi'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+
+substitutions:
+  _NAME_SPACE: appthreat
+  _TAG: 1.0.0
+  _SERVICE_NAME: store-api
+  _REGION: us-west1
+
+images:
+  - gcr.io/${PROJECT_ID}/${_NAME_SPACE}/${_SERVICE_NAME}:${_TAG}

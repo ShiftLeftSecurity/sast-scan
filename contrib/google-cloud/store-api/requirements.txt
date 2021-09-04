@@ -1,0 +1,3 @@
+quart
+hypercorn
+google-cloud-firestore
