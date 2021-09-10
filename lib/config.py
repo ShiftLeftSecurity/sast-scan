@@ -1148,7 +1148,7 @@ rules_severity = {
     "CKV_AZURE_11": "CRITICAL",
     "CKV_AZURE_34": "CRITICAL",
     "CKV_DOCKER_1": "CRITICAL",
-    "CKV_DOCKER_2": "MEDIUM",
+    "CKV_DOCKER_2": "LOW",
     "CKV_DOCKER_3": "LOW",
     "CKV_DOCKER_4": "HIGH",
     "CKV_DOCKER_5": "HIGH",
