@@ -682,8 +682,9 @@ def main():
     scan_mode = args.scan_mode
     if scan_mode:
         scan_mode = scan_mode.lower()
-    # Set the source directory as an environment variable
-    config.set("SAST_SCAN_SRC_DIR", src_dir)
+    # Set the source directory as an environment variable if not set
+    if os.getenv("SAST_SCAN_SRC_DIR") is None:
+        config.set("SAST_SCAN_SRC_DIR", src_dir)
     # Get or construct the run uuid
     run_uuid = os.environ.get("SCAN_ID", str(uuid.uuid4()))
     config.set("run_uuid", run_uuid)

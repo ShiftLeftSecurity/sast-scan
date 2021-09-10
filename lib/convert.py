@@ -639,7 +639,7 @@ def should_suppress_fingerprint(fingerprint, working_dir):
     for sk, svl in supress_fps.items():
         if not svl:
             continue
-        if fingerprint[sk] in svl:
+        if fingerprint.get(sk) in svl:
             LOG.debug(f"Suppressing fingerprint {fingerprint[sk]} of type {sk}")
             return True
     return False

@@ -1,0 +1,6 @@
+{
+  "baseline_fingerprints": {
+    "scanPrimaryLocationHash": ["foo"],
+    "scanTagsHash": ["bar"]
+  }
+}
