@@ -795,6 +795,8 @@ scan_tools_args_map = {
         "source-yaml": [
             "checkov",
             "-s",
+            "--framework",
+            "kubernetes",
             "--quiet",
             "--no-guide",
             "-o",
