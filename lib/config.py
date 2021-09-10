@@ -213,24 +213,27 @@ def get_suppress_fingerprints(working_dir):
         "scanTagsHash": [],
         "scanFileHash": [],
     }
-    src_dir = working_dir if working_dir else get("SAST_SCAN_SRC_DIR")
-    if src_dir:
-        scanbaseline = os.path.join(src_dir, ".sastscan.baseline")
-        if os.path.exists(scanbaseline):
-            with open(scanbaseline, "r") as baselinefile:
-                try:
-                    baselinedata = json.loads(baselinefile.read())
-                    # We are interested only in baseline_fingerprints in the baseline file
-                    if baselinedata.get("baseline_fingerprints"):
-                        tmp_suppress_fingerprints = baselinedata.get(
-                            "baseline_fingerprints"
-                        )
-                        if tmp_suppress_fingerprints:
-                            suppress_fingerprints.update(tmp_suppress_fingerprints)
-                            set("suppress_fingerprints", suppress_fingerprints)
-                            return suppress_fingerprints
-                except Exception:
-                    print(".sastscan.baseline should be a valid json file")
+    # Search current working directory. If not use the directory specified in the container invocation
+    scanbaseline = os.path.join(os.getcwd(), ".sastscan.baseline")
+    if not os.path.exists(scanbaseline) and working_dir:
+        scanbaseline = os.path.join(working_dir, ".sastscan.baseline")
+    if not os.path.exists(scanbaseline) and get("SAST_SCAN_SRC_DIR"):
+        scanbaseline = os.path.join(get("SAST_SCAN_SRC_DIR"), ".sastscan.baseline")
+    if os.path.exists(scanbaseline):
+        with open(scanbaseline, "r") as baselinefile:
+            try:
+                baselinedata = json.loads(baselinefile.read())
+                # We are interested only in baseline_fingerprints in the baseline file
+                if baselinedata.get("baseline_fingerprints"):
+                    tmp_suppress_fingerprints = baselinedata.get(
+                        "baseline_fingerprints"
+                    )
+                    if tmp_suppress_fingerprints:
+                        suppress_fingerprints.update(tmp_suppress_fingerprints)
+                        set("suppress_fingerprints", suppress_fingerprints)
+                        return suppress_fingerprints
+            except Exception:
+                print(".sastscan.baseline should be a valid json file")
     return suppress_fingerprints
 
 
@@ -1592,7 +1595,7 @@ exttool_default_severity = {"brakeman": "medium"}
 def reload():
     # Load any .sastscanrc file from the root
     scanrc = os.path.join(os.getcwd(), ".sastscanrc")
-    if get("SAST_SCAN_SRC_DIR"):
+    if not os.path.exists(scanrc) and get("SAST_SCAN_SRC_DIR"):
         scanrc = os.path.join(get("SAST_SCAN_SRC_DIR"), ".sastscanrc")
     if os.path.exists(scanrc):
         with open(scanrc, "r") as rcfile:
