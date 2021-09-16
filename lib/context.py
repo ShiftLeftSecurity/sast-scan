@@ -169,8 +169,11 @@ def find_repo_details(src_dir=None):
     # Cleanup the variables
     branch = branch.replace("refs/heads/", "")
     if repositoryUri:
+        githubServerUrl = os.getenv("GITHUB_SERVER_URL", "https://github.com/")
+        if not githubServerUrl.endswith("/"):
+            githubServerUrl += "/"
         repositoryUri = repositoryUri.replace(
-            "git@github.com:", "https://github.com/"
+            "git@{}:".format(urlparse(githubServerUrl).netloc), githubServerUrl
         ).replace(".git", "")
         # Is it a repo slug?
         repo_slug = True
@@ -184,7 +187,7 @@ def find_repo_details(src_dir=None):
                 repo_slug = False
         # For repo slug just assume github for now
         if repo_slug:
-            repositoryUri = "https://github.com/" + repositoryUri
+            repositoryUri = githubServerUrl + repositoryUri
     if not repositoryName and repositoryUri:
         repositoryName = os.path.basename(repositoryUri)
     if not gitProvider:

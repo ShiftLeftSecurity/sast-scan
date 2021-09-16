@@ -61,13 +61,14 @@ class GitHub(GitProvider):
         revisionId = github_context.get("revisionId")
         if not github_context.get("repoFullname") or not revisionId:
             return
+        serverUrl = github_context.get("serverUrl")
         repoFullname = github_context.get("repoFullname")
         repo = g.get_repo(repoFullname)
         total_count = len(findings)
         target_url = "https://slscan.io"
         runID = github_context.get("runID")
         if runID:
-            target_url = f"https://github.com/{repoFullname}/actions/runs/{runID}"
+            target_url = f"{serverUrl}/{repoFullname}/actions/runs/{runID}"
         repo.get_commit(revisionId).create_status(
             state="success",
             target_url=target_url,
