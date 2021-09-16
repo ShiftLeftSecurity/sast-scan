@@ -22,7 +22,10 @@ from lib.logger import LOG
 
 g = None
 if os.getenv("GITHUB_TOKEN"):
-    g = GitHubLib(login_or_token=os.getenv("GITHUB_TOKEN"), base_url=os.getenv("GITHUB_API_URL"))
+    g = GitHubLib(
+        login_or_token=os.getenv("GITHUB_TOKEN"),
+        base_url=os.getenv("GITHUB_API_URL", "https://api.github.com"),
+    )
 
 
 class GitHub(GitProvider):
@@ -33,7 +36,7 @@ class GitHub(GitProvider):
             "runID": os.getenv("GITHUB_RUN_ID"),
             "repoFullname": os.getenv("GITHUB_REPOSITORY"),
             "triggerEvent": os.getenv("GITHUB_EVENT_NAME"),
-            "apiUrl": os.getenv("GITHUB_API_URL"),
+            "apiUrl": os.getenv("GITHUB_API_URL", "https://api.github.com"),
             "headRef": os.getenv("GITHUB_HEAD_REF"),
             "baseRef": os.getenv("GITHUB_BASE_REF"),
             "githubToken": os.getenv("GITHUB_TOKEN"),
