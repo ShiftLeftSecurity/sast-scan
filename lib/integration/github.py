@@ -22,7 +22,7 @@ from lib.logger import LOG
 
 g = None
 if os.getenv("GITHUB_TOKEN"):
-    g = GitHubLib(os.getenv("GITHUB_TOKEN"))
+    g = GitHubLib(login_or_token=os.getenv("GITHUB_TOKEN"), base_url=os.getenv("GITHUB_API_URL"))
 
 
 class GitHub(GitProvider):
