@@ -353,7 +353,7 @@ def get_workspace(repo_context):
     if not repo_context["repositoryUri"]:
         return None
     revision = repo_context.get("revisionId", repo_context.get("branch"))
-    if "github.com" in repo_context["repositoryUri"]:
+    if "github" in repo_context["repositoryUri"]:
         return "{}/blob/{}".format(repo_context["repositoryUri"], revision)
     if "gitlab" in repo_context["repositoryUri"]:
         return "{}/-/blob/{}".format(repo_context["repositoryUri"], revision)
