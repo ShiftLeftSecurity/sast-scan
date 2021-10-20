@@ -584,5 +584,5 @@ title = "gitleaks config"
 
 [allowlist]
 	description = "Allowlisted files"
-	files = ['''(.*?)(png|jpg|gif|doc|docx|pdf|bin|xls|zip)$''', '''buildsearchers.xml''','''(?i)(credscan-config.toml|go.mod|go.sum|yarn.lock|package-lock.json|.terraform.lock.hcl)''']
+	files = ['''(.*?)(png|jpg|gif|doc|docx|pdf|bin|xls|zip)$''', '''buildsearchers.xml''','''(?i)(credscan-config.toml|go.mod|go.sum|yarn.lock|package-lock.json|project.assets.json|.min.js|.dist.js|.terraform.lock.hcl)''']
 	paths = ['''(?i)(test|reports|node_modules|venv|.venv|.m2|.gradle)''']
