@@ -438,8 +438,8 @@ def pmd_scan(src, reports_dir, convert, repo_context):
         return
     pmd_args = [
         *pmd_cmd,
-        "-no-cache",
-        "--failOnViolation",
+        "--no-cache",
+        "--fail-on-violation",
         "false",
         "-language",
         "java",

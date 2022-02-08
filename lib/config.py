@@ -279,8 +279,8 @@ scan_tools_args_map = {
     "apex": {
         "source-apex": [
             *get("PMD_CMD").split(" "),
-            "-no-cache",
-            "--failOnViolation",
+            "--no-cache",
+            "--fail-on-violation",
             "false",
             "-language",
             "apex",
@@ -458,8 +458,8 @@ scan_tools_args_map = {
     "jsp": {
         "source-jsp": [
             *get("PMD_CMD").split(" "),
-            "-no-cache",
-            "--failOnViolation",
+            "--no-cache",
+            "--fail-on-violation",
             "false",
             "-language",
             "jsp",
@@ -555,8 +555,8 @@ scan_tools_args_map = {
     "plsql": {
         "source-sql": [
             *get("PMD_CMD").split(" "),
-            "-no-cache",
-            "--failOnViolation",
+            "--no-cache",
+            "--fail-on-violation",
             "false",
             "-language",
             "plsql",
@@ -743,8 +743,8 @@ scan_tools_args_map = {
     "vf": {
         "source-vf": [
             *get("PMD_CMD").split(" "),
-            "-no-cache",
-            "--failOnViolation",
+            "--no-cache",
+            "--fail-on-violation",
             "false",
             "-language",
             "vf",
@@ -761,8 +761,8 @@ scan_tools_args_map = {
     "vm": {
         "source-vm": [
             *get("PMD_CMD").split(" "),
-            "-no-cache",
-            "--failOnViolation",
+            "--no-cache",
+            "--fail-on-violation",
             "false",
             "-language",
             "vm",

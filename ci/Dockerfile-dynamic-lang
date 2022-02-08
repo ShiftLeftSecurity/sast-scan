@@ -3,10 +3,10 @@ FROM registry.access.redhat.com/ubi8/python-38 as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV TFSEC_VERSION=0.58.14 \
+ENV TFSEC_VERSION=0.63.1 \
     GITLEAKS_VERSION=7.6.1 \
     KUBESEC_VERSION=2.11.4 \
-    KUBE_SCORE_VERSION=1.12.0
+    KUBE_SCORE_VERSION=1.13.0
 
 USER root
 
@@ -49,12 +49,13 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN echo -e "[nodejs]\nname=nodejs\nstream=14\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
-    && microdnf install -y python38 nodejs git-core which \
+RUN echo -e "[nodejs]\nname=nodejs\nstream=16\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
+    && microdnf install -y gcc python38 nodejs git-core which \
     && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @microsoft/rush --unsafe-perm \
+    && microdnf remove -y gcc \
     && microdnf clean all
 
 WORKDIR /app
