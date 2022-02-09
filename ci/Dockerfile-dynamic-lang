@@ -50,12 +50,12 @@ COPY requirements.txt /usr/local/src/
 USER root
 
 RUN echo -e "[nodejs]\nname=nodejs\nstream=16\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
-    && microdnf install -y gcc python38 nodejs git-core which \
+    && microdnf install -y gcc python38 python38-devel nodejs git-core which \
     && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \
     && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @microsoft/rush --unsafe-perm \
-    && microdnf remove -y gcc \
+    && microdnf remove -y gcc python38-devel \
     && microdnf clean all
 
 WORKDIR /app
