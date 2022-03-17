@@ -61,85 +61,87 @@ class GitLab(GitProvider):
 
     def annotate_pr(self, repo_context, findings_file, report_summary, build_status):
         if not findings_file:
-            return
-        with open(findings_file, mode="r") as fp:
-            try:
-                gitlab_context = self.get_context(repo_context)
+            if not list(filter(lambda x: "depscan" in x, report_summary)):
+                return
+        else:
+            with open(findings_file, mode="r") as fp:
                 findings_obj = json.load(fp)
                 findings = findings_obj.get("findings")
                 if not findings:
                     LOG.debug("No findings from scan available to report")
                     return
-                if not gitlab_context.get("mergeRequestIID") or not gitlab_context.get(
-                    "mergeRequestProjectId"
-                ):
-                    LOG.debug(
-                        "Scan is not running as part of a merge request. Check if the pipeline is using only: [merge_requests] or rules syntax"
-                    )
-                    return
-                private_token = self.get_token()
-                if not private_token:
-                    LOG.info(
-                        "To create a merge request note, create a personal access token with api scope and set it as GITLAB_TOKEN environment variable"
-                    )
-                    return
-                summary = "| Tool | Critical | High | Medium | Low | Status |\n"
-                summary = (
-                    summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
+        try:
+            gitlab_context = self.get_context(repo_context)
+            if not gitlab_context.get("mergeRequestIID") or not gitlab_context.get(
+                "mergeRequestProjectId"
+            ):
+                LOG.debug(
+                    "Scan is not running as part of a merge request. Check if the pipeline is using only: [merge_requests] or rules syntax"
                 )
-                for rk, rv in report_summary.items():
-                    status_emoji = self.to_emoji(rv.get("status"))
-                    summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {status_emoji} |\n'
-                template = config.get("PR_COMMENT_TEMPLATE")
-                recommendation = (
-                    f"Please review the [scan reports]({gitlab_context.get('jobUrl')}/artifacts/browse/reports) before approving this merge request."
-                    if build_status == "fail"
-                    else "Looks good"
+                return
+            private_token = self.get_token()
+            if not private_token:
+                LOG.info(
+                    "To create a merge request note, create a personal access token with api scope and set it as GITLAB_TOKEN environment variable"
                 )
-                apiUrl = f"{gitlab_context.get('apiUrl')}"
-                mergeRequestIID = f"{gitlab_context.get('mergeRequestIID')}"
-                mergeRequestProjectId = f"{gitlab_context.get('mergeRequestProjectId')}"
-                mergeRequestSourceBranch = (
-                    f"{gitlab_context.get('mergeRequestSourceBranch')}"
-                )
-                mergeRequestTargetBranch = (
-                    f"{gitlab_context.get('mergeRequestTargetBranch')}"
-                )
-                commitSHA = f"{gitlab_context.get('commitSHA')}"
-                projectId = f"{gitlab_context.get('projectId')}"
-                projectName = f"{gitlab_context.get('projectName')}"
-                projectUrl = f"{gitlab_context.get('projectUrl')}"
-                jobUrl = f"{gitlab_context.get('jobUrl')}"
-                jobId = f"{gitlab_context.get('jobId')}"
-                jobName = f"{gitlab_context.get('jobName')}"
-                jobToken = f"{gitlab_context.get('jobToken')}"
+                return
+            summary = "| Tool | Critical | High | Medium | Low | Status |\n"
+            summary = (
+                summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
+            )
+            for rk, rv in report_summary.items():
+                status_emoji = self.to_emoji(rv.get("status"))
+                summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {status_emoji} |\n'
+            template = config.get("PR_COMMENT_TEMPLATE")
+            recommendation = (
+                f"Please review the [scan reports]({gitlab_context.get('jobUrl')}/artifacts/browse/reports) before approving this merge request."
+                if build_status == "fail"
+                else "Looks good"
+            )
+            apiUrl = f"{gitlab_context.get('apiUrl')}"
+            mergeRequestIID = f"{gitlab_context.get('mergeRequestIID')}"
+            mergeRequestProjectId = f"{gitlab_context.get('mergeRequestProjectId')}"
+            mergeRequestSourceBranch = (
+                f"{gitlab_context.get('mergeRequestSourceBranch')}"
+            )
+            mergeRequestTargetBranch = (
+                f"{gitlab_context.get('mergeRequestTargetBranch')}"
+            )
+            commitSHA = f"{gitlab_context.get('commitSHA')}"
+            projectId = f"{gitlab_context.get('projectId')}"
+            projectName = f"{gitlab_context.get('projectName')}"
+            projectUrl = f"{gitlab_context.get('projectUrl')}"
+            jobUrl = f"{gitlab_context.get('jobUrl')}"
+            jobId = f"{gitlab_context.get('jobId')}"
+            jobName = f"{gitlab_context.get('jobName')}"
+            jobToken = f"{gitlab_context.get('jobToken')}"
 
-                body = template % dict(
-                    summary=summary,
-                    recommendation=recommendation,
-                    apiUrl=apiUrl,
-                    mergeRequestIID=mergeRequestIID,
-                    mergeRequestProjectId=mergeRequestProjectId,
-                    mergeRequestSourceBranch=mergeRequestSourceBranch,
-                    mergeRequestTargetBranch=mergeRequestTargetBranch,
-                    commitSHA=commitSHA,
-                    projectId=projectId,
-                    projectName=projectName,
-                    projectUrl=projectUrl,
-                    jobUrl=jobUrl,
-                    jobId=jobId,
-                    jobName=jobName,
-                    jobToken=jobToken,
-                )
-                rr = requests.post(
-                    self.get_mr_notes_url(repo_context),
-                    headers={
-                        "Content-Type": "application/json",
-                        "PRIVATE-TOKEN": self.get_token(),
-                    },
-                    json={"body": body},
-                )
-                if not rr.ok:
-                    LOG.debug(rr.json())
-            except Exception as e:
-                LOG.debug(e)
+            body = template % dict(
+                summary=summary,
+                recommendation=recommendation,
+                apiUrl=apiUrl,
+                mergeRequestIID=mergeRequestIID,
+                mergeRequestProjectId=mergeRequestProjectId,
+                mergeRequestSourceBranch=mergeRequestSourceBranch,
+                mergeRequestTargetBranch=mergeRequestTargetBranch,
+                commitSHA=commitSHA,
+                projectId=projectId,
+                projectName=projectName,
+                projectUrl=projectUrl,
+                jobUrl=jobUrl,
+                jobId=jobId,
+                jobName=jobName,
+                jobToken=jobToken,
+            )
+            rr = requests.post(
+                self.get_mr_notes_url(repo_context),
+                headers={
+                    "Content-Type": "application/json",
+                    "PRIVATE-TOKEN": self.get_token(),
+                },
+                json={"body": body},
+            )
+            if not rr.ok:
+                LOG.debug(rr.json())
+        except Exception as e:
+            LOG.debug(e)

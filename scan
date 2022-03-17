@@ -650,7 +650,7 @@ def should_skip(src_dir, reports_dir, repo_context, scan_mode):
     return False
 
 
-def should_annotate(git_provider, repo_context, findings_file):
+def should_annotate(git_provider, repo_context, findings_file, depscan_files):
     """
     Method to check if the build or PR should get annotated.
 
@@ -662,7 +662,7 @@ def should_annotate(git_provider, repo_context, findings_file):
     annotate_flag = config.get("scan_annotate_pr", "")
     if (
         annotate_flag == "true" or annotate_flag == "1" or git_provider == "bitbucket"
-    ) and findings_file:
+    ) and (findings_file or depscan_files):
         return True
     if repo_context.get("pullRequest") and git_provider == "gitlab":
         LOG.info(
@@ -752,7 +752,7 @@ def main():
         baseline_file=baseline_fname,
     )
     git_provider = provider.get_git_provider(repo_context)
-    if should_annotate(git_provider, repo_context, findings_file):
+    if should_annotate(git_provider, repo_context, findings_file, depscan_files):
         # Create PR status and Reports via the git provider
         git_provider.annotate_pr(
             repo_context, findings_file, report_summary, build_status
