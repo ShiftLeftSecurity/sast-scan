@@ -13,3 +13,4 @@ yamllint
 rich
 PyGithub==1.54.0.1
 PyYAML
+blint
