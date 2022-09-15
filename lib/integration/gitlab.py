@@ -86,9 +86,7 @@ class GitLab(GitProvider):
                 )
                 return
             summary = "| Tool | Critical | High | Medium | Low | Status |\n"
-            summary = (
-                summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
-            )
+            summary = summary + "| ---- | ------- | ------ | ----- | ---- | ---- |\n"
             for rk, rv in report_summary.items():
                 status_emoji = self.to_emoji(rv.get("status"))
                 summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {status_emoji} |\n'

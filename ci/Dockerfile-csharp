@@ -3,14 +3,14 @@ FROM shiftleft/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.9.6 \
+ENV GOSEC_VERSION=2.13.1 \
     TFSEC_VERSION=0.63.1 \
     KUBESEC_VERSION=2.11.4 \
     KUBE_SCORE_VERSION=1.13.0 \
     SHELLCHECK_VERSION=0.7.2 \
-    DETEKT_VERSION=1.19.0 \
+    DETEKT_VERSION=1.21.0 \
     GITLEAKS_VERSION=7.6.1 \
-    SC_VERSION=2021.1.2 \
+    SC_VERSION=0.3.3 \
     JQ_VERSION=1.6 \
     GOPATH=/opt/app-root/go \
     SHIFTLEFT_HOME=/opt/sl-cli \
@@ -27,7 +27,7 @@ RUN curl -LO "https://github.com/koalaman/shellcheck/releases/download/v${SHELLC
     && tar -C /tmp/ -xvf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz \
     && cp /tmp/shellcheck-v${SHELLCHECK_VERSION}/shellcheck /usr/local/bin/shiftleft/shellcheck \
     && chmod +x /usr/local/bin/shiftleft/shellcheck \
-    && curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
+    && curl -LO "https://github.com/dominikh/go-tools/releases/download/v${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
     && tar -C /tmp -xvf staticcheck_linux_amd64.tar.gz \
     && chmod +x /tmp/staticcheck/staticcheck \
     && cp /tmp/staticcheck/staticcheck /usr/local/bin/shiftleft/staticcheck \

@@ -12,7 +12,6 @@ if PY3:
     def mkarg(name):
         return ast.arg(arg=name)
 
-
 else:
 
     def mkarg(name):

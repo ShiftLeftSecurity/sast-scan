@@ -207,6 +207,27 @@ def find_csharp_artifacts(search_dir):
     return result
 
 
+def is_binary_string(content):
+    """
+    Method to check if the given content is a binary string
+    """
+    textchars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})
+    return bool(content.translate(None, textchars))
+
+
+def is_exe(src):
+    """Detect if the source is a binary file
+    :param src: Source path
+    :return True if binary file. False otherwise.
+    """
+    if os.path.isfile(src):
+        try:
+            return is_binary_string(open(src, "rb").read(1024))
+        except Exception:
+            return False
+    return False
+
+
 def detect_project_type(src_dir, scan_mode):
     """Detect project type by looking for certain files
 
@@ -291,6 +312,27 @@ def detect_project_type(src_dir, scan_mode):
     ):
         project_types.append("ruby")
         depscan_supported = True
+    if find_files(src_dir, "deps.edn", False, True) or find_files(
+        src_dir, "project.clj", False, True
+    ):
+        project_types.append("clojure")
+        depscan_supported = True
+    if find_files(src_dir, "conan.lock", False, True) or find_files(
+        src_dir, "conanfile.txt", False, True
+    ):
+        project_types.append("cpp")
+        depscan_supported = True
+    if find_files(src_dir, "pubspec.lock", False, True) or find_files(
+        src_dir, "pubspec.yaml", False, True
+    ):
+        project_types.append("dart")
+        depscan_supported = True
+    if find_files(src_dir, "cabal.project.freeze", False, True):
+        project_types.append("haskell")
+        depscan_supported = True
+    if find_files(src_dir, "mix.lock", False, True):
+        project_types.append("elixir")
+        depscan_supported = True
     if find_files(src_dir, "serverless.yml", False, True):
         project_types.append("serverless")
     if find_files(src_dir, "Dockerfile", True, True):
@@ -318,6 +360,10 @@ def detect_project_type(src_dir, scan_mode):
         depscan_supported = True
     if find_files(src_dir, ".sh", False, True):
         project_types.append("bash")
+    if is_exe(src_dir):
+        project_types.append("go")
+        project_types.append("binary")
+        depscan_supported = True
     if depscan_supported and scan_mode != "ide":
         project_types.append("depscan")
     return project_types

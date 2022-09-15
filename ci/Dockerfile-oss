@@ -3,24 +3,24 @@ FROM shiftleft/scan-base as builder
 ARG CLI_VERSION
 ARG BUILD_DATE
 
-ENV GOSEC_VERSION=2.9.6 \
+ENV GOSEC_VERSION=2.13.1 \
     TFSEC_VERSION=0.63.1 \
     KUBESEC_VERSION=2.11.4 \
     KUBE_SCORE_VERSION=1.13.0 \
     SHELLCHECK_VERSION=0.7.2 \
-    DETEKT_VERSION=1.19.0 \
+    DETEKT_VERSION=1.21.0 \
     GITLEAKS_VERSION=7.6.1 \
     GRADLE_VERSION=7.2 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     MAVEN_VERSION=3.8.6 \
     MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
-    SC_VERSION=2021.1.2 \
-    PMD_VERSION=6.42.0 \
+    SC_VERSION=0.3.3 \
+    PMD_VERSION=6.49.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
     JQ_VERSION=1.6 \
-    FSB_VERSION=1.11.0 \
+    FSB_VERSION=1.12.0 \
     SB_CONTRIB_VERSION=7.4.7 \
-    SB_VERSION=4.5.3 \
+    SB_VERSION=4.7.2 \
     GOPATH=/opt/app-root/go \
     PATH=${PATH}:${GRADLE_HOME}/bin:${GOPATH}/bin:
 
@@ -43,7 +43,7 @@ RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     && tar -C /tmp/ -xvf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz \
     && cp /tmp/shellcheck-v${SHELLCHECK_VERSION}/shellcheck /usr/local/bin/shiftleft/shellcheck \
     && chmod +x /usr/local/bin/shiftleft/shellcheck \
-    && curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
+    && curl -LO "https://github.com/dominikh/go-tools/releases/download/v${SC_VERSION}/staticcheck_linux_amd64.tar.gz" \
     && tar -C /tmp -xvf staticcheck_linux_amd64.tar.gz \
     && chmod +x /tmp/staticcheck/staticcheck \
     && cp /tmp/staticcheck/staticcheck /usr/local/bin/shiftleft/staticcheck \
@@ -91,8 +91,8 @@ ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
     MVN_CMD="/opt/apache-maven/bin/mvn" \
     PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
-    SB_VERSION=4.5.3 \
-    PMD_VERSION=6.42.0 \
+    SB_VERSION=4.7.2 \
+    PMD_VERSION=6.49.0 \
     PMD_JAVA_OPTS="--enable-preview" \
     SPOTBUGS_HOME=/opt/spotbugs \
     JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \
@@ -129,6 +129,7 @@ RUN microdnf install python38-devel && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir njsscan \
     && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @microsoft/rush --unsafe-perm \
     && mkdir -p /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
+    && composer config --no-plugins allow-plugins.phpstan/extension-installer true \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
     && composer require --quiet --no-cache --dev phpstan/extension-installer \
     && microdnf remove -y python38-devel php-fpm php-devel php-pear automake make gcc gcc-c++ libtool \
