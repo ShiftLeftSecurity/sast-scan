@@ -129,7 +129,7 @@ USER root
 RUN microdnf install python38-devel && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @microsoft/rush --unsafe-perm \
+    && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @ngcloudsec/cdxgen-plugins-bin @microsoft/rush --unsafe-perm \
     && mkdir -p /opt/sl-cli /opt/phpsast && cd /opt/phpsast && composer require --quiet --no-cache --dev vimeo/psalm \
     && composer config --no-plugins allow-plugins.phpstan/extension-installer true \
     && composer require --quiet --no-cache --dev phpstan/phpstan \
