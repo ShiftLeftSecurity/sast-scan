@@ -32,7 +32,7 @@ complexity:
     threshold: 10
     includeStaticDeclarations: false
     includePrivateDeclarations: false
-  ComplexMethod:
+  CyclomaticComplexMethod:
     active: true
     threshold: 10
     ignoreSingleWhenExpression: false
@@ -107,7 +107,7 @@ potential-bugs:
     active: false
   IgnoredReturnValue:
     active: false
-    restrictToAnnotatedMethods: true
+    restrictToConfig: true
     returnValueAnnotations: ['*.CheckReturnValue', '*.CheckResult']
   ImplicitDefaultLocale:
     active: false
@@ -142,13 +142,4 @@ potential-bugs:
   UselessPostfixExpression:
     active: false
   WrongEqualsTypeParameter:
-    active: true
-
-libraries:
-  active: true
-  ForbiddenPublicDataClass:
-    active: false
-  LibraryEntitiesShouldNotBePublic:
-    active: false
-  LibraryCodeMustSpecifyReturnType:
     active: true
