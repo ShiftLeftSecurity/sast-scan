@@ -13,8 +13,6 @@ ENV GOSEC_VERSION=2.14.0 \
     GRADLE_VERSION=7.2 \
     GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
     SBT_VERSION=1.5.4 \
-    MAVEN_VERSION=3.8.7 \
-    MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION} \
     SC_VERSION=0.3.3 \
     PMD_VERSION=6.53.0 \
     PMD_CMD="/opt/pmd-bin-${PMD_VERSION}/bin/run.sh pmd" \
@@ -37,10 +35,6 @@ RUN curl -LO "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     && unzip -q gradle-${GRADLE_VERSION}-bin.zip -d /opt/ \
     && chmod +x /opt/gradle-${GRADLE_VERSION}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-bin.zip \
-    && curl -LO "https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" \
-    && unzip -q apache-maven-${MAVEN_VERSION}-bin.zip -d /opt/ \
-    && chmod +x /opt/apache-maven-${MAVEN_VERSION}/bin/mvn \
-    && rm apache-maven-${MAVEN_VERSION}-bin.zip \
     && curl -LO "https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.zip" \
     && unzip -q sbt-${SBT_VERSION}.zip -d /opt/ \
     && chmod +x /opt/sbt/bin/sbt \
@@ -111,8 +105,6 @@ ENV APP_SRC_DIR=/usr/local/src \
     GRADLE_VERSION=7.2 \
     GRADLE_HOME=/opt/gradle \
     GRADLE_CMD=gradle \
-    MAVEN_VERSION=3.8.7 \
-    MAVEN_HOME=/opt/apache-maven \
     PYTHONUNBUFFERED=1 \
     DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     SHIFTLEFT_HOME=/opt/sl-cli \
@@ -127,7 +119,6 @@ COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
 COPY --from=builder /opt/pmd-bin-${PMD_VERSION} /opt/pmd-bin
 COPY --from=builder /opt/spotbugs-${SB_VERSION} /opt/spotbugs
 COPY --from=builder /opt/gradle-${GRADLE_VERSION} /opt/gradle
-COPY --from=builder /opt/apache-maven-${MAVEN_VERSION} /opt/apache-maven
 COPY --from=builder /opt/sbt /opt/sbt
 COPY --from=builder /opt/sl-cli /opt/sl-cli
 COPY tools_config/ /usr/local/src/
@@ -135,10 +126,10 @@ COPY requirements.txt /usr/local/src/
 
 USER root
 
-RUN python3 -m pip install --upgrade pip \
+RUN microdnf install maven && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && pip3 install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @ngcloudsec/cdxgen-plugins-bin @microsoft/rush --unsafe-perm \
+    && npm install --no-audit --progress=false --only=production -g @cyclonedx/cdxgen  @microsoft/rush --unsafe-perm \
     && microdnf clean all
 
 WORKDIR /app
