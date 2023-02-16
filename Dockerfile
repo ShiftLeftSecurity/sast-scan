@@ -86,7 +86,7 @@ LABEL maintainer="ShiftLeftSecurity" \
 
 ENV APP_SRC_DIR=/usr/local/src \
     DEPSCAN_CMD="/usr/local/bin/depscan" \
-    MVN_CMD="/opt/apache-maven/bin/mvn" \
+    MVN_CMD="/usr/bin/mvn" \
     PMD_CMD="/opt/pmd-bin/bin/run.sh pmd" \
     PMD_JAVA_OPTS="--enable-preview" \
     SB_VERSION=4.7.3 \
