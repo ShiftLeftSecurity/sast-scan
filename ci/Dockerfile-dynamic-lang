@@ -54,7 +54,7 @@ RUN echo -e "[nodejs]\nname=nodejs\nstream=16\nprofiles=\nstate=enabled\n" > /et
     && python3 -m pip install --upgrade pip \
     && pip3 install --no-cache-dir wheel \
     && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install --no-audit --progress=false --only=production -g @appthreat/cdxgen @ngcloudsec/cdxgen-plugins-bin @microsoft/rush --unsafe-perm \
+    && npm install --no-audit --progress=false --only=production -g @cyclonedx/cdxgen  @microsoft/rush --unsafe-perm \
     && microdnf remove -y gcc python38-devel \
     && microdnf clean all
 
