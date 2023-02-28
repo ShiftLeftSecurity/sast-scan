@@ -9,7 +9,7 @@
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-[Scan](https://slscan.io) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application, and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker, results baseline and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+[Scan](https://appthreat.com) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application, and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker, results baseline and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
 
 [![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
 
@@ -64,7 +64,7 @@
 - Node.js 10
 - Yarnpkg
 
-Please visit the official [documentation](https://slscan.io) site for scan to learn about the configuration and CI/CD integration options. We also have a dedicated [discord channel](https://discord.gg/7WvSxdK) for issues and support.
+Please visit the official [documentation](https://appthreat.com) site for scan to learn about the configuration and CI/CD integration options. We also have a dedicated [discord channel](https://discord.gg/DCNxzaeUpd) for issues and support.
 
 ## Getting started
 

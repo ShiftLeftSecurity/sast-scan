@@ -158,7 +158,7 @@ class Bitbucket(GitProvider):
                         "details": f"This pull request contains {total_count} issues",
                         "report_type": "SECURITY",
                         "reporter": f"Scan report for {repo_context.get('repositoryName')}",
-                        "link": "https://slscan.io",
+                        "link": "https://appthreat.com",
                         "logo_url": "https://www.shiftleft.io/static/images/ShiftLeft_logo_white.svg",
                         "result": "FAILED" if build_status == "fail" else "PASSED",
                         "data": data_list,

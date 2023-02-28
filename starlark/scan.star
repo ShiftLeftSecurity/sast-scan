@@ -14,7 +14,7 @@ To import, add the following to your Dispatchfile:
 load("github.com/shiftleftsecurity/sast-scan/starlark/scan@master", "sast_scan")
 ```
 
-For help, please visit https://slscan.io/en/latest/integrations/dispatch/
+For help, please visit https://appthreat.com/en/latest/integrations/dispatch/
 """
 
 def sast_scan(task_name, git_name, image="shiftleft/scan:latest", src=None, extra_scan_options=None, **kwargs):

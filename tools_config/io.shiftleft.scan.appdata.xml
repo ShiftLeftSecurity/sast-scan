@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="console-application">
   <id>io.shiftleft.scan</id>
-  
+
   <name>scan</name>
   <summary>ShiftLeft Scan is a free open-source security tool for modern DevOps teams</summary>
-  
+
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  
+
   <description>
     <p>
       Scan is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application and infrastructure code in a single fast scan. The kind of flaws detected are:
@@ -19,14 +19,14 @@
       <li>Licence violation checks</li>
     </ul>
   </description>
-  
+
   <icon type="stock">utilities-terminal</icon>
-  
+
   <categories>
     <category>Development</category>
     <category>Building</category>
   </categories>
-  <url type="homepage">https://slscan.io</url>
+  <url type="homepage">https://appthreat.com</url>
   <project_group>ShiftLeftSecurity</project_group>
 
   <provides>

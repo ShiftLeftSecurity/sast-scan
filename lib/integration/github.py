@@ -68,7 +68,7 @@ class GitHub(GitProvider):
         repoFullname = github_context.get("repoFullname")
         repo = g.get_repo(repoFullname)
         total_count = len(findings)
-        target_url = "https://slscan.io"
+        target_url = "https://appthreat.com"
         runID = github_context.get("runID")
         if runID:
             target_url = f"{serverUrl}/{repoFullname}/actions/runs/{runID}"
@@ -94,7 +94,7 @@ class GitHub(GitProvider):
                 summary = f'{summary}| {rv.get("tool")} | {rv.get("critical")} | {rv.get("high")} | {rv.get("medium")} | {rv.get("low")} | {status_emoji} |\n'
             template = config.get("PR_COMMENT_TEMPLATE")
             recommendation = (
-                """Please review the findings from Code scanning alerts before approving this pull request. You can also configure the [build rules](https://slscan.io/en/latest/integrations/tips/#config-file) or add [suppressions](https://slscan.io/en/latest/getting-started/#suppression) to customize this bot :thumbsup:"""
+                """Please review the findings from Code scanning alerts before approving this pull request. You can also configure the [build rules](https://appthreat.com/en/latest/integrations/tips/#config-file) or add [suppressions](https://appthreat.com/en/latest/getting-started/#suppression) to customize this bot :thumbsup:"""
                 if build_status == "fail"
                 else "Looks good :heavy_check_mark:"
             )

@@ -666,7 +666,7 @@ def should_annotate(git_provider, repo_context, findings_file, depscan_files):
         return True
     if repo_context.get("pullRequest") and git_provider == "gitlab":
         LOG.info(
-            "Scan can automatically add the summary as a merge request comment. To learn more - https://slscan.io/en/latest/integrations/gitlab/#merge-request-comment-feature"
+            "Scan can automatically add the summary as a merge request comment. To learn more - https://appthreat.com/en/latest/integrations/gitlab/#merge-request-comment-feature"
         )
     return False
 

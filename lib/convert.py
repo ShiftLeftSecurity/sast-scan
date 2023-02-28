@@ -893,7 +893,7 @@ def get_url(tool_name, rule_id, test_name, issue_dict):
         return "https://cwe.mitre.org/data/definitions/%s.html" % issue_dict.get(
             "cwe_category"
         ).replace("CWE-", "")
-    return "https://slscan.io?q={}".format(rule_id)
+    return "https://appthreat.com?q={}".format(rule_id)
 
 
 def create_or_find_rule(tool_name, issue_dict, rules, rule_indices):

@@ -889,7 +889,7 @@ def test_get_help():
         "Check if there is an error prone vulnerability",
         {},
     )
-    assert url == "https://slscan.io?q=Error+Prone"
+    assert url == "https://appthreat.com?q=Error+Prone"
     url = convertLib.get_url(
         "source-js",
         "CWE-118 Incorrect Access of Indexable Resource ('Range Error') (4.0)",
