@@ -9,7 +9,7 @@
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ```
 
-[Scan](https://appthreat.com) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application, and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker, results baseline and PR summary comments. Scan products are open-source under a GNU GPL 3.0 or later (GPL-3.0-or-later) license.
+[Scan](https://appthreat.com) is a free open-source security tool for modern DevOps teams. With an integrated multi-scanner based design, Scan can detect various kinds of security flaws in your application, and infrastructure code in a single fast scan without the need for any _remote server_. Scan is purpose built for workflow integration with nifty features such as automatic build breaker, results baseline and PR summary comments. Scan products are open-source under Apache-2.0 license.
 
 [![Build Status](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_apis/build/status/ShiftLeftSecurity.sast-scan?branchName=master)](https://dev.azure.com/shiftleftsecurity/sl-appthreat/_build/latest?definitionId=11&branchName=master)
 

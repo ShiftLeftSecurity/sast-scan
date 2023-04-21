@@ -1,21 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# This file is part of Scan.
-
-# Scan is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# Scan is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with Scan.  If not, see <https://www.gnu.org/licenses/>.
-
 """
 Multi-language static analysis scanner
 """
@@ -39,9 +24,9 @@ from lib.builder import auto_build
 from lib.executor import exec_tool, execute_default_cmd
 from lib.integration import provider
 from lib.logger import LOG, console
-from lib.telemetry import track
 from lib.pyt.cfg_analyzer import deep_analysis
 from lib.pyt.formatters.json import report as py_json_report
+from lib.telemetry import track
 
 product_logo = """
 ███████╗ ██████╗ █████╗ ███╗   ██╗
