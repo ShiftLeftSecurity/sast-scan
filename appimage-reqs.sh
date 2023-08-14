@@ -54,7 +54,13 @@ curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERS
     && rm pmd-bin-${PMD_VERSION}.zip \
     && mv ${OPTDIR}/pmd-bin-${PMD_VERSION} ${OPTDIR}/pmd-bin
 
-K8SSEC_TAR="kubesec_linux_${ARCH}.tar.gz"
+if [ "$ARCH" = "x86_64" ]; then
+    KUBE_ARCH="amd64"
+else
+    KUBE_ARCH="$ARCH"
+fi
+
+K8SSEC_TAR="kubesec_linux_${KUBE_ARCH}.tar.gz"
 curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "${APPDIR}/usr/bin/detekt-cli.jar" \
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/${K8SSEC_TAR}" \
     && tar -C ${APPDIR}/usr/bin/ -xzvf ${K8SSEC_TAR} \
