@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -xe
 #ARCH=arm64 # This should be set in the builder docker file
 APPDIR=$1
 OPTDIR=${APPDIR}/opt
@@ -16,14 +17,14 @@ SB_VERSION=4.7.3
 NODE_VERSION=14.5.0
 export PATH=$PATH:${APPDIR}/usr/bin:
 
-NODE_TAR=node-v${NODE_VERSION}-linux-${ARCH}.tar.xz
+NODE_TAR=node-v${NODE_VERSION}-linux-${ARCH}.tar.gz
 
 curl -LO "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_TAR}" \
     && tar -C ${APPDIR}/usr/bin/ -xvf ${NODE_TAR} \
     && mv ${APPDIR}/usr/bin/node-v${NODE_VERSION}-linux-${ARCH} ${APPDIR}/usr/bin/nodejs \
     && chmod +x ${APPDIR}/usr/bin/nodejs/bin/node \
     && chmod +x ${APPDIR}/usr/bin/nodejs/bin/npm \
-    && rm node-v${NODE_VERSION}-linux-x64.tar.xz
+    && rm node-v${NODE_VERSION}-linux-x64.tar.gz
 
 GOSEC_TAR="gosec_${GOSEC_VERSION}_linux_${ARCH}.tar.gz"
 curl -LO "https://github.com/securego/gosec/releases/download/v${GOSEC_VERSION}/${GOSEC_TAR}" \
