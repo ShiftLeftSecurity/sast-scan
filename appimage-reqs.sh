@@ -59,6 +59,7 @@ curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/d
     && tar -C ${APPDIR}/usr/bin/ -xvf ${K8SSEC_TAR} \
     && rm ${K8SSEC_TAR} \
     && curl -LO "https://github.com/spotbugs/spotbugs/releases/download/${SB_VERSION}/spotbugs-${SB_VERSION}.tgz" \
+    && file spotbugs-${SB_VERSION}.tgz \
     && tar -C ${OPTDIR}/ -xvf spotbugs-${SB_VERSION}.tgz \
     && rm spotbugs-${SB_VERSION}.tgz
 
