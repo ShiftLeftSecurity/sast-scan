@@ -20,7 +20,7 @@ export PATH=$PATH:${APPDIR}/usr/bin:
 NODE_TAR=node-v${NODE_VERSION}-linux-${ARCH}.tar.gz
 
 curl -LO "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_TAR}" \
-    && tar -C ${APPDIR}/usr/bin/ -xvf ${NODE_TAR} \
+    && tar -C ${APPDIR}/usr/bin/ -xzvf ${NODE_TAR} \
     && mv ${APPDIR}/usr/bin/node-v${NODE_VERSION}-linux-${ARCH} ${APPDIR}/usr/bin/nodejs \
     && chmod +x ${APPDIR}/usr/bin/nodejs/bin/node \
     && chmod +x ${APPDIR}/usr/bin/nodejs/bin/npm \
@@ -28,13 +28,13 @@ curl -LO "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_TAR}" \
 
 GOSEC_TAR="gosec_${GOSEC_VERSION}_linux_${ARCH}.tar.gz"
 curl -LO "https://github.com/securego/gosec/releases/download/v${GOSEC_VERSION}/${GOSEC_TAR}" \
-    && tar -C ${APPDIR}/usr/bin/ -xvf ${GOSEC_TAR} \
+    && tar -C ${APPDIR}/usr/bin/ -xzvf ${GOSEC_TAR} \
     && chmod +x ${APPDIR}/usr/bin/gosec \
     && rm ${GOSEC_TAR}
 
 STCHECK_TAR="staticcheck_linux_${ARCH}.tar.gz"
 curl -LO "https://github.com/dominikh/go-tools/releases/download/${SC_VERSION}/${STCHECK_TAR}" \
-    && tar -C /tmp -xvf ${STCHECK_TAR} \
+    && tar -C /tmp -xzvf ${STCHECK_TAR} \
     && chmod +x /tmp/staticcheck/staticcheck \
     && cp /tmp/staticcheck/staticcheck ${APPDIR}/usr/bin/staticcheck \
     && rm ${STCHECK_TAR}
@@ -57,11 +57,11 @@ curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERS
 K8SSEC_TAR="kubesec_linux_${ARCH}.tar.gz"
 curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "${APPDIR}/usr/bin/detekt-cli.jar" \
     && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/${K8SSEC_TAR}" \
-    && tar -C ${APPDIR}/usr/bin/ -xvf ${K8SSEC_TAR} \
+    && tar -C ${APPDIR}/usr/bin/ -xzvf ${K8SSEC_TAR} \
     && rm ${K8SSEC_TAR} \
     && curl -LO "https://github.com/spotbugs/spotbugs/releases/download/${SB_VERSION}/spotbugs-${SB_VERSION}.tgz" \
     && file spotbugs-${SB_VERSION}.tgz \
-    && tar -C ${OPTDIR}/ -xvf spotbugs-${SB_VERSION}.tgz \
+    && tar -C ${OPTDIR}/ -xzvf spotbugs-${SB_VERSION}.tgz \
     && rm spotbugs-${SB_VERSION}.tgz
 
 curl -LO "https://repo1.maven.org/maven2/com/h3xstream/findsecbugs/findsecbugs-plugin/${FSB_VERSION}/findsecbugs-plugin-${FSB_VERSION}.jar" \
