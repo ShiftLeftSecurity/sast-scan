@@ -9,13 +9,9 @@ RUN apt-get update -y && apt-get install -y python3.8 python3.8-dev \
 
 RUN wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage && chmod +x appimagetool-x86_64.AppImage && ./appimagetool-x86_64.AppImage --appimage-extract && ln -s /squashfs-root/AppRun /usr/local/bin/appimagetool
 RUN wget https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64 -O /usr/local/bin/runtime-x86_64 && chmod +x /usr/local/bin/runtime-x86_64
-COPY ./appimage /appimage
-RUN  ls /appimage/* && chmod +x /appimage/appimagetool-aarch64.AppImage && /appimage/appimagetool-aarch64.AppImage --appimage-extract && ln -s /squashfs-root/AppRun /usr/local/bin/appimagetool
 RUN pip3 install git+https://github.com/perrito666/appimage-builder.git
-COPY /appimage/runtime-aarch64 /usr/local/bin/runtime-aarch64
-RUN chmod +x /usr/local/bin/runtime-aarch64
 
-ENV UPDATE_INFO=gh-releases-zsync|ShiftLeftSecurity|sast-scan|latest|*aarch64.AppImage.zsync
+ENV UPDATE_INFO=gh-releases-zsync|ShiftLeftSecurity|sast-scan|latest|*x86_64.AppImage.zsync
 
 WORKDIR /build
 
