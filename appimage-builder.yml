@@ -1,6 +1,9 @@
 version: 1
 script:
   - chmod +x ./appimage-reqs.sh && APPIMAGE=true ./appimage-reqs.sh $(pwd)/AppDir
+  - cp -r /usr/share/icons/Adwaita AppDir/usr/share/icons/
+  - cp $(pwd)/AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg $(pwd)/AppDir/usr/share/icons/utilities-terminal.svg
+  - cp $(pwd)/AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg $(pwd)/AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal.svg
 
 AppDir:
   path: ./AppDir
