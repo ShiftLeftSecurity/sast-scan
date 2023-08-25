@@ -28,7 +28,6 @@ USER root
 
 COPY appimage-reqs.sh /
 COPY requirements.txt /
-COPY shiftleft_scan_reports-1.5.1-py3-none-any.whl /
 COPY scan /usr/local/src/
 COPY lib /usr/local/src/lib
 COPY tools_config/ /usr/local/src/

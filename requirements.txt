@@ -5,6 +5,7 @@ gitpython
 git+https://github.com/perrito666/scan-reports.git
 appthreat-depscan
 requests
+urllib3
 bandit
 ansible-lint
 pipenv

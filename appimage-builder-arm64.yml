@@ -12,7 +12,7 @@ AppDir:
     icon: utilities-terminal
     version: latest
     # Set the python executable as entry point
-    exec: usr/bin/python3.8
+    exec: usr/bin/python3
     # Set the application main script path as argument. Use '$@' to forward CLI parameters
     exec_args: "$APPDIR/usr/src/scan $@"
 
@@ -46,8 +46,8 @@ AppDir:
     env:
       PATH: '/bin:/usr/bin:${APPDIR}/usr/bin:${APPDIR}/usr/bin/nodejs/bin:${PATH}:${APPDIR}/opt/phpsast/vendor/bin:${APPDIR}/usr/local/lib/node_modules/.bin:'
       PYTHONHOME: '${APPDIR}/usr'
-      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages:$APPDIR/usr/lib/python3.8:$APPDIR/usr/lib/python3.7/lib-dynload'
-      SSL_CERT_FILE: '${APPDIR}/usr/lib/python3.8/site-packages/certifi/cacert.pem'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.10/site-packages:$APPDIR/usr/lib/python3.10:$APPDIR/usr/lib/python3.10/lib-dynload'
+      SSL_CERT_FILE: '${APPDIR}/usr/lib/python3.10/site-packages/certifi/cacert.pem'
       PYTHONUNBUFFERED: '1'
       APP_SRC_DIR: '${APPDIR}/usr/src'
       TOOLS_CONFIG_DIR: '${APPDIR}/usr/src/tools_config'
