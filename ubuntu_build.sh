@@ -25,7 +25,7 @@ chmod +x appimagetool-"${ARCH}".AppImage
 ./appimagetool-"${ARCH}".AppImage --appimage-extract
 ln -s /squashfs-root/AppRun ./appimage-builder-cache/appimagetool
 
-# Dwonload latest AppImage Builder Runtime
+# Download latest AppImage Builder Runtime
 wget https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-"${ARCH}" -O ./appimage-builder-cache/runtime-"${ARCH}"
 chmod +x ./appimage-builder-cache/runtime-"${ARCH}"
 
