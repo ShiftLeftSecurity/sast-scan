@@ -47,5 +47,5 @@ export PATH="${PWD}/AppDir/usr/bin:${PWD}/AppDir/usr/bin/nodejs/bin:${PWD}/appim
 #export KEEP_BUILD_ARTIFACTS=true
 
 # Build App Image for this arch
-appimage-builder --recipe appimage-builder.yml --skip-test
+appimage-builder --recipe "${BUILDER_SCRIPT}" --skip-test
 

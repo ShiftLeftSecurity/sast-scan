@@ -4,26 +4,13 @@ on: [pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
+    - name: Run AppImage Build Script
       run: |
-        sudo apt-get update -y
-        sudo apt-get install -y python3.8 python3.8-dev python3-pip python3-certifi python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev php php-curl php-zip php-bcmath php-json php-pear php-mbstring php-dev
-        sudo apt-get remove -y ansible
-        # Install appimagetool AppImage
-        sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
-        sudo chmod +x /usr/local/bin/appimagetool
-        sudo pip3 install appimage-builder==0.8.1
-        mkdir -p appimage-builder-cache
-        wget https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64 -O appimage-builder-cache/runtime-x86_64
-    - name: Build AppImage
-      run: |
-        appimage-builder --recipe appimage-builder.yml --skip-test
-      env:
-        UPDATE_INFO: gh-releases-zsync|ShiftLeftSecurity|sast-scan|latest|*x86_64.AppImage.zsync
-        ARCH: x86_64
+        sudo chmod +x ubuntu_build_x86_64.sh
+        sudo ./ubuntu_build_x86_64.sh
     - uses: actions/upload-artifact@v2
       with:
         name: AppImage
