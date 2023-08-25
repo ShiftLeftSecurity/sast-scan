@@ -21,13 +21,13 @@ mkdir -p appimage-builder-cache
 
 # Download latest AppImage Builder Tool
 wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-"${ARCH}".AppImage
-chmod +x appimagetool-aarch64.AppImage
-./appimagetool-aarch64.AppImage --appimage-extract
+chmod +x appimagetool-"${ARCH}".AppImage
+./appimagetool-"${ARCH}".AppImage --appimage-extract
 ln -s /squashfs-root/AppRun ./appimage-builder-cache/appimagetool
 
 # Dwonload latest AppImage Builder Runtime
 wget https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-"${ARCH}" -O ./appimage-builder-cache/runtime-"${ARCH}"
-chmod +x ./appimage-builder-cache/runtime-x86_64
+chmod +x ./appimage-builder-cache/runtime-"${ARCH}"
 
 # Install appimage-builder python package, this version is forked to account for arm64 architecture name missmatches
 # which cause issues when building an AppImage for ubuntu
