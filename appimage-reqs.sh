@@ -160,9 +160,9 @@ if [ ! -f "${K8SSEC_TAR}" ]; then
     echo "Downloading ${K8SSEC_TAR}"
     curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/${K8SSEC_TAR}"
 fi
-    echo "Installing ${K8SSEC_TAR}"
-    tar -C "${USR_BIN_PATH}" -xzvf "${K8SSEC_TAR}"
-    mayberm "${K8SSEC_TAR}"
+echo "Installing ${K8SSEC_TAR}"
+tar -C "${USR_BIN_PATH}" -xzvf "${K8SSEC_TAR}"
+mayberm "${K8SSEC_TAR}"
 
 ## Download and install detekt (https://github.com/detekt/detekt)
 curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "${USR_BIN_PATH}detekt-cli.jar"
