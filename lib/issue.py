@@ -1,9 +1,6 @@
 # Adapted from bandit/core
 
 import io
-import linecache
-
-from six import moves
 
 import lib.config as config
 import lib.constants as constants
