@@ -1,5 +1,7 @@
 import os
 
+import pytest
+
 from lib.issue import Issue
 
 
@@ -9,4 +11,5 @@ def test_get_code():
     issue = Issue(lineno=12)
     issue.fname = source_file
     text = issue.get_code()
+
     assert text == "11 \tpublic function test_convert_to_utf8()\n12 \t{\n"
