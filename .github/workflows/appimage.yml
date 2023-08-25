@@ -10,6 +10,7 @@ jobs:
     - name: Run AppImage Build Script
       run: |
         sudo chmod +x ubuntu_build_x86_64.sh
+        sudo chmod +x ubuntu_build.sh
         sudo ./ubuntu_build_x86_64.sh
     - uses: actions/upload-artifact@v2
       with:
