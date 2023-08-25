@@ -11,7 +11,7 @@ pipenv
 checkov==2.4.6
 yamllint
 rich
-PyGithub
+PyGithub>=1.59
 PyYAML
 blint
 packaging
