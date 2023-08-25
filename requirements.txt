@@ -2,7 +2,7 @@ sarif-om
 jschema_to_python
 defusedxml
 gitpython
-./shiftleft_scan_reports-1.5.1-py3-none-any.whl
+https://github.com/ShiftLeftSecurity/scan-reports.git
 appthreat-depscan
 requests
 bandit
