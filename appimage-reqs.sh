@@ -212,7 +212,7 @@ popd
 # https://github.com/pypa/pip/issues/7829#issuecomment-596330888
 # TL;DR the resulting path prefix will be ${APPDIR}/usr which is consistent with what we want in all cases, if this is
 # invoked within a docker build APPDIR will be simply /
-python3 -m pip install -v --prefix=/usr --root="${APPDIR}" -r "${PWD}"/requirements.txt --no-warn-script-location --force-reinstall --break-system-packages
+python3 -m pip install -v --prefix=/usr --root="${APPDIR}" -r "${PWD}"/requirements.txt --no-warn-script-location --force-reinstall
 composer require --quiet --no-cache --dev phpstan/phpstan
 
 ## Copy the python application code into the AppDir if APPIMAGE is set
