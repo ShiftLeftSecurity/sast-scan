@@ -1,24 +1,150 @@
 # Adapted from bandit/core
 
 import io
-import linecache
-
-from six import moves
 
 import lib.config as config
 import lib.constants as constants
 from lib.logger import LOG
 
 
+def get_test_id(data):
+    """
+    Method to retrieve test_id
+    :param data:
+    :return:
+    """
+    test_id = ""
+    if "rule_set" in data:
+        test_id = data["rule_set"]
+    if "test_id" in data:
+        test_id = data["test_id"]
+    if "rule_id" in data:
+        test_id = data["rule_id"]
+    if "check_name" in data:
+        test_id = data["check_name"]
+    if "check_id" in data:
+        test_id = data["check_id"]
+    if "tag" in data:
+        test_id = data["tag"]
+    if "commitMessage" in data and "commit" in data:
+        test_id = "CWE-312"
+    if "type" in data:
+        test_id = data["type"]
+    if "cwe" in data:
+        cwe_obj = data["cwe"]
+        if isinstance(cwe_obj, str):
+            test_id = cwe_obj
+        if isinstance(cwe_obj, dict):
+            tmp_id = cwe_obj.get("ID")
+            if not tmp_id:
+                tmp_id = cwe_obj.get("id")
+            if tmp_id:
+                test_id = tmp_id
+        if not test_id.startswith("CWE") and test_id.isdigit():
+            test_id = "CWE-" + test_id
+    if not test_id and "code" in data and data.get("code"):
+        if str(data.get("code")).isdigit():
+            test_id = str(data["code"])
+        elif len(data.get("code").split()) == 1:
+            test_id = data.get("code")
+    return test_id
+
+
+def normalize_severity(severity):
+    """Method to normalize severity and convert non-standard strings
+
+    :param severity: String severity for the issue
+    """
+    severity = severity.upper()
+    if severity == "ERROR" or severity == "SEVERITY_HIGH_IMPACT":
+        return "CRITICAL"
+    if (
+            severity == "WARN"
+            or severity == "WARNING"
+            or severity == "SEVERITY_MEDIUM_IMPACT"
+    ):
+        return "MEDIUM"
+    if severity == "INFO" or severity == "SEVERITY_LOW_IMPACT":
+        return "LOW"
+    return severity
+
+
+class FileLineGetter:
+
+    def __init__(self, fname, expected_lineno=0):
+        """
+        FileLineGetter is a generator to get specific lines from a file one by one.
+        Lines will be decoded from utf8 ignoring decode errors.
+
+        This is a re-implementation of a previous existing method which used python's linecache module.
+        Since linecache is not intended for files other than python files, it was replaced with this and
+        behavior derived from available documentation and tests, might not be 100% accurate given that the
+        usage was not the intended one and therefore there is no defined behavior for it.
+        """
+        self.fname = fname
+        self.f = None
+        self.line = None
+        self.expected_lineno = expected_lineno
+        self.lineno = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return self.next()
+
+    def next_line(self, expected_lineno):
+        """
+        Set the current expectation and return the next line if it exists.
+
+        :param expected_lineno: the line we expect to get
+        """
+        # Just in case this is not used sequentially, we need to reset the file
+        if expected_lineno < self.expected_lineno and self.f is not None:
+            self.f.seek(0)
+
+        self.expected_lineno = expected_lineno
+        return next(self, None)
+
+    def next(self) -> str:
+        """
+        Get the next expected line from the file.
+        """
+        if self.f is None:
+            try:
+                self.f = io.open(self.fname, "r", encoding='utf8', errors='ignore')
+            except UnicodeDecodeError as err:
+                LOG.debug(f"Error parsing the file {self.fname} in utf-8. Falling to binary mode")
+                self.f = io.open(self.fname, "rb")
+            except FileNotFoundError as err:
+                LOG.debug(f"Line {self.line} of file {self.fname} was requested but the file was not found")
+                raise StopIteration
+        while True:
+            self.line = self.f.readline()
+            if not self.line:
+                self.close()
+                raise StopIteration
+            self.lineno += 1
+            if self.lineno - 1 == self.expected_lineno:
+                return self.line
+
+    def close(self):
+        """
+        Close the file if open.
+        """
+        if self.f is not None:
+            self.f.close()
+
+
 class Issue(object):
     def __init__(
-        self,
-        severity=constants.SEVERITY_DEFAULT,
-        confidence=constants.CONFIDENCE_DEFAULT,
-        text="",
-        ident=None,
-        lineno=None,
-        test_id="",
+            self,
+            severity=constants.SEVERITY_DEFAULT,
+            confidence=constants.CONFIDENCE_DEFAULT,
+            text="",
+            ident=None,
+            lineno=None,
+            test_id="",
     ):
         self.severity = severity
         self.confidence = confidence
@@ -43,7 +169,7 @@ class Issue(object):
         self.tags = {}
 
     def __str__(self):
-        return ("Issue: '%s' from %s:%s: Severity: %s Confidence: " "%s at %s:%i") % (
+        return "Issue: '{}}' from {}:{}: Severity: {} Confidence: " "{} at {}:{}".format(
             self.text,
             self.test_id,
             (self.ident or self.test),
@@ -97,28 +223,8 @@ class Issue(object):
             self.confidence
         ) >= rank.index(confidence)
 
-    def _get_code_line(self, fname, line):
-        """Return the given line from the file. Handles any utf8 error from tokenize
-
-        :param fname: File name
-        :param line: Line number
-        :return: Exact line as string
-        """
-        text = ""
-        try:
-            text = linecache.getline(fname, line)
-        except UnicodeDecodeError:
-            LOG.debug(
-                f"Error parsing the file {fname} in utf-8. Falling to binary mode"
-            )
-            with io.open(fname, "rb") as fp:
-                all_lines = fp.readlines()
-                if line < len(all_lines):
-                    text = all_lines[line]
-        return text
-
     def get_code(self, max_lines=config.get("CODE_SNIPPET_MAX_LINES"), tabbed=False):
-        """Gets lines of code from a file the generated this issue.
+        """Gets lines of code from a file that generated this issue.
 
         :param max_lines: Max lines of context to return
         :param tabbed: Use tabbing in the output
@@ -126,21 +232,25 @@ class Issue(object):
         """
         if not self.fname:
             return ""
-        lines = []
-        max_lines = max(max_lines, 1)
+        text_template = "{}\t{}" if tabbed else "{} {}"
         if not self.snippet_based:
+            max_lines = max(max_lines, 1)
+            lines = []
+
+            # Calculate the boundaries of code lines, the reasoning is a bit unclear given some out of band knowledge
+            # such as configuration CODE_SNIPPET_MAX_LINES
+            # will be clarified in a future PR
             lmin = max(1, self.lineno - max_lines // 2)
             lmax = lmin + len(self.linerange) + max_lines - 1
-
-            tmplt = "%i\t%s" if tabbed else "%i %s"
-            for line in moves.xrange(lmin, lmax):
-                text = self._get_code_line(self.fname, line)
-                if isinstance(text, bytes):
-                    text = text.decode("utf-8", "ignore")
-
-                if not len(text):
+            file_liner = FileLineGetter(self.fname, lmin)
+            for line in range(lmin, lmax):
+                text = file_liner.next_line(line)
+                if text is None:
                     break
-                lines.append(tmplt % (line, text))
+                if len(text.strip()) == 0:
+                    continue
+                lines.append(text_template.format(line, text))
+            file_liner.close()
             if lines:
                 return "".join(lines)
             elif self.code:
@@ -168,8 +278,7 @@ class Issue(object):
                         tmplineno = tmplineno + 1
             except Exception as e:
                 LOG.debug(e)
-            tmplt = "%i\t%s" if tabbed else "%i %s"
-            return tmplt % (lineno, self.code)
+            return text_template.format(lineno, self.code)
 
     def as_dict(self, with_code=True):
         """Convert the issue to a dict of values for outputting."""
@@ -227,24 +336,6 @@ class Issue(object):
                 out["line_number"] = self.lineno
         return out
 
-    def norm_severity(self, severity):
-        """Method to normalize severity and convert non-standard strings
-
-        :param severity: String severity for the issue
-        """
-        severity = severity.upper()
-        if severity == "ERROR" or severity == "SEVERITY_HIGH_IMPACT":
-            return "CRITICAL"
-        if (
-            severity == "WARN"
-            or severity == "WARNING"
-            or severity == "SEVERITY_MEDIUM_IMPACT"
-        ):
-            return "MEDIUM"
-        if severity == "INFO" or severity == "SEVERITY_LOW_IMPACT":
-            return "LOW"
-        return severity
-
     def find_severity(self, data):
         severity = constants.SEVERITY_DEFAULT
         if "confidence" in data:
@@ -266,7 +357,7 @@ class Issue(object):
             severity = str(data["severity"]).upper()
         if "commit" in data:
             severity = "HIGH"
-        return self.norm_severity(severity)
+        return normalize_severity(severity)
 
     def get_lineno(self, data):
         """Extract line number with any int conversion"""
@@ -286,148 +377,108 @@ class Issue(object):
             lineno = int(tmp_no)
         return lineno
 
-    def get_test_id(self, data):
-        """
-        Method to retrieve test_id
-        :param data:
-        :return:
-        """
-        test_id = ""
-        if "rule_set" in data:
-            test_id = data["rule_set"]
-        if "test_id" in data:
-            test_id = data["test_id"]
-        if "rule_id" in data:
-            test_id = data["rule_id"]
-        if "check_name" in data:
-            test_id = data["check_name"]
-        if "check_id" in data:
-            test_id = data["check_id"]
-        if "tag" in data:
-            test_id = data["tag"]
-        if "commitMessage" in data and "commit" in data:
-            test_id = "CWE-312"
-        if "type" in data:
-            test_id = data["type"]
-        if "cwe" in data:
-            cwe_obj = data["cwe"]
-            if isinstance(cwe_obj, str):
-                test_id = cwe_obj
-            if isinstance(cwe_obj, dict):
-                tmp_id = cwe_obj.get("ID")
-                if not tmp_id:
-                    tmp_id = cwe_obj.get("id")
-                if tmp_id:
-                    test_id = tmp_id
-            if not test_id.startswith("CWE") and test_id.isdigit():
-                test_id = "CWE-" + test_id
-        if not test_id and "code" in data and data.get("code"):
-            if str(data.get("code")).isdigit():
-                test_id = str(data["code"])
-            elif len(data.get("code").split()) == 1:
-                test_id = data.get("code")
-        return test_id
-
-    def from_dict(self, data, with_code=True):
+    @classmethod
+    def from_dict(cls, data, with_code=True):
         """Construct an issue from dictionary of values from the tools
 
         :param data: Data dictionary from the tools
         :param with_code: Boolean indicating if code snippet should get added
         """
+        new_issue = Issue()
         if "code" in data and data.get("code"):
             if str(data["code"]).isdigit():
-                self.test_id = str(data["code"])
+                new_issue.test_id = str(data["code"])
             elif len(data.get("code").split()) > 1:
-                self.code = data["code"]
+                new_issue.code = data["code"]
             else:
-                self.test_id = data["code"]
+                new_issue.test_id = data["code"]
         if "lines" in data:
-            self.code = data["lines"]
+            new_issue.code = data["lines"]
         if "filename" in data:
-            self.fname = data["filename"]
+            new_issue.fname = data["filename"]
         if "fileName" in data:
-            self.fname = data["fileName"]
+            new_issue.fname = data["fileName"]
         if (
-            "location" in data
-            and data.get("location")
-            and "filename" in data["location"]
+                "location" in data
+                and data.get("location")
+                and "filename" in data["location"]
         ):
-            self.fname = data["location"]["filename"]
+            new_issue.fname = data["location"]["filename"]
         if "location" in data and data.get("location") and "file" in data["location"]:
-            self.fname = data["location"]["file"]
+            new_issue.fname = data["location"]["file"]
         if "file" in data:
-            self.fname = data["file"]
+            new_issue.fname = data["file"]
         if "path" in data:
-            self.fname = data["path"]
+            new_issue.fname = data["path"]
         if "file_path" in data:
-            self.fname = data["file_path"]
-        self.severity = self.find_severity(data)
+            new_issue.fname = data["file_path"]
+        new_issue.severity = new_issue.find_severity(data)
         if "issue_confidence" in data:
-            self.confidence = data["issue_confidence"].upper()
+            new_issue.confidence = data["issue_confidence"].upper()
         if "confidence" in data:
-            self.confidence = data["confidence"].upper()
+            new_issue.confidence = data["confidence"].upper()
         if "issue_text" in data:
-            self.text = data["issue_text"]
+            new_issue.text = data["issue_text"]
         if "title" in data:
-            self.text = data["title"]
+            new_issue.text = data["title"]
         if "warning_type" in data:
-            self.test = data["warning_type"]
+            new_issue.test = data["warning_type"]
         if "commitMessage" in data and "commit" in data:
             if data.get("commitMessage") == "***STAGED CHANGES***":
-                self.text = "Credential in plaintext?\n\nRule: {}, Secret: {}".format(
+                new_issue.text = "Credential in plaintext?\n\nRule: {}, Secret: {}".format(
                     data.get("rule"), data.get("offender")
                 )
             else:
-                self.text = "Credential in plaintext?\n\nRule: {}\nLine: {}\n\nCommit: {}".format(
+                new_issue.text = "Credential in plaintext?\n\nRule: {}\nLine: {}\n\nCommit: {}".format(
                     data.get("rule", ""),
                     data.get("line"),
                     data.get("commit", ""),
                 )
             tmplines = data.get("line", "").split("\n")
             tmplines = [li for li in tmplines if li and li.strip() != ""]
-            self.code = tmplines[0]
+            new_issue.code = tmplines[0]
             if len(tmplines) > 1:
-                self.linerange = tmplines
-            self.snippet_based = True
+                new_issue.linerange = tmplines
+            new_issue.snippet_based = True
         if "details" in data:
-            self.text = data["details"]
+            new_issue.text = data["details"]
         if "description" in data:
-            self.text = data["description"]
+            new_issue.text = data["description"]
         if "short_description" in data:
-            self.short_description = data["short_description"]
+            new_issue.short_description = data["short_description"]
         if "cwe_category" in data:
-            self.cwe_category = data["cwe_category"]
+            new_issue.cwe_category = data["cwe_category"]
         if "owasp_category" in data:
-            self.owasp_category = data["owasp_category"]
+            new_issue.owasp_category = data["owasp_category"]
         if "message" in data:
-            self.text = data["message"].replace("\\", " \\ ")
+            new_issue.text = data["message"].replace("\\", " \\ ")
         if "test_name" in data:
-            self.test = data["test_name"]
+            new_issue.test = data["test_name"]
         if "title" in data:
-            self.test = data["title"]
+            new_issue.test = data["title"]
         if "rule" in data:
-            self.test = data["rule"]
+            new_issue.test = data["rule"]
         if "check_class" in data:
             tmp_check_class = data["check_class"]
             tmp_check_class = tmp_check_class.split(".")[-1]
-            self.test = tmp_check_class
-            self.snippet_based = True
+            new_issue.test = tmp_check_class
+            new_issue.snippet_based = True
         if "type" in data:
             if "message" in data:
-                self.test = data["message"].replace("\\", " \\ ")
+                new_issue.test = data["message"].replace("\\", " \\ ")
             else:
-                self.test = data["type"]
+                new_issue.test = data["type"]
         if "check_name" in data and "check_id" in data:
-            self.text = data["check_name"]
-            self.severity = "HIGH"
-            self.confidence = "HIGH"
+            new_issue.text = data["check_name"]
+            new_issue.severity = "HIGH"
+            new_issue.confidence = "HIGH"
             # Checkov bug workaround for file path
-            if self.fname and self.fname.startswith("/"):
-                self.fname = self.fname[1:]
+            if new_issue.fname and new_issue.fname.startswith("/"):
+                new_issue.fname = new_issue.fname[1:]
             if (
-                "code_block" in data
-                and data["code_block"]
-                and isinstance(data["code_block"], list)
+                    "code_block" in data
+                    and data["code_block"]
+                    and isinstance(data["code_block"], list)
             ):
                 tmp_code = []
                 for lc in data["code_block"]:
@@ -443,28 +494,23 @@ class Issue(object):
                     len(tmp_code), config.get("CODE_SNIPPET_MAX_LINES")
                 )
                 if max_code_lines:
-                    self.code = "\n".join(tmp_code[0:max_code_lines])
-        self.test_id = self.get_test_id(data)
+                    new_issue.code = "\n".join(tmp_code[0:max_code_lines])
+        new_issue.test_id = get_test_id(data)
         if "link" in data:
-            self.test_ref_url = data["link"]
+            new_issue.test_ref_url = data["link"]
         if "more_info" in data:
-            self.test_ref_url = data["more_info"]
+            new_issue.test_ref_url = data["more_info"]
         if "guideline" in data:
-            self.test_ref_url = data["guideline"]
+            new_issue.test_ref_url = data["guideline"]
         if "line_range" in data:
-            self.linerange = data["line_range"]
+            new_issue.linerange = data["line_range"]
         if "line_from" in data and "line_to" in data:
-            self.linerange = [data["line_from"], data["line_to"]]
+            new_issue.linerange = [data["line_from"], data["line_to"]]
         if "file_line_range" in data:
-            self.linerange = data["file_line_range"]
-        self.lineno = self.get_lineno(data)
+            new_issue.linerange = data["file_line_range"]
+        new_issue.lineno = new_issue.get_lineno(data)
         if "first_found" in data:
-            self.first_found = data["first_found"]
+            new_issue.first_found = data["first_found"]
         if "tags" in data and isinstance(data["tags"], dict):
-            self.tags = data["tags"]
-
-
-def issue_from_dict(data):
-    i = Issue()
-    i.from_dict(data)
-    return i
+            new_issue.tags = data["tags"]
+        return new_issue

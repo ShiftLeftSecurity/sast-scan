@@ -18,7 +18,7 @@ import lib.csv_parser as csv_parser
 import lib.xml_parser as xml_parser
 from lib.context import find_repo_details
 from lib.cwe import get_description, get_name
-from lib.issue import issue_from_dict
+from lib.issue import Issue
 from lib.logger import LOG
 from lib.utils import (
     find_path_prefix,
@@ -354,7 +354,7 @@ def suppress_issues(issues):
     supress_markers = config.get("suppress_markers", [])
     for issue in issues:
         suppressed = False
-        issue_dict = issue_from_dict(issue).as_dict()
+        issue_dict = Issue.from_dict(issue).as_dict()
         rule_id = issue_dict.get("test_id")
         filename = issue_dict.get("filename")
         code = issue_dict.get("code", "").replace("\n", " ").replace("\t", " ")
@@ -588,7 +588,7 @@ def add_results(tool_name, issues, run, file_path_list=None, working_dir=None):
         )
         if result:
             run.results.append(result)
-            issue_dict = issue_from_dict(issue).as_dict()
+            issue_dict = Issue.from_dict(issue).as_dict()
             rule_id = issue_dict.get("test_id")
             # Is this rule ignored globally?
             if rule_id in config.ignored_rules:
@@ -642,7 +642,7 @@ def create_result(tool_name, issue, rules, rule_indices, file_path_list, working
     """
     WORKSPACE_PREFIX = config.get("WORKSPACE", None)
     if isinstance(issue, dict):
-        issue = issue_from_dict(issue)
+        issue = Issue.from_dict(issue)
 
     issue_dict = issue.as_dict()
     rule_id = issue_dict.get("test_id")

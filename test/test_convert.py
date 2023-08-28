@@ -80,7 +80,7 @@ def test_nodejsscan_convert_metrics():
 
 
 def test_create_result():
-    issue = issueLib.issue_from_dict(
+    issue = issueLib.Issue.from_dict(
         {
             "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
             "filename": "InsufficientPasswordHash.js",
@@ -118,7 +118,7 @@ def test_create_result():
 def test_create_result_relative():
     os.environ["WORKSPACE"] = ""
     importlib.reload(convertLib)
-    issue = issueLib.issue_from_dict(
+    issue = issueLib.Issue.from_dict(
         {
             "line": "VERY_REDACTED ",
             "offender": "REDACTED",

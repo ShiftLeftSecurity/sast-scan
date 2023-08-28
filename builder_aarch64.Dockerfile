@@ -1,4 +1,6 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
+
+# This dockerfile builds a dockerfile that can be used as an env to build the AppImage, beware,it is slow due to IO
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get install -y python3.8 python3.8-dev \

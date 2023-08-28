@@ -1,29 +1,8 @@
 version: 1
 script:
-  # Remove any previous build
-  - rm -rf AppDir
-  # Make usr and icons dirs
-  - mkdir -p AppDir/usr/src
-  - mkdir -p AppDir/usr/local/lib/arm64-linux-gnu
-  - mkdir -p AppDir/usr/share/{metainfo,icons}
-  # Copy the python application code into the AppDir
-  - cp appimage-reqs.sh scan lib tools_config AppDir/usr/src -r
-  - cp tools_config/scan.png AppDir/usr/share/icons/
-  - cp tools_config/io.shiftleft.scan.appdata.xml AppDir/usr/share/metainfo/
-  # Install application dependencies
-  - dpkg --add-architecture arm64
-  - dpkg --remove-architecture aarch64
-  - cat /etc/apt/sources.list
-  - python3 -m pip install --no-cache-dir --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt --no-warn-script-location
-  - chmod +x AppDir/usr/src/appimage-reqs.sh && AppDir/usr/src/appimage-reqs.sh AppDir
-  - npm install --no-audit --progress=false --only=production --no-save --prefix AppDir/usr/local/lib yarn @cyclonedx/cdxgen @microsoft/rush
-  - ln -s /usr/bin/sh AppDir/usr/bin/sh && ln -s /usr/bin/bash AppDir/usr/bin/bash && ln -s ./AppDir/usr/bin/python3 ./AppDir/usr/bin/python
-  - cp -r /usr/share/icons/Adwaita AppDir/usr/share/icons/
-  - cp AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg /build/AppDir/usr/share/icons/utilities-terminal.svg
-  - cp AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal.svg 
-  - mkdir -p AppDir/opt/phpsast && cd AppDir/opt/phpsast && composer init --name shiftleft/scan --description scan --quiet && composer require --quiet --no-cache -n --no-ansi --dev vimeo/psalm:^4.1
-  - composer require --quiet --no-cache --dev phpstan/phpstan
-
+  - chmod +x ./appimage-reqs.sh && ./appimage-reqs.sh $(pwd)/AppDir
+  - cp $(pwd)/AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg $(pwd)/AppDir/usr/share/icons/utilities-terminal.svg
+  - cp $(pwd)/AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg $(pwd)/AppDir/usr/share/icons/Adwaita/scalable/apps/utilities-terminal.svg
 
 AppDir:
   path: ./AppDir
@@ -33,7 +12,7 @@ AppDir:
     icon: utilities-terminal
     version: latest
     # Set the python executable as entry point
-    exec: usr/bin/python3.8
+    exec: usr/bin/python3
     # Set the application main script path as argument. Use '$@' to forward CLI parameters
     exec_args: "$APPDIR/usr/src/scan $@"
 
@@ -41,7 +20,7 @@ AppDir:
     arch: aarch64
     sources:
       - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ focal main restricted universe multiverse'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x437D05B5'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C'
       - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ focal-updates main restricted universe multiverse'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3B4FE6ACC0B21F32'
       - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ focal-security main restricted universe multiverse'
@@ -67,8 +46,8 @@ AppDir:
     env:
       PATH: '/bin:/usr/bin:${APPDIR}/usr/bin:${APPDIR}/usr/bin/nodejs/bin:${PATH}:${APPDIR}/opt/phpsast/vendor/bin:${APPDIR}/usr/local/lib/node_modules/.bin:'
       PYTHONHOME: '${APPDIR}/usr'
-      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages:$APPDIR/usr/lib/python3.8:$APPDIR/usr/lib/python3.7/lib-dynload'
-      SSL_CERT_FILE: '${APPDIR}/usr/lib/python3.8/site-packages/certifi/cacert.pem'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.10/site-packages:$APPDIR/usr/lib/python3.10:$APPDIR/usr/lib/python3.10/lib-dynload'
+      SSL_CERT_FILE: '${APPDIR}/usr/lib/python3.10/site-packages/certifi/cacert.pem'
       PYTHONUNBUFFERED: '1'
       APP_SRC_DIR: '${APPDIR}/usr/src'
       TOOLS_CONFIG_DIR: '${APPDIR}/usr/src/tools_config'
