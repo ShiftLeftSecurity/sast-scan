@@ -61,7 +61,7 @@ echo "AppDir is ${APPDIR}"
 if [ -z "$KEEP_BUILD_ARTIFACTS" ]; then
         rm -rf "${APPDIR}"
         mkdir -p "${APPDIR}"
-        else
+else
         echo "Keeping build artifacts from previous build"
 fi
 
@@ -95,7 +95,7 @@ if [ ! -d "${USR_BIN_PATH}"nodejs/node-v${NODE_VERSION}-linux-"${NODE_ARCH}" ]; 
     chmod +x "${USR_BIN_PATH}"nodejs/bin/node
     chmod +x "${USR_BIN_PATH}"nodejs/bin/npm
     mayberm "${NODE_TAR}"
-    else
+else
     echo "NodeJS already installed"
 fi
 
@@ -150,8 +150,8 @@ if [ ! -d "${OPTDIR}"/pmd-bin ]; then
     unzip -q pmd-bin-${PMD_VERSION}.zip -d "${OPTDIR}"/
     mv -f "${OPTDIR}"/pmd-bin-${PMD_VERSION} "${OPTDIR}"/pmd-bin
     mayberm ${PMD_ZIP}
-    else
-      echo "PMD already installed"
+else
+    echo "PMD already installed"
 fi
 
 ## Download and install kubesec (https://github.com/controlplaneio/kubesec)
@@ -160,9 +160,9 @@ if [ ! -f "${K8SSEC_TAR}" ]; then
     echo "Downloading ${K8SSEC_TAR}"
     curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/${K8SSEC_TAR}"
 fi
-    echo "Installing ${K8SSEC_TAR}"
-    tar -C "${USR_BIN_PATH}" -xzvf "${K8SSEC_TAR}"
-    mayberm "${K8SSEC_TAR}"
+echo "Installing ${K8SSEC_TAR}"
+tar -C "${USR_BIN_PATH}" -xzvf "${K8SSEC_TAR}"
+mayberm "${K8SSEC_TAR}"
 
 ## Download and install detekt (https://github.com/detekt/detekt)
 curl -L "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar" -o "${USR_BIN_PATH}detekt-cli.jar"
@@ -217,7 +217,7 @@ composer require --quiet --no-cache --dev phpstan/phpstan
 
 ## Copy the python application code into the AppDir if APPIMAGE is set
 if [ -n "${APPIMAGE}" ]; then
-  cp scan lib tools_config "${APPDIR}"/usr/src -r
+  cp -r scan lib tools_config "${APPDIR}"/usr/src
   cp tools_config/scan.png "${APPDIR}"/usr/share/icons/
   cp tools_config/io.shiftleft.scan.appdata.xml "${APPDIR}"/usr/share/metainfo/
 fi
