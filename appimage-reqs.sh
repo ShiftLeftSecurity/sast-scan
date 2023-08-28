@@ -208,7 +208,11 @@ pushd "${APPDIR}"/opt/phpsast
 composer init --name shiftleft/scan --description scan --quiet
 composer require --quiet --no-cache -n --no-ansi --dev vimeo/psalm:^5.15
 popd
-python3 -m pip install -v --prefix=/usr --root="${APPDIR}" -r "${PWD}"/requirements.txt --no-warn-script-location --exists-action=i
+# I suspect at the time of writing this, the behavoir of --prefix + --root is as described in this issue:
+# https://github.com/pypa/pip/issues/7829#issuecomment-596330888
+# TL;DR the resulting path prefix will be ${APPDIR}/usr which is consistent with what we want in all cases, if this is
+# invoked within a docker build APPDIR will be simply /
+python3 -m pip install -v --prefix=/usr --root="${APPDIR}" -r "${PWD}"/requirements.txt --no-warn-script-location --force-reinstall --break-system-packages
 composer require --quiet --no-cache --dev phpstan/phpstan
 
 ## Copy the python application code into the AppDir if APPIMAGE is set
