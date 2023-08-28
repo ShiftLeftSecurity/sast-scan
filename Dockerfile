@@ -24,7 +24,8 @@ LABEL maintainer="qwiet.ai" \
       org.label-schema.vcs-url="https://github.com/ShiftLeftSecurity/sast-scan.git" \
       org.label-schema.docker.cmd="docker run --rm -it --name scan-base shiftleft/scan-base /bin/bash"
 
-USER root
+RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker
+RUN echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker
 
 COPY appimage-reqs.sh /
 COPY requirements.txt /
@@ -48,7 +49,7 @@ RUN apt-get update && apt-get install -y  python3 python3-dev \
 RUN /appimage-reqs.sh /
 
 # We remove packages that are going to increase the size of our /usr folder.
-RUN apt-get remove -y  python3-dev \
+RUN apt-get remove -y  apache2 python3-dev \
         python3-pip python3-setuptools patchelf desktop-file-utils \
         libgdk-pixbuf2.0-dev wget curl unzip gcc g++ make
 

@@ -10,7 +10,7 @@ set -e
 
 # Install all dependencies that come from the distro package manager.
 sudo apt-get update -y
-sudo apt-get install -y python3 python3-dev \
+sudo apt-get install -y --no-install-recommends python3 python3-dev \
         python3-pip python3-setuptools patchelf desktop-file-utils \
         libgdk-pixbuf2.0-dev php php-curl php-zip php-bcmath php-json \
         php-pear php-mbstring php-dev php-xml wget curl git unzip \
