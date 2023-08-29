@@ -1,27 +1,39 @@
-FROM registry.access.redhat.com/ubi8/python-38 as builder
+FROM ubuntu:jammy as builder
 
 ARG CLI_VERSION
 ARG BUILD_DATE
+ARG TARGETARCH
 
-ENV TFSEC_VERSION=0.63.1 \
-    GITLEAKS_VERSION=7.6.1 \
-    KUBESEC_VERSION=2.11.4 \
-    KUBE_SCORE_VERSION=1.13.0
+# For now these are kept here but ensure they are in sync with building_env.sh
+ENV TFSEC_VERSION=1.28.1 \
+    GITLEAKS_VERSION=8.17.0 \
+    KUBESEC_VERSION=2.13.0 \
+    KUBE_SCORE_VERSION=1.17.0 \
+    PATH=/usr/local/src/:${PATH}:/usr/local/bin/shiftleft/:/usr/local/bin/shiftleft/nodejs/bin \
+    ARCH=$TARGETARCH
 
 USER root
 
-RUN mkdir -p /usr/local/bin/shiftleft \
-    && curl -L "https://github.com/zricethezav/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks-linux-amd64" -o "/usr/local/bin/shiftleft/gitleaks" \
-    && chmod +x /usr/local/bin/shiftleft/gitleaks \
-    && curl -L "https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64" -o "/usr/local/bin/shiftleft/tfsec" \
-    && chmod +x /usr/local/bin/shiftleft/tfsec \
-    && curl -L "https://github.com/zegl/kube-score/releases/download/v${KUBE_SCORE_VERSION}/kube-score_${KUBE_SCORE_VERSION}_linux_amd64" -o "/usr/local/bin/shiftleft/kube-score" \
-    && chmod +x /usr/local/bin/shiftleft/kube-score \
-    && curl -LO "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/kubesec_linux_amd64.tar.gz" \
-    && tar -C /usr/local/bin/shiftleft/ -xvf kubesec_linux_amd64.tar.gz \
-    && rm kubesec_linux_amd64.tar.gz
+RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker
+RUN echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal as sast-scan-tools
+# Dependencies to install other tools, node is downloaded as the apt version is too old
+RUN apt-get update && apt-get install -y gcc git python3 python3-dev \
+        python3-pip python3-setuptools curl
+COPY dynamic-lang.sh /
+COPY building_env.sh /
+RUN chmod +x /dynamic-lang.sh && /dynamic-lang.sh /usr/local/bin/shiftleft/
+COPY requirements.txt /usr/local/src/
+COPY scan /usr/local/src/
+COPY lib /usr/local/src/lib
+COPY tools_config/ /usr/local/src/
+
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt
+RUN /usr/local/bin/shiftleft/nodejs/bin/npm install --no-audit --progress=false --only=production -g @cyclonedx/cdxgen  @microsoft/rush --unsafe-perm
+RUN apt-get remove -y gcc python3-dev curl && apt-get autoremove -y && apt-get clean -y
+
+FROM ubuntu:jammy as sast-scan-tools
 
 LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.schema-version="1.0" \
@@ -30,7 +42,7 @@ LABEL maintainer="ShiftLeftSecurity" \
       org.label-schema.version=$CLI_VERSION \
       org.label-schema.license="Apache-2.0" \
       org.label-schema.description="Container with various opensource static analysis security testing tools (shellcheck, gosec, tfsec, gitleaks, ...) for multiple programming languages" \
-      org.label-schema.url="https://www.shiftleft.io" \
+      org.label-schema.url="https://www.qwiet.ai" \
       org.label-schema.usage="https://github.com/ShiftLeftSecurity/sast-scan" \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/ShiftLeftSecurity/sast-scan.git" \
@@ -41,26 +53,11 @@ ENV APP_SRC_DIR=/usr/local/src \
     PMD_CMD="" \
     PYTHONUNBUFFERED=1 \
     NVD_EXCLUDE_TYPES="o,h" \
-    PATH=/usr/local/src/:${PATH}:
+    GIT_PYTHON_GIT_EXECUTABLE=/usr/bin/git \
+    PATH=/usr/local/src/:/usr/local/bin/shiftleft/:/usr/local/bin/shiftleft/nodejs/bin:/usr/bin:${PATH}:
 
-COPY --from=builder /usr/local/bin/shiftleft /usr/local/bin
-COPY tools_config/ /usr/local/src/
-COPY requirements.txt /usr/local/src/
-
-USER root
-
-RUN echo -e "[nodejs]\nname=nodejs\nstream=16\nprofiles=\nstate=enabled\n" > /etc/dnf/modules.d/nodejs.module \
-    && microdnf install -y gcc python38 python38-devel nodejs git-core which \
-    && python3 -m pip install --upgrade pip \
-    && pip3 install --no-cache-dir wheel \
-    && python3 -m pip install --no-cache-dir -r /usr/local/src/requirements.txt \
-    && npm install --no-audit --progress=false --only=production -g @cyclonedx/cdxgen  @microsoft/rush --unsafe-perm \
-    && microdnf remove -y gcc python38-devel \
-    && microdnf clean all
+COPY --from=builder /usr /usr
 
 WORKDIR /app
-
-COPY scan /usr/local/src/
-COPY lib /usr/local/src/lib
 
 CMD [ "python3", "/usr/local/src/scan" ]
