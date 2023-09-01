@@ -28,6 +28,8 @@ RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker
 RUN echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker
 
 COPY appimage-reqs.sh /
+COPY building_env.sh /
+COPY dynamic-lang.sh /
 COPY requirements.txt /
 COPY scan /usr/local/src/
 COPY lib /usr/local/src/lib
@@ -51,7 +53,7 @@ RUN /appimage-reqs.sh /
 # We remove packages that are going to increase the size of our /usr folder.
 RUN apt-get remove -y  apache2 python3-dev \
         python3-pip python3-setuptools patchelf desktop-file-utils \
-        libgdk-pixbuf2.0-dev wget curl unzip gcc g++ make
+        libgdk-pixbuf2.0-dev wget curl unzip gcc g++ make && apt-get autoremove -y  && apt-get clean -y
 
 FROM ubuntu:jammy as sast-scan-tools
 
