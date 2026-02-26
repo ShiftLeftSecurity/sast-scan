@@ -1,5 +1,7 @@
 # Introduction
 
+> **Note:** The ShiftLeft commercial SAST product was rebranded to [Qwiet AI](https://qwiet.ai) in 2023 and subsequently [acquired by Harness](https://www.harness.io/) in 2024. This open-source Scan tool remains available under the Apache-2.0 license. For a current overview of SAST tools including Qwiet AI, see the [SAST tools comparison on AppSec Santa](https://appsecsanta.com/sast-tools).
+
 ```bash
 ███████╗ ██████╗ █████╗ ███╗   ██╗
 ██╔════╝██╔════╝██╔══██╗████╗  ██║
